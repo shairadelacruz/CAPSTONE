@@ -94,7 +94,7 @@
                 <ul class="list">
                     <li class="header">ACCOUNTANT</li>
                     <li>
-                        <a href="admin">
+                        <a href="/ames/public/admin">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
@@ -194,7 +194,7 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="../admin/users.html">Users</a>
+                                <a href="{{route('admin.users.index')}}">Users</a>
                             </li>
                             <li>
                                 <a href="../admin/users-privileges.html">Privileges</a>
