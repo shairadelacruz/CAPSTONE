@@ -29,4 +29,10 @@ Route::group(['middleware'=>'admin'], function(){
 	Route::resource('admin/users', 'AdminUsersController');
 
 	Route::resource('admin/clients', 'AdminClientsController');
+
+	Route::resource('admin/lists/vat', 'AdminVatsController');
+
+	//Route::resource('admin/lists/vat', 'AdminCoasController');
+
+
 });
