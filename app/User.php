@@ -38,4 +38,9 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function clients(){
+
+        return $this->belongsToMany('App\Client');
+    }
 }
