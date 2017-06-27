@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\ClientsEditRequest;
+use App\Http\Requests\ClientsRequest;
 use Illuminate\Http\Request;
-
+use App\Client;
 use App\Http\Requests;
+
 
 class AdminClientsController extends Controller
 {
@@ -16,7 +20,10 @@ class AdminClientsController extends Controller
     public function index()
     {
         //
-        return view('admin.clients.index');
+
+        $clients = Client::all();
+
+        return view('admin.clients.index', compact('clients'));
     }
 
     /**
@@ -27,6 +34,7 @@ class AdminClientsController extends Controller
     public function create()
     {
         //
+        return view('admin.clients.create');
     }
 
     /**
@@ -35,9 +43,12 @@ class AdminClientsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientsRequest $request)
     {
         //
+
+        Client::create($request->all());
+        return redirect('/admin/clients');
     }
 
     /**
@@ -49,6 +60,7 @@ class AdminClientsController extends Controller
     public function show($id)
     {
         //
+        return view('admin.clients.show');
     }
 
     /**
@@ -60,6 +72,9 @@ class AdminClientsController extends Controller
     public function edit($id)
     {
         //
+        $client = Client::findOrFail($id);
+        return view('admin.clients.edit', compact('client'));
+
     }
 
     /**
@@ -69,9 +84,27 @@ class AdminClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClientsEditRequest $request, $id)
     {
         //
+        /*$client = Client::findOrFail($id);
+
+        $client->update($request->all());
+
+        return redirect('/admin/clients');*/
+
+        /*Client::update($request->all());
+        return redirect('/admin/clients');*/
+
+        /*$input = $request->all();
+        $client = Client::findorfail($id);
+        $client->update($input);
+        return redirect('/admin/clients');*/
+
+        $client = Client::findOrFail($id);
+        $input = $request->all();
+        $client->update($input);
+        return $input;
     }
 
     /**
@@ -83,5 +116,12 @@ class AdminClientsController extends Controller
     public function destroy($id)
     {
         //
+        $client = Client::findOrFail($id);
+
+        $client->delete();
+
+        Session::flash('deleted_client','The client has been deleted');
+
+        return redirect('/admin/clients');
     }
 }

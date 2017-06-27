@@ -10,7 +10,7 @@ Clients
 
 @section('content')
 
-        <div class="container-fluid">
+    <div class="container-fluid">
             
             <!-- Exportable Table -->
             <div class="row clearfix">
@@ -18,15 +18,18 @@ Clients
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Clients
+                                Client
                             </h2><br>
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addClients">+Add</button>
-
+                                    <a href= "{{route('admin.clients.create')}}" type="button" class="btn btn-primary waves-effect">+Add</a>
                                 </div>
                             </div>
+
+                               @if(Session::has('deleted_client'))
+                                 <p class="bg-danger">{{Session('deleted_client')}}</p>
+                                @endif
 
                         </div>
                         <div class="body">
@@ -50,40 +53,21 @@ Clients
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>A</td>
-                                        <td>5%</td>
-                                        <td>Food</td>
-                                        <td>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editClients"><i class="material-icons">create</i></button>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteClients"><i class="material-icons">delete</i></button>
-                           
-                                        </td>
 
-                                    </tr>
+                                @if($clients)
+                                    @foreach($clients as $client)
                                     <tr>
-                                        <td>B</td>
-                                        <td>10%</td>
-                                        <td>Clothes</td>
+                                        <td>{{$client->id}}</td>
+                                        <td>{{$client->company_name}}</td>
+                                        <td>{{$client->address}}</td>     
                                         <td>
-                                            <button type="button" class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editClients"><i class="material-icons">create</i></button>
+                                            <a href="{{route('admin.clients.edit', $client->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteClients"><i class="material-icons">delete</i></button>
-                                            
                                         </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>C</td>
-                                        <td>50%</td>
-                                        <td>Meow</td>
-                                        <td>
-                                            <button type="button" class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editClients"><i class="material-icons">create</i></button>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteClients"><i class="material-icons">delete</i></button>
-                                            
-                                        </td>
-
                                     </tr>
 
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -91,7 +75,7 @@ Clients
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-           
+ 
             <!-- Delete Clients -->
             <div class="modal fade" id="deleteClients" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
@@ -103,7 +87,9 @@ Clients
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect">DELETE</button>
+                          {!! Form::open(['method'=>'DELETE', 'action'=>['AdminClientsController@destroy', $client->id]]) !!}
+
+                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
                         </div>
                     </div>
@@ -111,9 +97,10 @@ Clients
             </div>
            <!--End Delete Clients--> 
 
+
+
+      <!--  {!! Form::close() !!} -->
+
         </div>
 
-
-
-	
 @stop
