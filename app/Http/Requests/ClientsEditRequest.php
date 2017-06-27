@@ -25,7 +25,7 @@ class ClientsEditRequest extends Request
     {
         return [
             //
-            'company_name'=>'required'
+            'company_name'=>'required',
         ];
     }
 }

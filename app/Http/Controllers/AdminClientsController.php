@@ -104,7 +104,7 @@ class AdminClientsController extends Controller
         $client = Client::findOrFail($id);
         $input = $request->all();
         $client->update($input);
-        return $input;
+        return redirect('/admin/clients');
     }
 
     /**
