@@ -28,5 +28,5 @@ Route::group(['middleware'=>'admin'], function(){
 
 	Route::resource('admin/users', 'AdminUsersController');
 
-	//Route::resource('admin/clients', 'AdminClientsController');
+	Route::resource('admin/clients', 'AdminClientsController');
 });

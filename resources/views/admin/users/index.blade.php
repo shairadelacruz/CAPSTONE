@@ -6,6 +6,8 @@ Users
 
 @endsection
 
+@extends('includes.table_includes');
+
 @section('content')
 	
 	<div class="container-fluid">
