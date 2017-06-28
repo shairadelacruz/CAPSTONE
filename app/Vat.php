@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Vat extends Model
 {
     //
+     protected $fillable = [
+
+    	'vat_code', 'rate', 'description'
+
+    ];
 }

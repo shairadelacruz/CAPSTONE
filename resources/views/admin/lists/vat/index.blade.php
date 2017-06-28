@@ -27,6 +27,10 @@ VAT
                                 </div>
                             </div>
 
+                            @if(Session::has('deleted_vat'))
+                                 <p class="bg-danger">{{Session('deleted_vat')}}</p>
+                            @endif
+
                         </div>
                         <div class="body">
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
@@ -49,15 +53,19 @@ VAT
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @if($vats)
+                                    @foreach($vats as $vat)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{$vat->vat_code}}</td>
+                                        <td>{{$vat->rate}}</td>
+                                        <td>{{$vat->description}}</td>  
                                         <td>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editVAT"><i class="material-icons">create</i></button>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteVAT"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -77,35 +85,35 @@ VAT
                         <div class="modal-body">
                             
                             <div class="row clearfix">
-                                <form id="form_validation" method="POST">
+
+                                    {!! Form::open(['method'=>'POST', 'action'=>'AdminVatsController@store']) !!}
                                 
-                                    
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="name" required>
-                                            <label class="form-label">Name</label>
+                                            {!! Form:: label('vat_code', 'VAT Code:') !!}
+                                            {!! Form:: text('vat_code',null, ['class'=>'form-control']) !!}
                                         </div>
                                     </div>
                                     
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                        <input type="number" class="form-control" name="number" required>
-                                        <label class="form-label">Number</label>
+                                            {!! Form:: label('rate', 'Rate:') !!}
+                                            {!! Form:: number('rate',null, ['class'=>'form-control']) !!}
                                         </div>
                                     </div>
                                     
                                      <div class="form-group form-float">
                                         <div class="form-line">
-                                            <textarea name="description" cols="30" rows="5" class="form-control no-resize"></textarea>
-                                            <label class="form-label">Description</label>
+                                            {!! Form:: label('description', 'Description:') !!}
+                                            {!! Form:: textarea('description',null, ['class'=>'form-control']) !!}
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-link waves-effect">SAVE</button>
+                                        {!! Form:: submit('SAVE', ['class'=>'btn btn-primary']) !!}
                                         <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                                     </div>
                                  
-                                </form>
+                                {!! Form::close() !!}
                             </div>
 
                             
@@ -113,6 +121,7 @@ VAT
                     </div>
                 </div>
             </div>
+
            <!--End Add VAT--> 
             
             
@@ -126,35 +135,34 @@ VAT
                         <div class="modal-body">
                             
                             <div class="row clearfix">
-                                <form id="form_validation" method="POST">
+                                {!! Form::model($vat,['method'=>'PATCH', 'action'=>['AdminVatsController@update', $vat->id]]) !!}
                                 
-                                    
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="name" required>
-                                            <label class="form-label">Name</label>
+                                            {!! Form:: label('vat_code', 'VAT Code:') !!}
+                                            {!! Form:: text('vat_code',null, ['class'=>'form-control']) !!}
                                         </div>
                                     </div>
                                     
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                        <input type="number" class="form-control" name="number" required>
-                                        <label class="form-label">Number</label>
+                                            {!! Form:: label('rate', 'Rate:') !!}
+                                            {!! Form:: number('rate',null, ['class'=>'form-control']) !!}
                                         </div>
                                     </div>
                                     
                                      <div class="form-group form-float">
                                         <div class="form-line">
-                                            <textarea name="description" cols="30" rows="5" class="form-control no-resize"></textarea>
-                                            <label class="form-label">Description</label>
+                                            {!! Form:: label('description', 'Description:') !!}
+                                            {!! Form:: textarea('description',null, ['class'=>'form-control']) !!}
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                                        {!! Form:: submit('SAVE', ['class'=>'btn btn-primary']) !!}
                                         <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                                     </div>
                                  
-                                </form>
+                                {!! Form::close() !!}
                             </div>
 
                             
@@ -175,8 +183,13 @@ VAT
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect">DELETE</button>
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminVatsController@destroy', $vat->id]]) !!}
+
+                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>

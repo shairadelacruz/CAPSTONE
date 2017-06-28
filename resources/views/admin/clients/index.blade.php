@@ -90,16 +90,20 @@ Clients
                           {!! Form::open(['method'=>'DELETE', 'action'=>['AdminClientsController@destroy', $client->id]]) !!}
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+
+
+
+            
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
             </div>
            <!--End Delete Clients--> 
 
-
-
-      <!--  {!! Form::close() !!} -->
+ 
 
         </div>
 

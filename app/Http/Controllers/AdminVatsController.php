@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-
+use App\Vat;
 use App\Http\Requests;
 
 class AdminVatsController extends Controller
@@ -16,7 +17,9 @@ class AdminVatsController extends Controller
     public function index()
     {
         //
-        return view('admin.lists.vat.index');
+       $vats = Vat::all();
+
+        return view('admin.lists.vat.index', compact('vats'));
     }
 
     /**
@@ -27,6 +30,7 @@ class AdminVatsController extends Controller
     public function create()
     {
         //
+        return view('admin.lists.vat.index');
     }
 
     /**
@@ -38,6 +42,14 @@ class AdminVatsController extends Controller
     public function store(Request $request)
     {
         //
+        
+        $this->validate($request, [
+        'vat_code' => 'required',
+        'rate' => 'required',
+    ]);
+
+        Vat::create($request->all());
+        return redirect('/admin/lists/vat');
     }
 
     /**
@@ -60,6 +72,8 @@ class AdminVatsController extends Controller
     public function edit($id)
     {
         //
+        $vat = Vat::findOrFail($id);
+        return view('admin.lists.vat.index', compact('vat'));
     }
 
     /**
@@ -72,6 +86,10 @@ class AdminVatsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $vat = Vat::findOrFail($id);
+        $input = $request->all();
+        $vat->update($input);
+        return redirect('/admin/lists/vat');
     }
 
     /**
@@ -83,5 +101,12 @@ class AdminVatsController extends Controller
     public function destroy($id)
     {
         //
+        $vat = Vat::findOrFail($id);
+
+        $vat->delete();
+
+        Session::flash('deleted_vat','The vat code has been deleted');
+
+        return redirect('/admin/lists/vat');
     }
 }
