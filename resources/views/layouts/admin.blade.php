@@ -219,7 +219,7 @@
                                 <a href="{{route('admin.lists.business.index')}}">Business Types</a>
                             </li>
                             <li>
-                                <a href="../admin/COA-business.html">Chart of Accounts</a>
+                                <a href="{{route('admin.lists.coa.index')}}">Chart of Accounts</a>
                             </li>
                             <li>
                                 <a href="{{route('admin.lists.vat.index')}}">VAT Codes</a>

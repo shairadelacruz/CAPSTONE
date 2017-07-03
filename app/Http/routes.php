@@ -36,5 +36,6 @@ Route::group(['middleware'=>'admin'], function(){
 
 	Route::resource('admin/lists/business', 'AdminBusinessesController');
 
+	Route::resource('admin/lists/coa', 'AdminCoasController');
 
 });
