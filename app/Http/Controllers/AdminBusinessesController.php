@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use App\Vat;
+use App\Business;
 use App\Http\Requests;
 
-class AdminVatsController extends Controller
+class AdminBusinessesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,8 @@ class AdminVatsController extends Controller
     public function index()
     {
         //
-       $vats = Vat::all();
-
-        return view('admin.lists.vat.index', compact('vats'));
+        $businesses = Business::all();
+         return view('admin.lists.business.index', compact('businesses'));
     }
 
     /**
@@ -30,7 +29,7 @@ class AdminVatsController extends Controller
     public function create()
     {
         //
-        return view('admin.lists.vat.index');
+        return view('admin.lists.business.index');
     }
 
     /**
@@ -42,14 +41,12 @@ class AdminVatsController extends Controller
     public function store(Request $request)
     {
         //
-        
         $this->validate($request, [
-        'vat_code' => 'required',
-        'rate' => 'required',
-    ]);
+        'name' => 'required',
+        ]);
 
-        Vat::create($request->all());
-        return redirect('/admin/lists/vat');
+        Business::create($request->all());
+        return redirect('/admin/lists/business');
     }
 
     /**
@@ -61,7 +58,6 @@ class AdminVatsController extends Controller
     public function show($id)
     {
         //
-        return view('admin.lists.vat.show');
     }
 
     /**
@@ -73,8 +69,8 @@ class AdminVatsController extends Controller
     public function edit($id)
     {
         //
-        $vat = Vat::findOrFail($id);
-        return view('admin.lists.vat.index', compact('vat'));
+        $business = Business::findOrFail($id);
+        return view('admin.lists.business.index', compact('business'));
     }
 
     /**
@@ -87,10 +83,10 @@ class AdminVatsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $vat = Vat::findOrFail($id);
+        $business = Business::findOrFail($id);
         $input = $request->all();
-        $vat->update($input);
-        return redirect('/admin/lists/vat');
+        $business->update($input);
+        return redirect('/admin/lists/business');
     }
 
     /**
@@ -102,12 +98,12 @@ class AdminVatsController extends Controller
     public function destroy($id)
     {
         //
-        $vat = Vat::findOrFail($id);
+        $business = Business::findOrFail($id);
 
-        $vat->delete();
+        $business->delete();
 
-        Session::flash('deleted_vat','The vat code has been deleted');
+        Session::flash('deleted_business','The business code has been deleted');
 
-        return redirect('/admin/lists/vat');
+        return redirect('/admin/lists/business');
     }
 }

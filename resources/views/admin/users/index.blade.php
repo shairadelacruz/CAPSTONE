@@ -69,12 +69,12 @@ Users
 										
                                         <td>
                                             <a href="{{route('admin.users.edit', $user->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteUsers"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteUsers{{$user->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
-
                                     @endforeach
-								@endif
+                                @endif
+
                                 </tbody>
                             </table>
                         </div>
@@ -82,9 +82,11 @@ Users
                 </div>
             </div>
             <!-- #END# Exportable Table -->
+             @if($users)
+            @foreach($users as $user)
  
             <!-- Delete Users -->
-            <div class="modal fade" id="deleteUsers" tabindex="-1" role="dialog">
+            <div class="modal fade" id="deleteUsers{{$user->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -107,6 +109,8 @@ Users
 
 
         {!! Form::close() !!}
+        @endforeach
+        @endif
 
         </div>
 

@@ -62,7 +62,7 @@ Clients
                                         <td>{{$client->address}}</td>     
                                         <td>
                                             <a href="{{route('admin.clients.edit', $client->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteClients"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteClients{{$client->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
 
@@ -75,9 +75,11 @@ Clients
                 </div>
             </div>
             <!-- #END# Exportable Table -->
+            @if($clients)
+                @foreach($clients as $client)
  
             <!-- Delete Clients -->
-            <div class="modal fade" id="deleteClients" tabindex="-1" role="dialog">
+            <div class="modal fade" id="deleteClients{{$client->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -91,9 +93,6 @@ Clients
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
 
-
-
-            
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
 
                             {!! Form::close() !!}
@@ -103,7 +102,8 @@ Clients
             </div>
            <!--End Delete Clients--> 
 
- 
+            @endforeach
+         @endif
 
         </div>
 

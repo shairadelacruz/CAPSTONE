@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVatsTable extends Migration
+class CreateBusinessesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,9 @@ class CreateVatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vats', function (Blueprint $table) {
+        Schema::create('businesses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('vat_code')->unique();
-            $table->integer('rate');
-            $table->string('description');
+            $table->string('name');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +27,6 @@ class CreateVatsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('vats');
+        Schema::drop('businesses');
     }
 }

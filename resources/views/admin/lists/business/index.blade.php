@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-VAT
+Business Types
 
 @endsection
 
@@ -18,50 +18,44 @@ VAT
                     <div class="card">
                         <div class="header">
                             <h2>
-                                VAT CODES
+                                Business Type
                             </h2><br>
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addVAT">+Add</button>
+                                    <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addBusiness">+Add</button>
                                 </div>
                             </div>
-
-                            @if(Session::has('deleted_vat'))
-                                 <p class="bg-danger">{{Session('deleted_vat')}}</p>
-                            @endif
+                            <!--
+                            @if(Session::has('deleted_business'))
+                                 <p class="bg-danger">{{Session('deleted_business')}}</p>
+                            @endif-->
 
                         </div>
                         <div class="body">
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th>VAT Code</th>
-                                        <th>Rate</th>
-                                        <th>Description</th>
+                                        <th>Business Type</th>
                                         <th>Action</th>
 
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>VAT Code</th>
-                                        <th>Rate</th>
-                                        <th>Description</th>
+                                        <th>Business Type</th>
                                         <th>Action</th>
 
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @if($vats)
-                                    @foreach($vats as $vat)
+                                    @if($businesses)
+                                    @foreach($businesses as $business)
                                     <tr>
-                                        <td>{{$vat->vat_code}}</td>
-                                        <td>{{$vat->rate}}</td>
-                                        <td>{{$vat->description}}</td>  
+                                        <td>{{$business->name}}</td>
                                         <td>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editVAT{{$vat->id}}"><i class="material-icons">create</i></button>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteVAT{{$vat->id}}"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editBusiness{{$business->id}}"><i class="material-icons">create</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteBusiness{{$business->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -75,37 +69,23 @@ VAT
             <!-- #END# Exportable Table -->
                 
             
-            <!-- Add VAT -->
-            <div class="modal fade" id="addVAT" tabindex="-1" role="dialog">
+            <!-- Add -->
+            <div class="modal fade" id="addBusiness" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Add VAT Code</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Add Business Type</h4><br>
                         </div>
                         <div class="modal-body">
                             
                             <div class="row clearfix">
 
-                                    {!! Form::open(['method'=>'POST', 'action'=>'AdminVatsController@store']) !!}
+                                    {!! Form::open(['method'=>'POST', 'action'=>'AdminBusinessesController@store']) !!}
                                 
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            {!! Form:: label('vat_code', 'VAT Code:') !!}
-                                            {!! Form:: text('vat_code',null, ['class'=>'form-control']) !!}
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            {!! Form:: label('rate', 'Rate:') !!}
-                                            {!! Form:: number('rate',null, ['class'=>'form-control']) !!}
-                                        </div>
-                                    </div>
-                                    
-                                     <div class="form-group form-float">
-                                        <div class="form-line">
-                                            {!! Form:: label('description', 'Description:') !!}
-                                            {!! Form:: textarea('description',null, ['class'=>'form-control']) !!}
+                                            {!! Form:: label('name', 'Business Type:') !!}
+                                            {!! Form:: text('name',null, ['class'=>'form-control']) !!}
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -122,40 +102,26 @@ VAT
                 </div>
             </div>
 
-           <!--End Add VAT--> 
+           <!--End Add--> 
             
-            @if($vats)
-            @foreach($vats as $vat)
-            <!-- Edit VAT -->
-            <div class="modal fade" id="editVAT{{$vat->id}}" tabindex="-1" role="dialog">
+            @if($businesses)
+            @foreach($businesses as $business)
+            <!-- Edit -->
+            <div class="modal fade" id="editBusiness{{$business->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Edit VAT Code</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Edit Business Type</h4><br>
                         </div>
                         <div class="modal-body">
                             
                             <div class="row clearfix">
-                                {!! Form::model($vat,['method'=>'PATCH', 'action'=>['AdminVatsController@update', $vat->id]]) !!}
+                                {!! Form::model($business,['method'=>'PATCH', 'action'=>['AdminBusinessesController@update', $business->id]]) !!}
                                 
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            {!! Form:: label('vat_code', 'VAT Code:') !!}
-                                            {!! Form:: text('vat_code',null, ['class'=>'form-control']) !!}
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            {!! Form:: label('rate', 'Rate:') !!}
-                                            {!! Form:: number('rate',null, ['class'=>'form-control']) !!}
-                                        </div>
-                                    </div>
-                                    
-                                     <div class="form-group form-float">
-                                        <div class="form-line">
-                                            {!! Form:: label('description', 'Description:') !!}
-                                            {!! Form:: textarea('description',null, ['class'=>'form-control']) !!}
+                                            {!! Form:: label('name', 'Business Type:') !!}
+                                            {!! Form:: text('name',null, ['class'=>'form-control']) !!}
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -171,21 +137,21 @@ VAT
                     </div>
                 </div>
             </div>
-           <!--End Edit VAT--> 
+           <!--End Edit --> 
            
             
-            <!-- Delete VAT -->
-            <div class="modal fade" id="deleteVAT{{$vat->id}}" tabindex="-1" role="dialog">
+            <!-- Delete-->
+            <div class="modal fade" id="deleteBusiness{{$business->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Delete VAT code</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Delete Business type</h4><br>
                         </div>
                         <div class="modal-body">
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminVatsController@destroy', $vat->id]]) !!}
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminBusinessesController@destroy', $business->id]]) !!}
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
 
@@ -196,7 +162,7 @@ VAT
                     </div>
                 </div>
             </div>
-           <!--End Delete VAT--> 
+           <!--End Delete--> 
            @endforeach
             @endif
 

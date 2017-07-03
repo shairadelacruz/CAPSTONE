@@ -204,7 +204,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/">
+                        <a href="{{route('admin.clients.index')}}">
                             <i class="material-icons">group</i>
                             <span>Clients</span>
                         </a>
@@ -216,10 +216,13 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
+                                <a href="{{route('admin.lists.business.index')}}">Business Types</a>
+                            </li>
+                            <li>
                                 <a href="../admin/COA-business.html">Chart of Accounts</a>
                             </li>
                             <li>
-                                <a href="../admin/VAT-Codes-view.html">VAT Codes</a>
+                                <a href="{{route('admin.lists.vat.index')}}">VAT Codes</a>
                             </li>
 
                         </ul>
@@ -233,7 +236,7 @@
         <!-- Right Sidebar -->
         <aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                <li role="presentation" class="active"><a href="#skins" data-toggle="tab">BUSINESSES</a></li>
+                <li role="presentation" class="active"><a href="#skins" data-toggle="tab">CLIENTS</a></li>
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
