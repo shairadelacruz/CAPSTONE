@@ -25,7 +25,6 @@ Route::get('/admin', function(){
 });
 
 
-
 Route::group(['middleware'=>'admin'], function(){
 
 	Route::resource('admin/users', 'AdminUsersController');
@@ -44,6 +43,9 @@ Route::group(['middleware'=>'admin'], function(){
 Route::group(['middleware'=>'auth'], function(){
 
 	Route::resource('admin/lists/vat', 'AdminVatsController');
+
 	Route::resource('user/accounting/vat', 'UserVatsController');
+
+	Route::resource('user/payable/vendor', 'UserVendorsController');
 
 });

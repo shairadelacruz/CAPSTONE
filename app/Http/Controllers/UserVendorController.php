@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-
+use App\Vendor;
 use App\Http\Requests;
+
 
 class UserVendorController extends Controller
 {
@@ -16,6 +18,7 @@ class UserVendorController extends Controller
     public function index()
     {
         //
+        return view('users.payable.vendor.index');
     }
 
     /**
@@ -26,6 +29,7 @@ class UserVendorController extends Controller
     public function create()
     {
         //
+        return view('users.payable.vendor.create');
     }
 
     /**

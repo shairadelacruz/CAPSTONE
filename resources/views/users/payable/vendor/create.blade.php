@@ -8,8 +8,8 @@ Vendors
 
 @section('content')
 
-
-	{!! Form::open(['method'=>'POST', 'action'=>'AdminVendorsController@store']) !!}
+<h1>Create Vendor</h1>
+	
 		<div class="form-group form-float">
             <div class="form-line">
                 {!! Form:: label('name', 'Vendor Name:') !!}

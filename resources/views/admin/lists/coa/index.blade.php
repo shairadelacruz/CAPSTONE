@@ -56,7 +56,7 @@ COA
                                     @if($coas)
                                     @foreach($coas as $coa)
                                     <tr>
-                                        <td>{{$coa->category}}</td>
+                                        <td>{{$coa->coacategory['name']}}</td>
                                         <td>{{$coa->name}}</td>
                                         <td>{{$coa->description}}</td>  
                                         <td>
@@ -97,8 +97,10 @@ COA
                                     
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            {!! Form:: label('category', 'Category:') !!}
-                                            
+                                            {!! Form:: label('coacategory_id', 'Category:') !!}
+
+                                            {!! Form:: select('coacategory_id', array(1=>'Asset', 2=>'Liability', 3=>'Expense', 4=>'Revenue', 5=>'Equity' ), null, ['class'=>'form-control show-tick']) !!}
+
                                         </div>
                                     </div>
                                     
@@ -147,7 +149,7 @@ COA
                                     
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            {!! Form:: label('category', 'Category:') !!}
+                                            {!! Form:: label('coacategory_id', 'Category:') !!}
                                             
                                         </div>
                                     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Coa;
+use App\Coacategory;
 use App\Http\Requests;
 
 class AdminCoasController extends Controller
@@ -18,7 +19,8 @@ class AdminCoasController extends Controller
     {
         //
         $coas = Coa::all();
-         return view('admin.lists.coa.index', compact('coas'));
+
+        return view('admin.lists.coa.index', compact('coas'));
     }
 
     /**
@@ -29,6 +31,7 @@ class AdminCoasController extends Controller
     public function create()
     {
         //
+
         return view('admin.lists.coa.index');
     }
 
@@ -43,7 +46,7 @@ class AdminCoasController extends Controller
         //
         $this->validate($request, [
         'name' => 'required',
-        'category'=> 'required'
+        'coacategory_id'=> 'required'
         ]);
 
         Coa::create($request->all());
