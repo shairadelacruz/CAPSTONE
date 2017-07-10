@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClientUserTable extends Migration
+class CreateJournalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,13 @@ class CreateClientUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_user', function (Blueprint $table) {
-            $table->integer('user_id');
+        Schema::create('journals', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('transaction_no');
+            $table->date('date');
+            $table->string('description');
             $table->integer('client_id');
-            $table->primary(['user_id', 'client_id']);
+            $table->timestamps();
         });
     }
 
@@ -26,6 +29,6 @@ class CreateClientUserTable extends Migration
      */
     public function down()
     {
-        Schema::drop('client_user');
+        Schema::drop('journals');
     }
 }

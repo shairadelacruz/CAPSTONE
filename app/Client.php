@@ -34,4 +34,9 @@ class Client extends Model
 
         return $this->belongsToMany('App\User');
     }
+
+    public function business(){
+
+        return $this->belongsTo('App\Business');
+    }
 }

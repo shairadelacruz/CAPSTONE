@@ -204,7 +204,7 @@
                     <ul class="demo-choose-skin">
 
                         <li class="active">
-                            <span>{{ Auth::user()->client->company_name}}</span>
+                            <span>Business 1</span>
                         </li>
                         <li>
                             <span>Business 2</span>

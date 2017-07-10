@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCoasTable extends Migration
+class CreateBillsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,8 @@ class CreateCoasTable extends Migration
      */
     public function up()
     {
-        Schema::create('coas', function (Blueprint $table) {
+        Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->integer('coacategory_id')->index()->unsigned()->nullable();
-            $table->string('description');
-            $table->double('amount')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,6 +25,6 @@ class CreateCoasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('coas');
+        Schema::drop('bills');
     }
 }

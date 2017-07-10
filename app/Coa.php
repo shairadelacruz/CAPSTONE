@@ -15,4 +15,14 @@ class Coa extends Model
     protected $fillable = [
         'name', 'description', 'amount'
     ];
+
+    public function coacategory(){
+
+        return $this->belongsTo('App\Coacategory');
+    }
+
+    public function clients(){
+
+        return $this->belongsToMany('App\Client');
+    }
 }
