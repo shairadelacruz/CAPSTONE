@@ -202,16 +202,13 @@
                 <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
 
                     <ul class="demo-choose-skin">
-
-                        <li class="active">
-                            <span>Business 1</span>
-                        </li>
+                    @if($client_names = Auth::user()->clients->all())
+                    @foreach($client_names as $client_name)
                         <li>
-                            <span>Business 2</span>
-                        </li>
-                        <li>
-                            <span>Business 3</span>
-                        </li>
+                            <span>{{$client_name->company_name}}</span>
+                        </li>   
+                         @endforeach
+                                @endif 
                     </ul>
                 </div>
             </div>
