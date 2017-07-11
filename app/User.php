@@ -30,9 +30,19 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function role(){
+    public function roles(){
 
-        return $this->belongsTo('App\Role');
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole($role){
+
+        if(is_string($role)){
+
+            return $this->roles->contains('name', $role);
+        }
+
+        return $role->intersect($this->roles)->count();
     }
 
     public function isAdmin(){

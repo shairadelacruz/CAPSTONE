@@ -19,6 +19,7 @@ VAT
                         <div class="header">
                             <h2>
                                 VAT CODES
+
                             </h2><br>
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -60,8 +61,12 @@ VAT
                                         <td>{{$vat->rate}}</td>
                                         <td>{{$vat->description}}</td>  
                                         <td>
+                                        @can('edit')
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editVAT{{$vat->id}}"><i class="material-icons">create</i></button>
+                                        @endcan
+                                        @can('delete')
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteVAT{{$vat->id}}"><i class="material-icons">delete</i></button>
+                                        @endcan
                                         </td>
                                     </tr>
                                     @endforeach
