@@ -28,7 +28,7 @@ class UsersRequest extends Request
 
             'name'=>'required',
             'email'=>'required',
-            'role_id'=>'required',
+            'role'=>'required',
             'is_active'=>'required',
             'password'=>'required'
         ];

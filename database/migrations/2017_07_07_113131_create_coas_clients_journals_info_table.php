@@ -12,7 +12,7 @@ class CreateCoasClientsJournalsInfoTable extends Migration
      */
     public function up()
     {
-        Schema::table('coa_client_journal_info', function (Blueprint $table) {
+        Schema::create('coa_client_journal_info', function (Blueprint $table) {
             //
         });
     }
@@ -24,8 +24,7 @@ class CreateCoasClientsJournalsInfoTable extends Migration
      */
     public function down()
     {
-        Schema::table('coa_client_journal_info', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('coa_client_journal_info');
     }
+    
 }

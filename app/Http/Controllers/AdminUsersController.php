@@ -63,7 +63,13 @@ class AdminUsersController extends Controller
         }
 
         $input['password'] = bcrypt($request->password);
+
+        $role_id = $request->role;
+        $role = Role::find($role_id);
+        $role_name = $role->name;
         User::create($input);
+        $user = User::latest()->first();
+        $user->assignRole($role_name);
         return redirect('/admin/users');
     }
 
@@ -93,8 +99,10 @@ class AdminUsersController extends Controller
         //
 
         $user = User::findOrFail($id);
+        $user_role = $user->roles->pluck('name')->first();
         $roles = Role::lists('name', 'id')->all();
-        return view('admin.users.edit', compact('user', 'roles'));
+        return view('admin.users.edit', compact('user', 'roles', 'user_role'));
+        
     }
 
     /**
@@ -121,8 +129,17 @@ class AdminUsersController extends Controller
             $input['password'] = bcrypt($request->password);
         }
 
-        $user->update($input);
+        //$user->update($input);
 
+        //return redirect('/admin/users');
+
+        $user->roles()->detach();
+        $role_id = $request->role;
+        $role = Role::find($role_id);
+        $role_name = $role->name;
+        $user->update($input);
+        //$user = User::latest()->first();
+        $user->assignRole($role_name);
         return redirect('/admin/users');
     }
 

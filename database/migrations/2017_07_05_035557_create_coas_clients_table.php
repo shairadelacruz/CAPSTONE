@@ -30,6 +30,7 @@ class CreateCoasClientsTable extends Migration
     {
         Schema::table('client_coa', function (Blueprint $table) {
             //
+            Schema::drop('client_coa');
         });
     }
 }

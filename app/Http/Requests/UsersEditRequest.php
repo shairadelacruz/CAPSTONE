@@ -27,7 +27,7 @@ class UsersEditRequest extends Request
             //
             'name'=>'required',
             'email'=>'required',
-            'role_id'=>'required',
+            'role'=>'required',
             'is_active'=>'required',
         ];
     }

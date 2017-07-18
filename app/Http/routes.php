@@ -49,3 +49,7 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::resource('user/payable/vendor', 'UserVendorsController');
 
 });
+
+
+
+Route::get('client/{client_id}/coa/{coa_id}', 'ClientPageController@clientPageShow');
