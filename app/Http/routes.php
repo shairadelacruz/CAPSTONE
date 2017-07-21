@@ -37,7 +37,11 @@ Route::group(['middleware'=>'admin'], function(){
 
 });
 
-	
+	/*Route::get('user/client/{client_id}/payable/vendor', function($client_id){
+
+		$client_id = App\Client
+		return view (users.payable.vendor);
+	});*/
 
 
 Route::group(['middleware'=>'auth'], function(){
@@ -46,10 +50,101 @@ Route::group(['middleware'=>'auth'], function(){
 
 	Route::resource('user/accounting/vat', 'UserVatsController');
 
-	Route::resource('user/payable/vendor', 'UserVendorsController');
+	Route::resource('user/{client_id}/payable/vendor', 'UserVendorController');
+
+	Route::resource('user/{client_id}/accounting/coa', 'UserCoasController');
 
 });
 
+Route::get('/log', function () {
+    return view('admin.logs.index');
+});
 
+Route::get('/log/create', function () {
+    return view('admin.logs.create');
+});
 
-Route::get('client/{client_id}/coa/{coa_id}', 'ClientPageController@clientPageShow');
+Route::get('/log/edit', function () {
+    return view('admin.logs.edit');
+});
+
+Route::get('/client_assign', function () {
+    return view('admin.manages.assign.index');
+});
+
+Route::get('/task', function () {
+    return view('admin.manages.task.index');
+});
+
+Route::get('/manage', function () {
+    return view('admin.manages.index');
+});
+
+Route::get('/transaction', function () {
+    return view('users.accounting.transaction.index');
+});
+
+Route::get('/transaction/create', function () {
+    return view('users.accounting.transaction.create');
+});
+
+Route::get('/transaction/edit', function () {
+    return view('users.accounting.transaction.edit');
+});
+
+Route::get('/journal', function () {
+    return view('users.accounting.journal.index');
+});
+
+Route::get('/journal/create', function () {
+    return view('users.accounting.journal.create');
+});
+
+Route::get('/journal/edit', function () {
+    return view('users.accounting.journal.edit');
+});
+
+Route::get('/bill', function () {
+    return view('users.payable.bill.index');
+});
+
+Route::get('/bill/create', function () {
+    return view('users.payable.bill.create');
+});
+
+Route::get('/bill/edit', function () {
+    return view('users.payable.bill.edit');
+});
+
+Route::get('/invoice', function () {
+    return view('admin.manages.index');
+});
+
+Route::get('/item', function () {
+    return view('admin.manages.index');
+});
+
+Route::get('/item/create', function () {
+    return view('admin.manages.index');
+});
+
+Route::get('/item/edit', function () {
+    return view('admin.manages.index');
+});
+
+Route::get('/customer', function () {
+    return view('admin.manages.index');
+});
+
+Route::get('/customer/create', function () {
+    return view('admin.manages.index');
+});
+
+Route::get('/customer/edit', function () {
+    return view('admin.manages.index');
+});
+
+Route::get('/cashdisbursement', function () {
+    return view('admin.manages.index');
+});
+

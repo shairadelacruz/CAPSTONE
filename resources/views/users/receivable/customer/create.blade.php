@@ -2,13 +2,13 @@
 
 @section('page_title')
 
-Vendors
+Customer
 
 @endsection
 
 @section('content')
 
-<h1>Create Vendor</h1>
+<h1>Create Customer</h1>
         
     {!! Form::open(['method'=>'POST', 'action'=>'UserVendorController@store']) !!}
     
@@ -16,7 +16,7 @@ Vendors
         
 		<div class="form-group form-float">
             <div class="form-line">
-                {!! Form:: label('name', 'Vendor Name:') !!}
+                {!! Form:: label('name', 'Customer Name:') !!}
 				{!! Form:: text('name',null, ['class'=>'form-control']) !!}
             </div>
         </div>
@@ -48,13 +48,13 @@ Vendors
 
         <div class="form-group form-float">
             <div class="form-line">
-                {!! Form:: label('address1', 'Address 1:') !!}
+                {!! Form:: label('address1', 'Address:') !!}
 				{!! Form:: textarea('address1',null, ['class'=>'form-control no-resize']) !!}
             </div>
         </div>
          <div class="form-group form-float">
             <div class="form-line">
-                {!! Form:: label('address2', 'Address 2:') !!}
+                {!! Form:: label('address2', 'Shipping Address:') !!}
 				{!! Form:: textarea('address2',null, ['class'=>'form-control no-resize']) !!}
             </div>
         </div>
@@ -75,7 +75,7 @@ Vendors
 
         <div class="form-group form-float">
             <div class="form-line">
-				{!! Form:: submit('Create Vendor', ['class'=>'btn btn-primary']) !!}
+				{!! Form:: submit('Create Customer', ['class'=>'btn btn-primary']) !!}
             </div>
         </div>
 

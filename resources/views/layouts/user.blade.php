@@ -166,13 +166,6 @@
                     </li>
                     
                     <li>
-                        <a href="vat-relief.html">
-                            <i class="material-icons">assignment_turned_in</i>
-                                <span>VAT RELIEF</span>
-                        </a>
-                    </li>
-                    
-                    <li>
                         <a href="images.html">
                             <i class="material-icons">image</i>
                                 <span>Images</span>

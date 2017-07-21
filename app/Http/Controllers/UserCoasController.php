@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Coa;
+use App\Client;
 
 class UserCoasController extends Controller
 {
@@ -16,6 +18,11 @@ class UserCoasController extends Controller
     public function index()
     {
         //
+
+
+        $coas = Coa::all();
+
+        return view('users.accounting.coa.index', compact('coas'));
     }
 
     /**

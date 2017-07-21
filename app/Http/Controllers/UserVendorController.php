@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Vendor;
+use App\Client;
 use App\Http\Requests;
 
 
@@ -15,10 +16,15 @@ class UserVendorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($client_id)
     {
         //
-        return view('users.payable.vendor.index');
+        $client = Client::find($client_id);
+        //$vendors = Vendor::all();
+        $vendors = $client->vendors;
+       
+        return view('users.payable.vendor.index', compact('vendors'));
+        //return $vendors;
     }
 
     /**
@@ -26,10 +32,12 @@ class UserVendorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($client_id)
     {
         //
-        return view('users.payable.vendor.create');
+        //return $client_id;
+       // $client = Client::find($client_id);
+        return view('users.payable.vendor.create', compact('client_id'));
     }
 
     /**
@@ -38,9 +46,11 @@ class UserVendorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $client_id)
     {
         //
+        Vendor::create($request->all());
+        //return redirect('/user/{client_id}/payable/vendor');
     }
 
     /**

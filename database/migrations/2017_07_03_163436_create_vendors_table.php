@@ -24,6 +24,7 @@ class CreateVendorsTable extends Migration
             $table->string('address2');
             $table->string('phone');
             $table->string('mobile');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-Vendor
+Customer
 
 @endsection
 
@@ -18,7 +18,7 @@ Vendor
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Vendor
+                                Customer
                             </h2><br>
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -27,9 +27,9 @@ Vendor
                                 </div>
                             </div>
 
-                                @if(Session::has('deleted_vendor'))
-                                 <p class="bg-danger">{{Session('deleted_vendor')}}</p>
-                                @endif
+                                <!--@if(Session::has('deleted_customer'))
+                                 <p class="bg-danger">{{Session('deleted_customer')}}</p>
+                                @endif-->
 
                         </div>
                         <div class="body">
@@ -56,21 +56,21 @@ Vendor
                                 </tfoot>
                                 <tbody>
 
-                                @if($vendors)
+                                <!--@if($customer)
 									@foreach($vendors as $vendor)
                                     <tr>
 										<td>{{$vendor->name}}</td>
 										<td>{{$vendor->email}}</td>
 										<td>{{$vendor->phone}}</td>
-										<td>{{$vendor->balance}}</td>
+										<td>{{$vendor->balance}}</td>-->
 										
                                         <td>
                                             <a href="#" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deletevendor{{$vendor->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
-                                    @endforeach
-                                @endif
+                                    <!--@endforeach
+                                @endif-->
 
                                 </tbody>
                             </table>

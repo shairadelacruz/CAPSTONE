@@ -27,6 +27,7 @@ class CreateCustomersTable extends Migration
             $table->string('shipping_name');
             $table->string('shipping_address');
             $table->string('shipping_phone');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
