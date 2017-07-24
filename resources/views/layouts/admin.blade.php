@@ -123,8 +123,6 @@
                         </ul>
                     </li>
                     
-                    
-                    
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">payment</i>
@@ -183,24 +181,33 @@
 
                     <li class="header">ADMIN</li>
                     <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
+                        <a href="{{route('admin.users.index')}}">
                             <i class="material-icons">account_circle</i>
                             <span>Users</span>
                         </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="{{route('admin.users.index')}}">Users</a>
-                            </li>
-                            <li>
-                                <a href="../admin/users-privileges.html">Privileges</a>
-                            </li>
-                        </ul>
                     </li>
                     <li>
                         <a href="{{route('admin.clients.index')}}">
                             <i class="material-icons">group</i>
                             <span>Clients</span>
                         </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">list</i>
+                            <span>Management</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/">Client Assignment</a>
+                            </li>
+                            <li>
+                                <a href="/">Task Assignment</a>
+                            </li>
+                            <li>
+                                <a href="/">Log</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">

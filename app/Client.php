@@ -35,6 +35,11 @@ class Client extends Model
         return $this->belongsToMany('App\User');
     }
 
+    public function Task()
+    {
+        return $this->hasMany('App\Task');
+    }
+
     public function business(){
 
         return $this->belongsTo('App\Business');

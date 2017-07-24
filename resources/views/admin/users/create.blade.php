@@ -30,10 +30,8 @@ Users
 	</div>
 
 	<div class = "form-group">
-		<div class="row clearfix">
 			{!! Form:: label('is_active', 'Status:') !!}
 			{!! Form:: select('is_active', array(1=>'Active', 0=>'Not Active'), 0, ['class'=>'form-control show-tick']) !!}
-		</div>
 	</div>
 
 	<div class = "form-group">

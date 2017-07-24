@@ -1,16 +1,16 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 
 @section('page_title')
 
-Users
+Products and Services
 
 @endsection
 
 @extends('includes.table_includes');
 
 @section('content')
-	
-	<div class="container-fluid">
+
+        <div class="container-fluid">
             
             <!-- Exportable Table -->
             <div class="row clearfix">
@@ -18,18 +18,14 @@ Users
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Users
+                                Products and Services
                             </h2><br>
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <a href= "{{route('admin.users.create')}}" type="button" class="btn btn-primary waves-effect">+Add</a>
+                                    <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addProduct">+Add</button>
                                 </div>
                             </div>
-
-                                @if(Session::has('deleted_user'))
-                                 <p class="bg-danger">{{Session('deleted_user')}}</p>
-                                @endif
 
                         </div>
                         <div class="body">
@@ -37,43 +33,44 @@ Users
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-										<th>Name</th>
-										<th>Email</th>
-										<th>Role</th>
-										<th>Status</th>
-										<th>Action</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
 
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>ID</th>
-										<th>Name</th>
-										<th>Email</th>
-										<th>Role</th>
-										<th>Status</th>
-										<th>Action</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
 
                                     </tr>
                                 </tfoot>
                                 <tbody>
-
-                                @if($users)
-									@foreach($users as $user)
                                     <tr>
-                                        <td>{{$user->id}}</td>
-										<td>{{$user->name}}</td>
-										<td>{{$user->email}}</td>
-										<td>{{$user->roles->first()->name}}</td>
-										<td>{{$user->is_active == 1 ? 'Active' : 'Not Active'}}</td>
-										
+                                        <td>A</td>
+                                        <td>Trading Card</td>
+                                        <td>1000.00</td>
                                         <td>
-                                            <a href="{{route('admin.users.edit', $user->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteUsers{{$user->id}}"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteProduct"><i class="material-icons">delete</i></button>
+                           
                                         </td>
+
                                     </tr>
-                                    @endforeach
-                                @endif
+                                    <tr>
+                                        <td>B</td>
+                                        <td>Smartphone</td>
+                                        <td>4500.00</td>
+                                        <td>
+                                            <button type="button" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteProduct"><i class="material-icons">delete</i></button>
+                                            
+                                        </td>
+
+                                    </tr>
 
                                 </tbody>
                             </table>
@@ -82,33 +79,25 @@ Users
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-             @if($users)
-            @foreach($users as $user)
- 
-            <!-- Delete Users -->
-            <div class="modal fade" id="deleteUsers{{$user->id}}" tabindex="-1" role="dialog">
+                        
+            <!-- Delete Product -->
+            <div class="modal fade" id="deleteProduct" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Delete a user</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Delete an Account</h4><br>
                         </div>
                         <div class="modal-body">
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy', $user->id]]) !!}
-
-                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+                            <button type="button" class="btn btn-link waves-effect">DELETE</button>
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
                         </div>
                     </div>
                 </div>
             </div>
-           <!--End Delete Users--> 
-
-        {!! Form::close() !!}
-        @endforeach
-        @endif
+           <!--End Delete Product--> 
 
         </div>
 

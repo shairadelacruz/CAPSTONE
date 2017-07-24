@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-Bills
+Invoice
 
 @endsection
 
@@ -18,25 +18,27 @@ Bills
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Bills
+                                Invoice
                             </h2><br>
                              <div class="row clearfix">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
                                     <a href="bills-create.html" class="btn btn-primary waves-effect">+Add</a>
                                     
-                                    <input type="text" class="datepicker form-control" placeholder="From Date">
+                                    <div class = "form-group">
+                                         {!! Form:: label('from_date', 'From Date:') !!}
+                                        {!! Form:: date('date',null, ['class'=>'form-control datepicker']) !!}
+                                    </div>
 
-  
-                                    <input type="text" class="datepicker form-control" placeholder="To Date">
+                                    <div class = "form-group">
+                                         {!! Form:: label('to_date', 'To Date:') !!}
+                                        {!! Form:: date('date',null, ['class'=>'form-control datepicker']) !!}
+                                    </div>
                                                           
-                                    <b>Vendors</b>
-                                    <select class="form-control show-tick" data-live-search="true">
-                                        <option>Select Vendor</option>
-                                        <option>Georgi Popovich</option>
-                                        <option>Otabek Altin</option>
-                                        <option>Some Vendor Name</option>
-                                    </select>
+                                    <div class = "form-group">
+                                        {!! Form:: label('customer', 'Customers:') !!}
+                                        {!! Form:: select('customer', [''=>'Choose Customer'] ,null, ['class'=>'form-control']) !!}
+                                    </div>
 
                                 </div>
                             </div>
@@ -46,8 +48,8 @@ Bills
                                 <thead>
                                     <tr>
                                         <th>Reference No.</th>
-                                        <th>Vendor</th>
-                                        <th>Bill Date</th>
+                                        <th>Customer</th>
+                                        <th>Invoice Date</th>
                                         <th>Due Date</th>
                                         <th>Amount Due</th>
                                         <th>Balance Amount</th>
@@ -58,8 +60,8 @@ Bills
                                 <tfoot>
                                     <tr>
                                         <th>Reference No.</th>
-                                        <th>Vendor</th>
-                                        <th>Bill Date</th>
+                                        <th>Customer</th>
+                                        <th>Invoice Date</th>
                                         <th>Due Date</th>
                                         <th>Due Amount</th>
                                         <th>Balance Amount</th>
@@ -77,7 +79,7 @@ Bills
                                         <td>1000</td>
                                         <td>
                                             <a href ="bills-create.html" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteBills"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteInvoice"><i class="material-icons">delete</i></button>
                            
                                         </td>
 
@@ -91,7 +93,7 @@ Bills
                                         <td>20000</td>
                                         <td>
                                             <a href ="bills-create.html" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteBills"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteInvoice"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -104,7 +106,7 @@ Bills
             
             <!-- Delete Bills -->
 
-            <div class="modal fade" id="deleteBills" tabindex="-1" role="dialog">
+            <div class="modal fade" id="deleteInvoice" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

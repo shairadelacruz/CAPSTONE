@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-Journal
+Cash Disbursement
 
 @endsection
 
@@ -18,12 +18,12 @@ Journal
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Journal
+                                Edit Cash Disbursement
                             </h2><br>
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <input type="text" class="datepicker form-control" placeholder="Transaction No." disabled>
+                                    <input type="text" class="form-control" placeholder="Reference No.">
                                     <input type="text" class="datepicker form-control" placeholder="Date">
                                     <input type="text" class="form-control" placeholder="Description">
   
@@ -37,7 +37,6 @@ Journal
                             <table class="inventoryForCompute table table-bordered table-striped table-hover dataTable">
                 <thead>
                     <tr>
-                        <th>Reference No.</th>
                         <th>Account Title</th>
                         <th>Description</th>
                         <th>Debit</th>
@@ -53,7 +52,6 @@ Journal
                     <tr>
                         <th> </th>
                         <th> </th>
-                        <th> </th>
                         <th>Debit Total</th>
                         <th>Credit Total</th>
                         <th> </th>
@@ -65,13 +63,7 @@ Journal
                                 
                 <tbody>
                     <tr>
-                        <td><span contenteditable>00050023</span></td>
-                        <td><a class="cutForCompute"></a>
-                            <select>
-                                <option>Accounts Receivable</option>
-                                <option>Travel Expense</option>
-                            </select>
-                        </td>
+                        <td>Cash</td>
                         <td><span contenteditable>Describe</span></td>
                         <td><span data-prefix>₱</span><span contenteditable>150.00</span></td>
                         <td><span data-prefix>₱</span><span contenteditable>150.00</span></td>
@@ -88,11 +80,11 @@ Journal
             </table>
             <a class="addForCompute">+</a>
                       
-                            <button type="button" class="btn bg-blue btn-block btn-lg waves-effect">Save</button>
+                            <button type="button" class="btn bgblue btn-block btn-lg waves-effect">Save</button>
                             
                         </div>
                     </div>
-                </div>
+                </div>-
             </div>
             <!-- #END# Exportable Table -->
             

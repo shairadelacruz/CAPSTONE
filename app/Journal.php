@@ -10,6 +10,6 @@ class Journal extends Model
 
     public function Journal_Info(){
 
-        return $this->belongsToMany('App\Journal_Info');
+        return $this->hasMany('App\Journal_Info');
     }
 }

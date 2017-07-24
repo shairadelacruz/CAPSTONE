@@ -67,4 +67,14 @@ class User extends Authenticatable
 
         return $this->belongsToMany('App\Client');
     }
+
+    public function logs(){
+
+        return $this->hasMany('App\Log');
+    }
+
+    public function Task()
+    {
+        return $this->hasMany('App\Task');
+    }
 }
