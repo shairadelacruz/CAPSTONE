@@ -14,10 +14,11 @@ class CreateCoasClientsTable extends Migration
     {
         Schema::create('client_coa', function (Blueprint $table) {
             //
-            
             $table->integer('client_id');
             $table->integer('coa_id');
+            $table->double('amount')->nullable()->unsigned();
             $table->primary(['coa_id', 'client_id']);
+            $table->timestamps();
         });
     }
 

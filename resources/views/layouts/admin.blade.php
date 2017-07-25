@@ -181,10 +181,18 @@
 
                     <li class="header">ADMIN</li>
                     <li>
-                        <a href="{{route('admin.users.index')}}">
-                            <i class="material-icons">account_circle</i>
-                            <span>Users</span>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                           <i class="material-icons">account_circle</i>
+                            <span>Employees</span>
                         </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="{{route('admin.users.index')}}">Users</a>
+                            </li>
+                            <li>
+                                <a href="/">Evaluation</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="{{route('admin.clients.index')}}">
@@ -199,13 +207,13 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="/">Client Assignment</a>
+                                <a href="{{route('admin.management.assign.index')}}">Client Assignment</a>
                             </li>
                             <li>
-                                <a href="/">Task Assignment</a>
+                                <a href="{{route('admin.management.task.index')}}">Task Assignment</a>
                             </li>
                             <li>
-                                <a href="/">Log</a>
+                                <a href="{{route('admin.management.logs.index')}}">Log</a>
                             </li>
                         </ul>
                     </li>

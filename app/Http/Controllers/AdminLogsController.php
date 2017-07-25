@@ -20,7 +20,7 @@ class AdminLogsController extends Controller
     {
         //
         $logs = Log::all();
-        return view('admin.logs.index');
+        return view('admin.management.logs.index');
     }
 
     /**
@@ -31,7 +31,7 @@ class AdminLogsController extends Controller
     public function create()
     {
         //
-         return view('admin.logs.create');
+         return view('admin.management.logs.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class AdminLogsController extends Controller
     {
         //
         $log = Log::findOrFail($id);
-        return view('admin.logs.edit', compact('log'));
+        return view('admin.management.logs.edit', compact('log'));
     }
 
     /**

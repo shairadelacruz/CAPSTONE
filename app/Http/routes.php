@@ -35,11 +35,11 @@ Route::group(['middleware'=>'admin'], function(){
 
 	Route::resource('admin/lists/coa', 'AdminCoasController');
 
-    Route::resource('admin/manage/logs', 'AdminLogsController');
+    Route::resource('admin/management/logs', 'AdminLogsController');
 
-    Route::resource('admin/manage/assignclient', 'AdminClientUserController');
+    Route::resource('admin/management/assign', 'AdminClientUserController');
 
-    Route::resource('admin/manage/task', 'AdminTasksController');
+    Route::resource('admin/management/task', 'AdminTasksController');
 
 });
 
@@ -60,7 +60,7 @@ Route::group(['middleware'=>'auth'], function(){
 
 	Route::resource('user/{client_id}/payable/vendor', 'UserVendorController');
 
-	Route::resource('user/{client_id}/payable/vendor', 'UserVendorController@store');
+	Route::resource('user/{client_id}/payable/vendor/create', 'UserVendorController@create');
 
 	Route::resource('user/{client_id}/accounting/coa', 'UserCoasController');
 
