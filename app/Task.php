@@ -16,17 +16,17 @@ class Task extends Model
         
     ];
 
-    public function User()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
 
-    public function Client()
+    public function client()
     {
         return $this->belongsTo('App\Client');
     }
 
-    public function Log()
+    public function log()
     {
         return $this->belongsTo('App\Log');
     }

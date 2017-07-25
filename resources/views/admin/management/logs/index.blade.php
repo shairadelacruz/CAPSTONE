@@ -23,15 +23,19 @@ Log
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addLogEntry">+Add</button>
+                                    <a href= "{{route('admin.management.logs.create')}}" type="button" class="btn btn-primary waves-effect">+Add</a>
 
-                                    <input type="text" class="datepicker form-control" placeholder="From Date">
+                                   <!-- <input type="text" class="datepicker form-control" placeholder="From Date">
 
-                                    <input type="text" class="datepicker form-control" placeholder="To Date">
+                                    <input type="text" class="datepicker form-control" placeholder="To Date"> -->
 
                                 </div>
                             </div>
                             
+
+                                @if(Session::has('deleted_log'))
+                                 <p class="bg-danger">{{Session('deleted_log')}}</p>
+                                @endif
 
                         </div>
                         <div class="body table-responsive">
@@ -39,7 +43,6 @@ Log
                                 <thead>
                                     <tr>
                                         <th>Date</th>
-                                        <th>Time</th>
                                         <th>Document</th>
                                         <th>Business</th>
                                         <th>Received From</th>
@@ -47,10 +50,9 @@ Log
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
+                                <tfoot>                         
                                     <tr>
                                         <th>Date</th>
-                                        <th>Time</th>
                                         <th>Document</th>
                                         <th>Business</th>
                                         <th>Received From</th>
@@ -59,30 +61,22 @@ Log
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @if($logs)
+                                    @foreach($logs as $log)
                                     <tr>
-                                        <td>June 5 2017</td>
-                                        <td>09:21 AM</td>
-                                        <td>Invoice - 0101</td>
-                                        <td>Armed Detective Agency</td>
-                                        <td>Dazai Osamu</td>
-                                        <td>Hyakuya Yuuichirou</td>     
+                                        <td>{{$log->date_received}}</td>
+                                        <td>{{$log->document_type->name}}</td>
+                                        <td>{{$log->client->company_name}}</td>
+                                        <td>{{$log->user->name}}</td>
+                                        <td>{{$log->received_from}}</td>
+                                        
                                         <td>
-                                            <a href="" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteLogEntry"><i class="material-icons">delete</i></button>
+                                            <a href="{{route('admin.management.logs.edit', $log->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#delete{{$log->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>January 1 2014</td>
-                                        <td>11:03 AM</td>
-                                        <td>Receipt - 3002</td>
-                                        <td>Port Mafia</td>
-                                        <td>Nakahara Chuuya</td>
-                                        <td>Hyakuya Mikaela</td>     
-                                        <td>
-                                            <a href="" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteLogEntry"><i class="material-icons">delete</i></button>
-                                        </td>
-                                    </tr>
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -90,9 +84,10 @@ Log
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-            
+            @if($logs)
+                @foreach($logs as $log)
             <!-- Delete -->
-            <div class="modal fade" id="deleteLogEntry" tabindex="-1" role="dialog">
+            <div class="modal fade" id="delete{{$log->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -105,6 +100,8 @@ Log
                         <form>
                           
 
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminLogsController@destroy', $log->id]]) !!}
+                            
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
 
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
@@ -115,7 +112,8 @@ Log
                 </div>
             </div>
            <!--End Delete-->
-
+                @endforeach
+            @endif
            
 
         </div>

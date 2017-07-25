@@ -20,7 +20,7 @@ class AdminLogsController extends Controller
     {
         //
         $logs = Log::all();
-        return view('admin.management.logs.index');
+        return view('admin.management.logs.index', compact('logs'));
     }
 
     /**
@@ -31,7 +31,10 @@ class AdminLogsController extends Controller
     public function create()
     {
         //
-         return view('admin.management.logs.create');
+        $documents = DocumentType::pluck('name', 'id')->all();
+        $clients = Client::pluck('company_name', 'id')->all();
+        $users = User::pluck('name', 'id')->all();
+        return view('admin.management.logs.create', compact('documents', 'clients', 'users'));
     }
 
     /**
@@ -42,7 +45,10 @@ class AdminLogsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //     
+
+        Log::create($request->all());
+        return redirect('/admin/management/logs');
     }
 
     /**
@@ -66,7 +72,11 @@ class AdminLogsController extends Controller
     {
         //
         $log = Log::findOrFail($id);
-        return view('admin.management.logs.edit', compact('log'));
+        $documents = DocumentType::lists('name', 'id')->all();
+        $clients = Client::lists('company_name', 'id')->all();
+        $users = User::lists('name', 'id')->all();
+        //$roles = Role::lists('name', 'id')->all();
+        return view('admin.management.logs.edit', compact('log','documents', 'clients', 'users'));
     }
 
     /**
@@ -79,6 +89,13 @@ class AdminLogsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $log = Log::findOrFail($id);
+
+        $input = $request->all();
+
+        //$log->update($input);
+        return $input;
+        //return redirect('/admin/management/logs');
     }
 
     /**
@@ -90,5 +107,12 @@ class AdminLogsController extends Controller
     public function destroy($id)
     {
         //
+        $log = Log::findOrFail($id);
+
+        $log->delete();
+
+        Session::flash('deleted_log','The log has been deleted');
+
+        return redirect('/admin/management/logs');
     }
 }

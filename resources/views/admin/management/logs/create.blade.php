@@ -10,38 +10,37 @@ Log
 
 <h1>Create Log Entry</h1>
 
-	<form>
+	{!! Form::open(['method'=>'POST', 'action'=>'AdminLogsController@store']) !!}
 
 	<div class = "form-group">
-		{!! Form:: label('receive_date', 'Date Received:') !!}
-		{!! Form:: date('receive_date',null, ['class'=>'form-control datepicker']) !!}
+		{!! Form:: label('reference_no', 'Reference No:') !!}
+		{!! Form:: text('reference_no',null, ['class'=>'form-control']) !!}
 	</div>
 
 	<div class = "form-group">
-		{!! Form:: label('role', 'Document Type:') !!}
-		{!! Form:: select('role', [''=>'Choose Options'] ,null, ['class'=>'form-control']) !!}
+		{!! Form:: label('date_received', 'Date Received:') !!}
+		{!! Form:: date('date_received',null, ['class'=>'form-control datepicker']) !!}
+	</div>
+
+	<div class = "form-group">
+		{!! Form:: label('document_type_id', 'Document Type:') !!}
+		{!! Form:: select('document_type_id', [''=>'Choose Options'] + $documents ,null, ['class'=>'form-control']) !!}
+	</div>
+
+	<div class = "form-group">
+		{!! Form:: label('client_id', 'Client:') !!}
+		{!! Form:: select('client_id', [''=>'Choose Options'] + $clients ,null, ['class'=>'form-control']) !!}
 
 	</div>
 
 	<div class = "form-group">
-		{!! Form:: label('ref_no', 'Reference No:') !!}
-		{!! Form:: text('ref_no',null, ['class'=>'form-control']) !!}
+		{!! Form:: label('received_from', 'Received From:') !!}
+		{!! Form:: text('received_from',null, ['class'=>'form-control']) !!}
 	</div>
 
 	<div class = "form-group">
-		{!! Form:: label('email', 'Business:') !!}
-		{!! Form:: text('email',null, ['class'=>'form-control']) !!}
-
-	</div>
-
-	<div class = "form-group">
-		{!! Form:: label('giver', 'Received From:') !!}
-		{!! Form:: text('giver',null, ['class'=>'form-control']) !!}
-	</div>
-
-	<div class = "form-group">
-		{!! Form:: label('receiver', 'Received By:') !!}
-		{!! Form:: text('receiver',null, ['class'=>'form-control']) !!}
+		{!! Form:: label('user_id', 'Received By:') !!}
+		{!! Form:: select('user_id', [''=>'Choose Options'] + $users ,null, ['class'=>'form-control']) !!}
 	</div>
 
 	<div class = "form-group">

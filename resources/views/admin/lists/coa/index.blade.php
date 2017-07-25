@@ -150,7 +150,7 @@ COA
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             {!! Form:: label('coacategory_id', 'Category:') !!}
-                                            
+                                            {!! Form:: select('coacategory_id', array(1=>'Asset', 2=>'Liability', 3=>'Revenue', 4=>'Expense', 5=>'Equity' ), null, ['class'=>'form-control show-tick']) !!}
                                         </div>
                                     </div>
                                     

@@ -13,40 +13,40 @@ use SoftDeletes;
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        
+        'reference_no', 'date_received', 'received_from', 'document_path', 'user_id', 'client_id', 'document_type_id'
     ];
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
 
-    public function clients()
+    public function client()
     {
         return $this->belongsTo('App\Client');
     }
 
-    public function documentTypes()
+    public function document_type()
     {
         return $this->belongsTo('App\DocumentType');
     }
 
-    public function tasks()
+    public function task()
     {
         return $this->hasMany('App\Task');
     }
 
-    public function journal_infos()
+    public function journal_info()
     {
         return $this->hasMany('App\Journal_Info');
     }
 
-    public function bills()
+    public function bill()
     {
         return $this->hasMany('App\Bill');
     }
 
-    public function invoices()
+    public function invoice()
     {
         return $this->hasMany('App\Invoice');
     }

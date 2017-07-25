@@ -14,12 +14,14 @@ class CreateLogsTable extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('reference_no');
             $table->dateTime('date_received');
             $table->string('received_from');
             $table->string('document_path');
             $table->integer('user_id')->index()->unsigned()->nullable();
             $table->integer('client_id')->index()->unsigned()->nullable();
             $table->integer('document_type_id')->index()->unsigned()->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

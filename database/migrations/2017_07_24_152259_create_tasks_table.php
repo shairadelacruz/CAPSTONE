@@ -20,6 +20,7 @@ class CreateTasksTable extends Migration
             $table->integer('user_id')->index()->unsigned()->nullable();
             $table->integer('client_id')->index()->unsigned()->nullable();
             $table->integer('log_id')->index()->unsigned()->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
