@@ -35,6 +35,11 @@ class Client extends Model
         return $this->belongsToMany('App\User');
     }
 
+    public function Log()
+    {
+        return $this->hasMany('App\Log');
+    }
+
     public function Task()
     {
         return $this->hasMany('App\Task');
@@ -48,5 +53,10 @@ class Client extends Model
     public function vendors(){
 
         return $this->hasMany('App\Vendor');
+    }
+
+    public function Invoice()
+    {
+        return $this->hasMany('App\Invoice');
     }
 }

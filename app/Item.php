@@ -21,4 +21,14 @@ class Item extends Model
 
         return $this->belongsTo('App\Client');
     }
+
+    public function invoiceInfo()
+    {
+        return $this->hasMany('App\Invoice_Info');
+    }
+
+    public function billInfo()
+    {
+        return $this->hasMany('App\Bill_Info');
+    }
 }

@@ -16,32 +16,37 @@ use SoftDeletes;
         
     ];
 
-    public function User()
+    public function users()
     {
         return $this->belongsTo('App\User');
     }
 
-    public function Client()
+    public function clients()
     {
         return $this->belongsTo('App\Client');
     }
 
-    public function Task()
+    public function documentTypes()
+    {
+        return $this->belongsTo('App\DocumentType');
+    }
+
+    public function tasks()
     {
         return $this->hasMany('App\Task');
     }
 
-    public function Journal_Info()
+    public function journal_infos()
     {
         return $this->hasMany('App\Journal_Info');
     }
 
-    public function Bill()
+    public function bills()
     {
         return $this->hasMany('App\Bill');
     }
 
-    public function Invoice()
+    public function invoices()
     {
         return $this->hasMany('App\Invoice');
     }

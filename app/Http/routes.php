@@ -56,36 +56,21 @@ Route::group(['middleware'=>'auth'], function(){
 
 	Route::resource('user/accounting/vat', 'UserVatsController');
 
+    Route::resource('user/accounting/transaction', 'UserTransactionsController');
+
 	Route::resource('user/{client_id}/payable/vendor', 'UserVendorController');
 
 	Route::resource('user/{client_id}/payable/vendor', 'UserVendorController@store');
 
 	Route::resource('user/{client_id}/accounting/coa', 'UserCoasController');
 
+    Route::resource('user/cashdisbursement', 'UserCashDisbursementsController');
+
 });
 
 
 
 
-Route::get('/task', function () {
-    return view('admin.management.task.index');
-});
-
-Route::get('/manage', function () {
-    return view('admin.management.index');
-});
-
-Route::get('/transaction', function () {
-    return view('users.accounting.transaction.index');
-});
-
-Route::get('/transaction/create', function () {
-    return view('users.accounting.transaction.create');
-});
-
-Route::get('/transaction/edit', function () {
-    return view('users.accounting.transaction.edit');
-});
 
 Route::get('/journal', function () {
     return view('users.accounting.journal.index');

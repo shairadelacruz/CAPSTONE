@@ -21,4 +21,9 @@ class Customer extends Model
 
         return $this->belongsTo('App\Client');
     }
+
+    public function invoice()
+    {
+        return $this->hasMany('App\Invoice');
+    }
 }

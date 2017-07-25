@@ -17,4 +17,10 @@ class Vat extends Model
     	'vat_code', 'rate', 'description'
 
     ];
+
+    public function invoiceInfo()
+    {
+        return $this->belongsTo('App\Invoice_Info');
+    }
+
 }

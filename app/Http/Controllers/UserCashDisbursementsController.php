@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Log;
-use App\User;
-use App\Client;
-use App\DocumentType;
+
 use App\Http\Requests;
 
-class AdminLogsController extends Controller
+class UserCashDisbursementsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +16,7 @@ class AdminLogsController extends Controller
     public function index()
     {
         //
-        $logs = Log::all();
-        return view('admin.logs.index');
+         return view('users.cashdisbursement.index');
     }
 
     /**
@@ -31,7 +27,7 @@ class AdminLogsController extends Controller
     public function create()
     {
         //
-         return view('admin.logs.create');
+         return view('users.cashdisbursement.create');
     }
 
     /**
@@ -65,8 +61,7 @@ class AdminLogsController extends Controller
     public function edit($id)
     {
         //
-        $log = Log::findOrFail($id);
-        return view('admin.logs.edit', compact('log'));
+        return view('users.cashdisbursement.edit');
     }
 
     /**
