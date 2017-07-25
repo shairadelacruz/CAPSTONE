@@ -21,7 +21,7 @@ class UserVendorController extends Controller
         //
         $client = Client::find($client_id);
         //$vendors = Vendor::all();
-        $vendors = $client->vendors;
+        $vendors = $client->vendor;
        
         return view('users.payable.vendor.index', compact('vendors'));
         //return $vendors;
@@ -38,7 +38,7 @@ class UserVendorController extends Controller
         //return $client_id;
         $client = Client::find($client_id);
         $vendors = $client->vendors;
-        return view('users.payable.vendor.create', compact('client_id', 'vendors'));
+        return view('users.payable.vendor.create', compact('client_id', 'client'));
     }
 
     /**
@@ -50,10 +50,11 @@ class UserVendorController extends Controller
     public function store(Request $request, $client_id)
     {
         //
-        //Vendor::create($request->all());
+        Vendor::create($request->all());
         //return redirect('/user/{client_id}/payable/vendor');
-       // return redirect(route('users.client_id.payable.vendor', ['client_id' => $client_id]));
-        
+       //return redirect(route('users.client_id.payable.vendor', ['client_id' => $client_id]));
+        $input = $request->all();
+        return $input;
     }
 
     /**

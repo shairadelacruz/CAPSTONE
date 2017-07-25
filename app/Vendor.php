@@ -14,7 +14,7 @@ class Vendor extends Model
 
     protected $fillable = [
 
-    	'name', 'first_name', 'middle_name', 'last_name', 'email', 'address1', 'address2', 'phone', 'mobile'
+    	'name', 'first_name', 'middle_name', 'last_name', 'email', 'address1', 'address2', 'phone', 'mobile', 'client_id'
     ];
 
     public function client(){
