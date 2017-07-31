@@ -51,10 +51,10 @@ class UserVendorController extends Controller
     {
         //
         Vendor::create($request->all());
-        //return redirect('/user/{client_id}/payable/vendor');
-       //return redirect(route('users.client_id.payable.vendor', ['client_id' => $client_id]));
+
         $input = $request->all();
-        return redirect('/user/{client_id}/payable/vendor');
+        //return redirect('/user/{client_id}/payable/vendor');
+        //return redirect(route('users.client_id.payable.vendor', ['client_id' => $client_id]));
     }
 
     /**
@@ -100,9 +100,10 @@ class UserVendorController extends Controller
         $vendor->update($input);
 
         //how do you even return???
-        //$client = $input->client_id->all();
+        $client = $vendor->client_id;
         //return $client;
-        //return redirect('/user/'+ 1 +'/payable/vendor');
+        //return redirect('/user/{client}/payable/vendor', $client);
+        return redirect(route('users.client_id.payable.vendor', ['client_id' => $client]));
     }
 
     /**
@@ -114,5 +115,12 @@ class UserVendorController extends Controller
     public function destroy($id)
     {
         //
+        $vendor = Vendor::findOrFail($id);
+
+        $vendor->delete();
+
+        Session::flash('deleted_vendor','The vendor has been deleted');
+
+        //return redirect('/admin/management/logs');
     }
 }

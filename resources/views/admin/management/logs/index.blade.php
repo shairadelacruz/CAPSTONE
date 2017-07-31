@@ -72,7 +72,7 @@ Log
                                         
                                         <td>
                                             <a href="{{route('admin.management.logs.edit', $log->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#delete{{$log->id}}"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteLog{{$log->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -87,21 +87,18 @@ Log
             @if($logs)
                 @foreach($logs as $log)
             <!-- Delete -->
-            <div class="modal fade" id="delete{{$log->id}}" tabindex="-1" role="dialog">
+            <div class="modal fade" id="deleteLog{{$log->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Delete log entry</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Delete Log</h4><br>
                         </div>
                         <div class="modal-body">
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                        <form>
-                          
-
                             {!! Form::open(['method'=>'DELETE', 'action'=>['AdminLogsController@destroy', $log->id]]) !!}
-                            
+
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
 
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
@@ -111,8 +108,8 @@ Log
                     </div>
                 </div>
             </div>
-           <!--End Delete-->
-                @endforeach
+           <!--End Delete--> 
+           @endforeach
             @endif
            
 

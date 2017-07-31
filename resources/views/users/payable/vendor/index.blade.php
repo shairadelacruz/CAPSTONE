@@ -66,7 +66,7 @@ Vendor
 										
                                         <td>
                                             <a href="vendor/{{$vendor->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deletevendor{{$vendor->id}}"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteVendor{{$vendor->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -79,6 +79,34 @@ Vendor
                 </div>
             </div>
             <!-- #END# Exportable Table -->
+
+            @if($vendors)
+                @foreach($vendors as $vendor)
+            <!-- Delete -->
+            <div class="modal fade" id="deleteVendor{{$vendor->id}}" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Delete Vendor</h4><br>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete?
+                        </div>
+                        <div class="modal-footer">
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserVendorController@destroy', $vendor->id, $vendor->client_id]]) !!}
+
+                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!--End Delete--> 
+           @endforeach
+            @endif
 
 
         </div>
