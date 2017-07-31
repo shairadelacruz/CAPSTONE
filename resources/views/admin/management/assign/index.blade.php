@@ -39,33 +39,31 @@ Client Assignment
                                 <thead>
                                     <tr>
                                         <th>Company Name</th>
-                                        <th>Assigned Team</th>
-                                        <th>Team Members</th>
+                                        <th>Employees</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Company Name</th>
-                                        <th>Assigned Team</th>
-                                        <th>Team Members</th>
+                                        <th>Employees</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <tr>
-                                        <td>Armed Detective Agency</td>
-                                        <td>Japanese Imperial Demon Army</td>
-                                        <td><button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewMembers">View Members</button></td>     
+                                        <td>Detective Agency</td>
+                                    
+                                        <td><button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewMembers">View Employees</button></td>     
                                         <td>
                                             <a href="" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteLogEntry"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Port Mafia</td>
-                                        <td>The Sawamuras</td>
-                                        <td><button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewMembers">View Members</button></td>     
+                                        <td>Port Ma</td>
+                
+                                        <td><button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewMembers">View Employees</button></td>     
                                         <td>
                                             <a href="" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteLogEntry"><i class="material-icons">delete</i></button>
@@ -109,10 +107,12 @@ Client Assignment
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Team Members</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Assigned Employees</h4><br>
                         </div>
                         <div class="modal-body">
-                            Sawamura Eijun, Sawamura Daichi
+                            John Doe<br>
+                            Tom Smith<br>
+                            Jennifer McDonald
                         </div>
                         <div class="modal-footer">
                         <form>

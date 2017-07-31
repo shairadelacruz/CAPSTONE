@@ -65,7 +65,7 @@ Vendor
 										<td>{{$vendor->balance}}</td>
 										
                                         <td>
-                                            <a href="#" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
+                                            <a href="vendor/{{$vendor->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deletevendor{{$vendor->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>

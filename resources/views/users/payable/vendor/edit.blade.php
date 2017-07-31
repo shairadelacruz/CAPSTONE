@@ -8,8 +8,9 @@ Vendors
 
 @section('content')
 
-
-	{!! Form::model($vendor,['method'=>'PATCH', 'action'=>['AdminVendorsController@update', $vendor->id]]) !!}
+<h1>Edit Vendor</h1>
+	{!! Form::model($vendor,['method'=>'PATCH', 'action'=>['UserVendorController@update',
+    $client_id,$vendor->id]]) !!}
 		<div class="form-group form-float">
             <div class="form-line">
                 {!! Form:: label('name', 'Vendor Name:') !!}
@@ -71,7 +72,7 @@ Vendors
 
         <div class="form-group form-float">
             <div class="form-line">
-				{!! Form:: submit('Create Client', ['class'=>'btn btn-primary']) !!}
+				{!! Form:: submit('Edit Client', ['class'=>'btn btn-primary']) !!}
             </div>
         </div>
 

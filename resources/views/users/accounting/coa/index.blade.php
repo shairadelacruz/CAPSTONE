@@ -56,7 +56,7 @@ COA
                                     @if($coas)
                                     @foreach($coas as $coa)
                                     <tr>
-                                        <td>{{$coa->category}}</td>
+                                        <td>{{$coa->coacategory->name}}</td>
                                         <td>{{$coa->name}}</td>
                                         <td>{{$coa->description}}</td>  
                                         <td>

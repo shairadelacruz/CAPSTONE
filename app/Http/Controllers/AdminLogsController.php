@@ -20,6 +20,7 @@ class AdminLogsController extends Controller
     {
         //
         $logs = Log::all();
+        //$date = $log->date_received->toDateString();
         return view('admin.management.logs.index', compact('logs'));
     }
 
@@ -72,11 +73,12 @@ class AdminLogsController extends Controller
     {
         //
         $log = Log::findOrFail($id);
+        $date = $log->date_received->toDateString();
         $documents = DocumentType::lists('name', 'id')->all();
         $clients = Client::lists('company_name', 'id')->all();
         $users = User::lists('name', 'id')->all();
         //$roles = Role::lists('name', 'id')->all();
-        return view('admin.management.logs.edit', compact('log','documents', 'clients', 'users'));
+        return view('admin.management.logs.edit', compact('log','date','documents', 'clients', 'users'));
     }
 
     /**
@@ -93,9 +95,9 @@ class AdminLogsController extends Controller
 
         $input = $request->all();
 
-        //$log->update($input);
-        return $input;
-        //return redirect('/admin/management/logs');
+        $log->update($input);
+        //return $input;
+        return redirect('/admin/management/logs');
     }
 
     /**
@@ -110,6 +112,8 @@ class AdminLogsController extends Controller
         $log = Log::findOrFail($id);
 
         $log->delete();
+
+        //return $id;
 
         Session::flash('deleted_log','The log has been deleted');
 

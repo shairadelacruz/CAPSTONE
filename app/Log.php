@@ -10,7 +10,7 @@ class Log extends Model
     //
 use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'date_received'];
 
     protected $fillable = [
         'reference_no', 'date_received', 'received_from', 'document_path', 'user_id', 'client_id', 'document_type_id'

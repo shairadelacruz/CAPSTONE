@@ -54,7 +54,7 @@ class UserVendorController extends Controller
         //return redirect('/user/{client_id}/payable/vendor');
        //return redirect(route('users.client_id.payable.vendor', ['client_id' => $client_id]));
         $input = $request->all();
-        return $input;
+        return redirect('/user/{client_id}/payable/vendor');
     }
 
     /**
@@ -74,9 +74,13 @@ class UserVendorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($client_id, $id)
     {
         //
+        $client = Client::findOrFail($client_id);
+        $vendor = Vendor::findOrFail($id);
+
+        return view('users.payable.vendor.edit', compact('client_id','client', 'vendor'));
     }
 
     /**
@@ -89,6 +93,16 @@ class UserVendorController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $vendor = Vendor::findOrFail($id);
+
+        $input = $request->all();
+
+        $vendor->update($input);
+
+        //how do you even return???
+        //$client = $input->client_id->all();
+        //return $client;
+        //return redirect('/user/'+ 1 +'/payable/vendor');
     }
 
     /**

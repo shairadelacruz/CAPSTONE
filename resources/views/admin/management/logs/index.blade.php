@@ -64,7 +64,7 @@ Log
                                     @if($logs)
                                     @foreach($logs as $log)
                                     <tr>
-                                        <td>{{$log->date_received}}</td>
+                                        <td>{{$log->date_received->toDateString()}}</td>
                                         <td>{{$log->document_type->name}}</td>
                                         <td>{{$log->client->company_name}}</td>
                                         <td>{{$log->user->name}}</td>

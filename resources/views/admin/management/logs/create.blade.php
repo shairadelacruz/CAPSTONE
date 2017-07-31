@@ -16,10 +16,11 @@ Log
 		{!! Form:: label('reference_no', 'Reference No:') !!}
 		{!! Form:: text('reference_no',null, ['class'=>'form-control']) !!}
 	</div>
+	
 
 	<div class = "form-group">
 		{!! Form:: label('date_received', 'Date Received:') !!}
-		{!! Form:: date('date_received',null, ['class'=>'form-control datepicker']) !!}
+		{!! Form:: date('date_received',\Carbon\Carbon::now(), ['class'=>'form-control datepicker']) !!}
 	</div>
 
 	<div class = "form-group">
@@ -42,6 +43,13 @@ Log
 		{!! Form:: label('user_id', 'Received By:') !!}
 		{!! Form:: select('user_id', [''=>'Choose Options'] + $users ,null, ['class'=>'form-control']) !!}
 	</div>
+
+	<div class = "form-group">
+		{!! Form:: label('photo_id', 'Photo:') !!}
+		{!! Form:: file('photo_id',null, ['class'=>'form-control']) !!}
+
+	</div>
+
 
 	<div class = "form-group">
 		{!! Form:: submit('Save', ['class'=>'btn btn-primary']) !!}

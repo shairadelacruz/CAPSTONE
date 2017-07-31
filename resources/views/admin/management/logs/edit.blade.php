@@ -10,7 +10,7 @@ Log
 
 <h1>Edit Log Entry</h1>
 
-{!! Form::model($log,['method'=>'PATCH', 'action'=>['AdminClientsController@update', $log->id]]) !!}
+{!! Form::model($log,['method'=>'PATCH', 'action'=>['AdminLogsController@update', $log->id]]) !!}
 
 	<div class = "form-group">
 		{!! Form:: label('reference_no', 'Reference No:') !!}
@@ -19,7 +19,7 @@ Log
 
 	<div class = "form-group">
 		{!! Form:: label('date_received', 'Date Received:') !!}
-		{!! Form:: date('date_received',null, ['class'=>'form-control datepicker']) !!}
+		{!! Form:: date('date_received',$date, ['class'=>'form-control datepicker']) !!}
 	</div>
 
 	<div class = "form-group">

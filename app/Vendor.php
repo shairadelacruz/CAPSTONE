@@ -21,4 +21,15 @@ class Vendor extends Model
 
         return $this->belongsTo('App\Client');
     }
+
+    public function bill(){
+
+        return $this->hasMany('App\Bill');
+    }
+
+    public function journal(){
+
+        return $this->hasMany('App\Journal');
+    }
+
 }
