@@ -10,9 +10,9 @@ Customer
 
 <h1>Create Customer</h1>
         
-    {!! Form::open(['method'=>'POST', 'action'=>'UserVendorController@store']) !!}
+    {!! Form::open(['method'=>'POST', 'action'=>['UserCustomerController@store', $client_id]]) !!}
     
-    {!! Form:: hidden('client_id', 'Client:') !!}    
+    {!! Form:: hidden('client_id', $client_id) !!}      
         
 		<div class="form-group form-float">
             <div class="form-line">

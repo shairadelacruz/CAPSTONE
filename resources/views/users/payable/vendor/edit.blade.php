@@ -72,7 +72,7 @@ Vendors
 
         <div class="form-group form-float">
             <div class="form-line">
-				{!! Form:: submit('Edit Client', ['class'=>'btn btn-primary']) !!}
+				{!! Form:: submit('Edit Vendor', ['class'=>'btn btn-primary']) !!}
             </div>
         </div>
 

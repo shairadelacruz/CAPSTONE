@@ -61,8 +61,14 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::resource('user/{client_id}/payable/vendor', 'UserVendorController');
 
 	Route::resource('user/{client_id}/payable/vendor/create', 'UserVendorController@create');
+
     Route::resource('user/{client_id}/payable/vendor/edit', 'UserVendorController@edit');
 
+    Route::resource('user/{client_id}/receivable/customer', 'UserCustomerController');
+
+    Route::resource('user/{client_id}/receivable/customer/create', 'UserCustomerController@create');
+
+    Route::resource('user/{client_id}/receivable/customer/edit', 'UserCustomerController@edit');
     
 
 	Route::resource('user/{client_id}/accounting/coa', 'UserCoasController');

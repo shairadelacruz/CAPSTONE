@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-
+use App\Customer;
+use App\Client;
 use App\Http\Requests;
 
 class UserCustomerController extends Controller
@@ -13,9 +15,15 @@ class UserCustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($client_id)
     {
         //
+        $client = Client::find($client_id);
+
+        $customers = $client->customer;
+       
+        return view('users.receivable.customer.index', compact('customers'));
+        //return $customers;
     }
 
     /**
@@ -23,9 +31,13 @@ class UserCustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($client_id)
     {
         //
+        //return $client_id;
+        $client = Client::find($client_id);
+        $customers = $client->customers;
+        return view('users.receivable.customer.create', compact('client_id', 'client'));
     }
 
     /**
@@ -34,9 +46,13 @@ class UserCustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $client_id)
     {
         //
+        Customer::create($request->all());
+
+        $input = $request->all();
+        //return $input;
     }
 
     /**
@@ -56,9 +72,14 @@ class UserCustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($client_id, $id)
     {
         //
+        $client = Client::findOrFail($client_id);
+
+        $customer = Customer::findOrFail($id);
+
+        return view('users.receivable.customer.edit', compact('client_id','client', 'customer'));
     }
 
     /**
@@ -71,6 +92,17 @@ class UserCustomerController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $customer = Customer::findOrFail($id);
+
+        $input = $request->all();
+
+        $customer->update($input);
+
+        //how do you even return???
+       // $client = $customer->client_id;
+
+        //return redirect(route('users.client_id.receivable.customer', ['client_id' => $client]));
+
     }
 
     /**
@@ -82,5 +114,10 @@ class UserCustomerController extends Controller
     public function destroy($id)
     {
         //
+        $customer = Customer::findOrFail($id);
+
+        $customer->delete();
+
+        Session::flash('deleted_customer','The customer has been deleted');
     }
 }
