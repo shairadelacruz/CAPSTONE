@@ -35,6 +35,8 @@ Route::group(['middleware'=>'admin'], function(){
 
 	Route::resource('admin/lists/coa', 'AdminCoasController');
 
+    Route::resource('admin/lists/vat', 'AdminVatsController');
+
     Route::resource('admin/management/logs', 'AdminLogsController');
 
     Route::resource('admin/management/assign', 'AdminClientUserController');
@@ -43,16 +45,7 @@ Route::group(['middleware'=>'admin'], function(){
 
 });
 
-	/*Route::get('user/client/{client_id}/payable/vendor', function($client_id){
-
-		$client_id = App\Client
-		return view (users.payable.vendor);
-	});*/
-
-
 Route::group(['middleware'=>'auth'], function(){
-
-	Route::resource('admin/lists/vat', 'AdminVatsController');
 
 	Route::resource('user/accounting/vat', 'UserVatsController');
 
@@ -69,6 +62,13 @@ Route::group(['middleware'=>'auth'], function(){
     Route::resource('user/{client_id}/receivable/customer/create', 'UserCustomerController@create');
 
     Route::resource('user/{client_id}/receivable/customer/edit', 'UserCustomerController@edit');
+
+
+    Route::resource('user/{client_id}/receivable/item', 'UserItemsController');
+
+    Route::resource('user/{client_id}/receivable/item/create', 'UserItemsController@create');
+
+    Route::resource('user/{client_id}/receivable/item/edit', 'UserItemsController@edit');
     
 
 	Route::resource('user/{client_id}/accounting/coa', 'UserCoasController');

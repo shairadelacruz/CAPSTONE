@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.admin')
 
 @section('page_title')
 
@@ -9,8 +9,11 @@ Vendors
 @section('content')
 
 <h1>Edit Vendor</h1>
-	{!! Form::model($vendor,['method'=>'PATCH', 'action'=>['UserVendorController@update',
-    $client_id,$vendor->id]]) !!}
+	{!! Form::model($vendor,['method'=>'PATCH', 'action'=>['UserVendorController@update',$vendor->id,
+    $client_id]]) !!}
+
+        {!! Form:: hidden('client_id', $client_id) !!} 
+
 		<div class="form-group form-float">
             <div class="form-line">
                 {!! Form:: label('name', 'Vendor Name:') !!}

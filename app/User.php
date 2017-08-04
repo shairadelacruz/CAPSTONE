@@ -68,6 +68,14 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Client');
     }
 
+    public function assignClient(/*Role*/ $client){
+
+        return $this->clients()->save(
+
+            Client::whereName($client)->firstOrFail()
+        );
+    }
+
     public function logs(){
 
         return $this->hasMany('App\Log');

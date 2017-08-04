@@ -35,6 +35,14 @@ class Client extends Model
         return $this->belongsToMany('App\User');
     }
 
+    public function assignUser(/*Role*/ /*$user*/){
+
+        return $this->users()->save(
+
+            User::whereName($user)->firstOrFail()
+        );
+    }
+
     public function log()
     {
         return $this->hasMany('App\Log');
@@ -57,6 +65,11 @@ class Client extends Model
     public function customer()
     {
         return $this->hasMany('App\Customer');
+    }
+
+    public function item(){
+
+        return $this->hasMany('App\Item');
     }
 
     public function invoice()

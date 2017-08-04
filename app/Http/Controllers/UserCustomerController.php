@@ -98,10 +98,9 @@ class UserCustomerController extends Controller
 
         $customer->update($input);
 
-        //how do you even return???
-       // $client = $customer->client_id;
-
-        //return redirect(route('users.client_id.receivable.customer', ['client_id' => $client]));
+        //echo $input;
+        // $client = $customer->client_id;
+        //return redirect('/admin/users');
 
     }
 

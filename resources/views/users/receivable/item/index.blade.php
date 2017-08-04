@@ -1,8 +1,8 @@
-@extends('layouts.user')
+@extends('layouts.admin')
 
 @section('page_title')
 
-Products and Services
+Items
 
 @endsection
 
@@ -18,7 +18,7 @@ Products and Services
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Products and Services
+                                Items
                             </h2><br>
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -85,7 +85,7 @@ Products and Services
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Delete an Account</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Delete an Item</h4><br>
                         </div>
                         <div class="modal-body">
                             Are you sure you want to delete?

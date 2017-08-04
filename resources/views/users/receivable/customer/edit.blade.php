@@ -1,16 +1,17 @@
-@extends('layouts.user')
+@extends('layouts.admin')
 
 @section('page_title')
 
-Customer
+Customers
 
 @endsection
 
 @section('content')
 
+<h1>Edit Customer</h1>
 
-    {!! Form::model($customer,['method'=>'PATCH', 'action'=>['UserCustomerController@update',
-    $client_id, $customer->id]]) !!}
+    {!! Form::model($customer,['method'=>'PATCH', 'action'=>['UserCustomerController@update',$customer->id,
+    $client_id]]) !!}
 		<div class="form-group form-float">
             <div class="form-line">
                 {!! Form:: label('name', 'Customer Name:') !!}

@@ -53,6 +53,7 @@ class UserVendorController extends Controller
         Vendor::create($request->all());
 
         $input = $request->all();
+        //return "hi";
         //return redirect('/user/{client_id}/payable/vendor');
         //return redirect(route('users.client_id.payable.vendor', ['client_id' => $client_id]));
     }
@@ -101,9 +102,11 @@ class UserVendorController extends Controller
 
         //how do you even return???
         $client = $vendor->client_id;
+
+        return "hi";
         //return $client;
         //return redirect('/user/{client}/payable/vendor', $client);
-        return redirect(route('users.client_id.payable.vendor', ['client_id' => $client]));
+        //return redirect(route('users.client_id.payable.vendor', ['client_id' => $client]));
     }
 
     /**

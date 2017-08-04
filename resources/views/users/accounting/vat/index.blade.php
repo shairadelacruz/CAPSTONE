@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.admin')
 
 @section('page_title')
 
@@ -61,12 +61,11 @@ VAT
                                         <td>{{$vat->rate}}</td>
                                         <td>{{$vat->description}}</td>  
                                         <td>
-                                        @can('edit')
+                                        
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editVAT{{$vat->id}}"><i class="material-icons">create</i></button>
-                                        @endcan
-                                        @can('delete')
+                                        
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteVAT{{$vat->id}}"><i class="material-icons">delete</i></button>
-                                        @endcan
+                                        
                                         </td>
                                     </tr>
                                     @endforeach
@@ -91,7 +90,7 @@ VAT
                             
                             <div class="row clearfix">
 
-                                    {!! Form::open(['method'=>'POST', 'action'=>'AdminVatsController@store']) !!}
+                                    {!! Form::open(['method'=>'POST', 'action'=>'UserVatsController@store']) !!}
                                 
                                     <div class="form-group form-float">
                                         <div class="form-line">
@@ -141,7 +140,7 @@ VAT
                         <div class="modal-body">
                             
                             <div class="row clearfix">
-                                {!! Form::model($vat,['method'=>'PATCH', 'action'=>['AdminVatsController@update', $vat->id]]) !!}
+                                {!! Form::model($vat,['method'=>'PATCH', 'action'=>['UserVatsController@update', $vat->id]]) !!}
                                 
                                     <div class="form-group form-float">
                                         <div class="form-line">
@@ -190,7 +189,7 @@ VAT
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminVatsController@destroy', $vat->id]]) !!}
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserVatsController@destroy', $vat->id]]) !!}
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
 
