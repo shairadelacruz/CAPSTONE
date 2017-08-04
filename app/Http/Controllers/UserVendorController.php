@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Vendor;
 use App\Client;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
 
 
 class UserVendorController extends Controller
@@ -53,7 +54,8 @@ class UserVendorController extends Controller
         Vendor::create($request->all());
 
         $input = $request->all();
-        //return "hi";
+        
+        return \Redirect::route('vendor', [$client_id]);
         //return redirect('/user/{client_id}/payable/vendor');
         //return redirect(route('users.client_id.payable.vendor', ['client_id' => $client_id]));
     }
@@ -100,10 +102,11 @@ class UserVendorController extends Controller
 
         $vendor->update($input);
 
-        //how do you even return???
-        $client = $vendor->client_id;
+    
+        $client_id = $vendor->client_id;
 
-        return "hi";
+        return \Redirect::route('vendor', [$client_id]);
+        //return \Redirect::route('vendor', [$client_id])->with('message', 'State saved correctly!!!');
         //return $client;
         //return redirect('/user/{client}/payable/vendor', $client);
         //return redirect(route('users.client_id.payable.vendor', ['client_id' => $client]));

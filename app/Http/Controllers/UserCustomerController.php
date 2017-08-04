@@ -52,7 +52,8 @@ class UserCustomerController extends Controller
         Customer::create($request->all());
 
         $input = $request->all();
-        //return $input;
+        
+        return \Redirect::route('customer', [$client_id]);
     }
 
     /**
@@ -98,9 +99,9 @@ class UserCustomerController extends Controller
 
         $customer->update($input);
 
-        //echo $input;
-        // $client = $customer->client_id;
-        //return redirect('/admin/users');
+        $client_id = $customer->client_id;
+
+        return \Redirect::route('customer', [$client_id]);
 
     }
 

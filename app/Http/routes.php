@@ -51,13 +51,23 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/accounting/transaction', 'UserTransactionsController');
 
+    Route::resource('user/{client_id}/accounting/coa', 'UserCoasController');
+
+    Route::resource('user/{client_id}/accounting/coa/create', 'UserCoasController@create');
+
+    Route::resource('user/{client_id}/accounting/coa/edit', 'UserCoasController@edit');
+
 	Route::resource('user/{client_id}/payable/vendor', 'UserVendorController');
+
+    Route::get('user/{client_id}/payable/vendor', ['as' => 'vendor', 'uses' => 'UserVendorController@index']);
 
 	Route::resource('user/{client_id}/payable/vendor/create', 'UserVendorController@create');
 
     Route::resource('user/{client_id}/payable/vendor/edit', 'UserVendorController@edit');
 
     Route::resource('user/{client_id}/receivable/customer', 'UserCustomerController');
+
+    Route::get('user/{client_id}/receivable/customer', ['as' => 'customer', 'uses' => 'UserCustomerController@index']);
 
     Route::resource('user/{client_id}/receivable/customer/create', 'UserCustomerController@create');
 
@@ -71,7 +81,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::resource('user/{client_id}/receivable/item/edit', 'UserItemsController@edit');
     
 
-	Route::resource('user/{client_id}/accounting/coa', 'UserCoasController');
+
 
     Route::resource('users/cashdisbursement', 'UserCashDisbursementsController');
 
