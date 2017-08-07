@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->dateTime('deadline');
             $table->string('name');
             $table->string('description');
+            $table->integer('status')->default(0);
             $table->integer('user_id')->index()->unsigned()->nullable();
             $table->integer('client_id')->index()->unsigned()->nullable();
             $table->integer('log_id')->index()->unsigned()->nullable();

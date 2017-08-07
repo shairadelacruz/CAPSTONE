@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-
+use App\Task;
+use App\Log;
+use App\User;
+use App\Client;
 use App\Http\Requests;
 
 class AdminTasksController extends Controller
@@ -16,7 +20,8 @@ class AdminTasksController extends Controller
     public function index()
     {
         //
-        return view('admin.management.task.index');
+        $tasks = Task::all();
+        return view('admin.management.task.index',compact('tasks'));
     }
 
     /**
@@ -27,7 +32,11 @@ class AdminTasksController extends Controller
     public function create()
     {
         //
-        return view('admin.management.task.create');
+        $logs = Log::pluck('reference_no', 'id')->all();
+        $clients = Client::pluck('company_name', 'id')->all();
+        $users = User::pluck('name', 'id')->all();
+
+        return view('admin.management.task.create', compact('documents', 'clients', 'users', 'logs'));
     }
 
     /**
@@ -39,6 +48,8 @@ class AdminTasksController extends Controller
     public function store(Request $request)
     {
         //
+        Task::create($request->all());
+        return redirect('/admin/management/task');
     }
 
     /**
@@ -63,6 +74,17 @@ class AdminTasksController extends Controller
     public function edit($id)
     {
         //
+        $task = Task::findOrFail($id);
+
+        $date = $task->deadline->toDateString();
+
+        $logs = Log::lists('reference_no', 'id')->all();
+
+        $clients = Client::lists('company_name', 'id')->all();
+
+        $users = User::lists('name', 'id')->all();
+
+        return view('admin.management.task.edit', compact('task','date','logs', 'clients', 'users'));
     }
 
     /**
@@ -75,6 +97,13 @@ class AdminTasksController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $task = Task::findOrFail($id);
+
+        $input = $request->all();
+
+        $task->update($input);
+
+        return redirect('/admin/management/task');
     }
 
     /**
@@ -86,5 +115,12 @@ class AdminTasksController extends Controller
     public function destroy($id)
     {
         //
+        $task = Task::findOrFail($id);
+
+        $task->delete();
+
+        Session::flash('deleted_task','The task has been deleted');
+
+        return redirect('/admin/management/task');
     }
 }
