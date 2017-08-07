@@ -202,7 +202,7 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">list</i>
+                            <i class="material-icons">assignment</i>
                             <span>Management</span>
                         </a>
                         <ul class="ml-menu">
@@ -224,13 +224,16 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="{{route('admin.lists.business.index')}}">Industry Types</a>
-                            </li>
-                            <li>
                                 <a href="{{route('admin.lists.coa.index')}}">Chart of Accounts</a>
                             </li>
                             <li>
                                 <a href="{{route('admin.lists.vat.index')}}">VAT Codes</a>
+                            </li>
+                            <li>
+                                <a href="{{route('admin.lists.business.index')}}">Industry Types</a>
+                            </li>
+                            <li>
+                                <a href="{{route('admin.lists.document.index')}}">Document Types</a>
                             </li>
 
                         </ul>

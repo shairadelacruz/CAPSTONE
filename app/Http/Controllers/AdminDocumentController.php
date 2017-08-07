@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use App\Business;
+use App\DocumentType;
 use App\Http\Requests;
 
-class AdminBusinessesController extends Controller
+class AdminDocumentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class AdminBusinessesController extends Controller
     public function index()
     {
         //
-        $businesses = Business::all();
-         return view('admin.lists.business.index', compact('businesses'));
+        $documents = DocumentType::all();
+         return view('admin.lists.document.index', compact('documents'));
     }
 
     /**
@@ -29,7 +29,7 @@ class AdminBusinessesController extends Controller
     public function create()
     {
         //
-        return view('admin.lists.business.index');
+        return view('admin.lists.document.index');
     }
 
     /**
@@ -45,8 +45,8 @@ class AdminBusinessesController extends Controller
         'name' => 'required',
         ]);
 
-        Business::create($request->all());
-        return redirect('/admin/lists/business');
+        DocumentType::create($request->all());
+        return redirect('/admin/lists/document');
     }
 
     /**
@@ -69,8 +69,8 @@ class AdminBusinessesController extends Controller
     public function edit($id)
     {
         //
-        $business = Business::findOrFail($id);
-        return view('admin.lists.business.index', compact('business'));
+        $document = DocumentType::findOrFail($id);
+        return view('admin.lists.document.index', compact('document'));
     }
 
     /**
@@ -83,10 +83,10 @@ class AdminBusinessesController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $business = Business::findOrFail($id);
+        $document = DocumentType::findOrFail($id);
         $input = $request->all();
-        $business->update($input);
-        return redirect('/admin/lists/business');
+        $document->update($input);
+        return redirect('/admin/lists/document');
     }
 
     /**
@@ -98,12 +98,12 @@ class AdminBusinessesController extends Controller
     public function destroy($id)
     {
         //
-        $business = Business::findOrFail($id);
+        $document = DocumentType::findOrFail($id);
 
-        $business->delete();
+        $document->delete();
 
-        Session::flash('deleted_business','The industry type has been deleted');
+        Session::flash('deleted_document','The document type has been deleted');
 
-        return redirect('/admin/lists/business');
+        return redirect('/admin/lists/document');
     }
 }
