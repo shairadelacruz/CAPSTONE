@@ -118,7 +118,7 @@ class UserVendorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $client_id)
     {
         //
         $vendor = Vendor::findOrFail($id);
@@ -127,6 +127,6 @@ class UserVendorController extends Controller
 
         Session::flash('deleted_vendor','The vendor has been deleted');
 
-        //return redirect('/admin/management/logs');
+        return \Redirect::route('vendor', [$client_id]);
     }
 }

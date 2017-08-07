@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemsTable extends Migration
+class CreateJournalHeadersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,12 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('journal_headers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('client_id')->index()->unsigned();
-            $table->string('name');
+            $table->string('transaction_no');
+            $table->date('date');
             $table->string('description');
-            $table->double('price');
-            $table->integer('coa_id');
-            $table->integer('vat_id');
-            $table->softDeletes();
+            $table->integer('client_id');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('items');
+        Schema::drop('journal_headers');
     }
 }

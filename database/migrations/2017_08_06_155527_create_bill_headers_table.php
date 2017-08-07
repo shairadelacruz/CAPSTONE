@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInvoiceInfosTable extends Migration
+class CreateBillHeadersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateInvoiceInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoice__infos', function (Blueprint $table) {
+        Schema::create('bill_headers', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ class CreateInvoiceInfosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('invoice__infos');
+        Schema::drop('bill_headers');
     }
 }

@@ -50,6 +50,8 @@ class AdminClientsController extends Controller
         Client::create($request->all());
         
         return redirect('/admin/clients');
+
+        
     }
 
     /**

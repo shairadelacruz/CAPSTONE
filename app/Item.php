@@ -14,12 +14,17 @@ class Item extends Model
 
     protected $fillable = [
 
-    	'name', 'price'
+    	'name', 'price', 'description', 'coa_id', 'vat_id', 'client_id'
     ];
 
     public function client(){
 
         return $this->belongsTo('App\Client');
+    }
+
+    public function coa(){
+
+        return $this->belongsTo('App\Coa');
     }
 
     public function invoiceInfo()

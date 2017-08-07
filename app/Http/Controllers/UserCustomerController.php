@@ -111,7 +111,7 @@ class UserCustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $client_id)
     {
         //
         $customer = Customer::findOrFail($id);
@@ -119,5 +119,7 @@ class UserCustomerController extends Controller
         $customer->delete();
 
         Session::flash('deleted_customer','The customer has been deleted');
+
+        return \Redirect::route('customer', [$client_id]);
     }
 }

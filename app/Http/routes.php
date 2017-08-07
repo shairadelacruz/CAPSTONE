@@ -76,6 +76,8 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/{client_id}/receivable/item', 'UserItemsController');
 
+    Route::get('user/{client_id}/receivable/item', ['as' => 'item', 'uses' => 'UserItemsController@index']);
+
     Route::resource('user/{client_id}/receivable/item/create', 'UserItemsController@create');
 
     Route::resource('user/{client_id}/receivable/item/edit', 'UserItemsController@edit');
