@@ -207,6 +207,9 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
+                                <a href="{{route('admin.management.team.index')}}">Team Assignment</a>
+                            </li>
+                            <li>
                                 <a href="{{route('admin.management.assign.index')}}">Client Assignment</a>
                             </li>
                             <li>

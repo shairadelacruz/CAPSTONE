@@ -76,6 +76,16 @@ class User extends Authenticatable
         );
     }
 
+    public function team()
+    {
+        return $this->belongsTo('App\Team');
+    }
+
+   /* public function team()
+    {
+        return $this->hasOne('App\Team');
+    }*/
+
     public function logs(){
 
         return $this->hasMany('App\Log');

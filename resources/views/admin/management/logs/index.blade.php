@@ -7,6 +7,7 @@ Log
 @endsection
 
 @extends('includes.table_includes');
+@extends('includes.gallery_includes');
 
 @section('content')
 
@@ -42,9 +43,10 @@ Log
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable" da>
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
                                         <th>Document</th>
-                                        <th>Business</th>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Client</th>
                                         <th>Received From</th>
                                         <th>Received By</th>
                                         <th>Action</th>
@@ -52,9 +54,10 @@ Log
                                 </thead>
                                 <tfoot>                         
                                     <tr>
-                                        <th>Date</th>
                                         <th>Document</th>
-                                        <th>Business</th>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Client</th>
                                         <th>Received From</th>
                                         <th>Received By</th>
                                         <th>Action</th>
@@ -64,6 +67,11 @@ Log
                                     @if($logs)
                                     @foreach($logs as $log)
                                     <tr>
+                                    
+
+                                        <td><a href="{{asset('images/' . $log->document_path) }}" data-sub-html="Demo Description">
+                                        <img class="img-responsive" src="{{asset('images/' . $log->document_path) }}" alt="" class="img-responsive" width="75">
+                                        </a></td>
                                         <td>{{$log->date_received->toDateString()}}</td>
                                         <td>{{$log->document_type->name}}</td>
                                         <td>{{$log->client->company_name}}</td>

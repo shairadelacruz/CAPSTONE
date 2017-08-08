@@ -39,9 +39,11 @@ Route::group(['middleware'=>'admin'], function(){
 
     Route::resource('admin/lists/document', 'AdminDocumentController');
 
-    Route::resource('admin/management/logs', 'AdminLogsController');
-
     Route::resource('admin/management/assign', 'AdminClientUserController');
+
+    Route::resource('admin/management/team', 'AdminTeamsController');
+
+    Route::resource('admin/management/logs', 'AdminLogsController');
 
     Route::resource('admin/management/task', 'AdminTasksController');
 

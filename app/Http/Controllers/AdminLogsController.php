@@ -47,9 +47,23 @@ class AdminLogsController extends Controller
      */
     public function store(Request $request)
     {
-        //     
+        //  
+        $input = $request->all(); 
 
-        Log::create($request->all());
+        if($request->file('document_path')) {
+
+            $file = $request->file('document_path');
+            $name = time() . $file->getClientOriginalName();
+            //$file = $request->file('document_path');
+            //$file->move('images', $name);
+            $file->move(public_path().'/images/',$name);
+            $input['document_path'] = $name;
+        }  
+
+
+        Log::create($input);
+
+        //Log::create($request->all());
         return redirect('/admin/management/logs');
     }
 
@@ -95,6 +109,16 @@ class AdminLogsController extends Controller
         $log = Log::findOrFail($id);
 
         $input = $request->all();
+
+        if($request->file('document_path')) {
+
+            $file = $request->file('document_path');
+            $name = time() . $file->getClientOriginalName();
+            //$file = $request->file('document_path');
+            //$file->move('images', $name);
+            $file->move(public_path().'/images/',$name);
+            $input['document_path'] = $name;
+        }  
 
         $log->update($input);
         //return $input;

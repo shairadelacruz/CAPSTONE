@@ -10,7 +10,7 @@ Log
 
 <h1>Create Log Entry</h1>
 
-	{!! Form::open(['method'=>'POST', 'action'=>'AdminLogsController@store']) !!}
+	{!! Form::open(['method'=>'POST', 'action'=>'AdminLogsController@store', 'files'=>true]) !!}
 
 	<div class = "form-group">
 		{!! Form:: label('reference_no', 'Reference No:') !!}
@@ -45,8 +45,8 @@ Log
 	</div>
 
 	<div class = "form-group">
-		{!! Form:: label('photo_id', 'Photo:') !!}
-		{!! Form:: file('photo_id',null, ['class'=>'form-control']) !!}
+		{!! Form:: label('document_path', 'Document:') !!}
+		{!! Form:: file('document_path',null, ['class'=>'form-control']) !!}
 
 	</div>
 
