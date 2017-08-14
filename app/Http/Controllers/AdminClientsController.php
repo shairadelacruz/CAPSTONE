@@ -7,6 +7,8 @@ use App\Http\Requests\ClientsEditRequest;
 use App\Http\Requests\ClientsRequest;
 use Illuminate\Http\Request;
 use App\Client;
+use App\User;
+use App\Role;
 use App\Http\Requests;
 
 
@@ -48,6 +50,10 @@ class AdminClientsController extends Controller
         //
 
         Client::create($request->all());
+
+        $client = Client::latest()->first();
+
+        $client->assignAdmin();
         
         return redirect('/admin/clients');
 

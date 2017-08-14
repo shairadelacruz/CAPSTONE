@@ -85,11 +85,13 @@ Route::group(['middleware'=>'auth'], function(){
     Route::resource('user/{client_id}/receivable/item/create', 'UserItemsController@create');
 
     Route::resource('user/{client_id}/receivable/item/edit', 'UserItemsController@edit');
-    
 
+    Route::resource('user/{client_id}/receivable/invoice', 'UserInvoicesController');
 
+    Route::get('user/{client_id}/receivable/invoice', ['as' => 'invoice', 'uses' => 'UserInvoicesController@index']);
 
     Route::resource('users/cashdisbursement', 'UserCashDisbursementsController');
+    Route::resource('user/{client_id}/documents', 'UserDocumentsController');
 
 });
 

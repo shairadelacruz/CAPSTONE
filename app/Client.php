@@ -35,13 +35,23 @@ class Client extends Model
         return $this->belongsToMany('App\User');
     }
 
-    public function assignUser(/*Role*/ /*$user*/){
+    public function assignAdmin(/*$user*/){
+
+        return $this->users()->save(
+
+            //User::where($user)->firstOrFail()
+            User::findOrFail(1)
+        );
+    }
+
+    public function assignUser($user){
 
         return $this->users()->save(
 
             User::whereName($user)->firstOrFail()
         );
     }
+
 
     public function log()
     {

@@ -166,7 +166,7 @@
                     <li>
                         <a href="images.html">
                             <i class="material-icons">image</i>
-                                <span>Images</span>
+                                <span>Documents</span>
                         </a>
                     </li>
 

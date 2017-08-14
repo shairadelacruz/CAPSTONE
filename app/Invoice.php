@@ -13,7 +13,7 @@ class Invoice extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        
+        'invoice_no', 'invoice_date', 'due_date', 'title', 'client_id', 'customer_id', 'sub_total', 'grand_total'
     ];
 
     public function logs()
@@ -26,13 +26,13 @@ class Invoice extends Model
         return $this->belongsTo('App\Client');
     }
 
-    public function Customer()
+    public function customers()
     {
         return $this->belongsTo('App\Customer');
     }
 
-    public function Invoice_Info()
+    public function products()
     {
-        return $this->hasMany('App\Invoice_Info');
+        return $this->hasMany(InvoiceDetail::class);
     }
 }

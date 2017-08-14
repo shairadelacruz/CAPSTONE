@@ -23,7 +23,11 @@ Invoice
                              <div class="row clearfix">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <a href="bills-create.html" class="btn btn-primary waves-effect">+Add</a>
+                                    <a href="invoice/create" class="btn btn-primary waves-effect">+Add</a>
+
+                                    @if(Session::has('deleted_invoice'))
+                                    <p class="bg-danger">{{Session('deleted_invoice')}}</p>
+                                    @endif
                                     
                                     <div class = "form-group">
                                          {!! Form:: label('from_date', 'From Date:') !!}
@@ -70,32 +74,22 @@ Invoice
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                @if($invoices)
+                                    @foreach($invoices as $invoice)
                                     <tr>
-                                        <td>2011-COM0001-B-00001</td>
-                                        <td>Sara Crispino</td>
-                                        <td>2016-09-20</td>
-                                        <td>2016-09-30</td>
-                                        <td>2000</td>
-                                        <td>1000</td>
-                                        <td>
-                                            <a href ="bills-create.html" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteInvoice"><i class="material-icons">delete</i></button>
-                           
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>2011-COM0001-B-00002</td>
-                                        <td>Mila Babicheva</td>
-                                        <td>2017-01-01</td>
-                                        <td>2017-02-01</td>
-                                        <td>20000</td>
-                                        <td>20000</td>
+                                        <td>{{$invoice->invoice_no}}</td>
+                                        <td>{{$invoice->customer_id}}</td>
+                                        <td>{{$invoice->invoice_date}}</td>
+                                        <td>{{$invoice->due_date}}</td>
+                                        <td>{{$invoice->grand_total}}</td>
+                                        <td>{{$invoice->grand_total}}</td>
                                         <td>
                                             <a href ="bills-create.html" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteInvoice"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
+                                     @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
