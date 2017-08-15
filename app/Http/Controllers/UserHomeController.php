@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use App\Log;
 use App\Client;
 use App\Http\Requests;
 
-class UserDocumentsController extends Controller
+class UserHomeController extends Controller
 {
     //
     public function index($client_id)
@@ -16,9 +14,7 @@ class UserDocumentsController extends Controller
         //
         $client = Client::find($client_id);
 
-        $logs = $client->log;
-       
-        return view('users.documents.index', compact('logs'));
-
+        return view('users.index', compact('client'));
+        //return $customers;
     }
 }

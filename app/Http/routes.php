@@ -51,6 +51,8 @@ Route::group(['middleware'=>'admin'], function(){
 
 Route::group(['middleware'=>'auth'], function(){
 
+    Route::resource('user/{client_id}/home', 'UserHomeController');
+
 	Route::resource('user/accounting/vat', 'UserVatsController');
 
     Route::resource('user/accounting/transaction', 'UserTransactionsController');

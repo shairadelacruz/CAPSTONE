@@ -13,7 +13,7 @@ class Invoice extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'invoice_no', 'invoice_date', 'due_date', 'title', 'client_id', 'customer_id', 'sub_total', 'grand_total'
+        'reference_no', 'invoice_date', 'due_date', 'client_id', 'customer_id', 'balance', 'amount'
     ];
 
     public function logs()

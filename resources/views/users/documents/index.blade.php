@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-Log
+Documents
 
 @endsection
 
@@ -24,47 +24,53 @@ Log
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <button type="button" class="btn btn-primary waves-effect">+Add</button>
+                                   <!-- <input type="text" class="datepicker form-control" placeholder="From Date">
+
+                                    <input type="text" class="datepicker form-control" placeholder="To Date"> -->
+
                                 </div>
                             </div>
-                            
 
                         </div>
                         <div class="body table-responsive">
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable" da>
                                 <thead>
                                     <tr>
-                                        <th>Reference No.</th>
-                                        <th>Document Type</th>
+                                        <th>Document</th>
+                                        <th>Reference No</th>
+                                        <th>Date</th>
+                                        <th>Type</th>
                                         <th>Received From</th>
                                         <th>Received By</th>
-                                        <th>Image</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
+                                <tfoot>                         
                                     <tr>
-                                        <th>Reference No.</th>
-                                        <th>Document Type</th>
+                                        <th>Document</th>
+                                        <th>Reference No</th>
+                                        <th>Date</th>
+                                        <th>Type</th>
                                         <th>Received From</th>
                                         <th>Received By</th>
-                                        <th>Image</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @if($logs)
+                                    @foreach($logs as $log)
                                     <tr>
-                                        <td>0024601</td>
-                                        <td>Others</td>
-                                        <td>Bakugou Katsuki</td>
-                                        <td>Uraraka Ochako</td>
-                                        <td><img class="img-responsive" src="" alt="" class="img-responsive" width="75"></td>
+                                    
+
+                                        <td><a href="{{asset('images/' . $log->document_path) }}" data-sub-html="Demo Description">
+                                        <img class="img-responsive" src="{{asset('images/' . $log->document_path) }}" alt="" class="img-responsive" width="75">
+                                        </a></td>
+                                        <td>{{$log->reference_no}}</td>
+                                        <td>{{$log->date_received->toDateString()}}</td>
+                                        <td>{{$log->document_type->name}}</td>
+                                        <td>{{$log->user->name}}</td>
+                                        <td>{{$log->received_from}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>0530712</td>
-                                        <td>Receipt</td>
-                                        <td>John Smith</td>
-                                        <td>Ronald McDonald</td>
-                                        <td><img class="img-responsive" src="" alt="" class="img-responsive" width="75"></td>
-                                    </tr>
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -72,9 +78,7 @@ Log
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-
         </div>
 
-
-	
+    
 @stop

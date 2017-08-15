@@ -26,6 +26,7 @@ Invoice
                 <button class="btn btn-success" @click="create" :disabled="isProcessing">CREATE</button>
             </div>
         </div>
+        
     </div>
 
 @section('scripts')

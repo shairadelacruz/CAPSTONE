@@ -77,14 +77,14 @@ Invoice
                                 @if($invoices)
                                     @foreach($invoices as $invoice)
                                     <tr>
-                                        <td>{{$invoice->invoice_no}}</td>
+                                        <td>{{$invoice->reference_no}}</td>
                                         <td>{{$invoice->customer_id}}</td>
                                         <td>{{$invoice->invoice_date}}</td>
                                         <td>{{$invoice->due_date}}</td>
-                                        <td>{{$invoice->grand_total}}</td>
-                                        <td>{{$invoice->grand_total}}</td>
+                                        <td>{{$invoice->amount}}</td>
+                                        <td>{{$invoice->balancel}}</td>
                                         <td>
-                                            <a href ="bills-create.html" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
+                                            <a href ="#" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteInvoice"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
@@ -98,13 +98,13 @@ Invoice
             </div>
             <!-- #END# Exportable Table -->
             
-            <!-- Delete Bills -->
+            <!-- Delete Invoice -->
 
             <div class="modal fade" id="deleteInvoice" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Delete a Bill</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Delete an Invoice</h4><br>
                         </div>
                         <div class="modal-body">
                             Are you sure you want to delete?
