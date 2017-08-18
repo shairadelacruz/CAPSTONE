@@ -68,6 +68,11 @@ class Client extends Model
         return $this->belongsTo('App\Business');
     }
 
+    public function journal(){
+
+        return $this->hasMany('App\Journal');
+    }
+
     public function vendor(){
 
         return $this->hasMany('App\Vendor');

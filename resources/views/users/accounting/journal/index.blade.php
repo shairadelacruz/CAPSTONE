@@ -23,11 +23,13 @@ Journal
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <a href="" class="btn btn-primary waves-effect">+Add</a>
+                                    <a href="journal/create" class="btn btn-primary waves-effect">+Add</a>
 
                                 </div>
                             </div>
-                            
+                            @if(Session::has('deleted_journal'))
+                                 <p class="bg-danger">{{Session('deleted_journal')}}</p>
+                            @endif
 
                         </div>
                         <div class="body table-responsive">
@@ -35,7 +37,6 @@ Journal
                                 <thead>
                                     <tr>
                                         <th>Date</th>
-                                        <th>Name</th>
                                         <th>Transaction No.</th>
                                         <th>Affected</th>
                                         <th>Debit</th>
@@ -47,7 +48,6 @@ Journal
                                 <tfoot>
                                     <tr>
                                         <th>Date</th>
-                                        <th>Name</th>
                                         <th>Transaction No.</th>
                                         <th>Affected</th>
                                         <th>Debit</th>
@@ -57,19 +57,22 @@ Journal
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                @if($journals)
+                                    @foreach($journals as $journal)
                                     <tr>
-                                        <td>January 1 2014</td>
-                                        <td>National Bookstore</td>
-                                        <td>2014-AA232-00011</td>
-                                        <td>Office Supplies, Accounts Receivable</td>
-                                        <td>2000</td>
-                                        <td>2000</td>
-                                        <td>Bond Paper</td>
+                                        <td>{{$journal->date->toDateString()}}</td>
+                                        <td>{{$journal->transaction_no}}</td>
+                                        <td><button class="btn btn-default btn-xs waves-effect">View</button></td>
+                                        <td>{{$journal->journal_details->sum('debit')}}</td>
+                                        <td>{{$journal->journal_details->sum('credit')}}</td>
+                                        <td>{{$journal->description}}</td>
                                         <td>
-                                            <a href ="journals-create.html" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteJournal"><i class="material-icons">delete</i></button>
+                                            <a href ="journal/{{$journal->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteJournal{{$journal->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -77,10 +80,13 @@ Journal
                 </div>
             </div>
             <!-- #END# Exportable Table -->
+
+            @if($journals)
+                @foreach($journals as $journal)
             
             <!-- Delete journals -->
 
-            <div class="modal fade" id="deleteJournal" tabindex="-1" role="dialog">
+            <div class="modal fade" id="deleteJournal{{$journal->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -90,13 +96,20 @@ Journal
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect">DELETE</button>
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserJournalsController@destroy', $journal->id, $journal->client_id]]) !!}
+
+                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
             </div>
            <!--End Delete Journals--> 
+            @endforeach
+            @endif
 
         </div>
 

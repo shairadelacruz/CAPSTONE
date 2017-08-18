@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-
+use App\Client;
+use App\Journal;
+use App\JournalDetails;
 use App\Http\Requests;
 
 class UserJournalsController extends Controller
@@ -13,9 +16,14 @@ class UserJournalsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($client_id)
     {
         //
+        $client = Client::find($client_id);
+
+        $journals = $client->journal;
+
+        return view('users.accounting.journal.index', compact('journals'));
     }
 
     /**
@@ -23,9 +31,11 @@ class UserJournalsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($client_id)
     {
         //
+
+        return view('users.accounting.journal.create', compact('client_id'));
     }
 
     /**
@@ -37,6 +47,11 @@ class UserJournalsController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'transaction_no' => 'required'
+        ]);
+
+        echo $request;
     }
 
     /**
@@ -59,6 +74,7 @@ class UserJournalsController extends Controller
     public function edit($id)
     {
         //
+         return view('users.accounting.journal.edit');
     }
 
     /**
@@ -79,8 +95,15 @@ class UserJournalsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $client_id)
     {
         //
+        $journal = Journal::findOrFail($id);
+
+        $journal->delete();
+
+        Session::flash('deleted_journal','The journal has been deleted');
+
+        return \Redirect::route('journal', [$client_id]);
     }
 }

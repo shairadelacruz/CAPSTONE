@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::auth();
@@ -57,6 +57,10 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/accounting/transaction', 'UserTransactionsController');
 
+    Route::resource('user/{client_id}/accounting/journal', 'UserJournalsController');
+
+    Route::get('user/{client_id}/accounting/journal', ['as' => 'journal', 'uses' => 'UserJournalsController@index']);
+
     Route::resource('user/{client_id}/accounting/coa', 'UserCoasController');
 
     Route::resource('user/{client_id}/accounting/coa/create', 'UserCoasController@create');
@@ -70,6 +74,9 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::resource('user/{client_id}/payable/vendor/create', 'UserVendorController@create');
 
     Route::resource('user/{client_id}/payable/vendor/edit', 'UserVendorController@edit');
+
+
+    Route::resource('user/{client_id}/payable/bill', 'UserBillsController');
 
     Route::resource('user/{client_id}/receivable/customer', 'UserCustomerController');
 
@@ -100,67 +107,6 @@ Route::group(['middleware'=>'auth'], function(){
 
 
 
-
-Route::get('/journal', function () {
-    return view('users.accounting.journal.index');
-});
-
-Route::get('/journal/create', function () {
-    return view('users.accounting.journal.create');
-});
-
-Route::get('/journal/edit', function () {
-    return view('users.accounting.journal.edit');
-});
-
-Route::get('/bill', function () {
-    return view('users.payable.bill.index');
-});
-
-Route::get('/bill/create', function () {
-    return view('users.payable.bill.create');
-});
-
-Route::get('/bill/edit', function () {
-    return view('users.payable.bill.edit');
-});
-
-Route::get('/invoice', function () {
-    return view('users.receivable.invoice.index');
-});
-
-Route::get('/invoice/create', function () {
-    return view('users.receivable.invoice.create');
-});
-
-Route::get('/invoice/edit', function () {
-    return view('users.receivable.invoice.edit');
-});
-
-Route::get('/item', function () {
-    return view('users.receivable.item.index');
-});
-
-Route::get('/item/create', function () {
-    return view('users.receivable.item.create');
-});
-
-Route::get('/item/edit', function () {
-    return view('users.receivable.item.edit');
-});
-
-Route::get('/customer', function () {
-    return view('users.receivable.customer.index');
-});
-
-Route::get('/customer/create', function () {
-    return view('users.receivable.customer.create');
-});
-
-Route::get('/customer/edit', function () {
-    return view('users.receivable.customer.edit');
-});
-
 Route::get('/cashdisbursement', function () {
     return view('users.cashdisbursement.index');
 });
@@ -177,6 +123,3 @@ Route::get('/evaluate', function () {
     return view('admin.management.evaluate.index');
 });
 
-Route::get('/usertask', function () {
-    return view('users.other.index');
-});

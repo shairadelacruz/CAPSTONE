@@ -49,7 +49,7 @@ Invoice
             }]
         };
     </script>
-    <script src="{{asset('js/app.js') }}"></script>
+    <script src="{{asset('js/invoice.js') }}"></script>
 @endsection
 
 	

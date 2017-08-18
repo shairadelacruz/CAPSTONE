@@ -16,6 +16,7 @@ class UserBillsController extends Controller
     public function index()
     {
         //
+        return view('users.payable.bill.index');
     }
 
     /**
@@ -26,6 +27,7 @@ class UserBillsController extends Controller
     public function create()
     {
         //
+        return view('users.payable.bill.create');
     }
 
     /**
@@ -59,6 +61,7 @@ class UserBillsController extends Controller
     public function edit($id)
     {
         //
+        return view('users.payable.bill.edit');
     }
 
     /**

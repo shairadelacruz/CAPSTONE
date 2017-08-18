@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInvoiceDetailsTable extends Migration
+class CreateBillDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class CreateInvoiceDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoice_details', function (Blueprint $table) {
+        Schema::create('bill_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('invoice_id')->unsigned();
+            $table->integer('bill_id')->unsigned();
             $table->integer('client_coa_id')->unsigned();
             $table->integer('item_id')->unsigned();
             $table->integer('vat_id')->unsigned();
@@ -23,7 +23,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->integer('qty');
             $table->decimal('price');
             $table->decimal('total');
-            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
+            $table->foreign('bill_id')->references('id')->on('bills')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -36,6 +36,6 @@ class CreateInvoiceDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('invoice_details');
+        Schema::drop('bill_details');
     }
 }

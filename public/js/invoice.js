@@ -14,7 +14,7 @@ var app = new Vue({
     },
     remove: function(product) {
       this.form.products.$remove(product);
-    },
+    }/*,
     create: function() {
       this.isProcessing = true;
       this.$http.post('/invoices', this.form)
@@ -44,10 +44,10 @@ var app = new Vue({
           this.isProcessing = false;
           Vue.set(this.$data, 'errors', response.data);
         })
-    }
+    }*/
   },
   computed: {
-    grandTotal: function() {
+    subTotal: function() {
       return this.form.products.reduce(function(carry, product) {
         return carry + (parseFloat(product.qty) * parseFloat(product.price));
       }, 0);

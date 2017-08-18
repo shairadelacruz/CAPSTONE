@@ -124,8 +124,15 @@ class UserInvoicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $client_id)
     {
         //
+        $invoice = Invoice::findOrFail($id);
+
+        $invoice->delete();
+
+        Session::flash('deleted_invoice','The invoice has been deleted');
+
+        return \Redirect::route('invoice', [$client_id]);
     }
 }

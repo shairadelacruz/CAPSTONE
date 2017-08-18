@@ -14,15 +14,11 @@ class CreateJournalsTable extends Migration
     {
         Schema::create('journals', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('reference_no');
+            $table->string('transaction_no');
             $table->string('description')->nullable();
-            $table->double('debit')->nullable()->default(0);
-            $table->double('credit')->nullable()->default(0);
-            $table->double('vat_amount')->nullable();
-            $table->integer('vat_id')->nullable();
-            $table->integer('client_coa_id');
-            $table->integer('vendor_id')->nullable();
-            $table->integer('customer_id')->nullable();
+            $table->dateTime('date')->nullable();
+            $table->integer('client_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

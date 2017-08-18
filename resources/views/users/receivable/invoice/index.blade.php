@@ -28,21 +28,6 @@ Invoice
                                     @if(Session::has('deleted_invoice'))
                                     <p class="bg-danger">{{Session('deleted_invoice')}}</p>
                                     @endif
-                                    
-                                    <div class = "form-group">
-                                         {!! Form:: label('from_date', 'From Date:') !!}
-                                        {!! Form:: date('date',null, ['class'=>'form-control datepicker']) !!}
-                                    </div>
-
-                                    <div class = "form-group">
-                                         {!! Form:: label('to_date', 'To Date:') !!}
-                                        {!! Form:: date('date',null, ['class'=>'form-control datepicker']) !!}
-                                    </div>
-                                                          
-                                    <div class = "form-group">
-                                        {!! Form:: label('customer', 'Customers:') !!}
-                                        {!! Form:: select('customer', [''=>'Choose Customer'] ,null, ['class'=>'form-control']) !!}
-                                    </div>
 
                                 </div>
                             </div>
@@ -85,7 +70,7 @@ Invoice
                                         <td>{{$invoice->balancel}}</td>
                                         <td>
                                             <a href ="#" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteInvoice"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteInvoice{{$invoice->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
                                      @endforeach
@@ -98,25 +83,33 @@ Invoice
             </div>
             <!-- #END# Exportable Table -->
             
-            <!-- Delete Invoice -->
-
-            <div class="modal fade" id="deleteInvoice" tabindex="-1" role="dialog">
+           @if($invoices)
+            @foreach($invoices as $invoice)
+            <!-- Delete -->
+            <div class="modal fade" id="deleteInvoice{{$invoice->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Delete an Invoice</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Delete Invoice</h4><br>
                         </div>
                         <div class="modal-body">
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect">DELETE</button>
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserInvoicesController@destroy', $invoice->id, $invoice->client_id]]) !!}
+
+                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
             </div>
-           <!--End Delete Bills--> 
+           <!--End Delete--> 
+           @endforeach
+            @endif
 
         </div>
 
