@@ -78,6 +78,8 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/{client_id}/payable/bill', 'UserBillsController');
 
+    Route::get('user/{client_id}/payable/bill', ['as' => 'bill', 'uses' => 'UserBillsController@index']);
+
     Route::resource('user/{client_id}/receivable/customer', 'UserCustomerController');
 
     Route::get('user/{client_id}/receivable/customer', ['as' => 'customer', 'uses' => 'UserCustomerController@index']);
@@ -85,7 +87,6 @@ Route::group(['middleware'=>'auth'], function(){
     Route::resource('user/{client_id}/receivable/customer/create', 'UserCustomerController@create');
 
     Route::resource('user/{client_id}/receivable/customer/edit', 'UserCustomerController@edit');
-
 
     Route::resource('user/{client_id}/receivable/item', 'UserItemsController');
 

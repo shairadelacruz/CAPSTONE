@@ -34,7 +34,6 @@ class UserJournalsController extends Controller
     public function create($client_id)
     {
         //
-
         return view('users.accounting.journal.create', compact('client_id'));
     }
 
@@ -48,10 +47,11 @@ class UserJournalsController extends Controller
     {
         //
         $this->validate($request, [
-            'transaction_no' => 'required'
+            'transaction_no' => 'required',
+            'details.*.debit' => 'required'
         ]);
 
-        echo $request;
+        $invoice = Invoice::create($data);
     }
 
     /**

@@ -54,6 +54,8 @@ class AdminClientsController extends Controller
         $client = Client::latest()->first();
 
         $client->assignAdmin();
+
+        $client->coas()->sync([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]);
         
         return redirect('/admin/clients');
 
@@ -113,6 +115,8 @@ class AdminClientsController extends Controller
     {
         //
         $client = Client::findOrFail($id);
+
+        $client->coas()->detach();
 
         $client->delete();
 

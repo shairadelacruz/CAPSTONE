@@ -2,7 +2,7 @@
 
 	<div class="col-sm-12">
 
-		<input type="hidden" value="{{ $client_id }}" class="form-control" v-model="form.client_id">
+		<input type="hidden" value="{{ $client_id }}" class="form-control">
 
 		<div class="col-sm-4">
 			<div class="form-group">
@@ -15,14 +15,14 @@
 			<div class="form-group">
 				<label>Date</label>
 				<input type="date" class="form-control" v-model="form.date">
-				<p v-if="errors.transaction_no" class="error">@{{ errors.date}}</p>
+				<p v-if="errors.date" class="error">@{{ errors.date}}</p>
 			</div>
 		</div>
 		<div class="col-sm-4">
 			<div class="form-group">
 				<label>Description</label>
 				<textarea class="form-control" v-model="form.description"></textarea>
-				<p v-if="errors.transaction_no" class="error">@{{ errors.description}}</p>
+				<p v-if="errors.description" class="error">@{{ errors.description}}</p>
 			</div>
 		</div>
 @include('includes.form_error')

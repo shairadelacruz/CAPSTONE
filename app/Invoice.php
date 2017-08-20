@@ -31,7 +31,7 @@ class Invoice extends Model
         return $this->belongsTo('App\Customer');
     }
 
-    public function products()
+    public function invoice_details()
     {
         return $this->hasMany(InvoiceDetail::class);
     }

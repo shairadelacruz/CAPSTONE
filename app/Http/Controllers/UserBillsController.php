@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-
+use App\Bill;
+use App\BillDetail;
+use App\Client;
+use App\Vendor;
+use App\Item;
 use App\Http\Requests;
 
 class UserBillsController extends Controller
@@ -13,10 +18,14 @@ class UserBillsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+   public function index($client_id)
     {
         //
-        return view('users.payable.bill.index');
+        $client = Client::find($client_id);
+
+        $bills = $client->bill;
+
+        return view('users.payable.bill.index', compact('bills'));
     }
 
     /**
@@ -82,8 +91,15 @@ class UserBillsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $client_id)
     {
         //
+        $bill = Bill::findOrFail($id);
+
+        $bill->delete();
+
+        Session::flash('deleted_bill','The bill has been deleted');
+
+        return \Redirect::route('bill', [$client_id]);
     }
 }

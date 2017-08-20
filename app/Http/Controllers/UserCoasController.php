@@ -15,14 +15,15 @@ class UserCoasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($client_id)
     {
         //
 
+        $client = Client::find($client_id);
 
-        $coas = Coa::all();
+        $coas = $client->coa;
 
-        return view('users.accounting.coa.index', compact('coas'));
+        return view('users.accounting.coa.index', compact('coas', 'client_id'));
     }
 
     /**
@@ -30,9 +31,11 @@ class UserCoasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($client_id)
     {
         //
+        //return $client_id;
+
     }
 
     /**
@@ -44,6 +47,7 @@ class UserCoasController extends Controller
     public function store(Request $request)
     {
         //
+        return "hi";
     }
 
     /**

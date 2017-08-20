@@ -18,25 +18,16 @@ Bills
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Bills
+                                Bill
                             </h2><br>
                              <div class="row clearfix">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <a href="bills-create.html" class="btn btn-primary waves-effect">+Add</a>
-                                    
-                                    <input type="text" class="datepicker form-control" placeholder="From Date">
+                                    <a href="bill/create" class="btn btn-primary waves-effect">+Add</a>
 
-  
-                                    <input type="text" class="datepicker form-control" placeholder="To Date">
-                                                          
-                                    <b>Vendors</b>
-                                    <select class="form-control show-tick" data-live-search="true">
-                                        <option>Select Vendor</option>
-                                        <option>Georgi Popovich</option>
-                                        <option>Otabek Altin</option>
-                                        <option>Some Vendor Name</option>
-                                    </select>
+                                    @if(Session::has('deleted_bill'))
+                                    <p class="bg-danger">{{Session('deleted_bill')}}</p>
+                                    @endif
 
                                 </div>
                             </div>
@@ -49,7 +40,7 @@ Bills
                                         <th>Vendor</th>
                                         <th>Bill Date</th>
                                         <th>Due Date</th>
-                                        <th>Amount Due</th>
+                                        <th>Due Amount</th>
                                         <th>Balance Amount</th>
                                         <th>Action</th>
 
@@ -68,32 +59,22 @@ Bills
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                @if($bills)
+                                    @foreach($bills as $bill)
                                     <tr>
-                                        <td>2011-COM0001-B-00001</td>
-                                        <td>Sara Crispino</td>
-                                        <td>2016-09-20</td>
-                                        <td>2016-09-30</td>
-                                        <td>2000</td>
-                                        <td>1000</td>
+                                        <td>{{$bill->reference_no}}</td>
+                                        <td>{{$bill->vendor_id}}</td>
+                                        <td>{{$bill->bill_date}}</td>
+                                        <td>{{$bill->due_date}}</td>
+                                        <td>{{$bill->amount}}</td>
+                                        <td>{{$bill->balancel}}</td>
                                         <td>
-                                            <a href ="bills-create.html" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteBills"><i class="material-icons">delete</i></button>
-                           
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>2011-COM0001-B-00002</td>
-                                        <td>Mila Babicheva</td>
-                                        <td>2017-01-01</td>
-                                        <td>2017-02-01</td>
-                                        <td>20000</td>
-                                        <td>20000</td>
-                                        <td>
-                                            <a href ="bills-create.html" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteBills"><i class="material-icons">delete</i></button>
+                                            <a href ="/edit" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteBill{{$bill->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
+                                     @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -102,27 +83,34 @@ Bills
             </div>
             <!-- #END# Exportable Table -->
             
-            <!-- Delete Bills -->
-
-            <div class="modal fade" id="deleteBills" tabindex="-1" role="dialog">
+           @if($bills)
+            @foreach($bills as $bill)
+            <!-- Delete -->
+            <div class="modal fade" id="deleteBill{{$bill->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Delete a Bill</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Delete Bill</h4><br>
                         </div>
                         <div class="modal-body">
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect">DELETE</button>
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserBillsController@destroy', $bill->id, $bill->client_id]]) !!}
+
+                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
             </div>
-           <!--End Delete Bills--> 
+           <!--End Delete--> 
+           @endforeach
+            @endif
 
         </div>
-
 	
 @stop

@@ -26,9 +26,10 @@ Journal
             </div>
 
             <div class="panel-body">
+                <form method="POST" action="user/{client_id}/accounting/journal">
                 
-                @include('users.accounting.journal.form')
-
+                    @include('users.accounting.journal.form')
+                </form>
             </div>
 
             <div class="panel-footer">
@@ -75,7 +76,7 @@ Journal
     </script>
 
 
-    <script src="{{asset('js/journal.js') }}"></script>
+    <script src="{{asset('js/app.js') }}"></script>
 @endsection
 	
 @stop

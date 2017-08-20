@@ -37,10 +37,12 @@ class Client extends Model
 
     public function assignAdmin(/*$user*/){
 
+
         return $this->users()->save(
 
             //User::where($user)->firstOrFail()
             User::findOrFail(1)
+
         );
     }
 
@@ -50,6 +52,11 @@ class Client extends Model
 
             User::whereName($user)->firstOrFail()
         );
+    }
+
+    public function coas(){
+
+        return $this->belongsToMany('App\Coa');
     }
 
 
@@ -90,5 +97,10 @@ class Client extends Model
     public function invoice()
     {
         return $this->hasMany('App\Invoice');
+    }
+
+    public function bill()
+    {
+        return $this->hasMany('App\Bill');
     }
 }

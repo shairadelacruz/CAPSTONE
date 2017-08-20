@@ -86,7 +86,7 @@ COA
                             
                             <div class="row clearfix">
 
-                                    {!! Form::open(['method'=>'POST', 'action'=>'AdminCoasController@store']) !!}
+                                    {!! Form::open(['method'=>'POST', 'action'=>'UserCoasController@store', $client_id]) !!}
                                 
                                     <div class="form-group form-float">
                                         <div class="form-line">
@@ -136,7 +136,7 @@ COA
                         <div class="modal-body">
                             
                             <div class="row clearfix">
-                                {!! Form::model($coa,['method'=>'PATCH', 'action'=>['AdminCoasController@update', $coa->id]]) !!}
+                                {!! Form::model($coa,['method'=>'PATCH', 'action'=>['UserCoasController@update', $coa->id,$client_id]]) !!}
                                 
                                     <div class="form-group form-float">
                                         <div class="form-line">
@@ -185,7 +185,7 @@ COA
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminCoasController@destroy', $coa->id]]) !!}
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserCoasController@destroy', $coa->id,$coa->clients->id]]) !!}
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
 
