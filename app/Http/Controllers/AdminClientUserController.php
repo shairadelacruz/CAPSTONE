@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-
+use App\User;
+use App\Client;
 use App\Http\Requests;
 
 class AdminClientUserController extends Controller
@@ -16,7 +18,13 @@ class AdminClientUserController extends Controller
     public function index()
     {
         //
-        return view('admin.management.assign.index');
+        $clients = Client::all();
+
+        $allClients = Client::pluck('company_name', 'id')->all();
+
+        $allUsers = User::pluck('name', 'id')->all();
+
+        return view('admin.management.assign.index', compact('clients', 'allClients', 'allUsers'));
     }
 
     /**
@@ -39,6 +47,15 @@ class AdminClientUserController extends Controller
     public function store(Request $request)
     {
         //
+        $client_id = $request->client_id;
+
+        $client = Client::findOrFail($client_id);
+
+        $users = $request->get('user_id');
+
+        $client->users()->sync($users);
+
+        return redirect('/admin/management/assign');
     }
 
     /**
@@ -76,6 +93,15 @@ class AdminClientUserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $client_id = $request->client_id;
+
+        $client = Client::findOrFail($client_id);
+
+        $users = $request->get('user_id');
+
+        $client->users()->sync($users);
+
+        return redirect('/admin/management/assign');
     }
 
     /**

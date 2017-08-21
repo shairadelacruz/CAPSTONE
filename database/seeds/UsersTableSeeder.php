@@ -195,6 +195,7 @@ class UsersTableSeeder extends Seeder
 	        	'company_name' => "Yurio's Piroshki",
 	        	'legal_name' => "Yurio's Piroshki",
 	        	'address' => "Moscow, Russia",
+	        	'contact_name' => "Yuri Plisetsky",
 	        ]);
     }
 }

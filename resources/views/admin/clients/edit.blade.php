@@ -35,6 +35,11 @@ Clients
 		{!! Form:: date('financial_year',null, ['class'=>'form-control datepicker']) !!}
 	</div>
 
+	<div class = "form-group">
+		{!! Form:: label('contact_name', 'Name of Contact:') !!}
+		{!! Form:: text('contact_name',null, ['class'=>'form-control datepicker']) !!}
+	</div>
+
 
 	<div class = "form-group">
 		{!! Form:: submit('Update', ['class'=>'btn btn-primary']) !!}

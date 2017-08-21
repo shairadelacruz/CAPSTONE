@@ -1,0 +1,233 @@
+[33mcommit 534a67522d5a0175e3b7d55644b187959ebea242[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Aug 22 00:22:03 2017 +0800
+
+    User COA add
+
+[33mcommit f1d00bea18d5090a81211e035ede8fe3400a6623[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Mon Aug 21 03:00:10 2017 +0800
+
+    Bill view and delete, assign coa to client, doing client coa
+
+[33mcommit e0477bafc3a138650324163c8b59c68eda6ea26a[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Fri Aug 18 23:09:21 2017 +0800
+
+    Invoice, Journal view and delete working
+
+[33mcommit 6e79ef9b78d5e363e0b8324854d9c58180f2a68c[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Aug 15 14:38:24 2017 +0800
+
+    Document Client Side View, Switch client clickable, still working on invoice
+
+[33mcommit fd043a90bd08e5c2acf62271058e8908de8cdfec[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Aug 15 00:25:22 2017 +0800
+
+    Doing invoice
+
+[33mcommit e5291ac5487092332a8efbe4880848ff6cc40292[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Aug 8 23:33:18 2017 +0800
+
+    Added Photo to Logs
+
+[33mcommit 16e69b2ec034969de0e6bae3f0b20c41cddfa4aa[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Aug 8 02:32:35 2017 +0800
+
+    Document Type maintenance added 100%
+
+[33mcommit 0bf6dd2bdfde02f6c1e43d13c4c27cd3191637ab[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Aug 8 01:28:22 2017 +0800
+
+    Task assign 100% crud but not final. Only logs from specified client should appear
+
+[33mcommit b846d3ba77d9d9ca3039d67e31777e5ae66b1430[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Mon Aug 7 21:06:50 2017 +0800
+
+    Items 100%
+
+[33mcommit 53f32fa3e0183bb1093ee0e4c56aa871eb762a7a[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Fri Aug 4 21:53:19 2017 +0800
+
+    Vendor, Customer 100%
+
+[33mcommit 9f8690669ea6f5bc6549785c20390fefb0488c24[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Fri Aug 4 20:20:39 2017 +0800
+
+    Vendor, Customer 100% but not redirecting
+
+[33mcommit 8e750ba0a9df71b9786daeb83914d775e6fa00d9[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Aug 1 15:01:40 2017 +0800
+
+    Customer no edit, not redirecting
+
+[33mcommit d2e9ab52b1b92c8f6e6c8e1a9d8b766dd5ea99dd[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Aug 1 00:47:03 2017 +0800
+
+    Log 100%, vendor 100% but not redirecting
+
+[33mcommit 02e8fe02246b8278f2c928a293ebb28e5de0b432[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Mon Jul 31 23:35:29 2017 +0800
+
+    Log no delete, vendor no delete and not redirecting
+
+[33mcommit 6010d04972214a25c113a2e1c7f2c1960e74cbda[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Wed Jul 26 00:31:51 2017 +0800
+
+    Vendor create working
+
+[33mcommit 201a8673ca770c75ce31196e5d7638f6e9bd4b1c[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jul 25 23:14:28 2017 +0800
+
+    Working read and create log, bug in edit and delete
+
+[33mcommit 0604b28063ee1c7f57c39e2f36c9f10e43e573e1[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jul 25 17:15:21 2017 +0800
+
+    Fixed href on sidebar admin
+
+[33mcommit 0d3566f666575743bee5035e2d269aea1fe9ae04[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jul 25 15:11:05 2017 +0800
+
+    Commit before migrating
+
+[33mcommit b3b59c6c61deb2861987c3e7916aa84ec2ba8ed1[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jul 25 00:37:01 2017 +0800
+
+    Created Models and Migrations
+
+[33mcommit b6f283d70956035d8cc21886f3688bdccfc0e69d[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Fri Jul 21 20:31:54 2017 +0800
+
+    Some views created
+
+[33mcommit ef02d4abd7f99b17ab20db61b7d1675f1de242d9[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jul 18 17:23:57 2017 +0800
+
+    Working add and edit for user again
+
+[33mcommit 32c6450929aab467afed8dba997ece69817ceb1e[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jul 11 22:21:44 2017 +0800
+
+    Working permissions code but privilege ui not set up. Fixed bug with admin
+
+[33mcommit 5490960477ff179ebb2ebb9cda5c99e5dc74bbe4[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jul 11 17:54:27 2017 +0800
+
+    Working permissions code but privilege ui not set up
+
+[33mcommit 7783c0369b1e297cf530433b0af6a471fd0f87b1[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jul 11 17:24:04 2017 +0800
+
+    COA 100%, created tables permissions, permission_role, role_user
+
+[33mcommit 352d1ec5e9bed6072e04613ca24c0260ef0de7f3[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jul 11 00:41:12 2017 +0800
+
+    COA admin 100%
+
+[33mcommit 30797f031533ba88423e846146f94cbf735b0cf0[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Mon Jul 10 11:12:49 2017 +0800
+
+    Working on DB. No relations for bills, invoices and log book
+
+[33mcommit 3a63dfc347925593f6d0e5738a77926163bb3aa6[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jul 4 14:17:31 2017 +0800
+
+    Working on relations
+
+[33mcommit b42dfe52645af0e791c7beba69bcdc6722055795[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Mon Jul 3 22:46:33 2017 +0800
+
+    Admin -coa select category
+
+[33mcommit 49073f0df87c12d28c88dffc627c9d947cfb60d3[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Mon Jul 3 20:16:28 2017 +0800
+
+    User, Client, Vat, Business 100% new code in delete and edit modal, soft delete
+
+[33mcommit 8f44301cd6e176f2e1ee47b8c864d71d8d4d9410[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Wed Jun 28 23:02:42 2017 +0800
+
+    User, Client, Vat 100% but not soft delete
+
+[33mcommit 6dcee4d4c0c7a1cd807958d5c45c1a46501b6974[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jun 27 23:11:42 2017 +0800
+
+    Starting VAT
+
+[33mcommit 8c7ef19d37aa3c0dcf3e79150baa1535832cf806[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jun 27 21:19:41 2017 +0800
+
+    User and Client 100% but delete isn't soft delete
+
+[33mcommit f2d339da0f889078e22abf51091c817a8bf08a4d[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jun 27 20:27:16 2017 +0800
+
+    User 100%, Client - edit not working
+
+[33mcommit 83074716ed1d991a3ccffcac2d5794f81c17730c[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jun 27 15:13:45 2017 +0800
+
+    User Crud 100%. Working on Client - many to many relationship established
+
+[33mcommit 5c240f75bd2383b1965ced356ca909f10e5e58eb[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Tue Jun 27 14:52:43 2017 +0800
+
+    User crud 100% with table includes
+
+[33mcommit 71bc70e61f23588c2a65b8c9a57c728fea4534c6[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Mon Jun 26 23:19:21 2017 +0800
+
+    User crud - complete
+
+[33mcommit bd32ce7bc48dfdeb6f7c0d766aa089f59c57304f[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Mon Jun 26 21:22:30 2017 +0800
+
+    User create - cread, read, update, no delete, no security
+
+[33mcommit 1cb8ca29339e207205659b051db5bc4f37aef2c0[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Mon Jun 26 20:17:36 2017 +0800
+
+    User create - has validation, other users info, not saving to db
+
+[33mcommit 65b81eeef662859e5818d19ae7f7f0bc9ec2cc27[m
+Author: shairadelacruz <shairadcsofia@gmail.com>
+Date:   Sun Jun 25 22:34:46 2017 +0800
+
+    initial commit

@@ -49,10 +49,7 @@ Log
 					{!! Form:: text('received_from',null, ['class'=>'form-control']) !!}
 				</div>
 
-				<div class = "form-group">
-					{!! Form:: label('user_id', 'Received By:') !!}
-					{!! Form:: select('user_id', [''=>'Choose Options'] + $users ,null, ['class'=>'form-control']) !!}
-				</div>
+				{!! Form:: hidden('user_id', Auth::user()->id) !!}
 
 				<div class = "form-group">
 					{!! Form:: label('document_path', 'Document:') !!}

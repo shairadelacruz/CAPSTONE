@@ -23,11 +23,11 @@ Client Assignment
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addLogEntry">+Add</button>
+                                    <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addAssign">+Add</button>
 
-                                    <input type="text" class="datepicker form-control" placeholder="From Date">
+                                    <!--<input type="text" class="datepicker form-control" placeholder="From Date">
 
-                                    <input type="text" class="datepicker form-control" placeholder="To Date">
+                                    <input type="text" class="datepicker form-control" placeholder="To Date">-->
 
                                 </div>
                             </div>
@@ -37,6 +37,7 @@ Client Assignment
                         <div class="body table-responsive">
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable" da>
                                 <thead>
+                                
                                     <tr>
                                         <th>Company Name</th>
                                         <th>Employees</th>
@@ -51,24 +52,20 @@ Client Assignment
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                @if($clients)
+                                    @foreach($clients as $client)
                                     <tr>
-                                        <td>Detective Agency</td>
+                                        <td>{{$client->company_name}}</td>
                                     
-                                        <td><button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewMembers">View Employees</button></td>     
                                         <td>
-                                            <a href="" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteLogEntry"><i class="material-icons">delete</i></button>
+
+                                            <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewMembers{{$client->id}}">View Employees</button></td>     
+                                        <td>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#editAssign{{$client->id}}"><i class="material-icons">create</i></button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Port Ma</td>
-                
-                                        <td><button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewMembers">View Employees</button></td>     
-                                        <td>
-                                            <a href="" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteLogEntry"><i class="material-icons">delete</i></button>
-                                        </td>
-                                    </tr>
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -76,43 +73,122 @@ Client Assignment
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-            
-            <!-- Delete -->
-            <div class="modal fade" id="deleteLogEntry" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
+
+
+           <!-- Add VAT -->
+            <div class="modal fade" id="addAssign" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Delete log entry</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Assign</h4><br>
                         </div>
                         <div class="modal-body">
-                            Are you sure you want to delete?
-                        </div>
-                        <div class="modal-footer">
-                        <form>
-                          
+                            
+                            <div class="row clearfix">
 
-                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+                                    {!! Form::open(['method'=>'POST', 'action'=>'AdminClientUserController@store']) !!}
+                                
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            {!! Form:: label('client_id', 'Client:') !!}
+                                            {!! Form:: select('client_id', [''=>'Choose Options'] + $allClients ,null, ['class'=>'form-control']) !!}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            {!! Form:: label('user_id', 'Accountant:') !!}
 
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                                            {{Form::select('user_id',$allUsers,null,array('multiple'=>'multiple','name'=>'user_id[]'))}}
 
-                            {!! Form::close() !!}
+                                           
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                        {!! Form:: submit('SAVE', ['class'=>'btn btn-primary']) !!}
+                                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                    </div>
+                                 
+                                {!! Form::close() !!}
+                            </div>
+
+                            
                         </div>
                     </div>
                 </div>
             </div>
-           <!--End Delete-->
+
+           <!--End Add VAT--> 
+            
+ 
+        @if($clients)
+            @foreach($clients as $client)
+
+           <!-- Edit--> 
+
+
+            <div class="modal fade" id="editAssign{{$client->id}}" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Assign</h4><br>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <div class="row clearfix">
+
+                                {!! Form::model($client,['method'=>'PATCH', 'action'=>['AdminClientUserController@update', $client->id]]) !!}
+                                
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            {!! Form:: label('client_id', 'Client:') !!}
+                                            {{ Form::text('client_id', $client->company_name, ['readonly']) }}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            {!! Form:: label('user_id', 'Accountant:') !!}
+
+                                            {{Form::select('user_id',$allUsers,null,array('multiple'=>'multiple','name'=>'user_id[]'))}}
+
+                                           
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                        {!! Form:: submit('SAVE', ['class'=>'btn btn-primary']) !!}
+                                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                    </div>
+                                 
+                                {!! Form::close() !!}
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           <!--End Edit--> 
+
 
            <!-- View -->
-            <div class="modal fade" id="viewMembers" tabindex="-1" role="dialog">
+            <div class="modal fade" id="viewMembers{{$client->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="smallModalLabel">Assigned Employees</h4><br>
                         </div>
                         <div class="modal-body">
-                            John Doe<br>
-                            Tom Smith<br>
-                            Jennifer McDonald
+                            <ul>
+                                @foreach ($client->users as $user)
+                                
+                                <li>{{$user->name}} - {{$user->roles->pluck('label')}}</li>
+                                
+                                @endforeach
+                            </ul>
                         </div>
                         <div class="modal-footer">
                         <form>
@@ -128,8 +204,8 @@ Client Assignment
                 </div>
             </div>
            <!--End View-->
-
-           
+           @endforeach
+                @endif
 
         </div>
 
