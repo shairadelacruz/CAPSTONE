@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Coa;
 use App\Client;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
+
 
 class UserCoasController extends Controller
 {
@@ -21,7 +23,7 @@ class UserCoasController extends Controller
 
         $client = Client::find($client_id);
 
-        $coas = $client->coa;
+        $coas = $client->coas;
 
         return view('users.accounting.coa.index', compact('coas', 'client_id'));
     }
@@ -31,12 +33,12 @@ class UserCoasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($client_id)
+    /*public function create($client_id)
     {
         //
         //return $client_id;
 
-    }
+    }*/
 
     /**
      * Store a newly created resource in storage.
@@ -47,7 +49,35 @@ class UserCoasController extends Controller
     public function store(Request $request)
     {
         //
-        return "hi";
+        $client_id = $request->client_id;
+
+        $client = Client::find($client_id);
+
+        $coaName = $request->name;
+
+        $coaCat = $request->coacategory_id;
+
+        $coa = Coa::where('name', '=', $coaName)->where('coacategory_id', '=', $coaCat)->first();
+
+            if($coa!=null){
+                
+                $client->coas()->attach($coa);
+
+            }
+
+            else{
+
+                Coa::create($request->all());
+
+                $newCoa = Coa::latest()->first();
+
+                $client->coas()->attach($newCoa);
+
+            }
+
+        $input = $request->all();
+        
+        return \Redirect::route('coa', [$client_id]);
     }
 
     /**
@@ -82,6 +112,7 @@ class UserCoasController extends Controller
     public function update(Request $request, $id)
     {
         //
+
     }
 
     /**
@@ -90,8 +121,18 @@ class UserCoasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $client_id)
     {
         //
+
+        $client = Client::findOrFail($client_id);
+
+        $coa = Coa::findOrFail($id)->first();
+
+        $client->coas()->detach($coa);
+
+        Session::flash('deleted_coa','The account has been deleted');
+
+        return \Redirect::route('coa', [$client_id]);
     }
 }

@@ -39,6 +39,7 @@ COA
                                         <th>Category</th>
                                         <th>Account</th>
                                         <th>Description</th>
+                                        <th>Amount</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -48,6 +49,7 @@ COA
                                         <th>Category</th>
                                         <th>Account</th>
                                         <th>Description</th>
+                                        <th>Amount</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -58,9 +60,9 @@ COA
                                     <tr>
                                         <td>{{$coa->coacategory->name}}</td>
                                         <td>{{$coa->name}}</td>
+                                        <td></td>
                                         <td>{{$coa->description}}</td>  
                                         <td>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editCoa{{$coa->id}}"><i class="material-icons">create</i></button>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteCoa{{$coa->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
@@ -73,9 +75,8 @@ COA
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-                
-            
-            <!-- Add -->
+
+                        <!-- Add -->
             <div class="modal fade" id="addCoa" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
@@ -86,7 +87,9 @@ COA
                             
                             <div class="row clearfix">
 
-                                    {!! Form::open(['method'=>'POST', 'action'=>'UserCoasController@store', $client_id]) !!}
+                                    {!! Form::open(['method'=>'POST', 'action'=>['UserCoasController@store', $client_id]]) !!}
+
+                                    {!! Form:: hidden('client_id', $client_id) !!} 
                                 
                                     <div class="form-group form-float">
                                         <div class="form-line">
@@ -97,8 +100,10 @@ COA
                                     
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            {!! Form:: label('category', 'Category:') !!}
-                                            
+                                            {!! Form:: label('coacategory_id', 'Category:') !!}
+
+                                            {!! Form:: select('coacategory_id', array(1=>'Asset', 2=>'Liability', 3=>'Expense', 4=>'Revenue', 5=>'Equity' ), null, ['class'=>'form-control show-tick']) !!}
+
                                         </div>
                                     </div>
                                     
@@ -123,58 +128,12 @@ COA
             </div>
 
            <!--End Add--> 
-            
-            @if($coas)
-            @foreach($coas as $coa)
-            <!-- Edit -->
-            <div class="modal fade" id="editCoa{{$coa->id}}" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Edit Account</h4><br>
-                        </div>
-                        <div class="modal-body">
-                            
-                            <div class="row clearfix">
-                                {!! Form::model($coa,['method'=>'PATCH', 'action'=>['UserCoasController@update', $coa->id,$client_id]]) !!}
-                                
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            {!! Form:: label('name', 'Account Name:') !!}
-                                            {!! Form:: text('name',null, ['class'=>'form-control']) !!}
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            {!! Form:: label('category', 'Category:') !!}
-                                            
-                                        </div>
-                                    </div>
-                                    
-                                     <div class="form-group form-float">
-                                        <div class="form-line">
-                                            {!! Form:: label('description', 'Description:') !!}
-                                            {!! Form:: textarea('description',null, ['class'=>'form-control']) !!}
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        {!! Form:: submit('SAVE', ['class'=>'btn btn-primary']) !!}
-                                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                                    </div>
-                                 
-                                {!! Form::close() !!}
-                            </div>
 
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-           <!--End Edit--> 
-           
-            
-            <!-- Delete -->
+           @if($coas)
+            @foreach($coas as $coa)
+
+
+                       <!-- Delete -->
             <div class="modal fade" id="deleteCoa{{$coa->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -185,7 +144,7 @@ COA
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserCoasController@destroy', $coa->id,$coa->clients->id]]) !!}
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserCoasController@destroy',$client_id, $coa->id]]) !!}
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
 
@@ -199,6 +158,8 @@ COA
            <!--End Delete--> 
            @endforeach
             @endif
+                
+
 
         </div>
 

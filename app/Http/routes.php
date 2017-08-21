@@ -67,6 +67,8 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/{client_id}/accounting/coa/edit', 'UserCoasController@edit');
 
+    Route::get('user/{client_id}/accounting/coa', ['as' => 'coa', 'uses' => 'UserCoasController@index']);
+
 	Route::resource('user/{client_id}/payable/vendor', 'UserVendorController');
 
     Route::get('user/{client_id}/payable/vendor', ['as' => 'vendor', 'uses' => 'UserVendorController@index']);
