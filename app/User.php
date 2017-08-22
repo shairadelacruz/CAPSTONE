@@ -63,6 +63,27 @@ class User extends Authenticatable
         return false;
     }
 
+    public function isManager(){
+
+        if($this->roles->first()->name == "manager" && $this->is_active == 1){
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isUser(){
+
+        if($this->roles->first()->name == "user" && $this->is_active == 1){
+
+            return true;
+        }
+
+        return false;
+    }
+
+
     public function clients(){
 
         return $this->belongsToMany('App\Client');

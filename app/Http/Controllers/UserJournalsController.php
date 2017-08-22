@@ -51,7 +51,9 @@ class UserJournalsController extends Controller
             'details.*.debit' => 'required'
         ]);
 
-        $invoice = Invoice::create($data);
+        return $request;
+
+        //$invoice = Invoice::create($data);
     }
 
     /**

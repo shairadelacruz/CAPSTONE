@@ -21,7 +21,30 @@ class UsersTableSeeder extends Seeder
 	            'password' => bcrypt('123456')
 	        ]);
 
-	    //Roles
+	        DB::table('users')->insert([
+	        	'id' => 2,
+	        	'is_active' => 1,
+	            'name' => 'Viktor Nikiforov',
+	            'email' => 'viktor@yahoo.com',
+	            'password' => bcrypt('123456')
+	        ]);
+
+	        DB::table('users')->insert([
+	        	'id' => 4,
+	        	'is_active' => 1,
+	            'name' => 'Yuri Plisetsky',
+	            'email' => 'yuri@gmail.com',
+	            'password' => bcrypt('123456')
+	        ]);
+
+	       	DB::table('users')->insert([
+	        	'id' => 3,
+	        	'is_active' => 1,
+	            'name' => 'Otabek Altin',
+	            'email' => 'otabek@gmail.com',
+	            'password' => bcrypt('123456')
+	        ]);
+
 
 	        DB::table('roles')->insert([
 	        	'id' => 1,
@@ -51,6 +74,84 @@ class UsersTableSeeder extends Seeder
 	        	'role_id' => 1,
 	        	'user_id' => 1
 	        	
+	        ]);
+
+	        DB::table('role_user')->insert([
+	        	'role_id' => 2,
+	        	'user_id' => 2
+	        	
+	        ]);
+
+	        DB::table('role_user')->insert([
+	        	'role_id' => 3,
+	        	'user_id' => 3
+	        	
+	        ]);
+
+	        DB::table('role_user')->insert([
+	        	'role_id' => 4,
+	        	'user_id' => 4
+	        	
+	        ]);
+
+	        //Permissions
+	        DB::table('permissions')->insert([
+	        	'id' => 1,
+	            'name' => 'menu_admin',
+	            'label' => 'Can see admin menu'
+	        ]);
+
+	        DB::table('permissions')->insert([
+	        	'id' => 2,
+	            'name' => 'menu_user',
+	            'label' => 'Can see user menu'
+	        ]);
+
+	        DB::table('permissions')->insert([
+	        	'id' => 3,
+	            'name' => 'menu_manager',
+	            'label' => 'Can see manager menu'
+	        ]);
+
+	        DB::table('permissions')->insert([
+	        	'id' => 4,
+	            'name' => 'menu_receptionist',
+	            'label' => 'Can see receptionist menu'
+	        ]);
+
+	        DB::table('permission_role')->insert([
+	        	'permission_id' => 1,
+	        	'role_id' => 1	
+	        ]);
+
+	        DB::table('permission_role')->insert([
+	        	'permission_id' => 2,
+	        	'role_id' => 1	
+	        ]);
+
+	        DB::table('permission_role')->insert([
+	        	'permission_id' => 2,
+	        	'role_id' => 2	
+	        ]);
+
+	        DB::table('permission_role')->insert([
+	        	'permission_id' => 2,
+	        	'role_id' => 3	
+	        ]);
+
+	        DB::table('permission_role')->insert([
+	        	'permission_id' => 3,
+	        	'role_id' => 1	
+	        ]);
+
+	        DB::table('permission_role')->insert([
+	        	'permission_id' => 3,
+	        	'role_id' => 2	
+	        ]);
+
+	        DB::table('permission_role')->insert([
+	        	'permission_id' => 4,
+	        	'role_id' => 1	
 	        ]);
 
 	    //COA

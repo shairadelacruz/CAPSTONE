@@ -67,44 +67,7 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                @if(Auth::user()->isUser()) 
-                    <!-- Tasks -->
-                    <li class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <i class="material-icons">notifications</i>
-                            <span class="label-count">{{Auth::user()->tasks()->where('status', 0)->count()}}</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">Tasks</li>
-                            <li class="body">
-                                <ul class="menu">
-                                @if($tasks = Auth::user()->tasks()->where('status', 0)->get())
-                                    @foreach($tasks as $task)
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="menu-info">
-                                                <h4>{{$task->name}}</h4>
-                                                <p>
-                                                    <i class="material-icons">access_time</i> {{$task->deadline->diffForHumans()}}
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    @endforeach
-                                @endif
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="javascript:void(0);">View All Tasks</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- #END# Tasks -->
-                    @endif
-
-                    @if(Auth::user()->isAdmin()||Auth::user()->isManager()||Auth::user()->isUser()) 
-                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true">Switch&nbsp;<i class="material-icons">group</i></a></li>
-                    @endif
+                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true">Switch Client<i class="material-icons">more_vert</i></a></li>
                 </ul>
             </div>
         </div>
@@ -132,7 +95,6 @@
             <div class="menu">
                 <ul class="list">
 
-                    @can('menu_user')
                     <li class="header">ACCOUNTANT</li>
                     <li>
                         <a href="/ames/public/admin">
@@ -219,33 +181,7 @@
                         
                     </li>
 
-                    @endcan
-
-                    @if(Auth::user()->isAdmin()) 
-                        <li class="header">ADMIN</li>
-                    @endIf
-
-                    @if(Auth::user()->isManager()) 
-                        <li class="header">Manager</li>
-                    @endIf
-                    
-                    @can('menu_admin')
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                           <i class="material-icons">account_circle</i>
-                            <span>Employees</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="{{route('admin.users.index')}}">Users</a>
-                            </li>
-                            <li>
-                                <a href="/">Evaluation</a>
-                            </li>
-                        </ul>
-                    </li>
-                    @endcan
-                    @can('menu_manager')
+                    <li class="header">Manager</li>
                     <li>
                         <a href="{{route('admin.clients.index')}}">
                             <i class="material-icons">group</i>
@@ -267,38 +203,11 @@
                             <li>
                                 <a href="{{route('admin.management.task.index')}}">Task Assignment</a>
                             </li>
-                        @can('menu_receptionist')
                             <li>
                                 <a href="{{route('admin.management.logs.index')}}">Log</a>
                             </li>
-                         @endcan
                         </ul>
                     </li>
-                    @endcan
-                    @can('menu_admin')
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">list</i>
-                            <span>Lists</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="{{route('admin.lists.coa.index')}}">Chart of Accounts</a>
-                            </li>
-                            <li>
-                                <a href="{{route('admin.lists.vat.index')}}">VAT Codes</a>
-                            </li>
-                            <li>
-                                <a href="{{route('admin.lists.business.index')}}">Industry Types</a>
-                            </li>
-                            <li>
-                                <a href="{{route('admin.lists.document.index')}}">Document Types</a>
-                            </li>
-
-                        </ul>
-                    </li>
-                    @endcan
-                    
                 </ul>
             </div>
             <!-- #Menu -->
@@ -316,7 +225,7 @@
                     @if($client_names = Auth::user()->clients->all())
                     @foreach($client_names as $client_name)
                         <li>
-                        <a href="/user/{{$client_name->id}}/home">
+                        <a href="/ames/public/user/{{$client_name->id}}/home">
                             <span>{{$client_name->company_name}}</span>
                             </a>
                         </li>   

@@ -9,6 +9,8 @@ use App\BillDetail;
 use App\Client;
 use App\Vendor;
 use App\Item;
+use App\Coa;
+use App\Vat;
 use App\Http\Requests;
 
 class UserBillsController extends Controller
@@ -33,10 +35,18 @@ class UserBillsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($client_id)
     {
         //
-        return view('users.payable.bill.create');
+        $client = Client::find($client_id);
+        $vendors = $client->vendor;
+        $bills = $client->bill;
+        $items = $client->item;
+        $coas = $client->coas;
+        $vats = Vat::all();
+        return view('users.payable.bill.create', compact('client_id', 'client', 'items', 'coas', 'vats', 'vendors'));
+
+
     }
 
     /**
@@ -48,6 +58,8 @@ class UserBillsController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->coa_id;
+        return $data;
     }
 
     /**

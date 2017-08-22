@@ -55,7 +55,7 @@
 			<tbody>
 				<tr v-for="detail in form.details">
 					<td class="table-reference_no" :class="{'table-error': errors['details' + $index + '.reference_no']}">
-						<input type="text" class="table-control" v-model="detail.reference_no">
+						<input id="reference_no" type="text" name="reference_no[]" class="table-control" v-model="detail.reference_no">
 					</td>
 					<td class="table-client_coa_id" :class="{'table-error': errors['details' + $index + '.client_coa_id']}">
 						<input type="text" class="table-control" v-model="detail.client_coa_id">

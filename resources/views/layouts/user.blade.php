@@ -63,11 +63,11 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">Accounting Made Easy</a>
+                <a class="navbar-brand" href="index.html">@yield('company_name')</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
+                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true">Switch Client<i class="material-icons">more_vert</i></a></li>
                 </ul>
             </div>
         </div>
@@ -85,7 +85,7 @@
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
                             <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                            <li><a href="{{ url('/logout') }}"><i class="material-icons">input</i>Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -94,6 +94,7 @@
             <!-- Menu -->
             <div class="menu">
                 <ul class="list">
+
                     <li class="header">ACCOUNTANT</li>
                     <li>
                         <a href="/ames/public/admin">
@@ -123,8 +124,6 @@
                         </ul>
                     </li>
                     
-                    
-                    
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">payment</i>
@@ -135,7 +134,8 @@
                                 <a href="bills.html">Bills</a>
                             </li>
                             <li>
-                                <a href="vendors.html">Vendor</a>
+                                <a href="#">Vendor</a>
+
                             </li>
                         </ul>
                     </li>
@@ -159,7 +159,7 @@
                     </li>
                     
                     <li>
-                        <a href="cash-disbursement.html">
+                        <a href="{{route('users.cashdisbursement.index')}}">
                             <i class="material-icons">monetization_on</i>
                                 <span>Cash Disbursement</span>
                         </a>
@@ -168,7 +168,7 @@
                     <li>
                         <a href="images.html">
                             <i class="material-icons">image</i>
-                                <span>Images</span>
+                                <span>Documents</span>
                         </a>
                     </li>
 
@@ -179,6 +179,11 @@
                             <span>Reports</span>
                         </a>
                         
+                    </li>
+
+              
+
+                        </ul>
                     </li>
                     
                 </ul>
@@ -193,16 +198,19 @@
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
-
+                 
                     <ul class="demo-choose-skin">
                     @if($client_names = Auth::user()->clients->all())
                     @foreach($client_names as $client_name)
                         <li>
+                        <a href="/ames/public/user/{{$client_name->id}}/home">
                             <span>{{$client_name->company_name}}</span>
+                            </a>
                         </li>   
                          @endforeach
                                 @endif 
                     </ul>
+                   
                 </div>
             </div>
         </aside>

@@ -14,10 +14,10 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('client_id')->index()->unsigned();
             $table->string('reference_no');
             $table->date('bill_date');
             $table->date('due_date');
-            $table->integer('client_id')->unsigned();
             $table->integer('vendor_id')->unsigned();
             $table->double('balance');
             $table->double('amount');
