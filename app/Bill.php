@@ -10,7 +10,7 @@ class Bill extends Model
     //
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'bill_date', 'due_date'];
 
     protected $fillable = [
         'reference_no', 'bill_date', 'due_date', 'client_id', 'vendor_id', 'balance', 'amount'
@@ -26,13 +26,13 @@ class Bill extends Model
         return $this->belongsTo('App\Client');
     }
 
-    public function customers()
+    public function vendor()
     {
-        return $this->belongsTo('App\Customer');
+        return $this->belongsTo(Vendor::class);
     }
 
-    public function bill_details()
+    public function bill_detail()
     {
-        return $this->hasMany(BillDetail::class);
+        return $this->hasMany(BillDetails::class);
     }
 }

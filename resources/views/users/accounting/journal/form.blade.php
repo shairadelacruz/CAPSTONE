@@ -7,7 +7,7 @@
 		<div class="col-sm-4">
 			<div class="form-group">
 				<label>Transaction No.</label>
-				<input type="text" class="form-control" v-model="form.journal">
+				<input type="text" class="form-control" v-model="form.transaction_no">
 				<p v-if="errors.transaction_no" class="error">@{{ errors.transaction_no}}</p>
 			</div>
 		</div>

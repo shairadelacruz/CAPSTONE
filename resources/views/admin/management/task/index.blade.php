@@ -25,10 +25,6 @@ Task
 
                                     <a href= "{{route('admin.management.task.create')}}" type="button" class="btn btn-primary waves-effect">+Add</a>
 
-                                   <input type="text" class="datepicker form-control" placeholder="From Date">
-
-                                    <input type="text" class="datepicker form-control" placeholder="To Date">
-
                                 </div>
                             </div>
                             
@@ -42,8 +38,10 @@ Task
                                 <thead>
                                     <tr>
                                         <th>Date</th>
+                                        <th>Deadline</th>
                                         <th>Task</th>
                                         <th>Assigned Accountant</th>
+                                        <th>Documents</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -51,8 +49,10 @@ Task
                                 <tfoot>
                                     <tr>
                                         <th>Date</th>
+                                        <th>Deadline</th>
                                         <th>Task</th>
                                         <th>Assigned Accountant</th>
+                                        <th>Documents</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -61,10 +61,21 @@ Task
                                 @if($tasks)
                                     @foreach($tasks as $task)
                                     <tr>
+                                        <td>{{$task->created_at->toDateString()}}</td>
                                         <td>{{$task->deadline->toDateString()}}</td>
                                         <td>{{$task->name}}</td>
                                         <td>{{$task->user->name}}</td>
-                                        <td>{{$task->status == 0 ? 'Pending' : 'Done'}}</td>                                        
+                                        <td>
+
+                                            <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewDocuments{{$task->id}}">View Documents</button></td>     
+                                        </td>
+                                        <td>
+                                        @if($task->status == 0) Pending
+                                        @endif
+                                        @if($task->status == 1) Done
+                                        @endif
+                                        @if($task->status == 2) For Quality Assurance
+                                        @endif</td>                                        
                                         <td>
                                             <a href="{{route('admin.management.task.edit', $task->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
 
@@ -105,6 +116,52 @@ Task
                 </div>
             </div>
            <!--End Delete--> 
+
+                      <!-- View -->
+            <div class="modal fade" id="viewDocuments{{$task->id}}" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Assigned Documents</h4><br>
+                        </div>
+                        <div class="modal-body">
+                            <table style="width:100%">
+                              <tr>
+                                <th>Document</th>
+                                <th>Reference No.</th> 
+                                <th>Type</th>
+                              </tr>
+                                @foreach ($task->log as $log)
+                                
+                                <tr>
+                                    <td><a href="{{asset('images/' . $log->document_path) }}" data-sub-html="Demo Description">
+                                        <img class="img-responsive" src="{{asset('images/' . $log->document_path) }}" alt="" class="img-responsive" width="75">
+                                    </a>
+                                    </td>
+                                    <td>{{$log->reference_no}}</td>
+                                    <td>{{$log->document_type->name}}</td>
+                                    
+                                </tr>
+
+                                @endforeach
+                             </table>  
+
+                                
+                        </div>
+                        <div class="modal-footer">
+                        <form>
+                          
+
+                            {!! Form:: submit('OK', ['class'=>'btn btn-link waves-effect']) !!}
+
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!--End View-->
            @endforeach
             @endif
  

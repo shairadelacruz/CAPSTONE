@@ -22,7 +22,7 @@ class Vendor extends Model
         return $this->belongsTo('App\Client');
     }
 
-    public function bill(){
+    public function bills(){
 
         return $this->hasMany('App\Bill');
     }

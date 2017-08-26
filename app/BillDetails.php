@@ -22,4 +22,19 @@ class BillDetails extends Model
         return $this->belongsTo(Bill::class);
     }
 
+    public function coa()
+    {
+        return $this->belongsTo(Coa::class);
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
+
+    public function vat()
+    {
+        return $this->belongsTo(Vat::class);
+    }
+
 }

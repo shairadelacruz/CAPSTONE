@@ -75,8 +75,8 @@ Log
                                         <td>{{$log->date_received->toDateString()}}</td>
                                         <td>{{$log->document_type->name}}</td>
                                         <td>{{$log->client->company_name}}</td>
-                                        <td>{{$log->user->name}}</td>
                                         <td>{{$log->received_from}}</td>
+                                        <td>{{$log->user->name}}</td>
                                         
                                         <td>
                                             <a href="{{route('admin.management.logs.edit', $log->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>

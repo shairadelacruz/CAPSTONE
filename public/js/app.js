@@ -19,21 +19,21 @@ var app = new Vue({
 			this.form.details.$remove(detail);
 		},
 
-    create: function() {
-      this.isProcessing = true;
-      this.$http.post('/user/'+ client +'/accounting/journal/', this.form)
-        .then(function(response) {
-          if(response.data.created) {
-            window.location = '/user/'+ client +'/accounting/journal/' + response.data.id;
-          } else {
-            this.isProcessing = false;
-          }
-        })
-        .catch(function(response) {
-          this.isProcessing = false;
-          Vue.set(this.$data, 'errors', response.data);
-        })
-    },
+	    create: function() {
+	      this.isProcessing = true;
+	      this.$http.post('/user/'+ client +'/accounting/journal/', this.form)
+	        .then(function(response) {
+	          if(response.data.created) {
+	            window.location = '/user/'+ client +'/accounting/journal/' + response.data.id;
+	          } else {
+	            this.isProcessing = false;
+	          }
+	        })
+	        .catch(function(response) {
+	          this.isProcessing = false;
+	          Vue.set(this.$data, 'errors', response.data);
+	        })
+	    },
 		update: function() {
 			this.isProcessing = true;
 			this.$http.put('/user/'+ client +'/accounting/journal/' + this.form.id, this.form)

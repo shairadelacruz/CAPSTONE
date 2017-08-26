@@ -18,7 +18,7 @@ Business Types
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Business Type
+                                Industry Type
                             </h2><br>
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -36,14 +36,14 @@ Business Types
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th>Business Type</th>
+                                        <th>Industry Type</th>
                                         <th>Action</th>
 
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Business Type</th>
+                                        <th>Industry Type</th>
                                         <th>Action</th>
 
                                     </tr>

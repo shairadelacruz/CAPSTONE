@@ -291,12 +291,6 @@ class UsersTableSeeder extends Seeder
 	       	//Clients
 
 	       	//Admin
-	        DB::table('clients')->insert([
-	        	'id' => 1,
-	        	'company_name' => "Yurio's Piroshki",
-	        	'legal_name' => "Yurio's Piroshki",
-	        	'address' => "Moscow, Russia",
-	        	'contact_name' => "Yuri Plisetsky",
-	        ]);
+
     }
 }

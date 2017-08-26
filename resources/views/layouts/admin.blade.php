@@ -63,7 +63,9 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">@yield('company_name')</a>
+                <a class="navbar-brand" href="index.html">
+                AMY - Bookkeeping and Project Monitoring System
+                </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -205,7 +207,7 @@
                     
                     <li>
                         <a href="images.html">
-                            <i class="material-icons">image</i>
+                            <i class="material-icons">description</i>
                                 <span>Documents</span>
                         </a>
                     </li>
@@ -244,14 +246,15 @@
                             </li>
                         </ul>
                     </li>
-                    @endcan
-                    @can('menu_manager')
+                        
                     <li>
                         <a href="{{route('admin.clients.index')}}">
                             <i class="material-icons">group</i>
                             <span>Clients</span>
                         </a>
                     </li>
+                    @endcan
+                    @can('menu_manager')
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">assignment</i>
@@ -267,15 +270,20 @@
                             <li>
                                 <a href="{{route('admin.management.task.index')}}">Task Assignment</a>
                             </li>
-                        @can('menu_receptionist')
-                            <li>
-                                <a href="{{route('admin.management.logs.index')}}">Log</a>
-                            </li>
-                         @endcan
+                        
+                         
                         </ul>
                     </li>
                     @endcan
                     @can('menu_admin')
+                    @can('menu_receptionist')
+                    <li>
+                        <a href="{{route('admin.management.logs.index')}}">
+                            <i class="material-icons">description</i>
+                            <span>Document Logs</span>
+                        </a>
+                    </li>
+                    @endcan
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">list</i>

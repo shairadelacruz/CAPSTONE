@@ -87,6 +87,9 @@ class AdminCoasController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+        'name' => 'required'
+        ]);
         $coa = Coa::findOrFail($id);
         $input = $request->all();
         $coa->update($input);

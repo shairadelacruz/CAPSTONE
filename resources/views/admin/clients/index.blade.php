@@ -39,6 +39,7 @@ Clients
                                         <th>ID</th>
                                         <th>Company Name</th>
                                         <th>Address</th>
+                                        <th>Contact Person</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -48,6 +49,7 @@ Clients
                                         <th>ID</th>
                                         <th>Company Name</th>
                                         <th>Address</th>
+                                        <th>Contact Person</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -59,10 +61,12 @@ Clients
                                     <tr>
                                         <td>{{$client->id}}</td>
                                         <td>{{$client->company_name}}</td>
-                                        <td>{{$client->address}}</td>     
+                                        <td>{{$client->address}}</td>
+                                        <td>{{$client->contact_name}}</td>         
                                         <td>
                                             <a href="{{route('admin.clients.edit', $client->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteClients{{$client->id}}"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect"><i class="material-icons">print</i></button>
                                         </td>
                                     </tr>
 

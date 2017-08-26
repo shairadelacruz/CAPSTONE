@@ -33,7 +33,7 @@ use SoftDeletes;
 
     public function task()
     {
-        return $this->hasMany('App\Task');
+        return $this->belongsToMany('App\Task');
     }
 
     public function journal_info()

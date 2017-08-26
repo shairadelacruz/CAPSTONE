@@ -13,7 +13,7 @@ class Task extends Model
     protected $dates = ['deleted_at', 'deadline'];
 
     protected $fillable = [
-        'deadline', 'name', 'description', 'status', 'user_id', 'client_id', 'log_id'
+        'deadline', 'name', 'description', 'status', 'user_id', 'client_id'
     ];
 
     public function user()
@@ -28,7 +28,7 @@ class Task extends Model
 
     public function log()
     {
-        return $this->belongsTo('App\Log');
+        return $this->belongsToMany('App\Log');
     }
 
 }

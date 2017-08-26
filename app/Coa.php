@@ -26,6 +26,11 @@ class Coa extends Model
         return $this->hasMany('App\Item');
     }
 
+    public function bill_details(){
+
+        return $this->hasMany('App\BillDetails');
+    }
+
     public function clients(){
 
         return $this->belongsToMany('App\Client');

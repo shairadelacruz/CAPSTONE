@@ -20,8 +20,8 @@ Bill
         <div class="panel-body">
                 <div class="row">
 
-                    {!!Form::open(array('route'=>null, 'id'=>'frmsave', 'method'=>'POST', 'action'=>['UserBillsController@store', $client_id]))!!}
-
+                    {!!Form::open(['route' => ['insertbill', $client_id], 'id'=>'frmsave', 'method'=>'POST'])!!}
+                    <input type="hidden" name="client_id" value="{{$client_id}}">
                     <div class="col-sm-12">
                         <div class="row">
                             <div class="col-sm-4">
@@ -71,7 +71,7 @@ Bill
                     <tbody>
                         <tr v-for="detail in form.details">
                             <td class="table-item">
-                                <select v-model="detail.item_id" name="item_id[]">
+                                <select v-model="detail.item_id" name="item_id[]" class="item_id">
                                     <option value="0" selected="true" disabled="true"></option>
                                 @if($items)
                                 @foreach($items as $item)
@@ -91,7 +91,7 @@ Bill
                                 </select>
                             </td>
                             <td class="table-description">
-                                <input type="text" name="description[]" class="table-control">
+                                <input type="text" name="description[]" class="table-control description">
                             </td>
                             <td class="table-price">
                                 <input type="number" name="price[]" class="table-control">
@@ -136,7 +136,8 @@ Bill
                 </div>
             <div class="panel-footer">
                 <a href="#" class="btn btn-default">CANCEL</a>
-                <button class="btn btn-success">CREATE</button>
+                {!!Form::submit('Save', array('class'=>'btn btn-primary'))!!}
+                <!--<button id="submit">Submit</button>-->
             </div>
             {!!Form::close()!!}
         </div>
@@ -170,13 +171,22 @@ Bill
             };
 
     </script>
+        <script type="text/javascript">
+        
+            $('#submit').click(function(){
+
+                var element = $('.description');
+                var p = [];
+                for (var i = 0; i < element.length; i++) {
+                    p.push($(element).eq(i).val());
+                }
+                alert(JSON(p));//or alert(p)
+
+            });
+
+    </script>
     <script src="{{asset('js/billvue.js') }}"></script>
 
-    <script type="text/javascript">
-        
-        $('.remove').on('live', function(){
-            $(this).parent().parent().remove();
-        });
-    </script>
+ 
 @endsection
 @stop

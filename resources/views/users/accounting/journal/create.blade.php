@@ -18,7 +18,7 @@ Journal
 
                 <div class = "clearfix">
                     
-                    <span class = "panel-title">Create Invoice</span>
+                    <span class = "panel-title">Create Journal</span>
                     <a href="{{ route('journal', $client_id) }}" class="btn btn-default pull-right">Back</a>
 
                 </div>    
@@ -26,10 +26,10 @@ Journal
             </div>
 
             <div class="panel-body">
-                <form method="POST" action="user/{client_id}/accounting/journal">
+                
                 
                     @include('users.accounting.journal.form')
-                </form>
+              
             </div>
 
             <div class="panel-footer">

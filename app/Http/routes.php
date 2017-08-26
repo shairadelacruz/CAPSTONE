@@ -86,6 +86,8 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/{client_id}/payable/bill/edit', 'UserBillsController@edit');
 
+    Route::post('user/{client_id}/payable/bill', array('as'=>'insertbill','uses'=>'UserBillsController@store'));
+
     Route::resource('user/{client_id}/receivable/customer', 'UserCustomerController');
 
     Route::get('user/{client_id}/receivable/customer', ['as' => 'customer', 'uses' => 'UserCustomerController@index']);
@@ -130,3 +132,4 @@ Route::get('/evaluate', function () {
     return view('admin.management.evaluate.index');
 });
 
+Route::get('/print', array('as'=>'print', 'uses'=>'UserBillsController@print'));

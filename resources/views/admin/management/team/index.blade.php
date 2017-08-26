@@ -25,9 +25,9 @@ Team Assignment
 
                                     <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addLogEntry">+Add</button>
 
-                                    <input type="text" class="datepicker form-control" placeholder="From Date">
+                                    <!--<input type="text" class="datepicker form-control" placeholder="From Date">
 
-                                    <input type="text" class="datepicker form-control" placeholder="To Date">
+                                    <input type="text" class="datepicker form-control" placeholder="To Date">-->
 
                                 </div>
                             </div>

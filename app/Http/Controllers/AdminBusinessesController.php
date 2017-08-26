@@ -29,6 +29,7 @@ class AdminBusinessesController extends Controller
     public function create()
     {
         //
+
         return view('admin.lists.business.index');
     }
 
@@ -83,6 +84,9 @@ class AdminBusinessesController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+        'name' => 'required',
+        ]);
         $business = Business::findOrFail($id);
         $input = $request->all();
         $business->update($input);

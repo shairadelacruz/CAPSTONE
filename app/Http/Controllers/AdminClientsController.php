@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Client;
 use App\User;
 use App\Role;
+use App\Business;
 use App\Http\Requests;
 
 
@@ -36,7 +37,8 @@ class AdminClientsController extends Controller
     public function create()
     {
         //
-        return view('admin.clients.create');
+        $industries = Business::pluck('name', 'id')->all();
+        return view('admin.clients.create', compact('industries'));
     }
 
     /**
@@ -84,7 +86,8 @@ class AdminClientsController extends Controller
     {
         //
         $client = Client::findOrFail($id);
-        return view('admin.clients.edit', compact('client'));
+        $industries = Business::pluck('name', 'id')->all();
+        return view('admin.clients.edit', compact('client', 'industries'));
 
     }
 

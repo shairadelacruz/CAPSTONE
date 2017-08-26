@@ -48,7 +48,23 @@ class AdminTasksController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+        'name' => 'required',
+        'deadline' => 'required',
+        'user_id' => 'required',
+        'client_id' => 'required',
+        ]);
+
+        $documents = $request->log_id;
+
         Task::create($request->all());
+
+        $tasks = Task::all();
+
+        $task = $tasks->last();
+
+        $task->log()->sync($documents);
+
         return redirect('/admin/management/task');
     }
 
@@ -97,13 +113,25 @@ class AdminTasksController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+        'name' => 'required',
+        'deadline' => 'required',
+        'user_id' => 'required',
+        'client_id' => 'required',
+        ]);
+
+        $documents = $request->log_id;
+
         $task = Task::findOrFail($id);
 
         $input = $request->all();
 
         $task->update($input);
 
-        return redirect('/admin/management/task');
+        $task->log()->sync($documents);
+
+        return redirect('/admin/management/task');      
+
     }
 
     /**

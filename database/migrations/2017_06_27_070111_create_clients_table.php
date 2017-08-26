@@ -20,6 +20,9 @@ class CreateClientsTable extends Migration
             $table->string('address');
             $table->date('financial_year');
             $table->string('contact_name');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('mobile');
             $table->softDeletes();
             $table->timestamps();
         });

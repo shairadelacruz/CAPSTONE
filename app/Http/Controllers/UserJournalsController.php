@@ -48,12 +48,42 @@ class UserJournalsController extends Controller
         //
         $this->validate($request, [
             'transaction_no' => 'required',
-            'details.*.debit' => 'required'
+            'date' => 'required',
+            'coa_cli_id' => 'required'
         ]);
+        
+        $details = collect($request->details)->transform(function($detail){
 
-        return $request;
+            $credeb = $detail['debit'] + $detail['credit'];
+            $detail['total'] = (($detail['vat_amount']/100) * $credeb) + $credeb;
+            return new JournalDetails($detail);
+        });
 
-        //$invoice = Invoice::create($data);
+        if($details->isEmpty()){
+
+            return response()
+                ->json([
+
+                        'details_empty' => ['One or more entry is required.']
+
+                    ], 422);
+        }
+
+        $data = $request->except('details');
+
+        $journal = Journal::create($data);
+
+        $journal->journal_details()->saveMany($products);
+
+        return response()
+
+            ->json([
+
+                'created' => true,
+                'id' => $journal->id
+
+                ]);
+        
     }
 
     /**

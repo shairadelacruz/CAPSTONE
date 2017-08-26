@@ -27,13 +27,13 @@ class Item extends Model
         return $this->belongsTo('App\Coa');
     }
 
-    public function invoiceInfo()
+    public function invoice_details()
     {
-        return $this->hasMany('App\Invoice_Info');
+        return $this->hasMany('App\InvoiceDetails');
     }
 
-    public function billInfo()
-    {
-        return $this->hasMany('App\Bill_Info');
+    public function bill_details(){
+
+        return $this->hasMany('App\BillDetails');
     }
 }

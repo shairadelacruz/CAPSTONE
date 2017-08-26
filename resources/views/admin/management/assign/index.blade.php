@@ -20,17 +20,16 @@ Client Assignment
                             <h2>
                                 Client Assignment
                             </h2><br>
-                             <div class="row clearfix js-sweetalert">
+                             <!--<div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addAssign">+Add</button>
 
-                                    <!--<input type="text" class="datepicker form-control" placeholder="From Date">
+                                    <input type="text" class="datepicker form-control" placeholder="From Date">
 
-                                    <input type="text" class="datepicker form-control" placeholder="To Date">-->
+                                    <input type="text" class="datepicker form-control" placeholder="To Date">
 
                                 </div>
-                            </div>
+                            </div>-->
                             
 
                         </div>
@@ -74,59 +73,10 @@ Client Assignment
             </div>
             <!-- #END# Exportable Table -->
 
-
-           <!-- Add VAT -->
-            <div class="modal fade" id="addAssign" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Assign</h4><br>
-                        </div>
-                        <div class="modal-body">
-                            
-                            <div class="row clearfix">
-
-                                    {!! Form::open(['method'=>'POST', 'action'=>'AdminClientUserController@store']) !!}
-                                
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            {!! Form:: label('client_id', 'Client:') !!}
-                                            {!! Form:: select('client_id', [''=>'Choose Options'] + $allClients ,null, ['class'=>'form-control']) !!}
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            {!! Form:: label('user_id', 'Accountant:') !!}
-
-                                            {{Form::select('user_id',$allUsers,null,array('multiple'=>'multiple','name'=>'user_id[]'))}}
-
-                                           
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="modal-footer">
-                                        {!! Form:: submit('SAVE', ['class'=>'btn btn-primary']) !!}
-                                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                                    </div>
-                                 
-                                {!! Form::close() !!}
-                            </div>
-
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-           <!--End Add VAT--> 
-            
- 
         @if($clients)
             @foreach($clients as $client)
 
-           <!-- Edit--> 
-
+           <!-- Edit-->
 
             <div class="modal fade" id="editAssign{{$client->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm" role="document">
@@ -138,14 +88,11 @@ Client Assignment
                             
                             <div class="row clearfix">
 
-                                {!! Form::model($client,['method'=>'PATCH', 'action'=>['AdminClientUserController@update', $client->id]]) !!}
+                                {!! Form::open(['method'=>'POST', 'action'=>'AdminClientUserController@store']) !!}
                                 
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            {!! Form:: label('client_id', 'Client:') !!}
-                                            {{ Form::text('client_id', $client->company_name, ['readonly']) }}
-                                        </div>
-                                    </div>
+                               
+                                {!! Form:: hidden('client_id',$client->id) !!}
+
                                     
                                     <div class="form-group form-float">
                                         <div class="form-line">

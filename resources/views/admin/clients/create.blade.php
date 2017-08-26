@@ -32,15 +32,37 @@ Clients
 	</div>	
 
 	<div class = "form-group">
-		{!! Form:: label('financial_year', 'Financial Year:') !!}
+		{!! Form:: label('business_id', 'Industry Type:') !!}
+	    {!! Form:: select('business_id', [''=>'Choose Options'] + $industries ,null, ['class'=>'form-control']) !!}
+    </div>
+
+	<div class = "form-group">
+		{!! Form:: label('financial_year', 'Financial Year (Enter first month):') !!}
 		{!! Form:: date('financial_year',null, ['class'=>'form-control datepicker']) !!}
 	</div>
+
+    <h3>Contact Person</h3>
 
 	<div class = "form-group">
 		{!! Form:: label('contact_name', 'Name of Contact:') !!}
 		{!! Form:: text('contact_name',null, ['class'=>'form-control datepicker']) !!}
 	</div>
 
+	<div class = "form-group">
+		{!! Form:: label('email', 'Email:') !!}
+		{!! Form:: text('email',null, ['class'=>'form-control']) !!}
+    </div>
+
+    <div class = "form-group">
+		{!! Form:: label('phone', 'Phone:') !!}
+		{!! Form:: text('phone',null, ['class'=>'form-control']) !!}
+    </div>      
+
+    <div class = "form-group">
+		{!! Form:: label('mobile', 'Mobile:') !!}
+		{!! Form:: text('mobile',null, ['class'=>'form-control']) !!}
+    </div>
+        
 	<div class = "form-group">
 		{!! Form:: submit('Create Client', ['class'=>'btn btn-primary']) !!}
 	</div>

@@ -34,17 +34,22 @@ Assign Task
 
 	<div class = "form-group">
 		{!! Form:: label('log_id', 'Document:') !!}
-		{!! Form:: select('log_id', [''=>'Choose Options'] + $logs ,null, ['class'=>'form-control']) !!}
+		{{Form::select('log_id[]',$logs,$task->log->pluck('reference_no'),array('multiple'=>'multiple','reference_no'=>'log_id[]'))}}
 	</div>
 
 	<div class = "form-group">
 		{!! Form:: label('deadline', 'Set Deadline:') !!}
-		{!! Form:: date('deadline',$date, ['class'=>'form-control datepicker']) !!}
+		{!! Form:: date('deadline',$task->deadline, ['class'=>'form-control datepicker']) !!}
 	</div>
 
 	<div class = "form-group">
-			{!! Form:: label('status', 'Status:') !!}
-			{!! Form:: select('status', array(0=>'Pending', 1=>'Done'), 0, ['class'=>'form-control show-tick']) !!}
+		{!! Form:: label('task_type', 'Task types:') !!}
+		{!! Form:: select('task_type', array(0=>'None/Other', 1=>'Journal', 2=>'Accounts Receivable', 3=>'Accounts Payable'), 0, ['class'=>'form-control show-tick']) !!}
+	</div>
+
+	<div class = "form-group">
+		{!! Form:: label('status', 'Status:') !!}
+		{!! Form:: select('status', array(0=>'Pending', 1=>'Done', 2=>'For Quality Assurance'), 0, ['class'=>'form-control show-tick']) !!}
 	</div>
 
 	<div class = "form-group">

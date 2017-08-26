@@ -18,9 +18,14 @@ class Vat extends Model
 
     ];
 
-    public function invoiceInfo()
-    {
-        return $this->belongsTo('App\Invoice_Info');
+    public function invoice_details(){
+
+        return $this->hasMany('App\InvoiceDetails');
+    }
+
+    public function bill_details(){
+
+        return $this->hasMany('App\BillDetails');
     }
 
 }
