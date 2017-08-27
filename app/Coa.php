@@ -35,4 +35,9 @@ class Coa extends Model
 
         return $this->belongsToMany('App\Client');
     }
+
+    public function journals_details(){
+
+        return $this->hasMany('App\JournalDetails', 'client_coa_id');
+    }
 }

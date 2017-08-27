@@ -64,20 +64,41 @@ class UserJournalsController extends Controller
 
         $id = $journals->save();
 
-        $journalId = $id;
+        
+        $journ = Journal::all()->last();
+        $journalId = $journ->id;
+
 
         if($id != 0){
             foreach ($request->coa_cli_id as $key => $v)
             {
-                $data = array('journal_id'=>$journalId,
-                            'reference_no'=>$request->reference_no[$key],);
+                /*$data = array('journal_id'=>$journalId,
+                            'reference_no'=>$request->reference_no[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'debit'=>$request->debit[$key],
+                            'credit'=>$request->credit[$key],
+                            'vat_amount'=>$request->vat_amount[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            );
 
 
-                //JournalDetails::insert($data);
+                JournalDetails::insert($data);*/
+
+                $journalDetail = new JournalDetails([
+                      'journal_id'=>$journalId,
+                            'reference_no'=>$request->reference_no[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'debit'=>$request->debit[$key],
+                            'credit'=>$request->credit[$key],
+                            'vat_amount'=>$request->vat_amount[$key],
+                            'vat_id'=>$request->vat_id[$key]
+                ]);
+            $journalDetail->save();
             }
         }
-        return $data;
-        //return $request->all();        
+        //return $data;
+        //return $request->all();      
+        //return $key;  
     }
 
     /**

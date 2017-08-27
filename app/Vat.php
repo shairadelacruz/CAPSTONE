@@ -28,4 +28,9 @@ class Vat extends Model
         return $this->hasMany('App\BillDetails');
     }
 
+    public function journal_details(){
+
+        return $this->hasMany('App\JournalDetails', 'vat_id');
+    }
+
 }

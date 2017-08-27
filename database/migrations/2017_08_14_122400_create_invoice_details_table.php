@@ -19,7 +19,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->integer('item_id')->unsigned();
             $table->integer('vat_id')->unsigned();
             $table->integer('vat_amount');
-            $table->string('description');
+            $table->string('descriptions');
             $table->integer('qty');
             $table->decimal('price');
             $table->decimal('total');
