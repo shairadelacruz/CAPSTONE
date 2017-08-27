@@ -97,15 +97,15 @@ class User extends Authenticatable
         );
     }
 
-    public function team()
+    public function teams()
     {
-        return $this->belongsTo('App\Team');
+        return $this->belongsToMany('App\Team');
     }
 
-   /* public function team()
+    public function team()
     {
-        return $this->hasOne('App\Team');
-    }*/
+        return $this->hasMany('App\Team','team_leader');
+    }
 
     public function logs(){
 

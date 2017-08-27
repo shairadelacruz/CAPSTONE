@@ -27,9 +27,9 @@ Journal
 
             <div class="panel-body">
                 
+                {!!Form::open(['route' => ['insertjournal', $client_id], 'id'=>'frmsave', 'method'=>'POST'])!!}
                 
                     @include('users.accounting.journal.form')
-              
             </div>
 
             <div class="panel-footer">
@@ -38,6 +38,10 @@ Journal
                 
                 <a href="{{ route('journal', $client_id) }}" class="btn btn-default">Cancel</a>
                 <button class="btn btn-success" @click="create" :disabled="isProcessing">Create</button>
+                
+<input type='submit' value='test'>
+                
+                {!!Form::close()!!}
 
             </div>
 

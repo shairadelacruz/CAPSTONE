@@ -67,7 +67,7 @@ class UserBillsController extends Controller
 
         $id = $bills->save();
 
-        
+        var_dump($_POST);
         if($id != 0){
             foreach ($request->item_id as $key => $v)
             {

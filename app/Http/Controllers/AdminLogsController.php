@@ -138,8 +138,6 @@ class AdminLogsController extends Controller
 
         $log->delete();
 
-        //return $id;
-
         Session::flash('deleted_log','The log has been deleted');
 
         return redirect('/admin/management/logs');

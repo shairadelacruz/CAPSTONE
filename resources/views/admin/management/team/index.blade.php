@@ -23,7 +23,7 @@ Team Assignment
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addLogEntry">+Add</button>
+                                    <a href= "{{route('admin.management.team.create')}}" type="button" class="btn btn-primary waves-effect">+Add</a>
 
                                     <!--<input type="text" class="datepicker form-control" placeholder="From Date">
 
@@ -31,7 +31,10 @@ Team Assignment
 
                                 </div>
                             </div>
-                            
+
+                            @if(Session::has('deleted_team'))
+                                 <p class="bg-danger">{{Session('deleted_team')}}</p>
+                            @endif
 
                         </div>
                         <div class="body table-responsive">
@@ -53,15 +56,19 @@ Team Assignment
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                @if($teams)
+                                    @foreach($teams as $team)
                                     <tr>
-                                        <td>Detective Agency</td>
-                                        <td>Satoshi</td>
-                                        <td><button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewMembers">View Employees</button></td>     
+                                        <td>{{$team->name}}</td>
+                                        <td>{{$team->user->name}}</td>
+                                        <td><button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewMembers{{$team->id}}">View Employees</button></td>     
                                         <td>
-                                            <a href="" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
+                                            <a href="{{route('admin.management.team.edit', $team->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteLogEntry"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -69,7 +76,8 @@ Team Assignment
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-            
+            @if($teams)
+                @foreach($teams as $team)
             <!-- Delete -->
             <div class="modal fade" id="deleteLogEntry" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
@@ -81,7 +89,7 @@ Team Assignment
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                        <form>
+                        {!! Form::open(['method'=>'DELETE', 'action'=>['AdminTeamsController@destroy', $team->id]]) !!}
                           
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
@@ -96,16 +104,18 @@ Team Assignment
            <!--End Delete-->
 
            <!-- View -->
-            <div class="modal fade" id="viewMembers" tabindex="-1" role="dialog">
+            <div class="modal fade" id="viewMembers{{$team->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="smallModalLabel">Assigned Employees</h4><br>
                         </div>
                         <div class="modal-body">
-                            John Doe<br>
-                            Tom Smith<br>
-                            Jennifer McDonald
+                            <ul>
+                                @foreach ($team->users as $user)
+                                <li>{{$user->name}}</li>
+                                @endforeach
+                            </ul>
                         </div>
                         <div class="modal-footer">
                         <form>
@@ -121,7 +131,8 @@ Team Assignment
                 </div>
             </div>
            <!--End View-->
-
+            @endforeach
+        @endif
            
 
         </div>

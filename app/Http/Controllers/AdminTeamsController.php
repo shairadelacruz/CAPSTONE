@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-
+use App\Team;
+use App\User;
+use App\Role;
 use App\Http\Requests;
 
 class AdminTeamsController extends Controller
@@ -16,6 +19,7 @@ class AdminTeamsController extends Controller
     public function index()
     {
         //
+        $teams = Team::all();
         return view('admin.management.team.index', compact('teams'));
     }
 
@@ -27,6 +31,13 @@ class AdminTeamsController extends Controller
     public function create()
     {
         //
+        $users = User::pluck('name', 'id')->all();
+
+        $role = Role::find(2);
+
+        $team_leaders = $role->users->pluck('name','id');
+        
+        return view('admin.management.team.create', compact('team_leaders','users'));
     }
 
     /**
@@ -38,6 +49,23 @@ class AdminTeamsController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+        'name' => 'required',
+        'team_leader' => 'required',
+        'user_id' => 'required',
+        ]);
+
+        $users = $request->user_id;
+
+        Team::create($request->all());
+
+        $teams = Team::all();
+
+        $team = $teams->last();
+
+        $team->users()->sync($users);
+
+        return redirect('/admin/management/team');
     }
 
     /**
@@ -60,6 +88,16 @@ class AdminTeamsController extends Controller
     public function edit($id)
     {
         //
+
+        $team = Team::findOrFail($id);
+
+        $users = User::pluck('name', 'id')->all();
+
+        $role = Role::find(2);
+
+        $team_leaders = $role->users->lists('name','id')->all();
+
+        return view('admin.management.team.edit', compact('team','team_leaders','users'));
     }
 
     /**
@@ -72,6 +110,23 @@ class AdminTeamsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+        'name' => 'required',
+        'team_leader' => 'required',
+        'user_id' => 'required',
+        ]);
+
+        $users = $request->user_id;
+
+        $team = Team::findOrFail($id);
+
+        $input = $request->all();
+
+        $team->update($input);
+
+        $team->users()->sync($users);
+
+        return redirect('/admin/management/team');
     }
 
     /**
@@ -83,5 +138,12 @@ class AdminTeamsController extends Controller
     public function destroy($id)
     {
         //
+        $team = Team::findOrFail($id);
+
+        $team->delete();
+
+        Session::flash('deleted_team','The team has been deleted');
+
+        return redirect('/admin/management/team');
     }
 }

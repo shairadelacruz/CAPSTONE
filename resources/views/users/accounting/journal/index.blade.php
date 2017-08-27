@@ -10,6 +10,7 @@ Journal
 
 @section('content')
 
+<?php var_dump($_REQUEST); ?>
         <div class="container-fluid">
             
             <!-- Exportable Table -->

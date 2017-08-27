@@ -117,7 +117,7 @@ Task
             </div>
            <!--End Delete--> 
 
-                      <!-- View -->
+            <!-- View -->
             <div class="modal fade" id="viewDocuments{{$task->id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

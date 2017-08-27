@@ -13,14 +13,18 @@ class Team extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function user(){
+    protected $fillable = [
+        'team_leader', 'name', 'user_id'
+    ];
 
-        return $this->hasMany('App\User');
+    public function users(){
+
+        return $this->belongsToMany('App\User');
     }
 
     public function user(){
 
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'team_leader');
     }
 
 }

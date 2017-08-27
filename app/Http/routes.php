@@ -61,6 +61,8 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::get('user/{client_id}/accounting/journal', ['as' => 'journal', 'uses' => 'UserJournalsController@index']);
 
+    Route::post('user/{client_id}/accounting/journal', array('as'=>'insertjournal','uses'=>'UserJournalsController@store'));
+
     Route::resource('user/{client_id}/accounting/coa', 'UserCoasController');
 
     Route::resource('user/{client_id}/accounting/coa/create', 'UserCoasController@create');

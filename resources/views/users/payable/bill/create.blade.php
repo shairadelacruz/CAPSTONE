@@ -58,7 +58,7 @@ Bill
                 <table class="table table-bordered table-form">
                     <thead>
                         <tr>
-                            <th>Item</th>
+                            <th>xxxItem</th>
                             <th>Acount</th>
                             <th>Description</th>
                             <th>Price</th>

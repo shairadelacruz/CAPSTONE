@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use App\Coa;
+use App\Vat;
 use App\Client;
 use App\Journal;
 use App\JournalDetails;
@@ -34,7 +35,10 @@ class UserJournalsController extends Controller
     public function create($client_id)
     {
         //
-        return view('users.accounting.journal.create', compact('client_id'));
+        $client = Client::find($client_id);
+        $coas = $client->coas;
+        $vats = Vat::all();
+        return view('users.accounting.journal.create', compact('client_id','coas', 'vats'));
     }
 
     /**
@@ -51,39 +55,29 @@ class UserJournalsController extends Controller
             'date' => 'required',
             'coa_cli_id' => 'required'
         ]);
-        
-        $details = collect($request->details)->transform(function($detail){
 
-            $credeb = $detail['debit'] + $detail['credit'];
-            $detail['total'] = (($detail['vat_amount']/100) * $credeb) + $credeb;
-            return new JournalDetails($detail);
-        });
+        $journals = new Journal;
+        $journals->client_id = $request->client_id;
+        $journals->transaction_no = $request->transaction_no;
+        $journals->date = $request->date;
+        $journals->description = $request->description;
 
-        if($details->isEmpty()){
+        $id = $journals->save();
 
-            return response()
-                ->json([
+        $journalId = $id;
 
-                        'details_empty' => ['One or more entry is required.']
+        if($id != 0){
+            foreach ($request->coa_cli_id as $key => $v)
+            {
+                $data = array('journal_id'=>$journalId,
+                            'reference_no'=>$request->reference_no[$key],);
 
-                    ], 422);
+
+                //JournalDetails::insert($data);
+            }
         }
-
-        $data = $request->except('details');
-
-        $journal = Journal::create($data);
-
-        $journal->journal_details()->saveMany($products);
-
-        return response()
-
-            ->json([
-
-                'created' => true,
-                'id' => $journal->id
-
-                ]);
-        
+        return $data;
+        //return $request->all();        
     }
 
     /**
