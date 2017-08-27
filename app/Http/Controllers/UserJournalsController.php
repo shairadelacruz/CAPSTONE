@@ -85,7 +85,8 @@ class UserJournalsController extends Controller
                 JournalDetails::insert($data);*/
 
                 $journalDetail = new JournalDetails([
-                      'journal_id'=>$journalId,
+                        'journal_id'=>$journalId,
+                        'client_coa_id'=>$request->coa_cli_id[$key],
                             'reference_no'=>$request->reference_no[$key],
                             'descriptions'=>$request->descriptions[$key],
                             'debit'=>$request->debit[$key],
