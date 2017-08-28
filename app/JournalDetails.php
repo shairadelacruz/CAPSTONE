@@ -14,7 +14,7 @@ class JournalDetails extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-    	'reference_no', 'description', 'debit', 'credit', 'vat_amount', 'vat_id', 'client_coa_id', 'vendor_id','customer_id', 'journal_id'
+    	'reference_no', 'description', 'debit', 'credit', 'vat_amount', 'vat_id', 'coa_id', 'vendor_id','customer_id', 'journal_id'
     ];
 
     public function journal(){
@@ -29,11 +29,11 @@ class JournalDetails extends Model
 
     public function coas(){
 
-        return $this->belongsToMany('App\Coa', 'client_coa_id');
+        return $this->belongsToMany('App\Coa');
     }
 
     public function vats(){
 
-        return $this->belongsToMany('App\Vat', 'vat_id');
+        return $this->belongsToMany('App\Vat');
     }
 }

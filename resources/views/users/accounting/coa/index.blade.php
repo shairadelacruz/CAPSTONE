@@ -60,8 +60,8 @@ COA
                                     <tr>
                                         <td>{{$coa->coacategory->name}}</td>
                                         <td>{{$coa->name}}</td>
-                                        <td></td>
-                                        <td>{{$coa->description}}</td>  
+                                        <td>{{$coa->description}}</td>
+                                        <td></td> 
                                         <td>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteCoa{{$coa->id}}"><i class="material-icons">delete</i></button>
                                         </td>

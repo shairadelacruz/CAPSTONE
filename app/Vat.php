@@ -30,7 +30,7 @@ class Vat extends Model
 
     public function journal_details(){
 
-        return $this->hasMany('App\JournalDetails', 'vat_id');
+        return $this->hasMany('App\JournalDetails');
     }
 
 }

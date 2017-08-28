@@ -25,6 +25,8 @@ class UserCoasController extends Controller
 
         $coas = $client->coas;
 
+        /*$amount = DB::select(DB::raw('SELECT `amount` FROM `client_coa` WHERE `client_coa`.`client_id` = 1'));*/
+
         return view('users.accounting.coa.index', compact('coas', 'client_id'));
     }
 

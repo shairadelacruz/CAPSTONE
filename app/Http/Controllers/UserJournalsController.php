@@ -9,6 +9,7 @@ use App\Client;
 use App\Journal;
 use App\JournalDetails;
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 
 class UserJournalsController extends Controller
 {
@@ -72,29 +73,47 @@ class UserJournalsController extends Controller
         if($id != 0){
             foreach ($request->coa_cli_id as $key => $v)
             {
-                /*$data = array('journal_id'=>$journalId,
-                            'reference_no'=>$request->reference_no[$key],
-                            'descriptions'=>$request->descriptions[$key],
-                            'debit'=>$request->debit[$key],
-                            'credit'=>$request->credit[$key],
-                            'vat_amount'=>$request->vat_amount[$key],
-                            'vat_id'=>$request->vat_id[$key],
-                            );
-
-
-                JournalDetails::insert($data);*/
 
                 $journalDetail = new JournalDetails([
-                        'journal_id'=>$journalId,
-                        'client_coa_id'=>$request->coa_cli_id[$key],
+                            'journal_id'=>$journalId,
+                            'coa_id'=>$request->coa_cli_id[$key],
                             'reference_no'=>$request->reference_no[$key],
                             'descriptions'=>$request->descriptions[$key],
                             'debit'=>$request->debit[$key],
                             'credit'=>$request->credit[$key],
                             'vat_amount'=>$request->vat_amount[$key],
                             'vat_id'=>$request->vat_id[$key]
+
                 ]);
+
             $journalDetail->save();
+
+            $detail = JournalDetails::all()->last();
+            $coa = $detail->coa_id;
+            $client_id = $detail->journal->client_id;
+
+            $vat_amount = $detail->vat_amount;
+            $debit = $detail->debit;
+            $credit = $detail->credit;
+
+            if($debit != 0){
+                $vat_amounts = $vat_amount/100;
+                $total = ($vat_amounts * $debit)+$debit;
+            }
+
+            else if($credit != 0){
+                $vat = $vat_amount/100;
+                $double = 2 * $credit;
+                $total = ($vat_amounts * $credit)+$credit-$double;
+            }
+
+            else{
+
+                $total = 0;
+            }
+            
+            DB::update('update `client_coa` SET `amount` = ? WHERE `client_coa`.`client_id` = ? AND `client_coa`.`coa_id` = ?', [$total, $client_id, $coa]);
+
             }
         }
         //return $data;

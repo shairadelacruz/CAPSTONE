@@ -66,7 +66,7 @@
                                     <option value="{{$coa->id}}">{{$coa->name}}</option>
                                 @endforeach
                                 @endif
-                      </select>
+                    </select>
 						
 					</td>
 					<td class="table-debit" :class="{'table-error': errors['details' + $index + '.debit']}">
@@ -79,7 +79,14 @@
 						<input type="text" class="table-control" v-model="detail.description" name="descriptions[]">
 					</td>
 					<td class="table-vat_id" :class="{'table-error': errors['details' + $index + '.vat_id']}">
-						<input type="text" class="table-control" v-model="detail.vat_id" name="vat_id[]">
+						<select class="table-control" name="vat_id[]" v-model="detail.vat_id">
+                                    <option value="0" selected="true" disabled="true"></option>
+                                @if($vats)
+                                @foreach($vats as $vat)
+                                    <option value="{{$vat->id}}">{{$vat->vat_code}}</option>
+                                @endforeach
+                                @endif
+                    </select>
 					</td>
 					<td class="table-vat_amount" :class="{'table-error': errors['details' + $index + '.vat_amount']}">
 						<input type="number" class="table-control" v-model="detail.vat_amount" name="vat_amount[]">
