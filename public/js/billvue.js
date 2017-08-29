@@ -5,9 +5,7 @@ var app = new Vue({
     form: {},
     errors: {}
   },
-  created: function () {
-    Vue.set(this.$data, 'form', _form);
-  },
+  
   methods: {
     addLine: function() {
       this.form.details.push({ price: 0, qty: 1, vat_amount: 0})

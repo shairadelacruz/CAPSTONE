@@ -227,6 +227,7 @@ class UserInvoicesController extends Controller
     public function update(Request $request, $id)
     {
         //
+        
     }
 
     /**

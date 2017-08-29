@@ -94,6 +94,8 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::post('user/{client_id}/payable/bill', array('as'=>'insertbill','uses'=>'UserBillsController@store'));
 
+    Route::get('user/{client_id}/payable/bill/edit', 'UserBillsController@update');
+
 
     Route::resource('user/{client_id}/receivable/customer', 'UserCustomerController');
 

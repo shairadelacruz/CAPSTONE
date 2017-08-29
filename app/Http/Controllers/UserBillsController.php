@@ -218,7 +218,7 @@ class UserBillsController extends Controller
         $bill = Bill::findOrFail($id);
         $details = $bill->bill_detail;
         $client = Client::find($client_id);
-        $vendors = $client->vendors;
+        $vendors = $client->vendor;
         $bills = $client->bill;
         $items = $client->item;
         $coas = $client->coas;
@@ -237,6 +237,25 @@ class UserBillsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        /*$this->validate($request, [
+            'reference_no' => 'required',
+            'bill_date' => 'required',
+            'item_id' => 'required',
+            'coa_id' => 'required'
+        ]);*/
+
+        $bills= Bill::findOrFail($id);
+        $bills->client_id = $request->client_id;
+        $bills->reference_no = $request->reference_no;
+        $bills->bill_date = $request->bill_date;
+        $bills->due_date = $request->due_date;
+        $bills->vendor_id = $request->vendor_id;
+        $bills->amount = $request->grandTotal;
+        $bills->balance = $request->grandTotal;
+
+        $id = $bills->update();
+
+        return $id;
     }
 
     /**
