@@ -55,7 +55,7 @@ Route::group(['middleware'=>'auth'], function(){
 
 	Route::resource('user/accounting/vat', 'UserVatsController');
 
-    Route::resource('user/accounting/transaction', 'UserTransactionsController');
+    Route::resource('user/{client_id}/accounting/transaction', 'UserTransactionsController');
 
     Route::resource('user/{client_id}/accounting/journal', 'UserJournalsController');
 

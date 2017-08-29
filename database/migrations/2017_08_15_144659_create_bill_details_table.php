@@ -17,7 +17,7 @@ class CreateBillDetailsTable extends Migration
             $table->integer('bill_id')->unsigned();
             $table->integer('coa_id')->unsigned();
             $table->integer('item_id')->unsigned();
-            $table->integer('vat_id')->unsigned();
+            $table->integer('vat_id')->unsigned()->nullable();
             $table->integer('vat_amount');
             $table->string('descriptions');
             $table->integer('qty');

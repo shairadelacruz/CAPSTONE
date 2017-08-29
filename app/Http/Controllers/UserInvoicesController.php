@@ -11,6 +11,8 @@ use App\Customer;
 use App\Item;
 use App\Coa;
 use App\Vat;
+use App\Journal;
+use App\JournalDetails;
 use App\Http\Requests;
 
 class UserInvoicesController extends Controller
@@ -78,6 +80,29 @@ class UserInvoicesController extends Controller
         $invoiceLast = Invoice::all()->last();
         $invoiceId = $invoiceLast->id;
 
+        $client_id = $request->client_id;
+        //Get how many journal to put in transaction_no
+        $count = Journal::where('type','=','2')->count();
+        //Create Journal Header
+        $journals = new Journal;
+        $journals->client_id = $client_id;
+        $journals->transaction_no = "I".$count;
+        $journals->date = $request->invoice_date;
+        $journals->debit_total = $request->grandTotal;
+        $journals->credit_total = $request->grandTotal;
+        $journals->type = 1;
+        $id = $journals->save();
+
+        $journ = Journal::all()->last();
+        $journalId = $journ->id;
+
+        //Create debit detail
+        $debit = new JournalDetails;
+        $debit->journal_id = $journalId;
+        $debit->coa_id = 2;
+        $debit->debit = $request->grandTotal;
+        $debit->save();
+
 
         if($id != 0){
             foreach ($request->item_id as $key => $v)
@@ -98,9 +123,22 @@ class UserInvoicesController extends Controller
 
             $invoiceDetail->save();
 
+
+                //Create credit detail
+
+                $credit = new JournalDetails([
+                            'journal_id'=>$journalId,
+                            'coa_id'=>$request->coa_id[$key],
+                            'debit'=>$request->total[$key]
+
+                ]);
+
+                $credit->save();
+
+
             }
         }
-        $client_id = $request->client_id;
+        //$client_id = $request->client_id;
         return \Redirect::route('invoice', [$client_id]);
         
     }
@@ -112,6 +150,8 @@ class UserInvoicesController extends Controller
 
         $balance = $invoice->balance;
 
+        $minus = $request->amount;
+
         $amount = $balance - $request->amount;
 
         $invoice->balance = $amount;
@@ -119,6 +159,37 @@ class UserInvoicesController extends Controller
         $invoice->update();
     
         $client_id = $invoice->client_id;
+
+
+        ///Get how many journal to put in transaction_no
+        $count = Journal::where('type','=','3')->count();
+        //Create Journal Header
+        $journals = new Journal;
+        $journals->client_id = $client_id;
+        $journals->transaction_no = "IP".$count;
+        $journals->date = $request->date;
+        $journals->description = $request->description;
+        $journals->debit_total = $minus;
+        $journals->credit_total = $minus;
+        $journals->type = 3;
+        $id = $journals->save();
+
+        $journ = Journal::all()->last();
+        $journalId = $journ->id;
+
+        //Create Debit detail
+        $debit = new JournalDetails;
+        $debit->journal_id = $journalId;
+        $debit->coa_id = 1;
+        $debit->debit = $minus;
+        $debit->save();
+
+        //Create Credit detail
+        $credit = new JournalDetails;
+        $credit->journal_id = $journalId;
+        $credit->coa_id = 2;
+        $credit->credit = $minus;
+        $credit->save();
 
         return \Redirect::route('invoice', [$client_id]);
         

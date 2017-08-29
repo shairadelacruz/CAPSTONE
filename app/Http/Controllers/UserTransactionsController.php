@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Journal;
+use App\Client;
 
 class UserTransactionsController extends Controller
 {
@@ -13,10 +15,12 @@ class UserTransactionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($client_id)
     {
         //
-        return view('users.accounting.transaction.index');
+        $client = Client::find($client_id);
+        $journals = $client->journal->all();
+        return view('users.accounting.transaction.index', compact('journals'));
     }
 
     /**

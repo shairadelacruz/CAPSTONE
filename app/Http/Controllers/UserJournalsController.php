@@ -24,7 +24,7 @@ class UserJournalsController extends Controller
         //
         $client = Client::find($client_id);
 
-        $journals = $client->journal;
+        $journals = $client->journal->where('type', 0)->all();
 
         return view('users.accounting.journal.index', compact('journals'));
     }
@@ -55,7 +55,7 @@ class UserJournalsController extends Controller
          $this->validate($request, [
             'transaction_no' => 'required',
             'date' => 'required',
-            'coa_id' => 'required'
+            'coa_cli_id' => 'required'
         ]);
         
 
@@ -90,52 +90,10 @@ class UserJournalsController extends Controller
 
             $journalDetail->save();
 
-            $detail = JournalDetails::all()->last();
-            $coa = $detail->coa_id;
-            $client_id = $detail->journal->client_id;
-
-            return \Redirect::route('journal', [$client_id]);
-
-            /*$coa_amount = DB::table('client_coa')->where('client_coa.client_id', '=', $client_id)
-            ->where('client_coa.coa_id', '=', $coa)
-            ->value('amount');*/
-
-            //return $coa_amount;
-
-            /*$vat_amount = $detail->vat_amount;
-            $debit = $detail->debit;
-            $credit = $detail->credit;
-
-            if($debit != 0){
-                $vat_amounts = $vat_amount/100;
-                $tot = ($vat_amounts * $debit)+$debit;
-                $total = $tot;
-                $status = 0;
-            }
-
-            else if($credit != 0){
-                $vat_amounts = $vat_amount/100;
-                $tot = ($vat_amounts * $credit)+$credit;
-                $total = $tot;
-                $status = 1;
-                return $total;
-            }
-            
-
-            $coa_amount = new Coaamount;
-            $coa_amount->client_id = $client_id;
-            $coa_amount->coa_id = $coa;
-            $coa_amount->amount = $total;
-            $coa_amount->debit_credit = $status;
-
-            $coa_amount->save();*/
-            //DB::update('update `client_coa` SET `amount` = ? WHERE `client_coa`.`client_id` = ? AND `client_coa`.`coa_id` = ?', [$total, $client_id, $coa]);
-
             }
         }
-        //return $data;
-        //return $request->all();      
-        //return $key;  
+        $client_id = $request->client_id;
+        return \Redirect::route('journal', [$client_id]); 
     }
 
     /**

@@ -134,7 +134,7 @@ Invoice
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             {!! Form:: label('amount', 'Amount:') !!}
-                                            {!! Form:: number('amount',null, ['class'=>'form-control']) !!}
+                                            {!! Form:: number('amount',null, ['class'=>'form-control','step' => '0.01']) !!}
                                         </div>
                                     </div>
 

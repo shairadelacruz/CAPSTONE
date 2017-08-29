@@ -11,6 +11,8 @@ use App\Vendor;
 use App\Item;
 use App\Coa;
 use App\Vat;
+use App\Journal;
+use App\JournalDetails;
 use App\Http\Requests;
 
 class UserBillsController extends Controller
@@ -64,7 +66,6 @@ class UserBillsController extends Controller
             'item_id' => 'required',
             'coa_id' => 'required'
         ]);
-       
 
         $bills = new Bill;
         $bills->client_id = $request->client_id;
@@ -79,6 +80,29 @@ class UserBillsController extends Controller
 
         $billLast = Bill::all()->last();
         $billId = $billLast->id;
+
+        $client_id = $request->client_id;
+        //Get how many journal to put in transaction_no
+        $count = Journal::where('type','=','2')->count();
+        //Create Journal Header
+        $journals = new Journal;
+        $journals->client_id = $client_id;
+        $journals->transaction_no = "B".$count;
+        $journals->date = $request->bill_date;
+        $journals->debit_total = $request->grandTotal;
+        $journals->credit_total = $request->grandTotal;
+        $journals->type = 2;
+        $id = $journals->save();
+
+        $journ = Journal::all()->last();
+        $journalId = $journ->id;
+
+        //Create Credit detail
+        $credit = new JournalDetails;
+        $credit->journal_id = $journalId;
+        $credit->coa_id = 8;
+        $credit->credit = $request->grandTotal;
+        $credit->save();
 
 
         if($id != 0){
@@ -98,11 +122,23 @@ class UserBillsController extends Controller
 
                 ]);
 
-            $billDetail->save();
+                $billDetail->save();
+
+
+                //Create Debit detail
+
+                $debit = new JournalDetails([
+                            'journal_id'=>$journalId,
+                            'coa_id'=>$request->coa_id[$key],
+                            'debit'=>$request->total[$key]
+
+                ]);
+
+                $debit->save();
 
             }
         }
-        $client_id = $request->client_id;
+        //$client_id = $request->client_id;
         return \Redirect::route('bill', [$client_id]);
         
     }
@@ -114,6 +150,8 @@ class UserBillsController extends Controller
 
         $balance = $bill->balance;
 
+        $minus = $request->amount;
+
         $amount = $balance - $request->amount;
 
         $bill->balance = $amount;
@@ -122,8 +160,38 @@ class UserBillsController extends Controller
     
         $client_id = $bill->client_id;
 
+
+        //Get how many journal to put in transaction_no
+        $count = Journal::where('type','=','4')->count();
+        //Create Journal Header
+        $journals = new Journal;
+        $journals->client_id = $client_id;
+        $journals->transaction_no = "BP".$count;
+        $journals->date = $request->date;
+        $journals->description = $request->description;
+        $journals->debit_total = $minus;
+        $journals->credit_total = $minus;
+        $journals->type = 4;
+        $id = $journals->save();
+
+        $journ = Journal::all()->last();
+        $journalId = $journ->id;
+
+        //Create Debit detail
+        $debit = new JournalDetails;
+        $debit->journal_id = $journalId;
+        $debit->coa_id = 8;
+        $debit->debit = $minus;
+        $debit->save();
+
+        //Create Credit detail
+        $credit = new JournalDetails;
+        $credit->journal_id = $journalId;
+        $credit->coa_id = 1;
+        $credit->credit = $minus;
+        $credit->save();
+
         return \Redirect::route('bill', [$client_id]);
-        
     }
 
 
