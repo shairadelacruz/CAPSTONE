@@ -90,6 +90,7 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::post('user/{client_id}/payable/bill', array('as'=>'insertbill','uses'=>'UserBillsController@store'));
 
+
     Route::resource('user/{client_id}/receivable/customer', 'UserCustomerController');
 
     Route::get('user/{client_id}/receivable/customer', ['as' => 'customer', 'uses' => 'UserCustomerController@index']);
@@ -97,6 +98,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::resource('user/{client_id}/receivable/customer/create', 'UserCustomerController@create');
 
     Route::resource('user/{client_id}/receivable/customer/edit', 'UserCustomerController@edit');
+
 
     Route::resource('user/{client_id}/receivable/item', 'UserItemsController');
 
@@ -106,9 +108,17 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/{client_id}/receivable/item/edit', 'UserItemsController@edit');
 
+
     Route::resource('user/{client_id}/receivable/invoice', 'UserInvoicesController');
 
     Route::get('user/{client_id}/receivable/invoice', ['as' => 'invoice', 'uses' => 'UserInvoicesController@index']);
+
+    Route::resource('user/{client_id}/receivable/invoice/create', 'UserInvoicesController@create');
+
+    Route::resource('user/{client_id}/receivable/invoice/edit', 'UserBillsController@edit');
+
+    Route::post('user/{client_id}/receivable/invoice', array('as'=>'insertinvoice','uses'=>'UserInvoicesController@store'));
+
 
     Route::resource('users/cashdisbursement', 'UserCashDisbursementsController');
     Route::resource('user/{client_id}/documents', 'UserDocumentsController');

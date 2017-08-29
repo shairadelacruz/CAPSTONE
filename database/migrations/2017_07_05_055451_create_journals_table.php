@@ -18,6 +18,8 @@ class CreateJournalsTable extends Migration
             $table->string('transaction_no');
             $table->string('description')->nullable();
             $table->dateTime('date')->nullable();
+            $table->double('debit_total');
+            $table->double('credit_total');
             $table->softDeletes();
             $table->timestamps();
         });

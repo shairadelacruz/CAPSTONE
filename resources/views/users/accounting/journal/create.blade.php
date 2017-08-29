@@ -37,11 +37,11 @@ Journal
 
                 
                 <a href="{{ route('journal', $client_id) }}" class="btn btn-default">Cancel</a>
-                <button class="btn btn-success" @click="create" :disabled="isProcessing">Create</button>
                 
-<input type='submit' value='test'>
+                <input type='submit' value='Create' class="btn btn-success">
                 
                 {!!Form::close()!!}
+                @include('includes.form_error')
 
             </div>
 

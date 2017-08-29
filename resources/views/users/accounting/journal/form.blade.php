@@ -26,7 +26,7 @@
 				<p v-if="errors.description" class="error">@{{ errors.description}}</p>
 			</div>
 		</div>
-@include('includes.form_error')
+
 	</div>
 
 </div>

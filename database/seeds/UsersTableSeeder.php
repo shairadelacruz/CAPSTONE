@@ -288,9 +288,72 @@ class UsersTableSeeder extends Seeder
 
 	        //Delete when system is implemented
 
-	       	//Clients
+	       	DB::table('vats')->insert([
+	        	'id' => 1,
+	            'vat_code' => 'A',
+	            'rate' => 12,
+	        ]);
 
-	       	//Admin
+	        DB::table('vats')->insert([
+	        	'id' => 2,
+	            'vat_code' => 'B',
+	            'rate' => 10,
+	        ]);
+
+	        DB::table('vats')->insert([
+	        	'id' => 3,
+	            'vat_code' => 'C',
+	            'rate' => 15,
+	        ]);
+
+	        DB::table('businesses')->insert([
+	        	'id' => 1,
+	            'name' => 'Food'
+	        ]);
+
+			DB::table('businesses')->insert([
+	        	'id' => 2,
+	            'name' => 'Education'
+	        ]);
+
+	        DB::table('businesses')->insert([
+	        	'id' => 3,
+	            'name' => 'Accounting'
+	        ]);
+
+	        DB::table('businesses')->insert([
+	        	'id' => 4,
+	            'name' => 'Photography'
+	        ]);
+
+	        DB::table('businesses')->insert([
+	        	'id' => 5,
+	            'name' => 'Recreation'
+	        ]);
+
+	        DB::table('document_types')->insert([
+	        	'id' => 1,
+	            'name' => 'Sales'
+	        ]);
+
+	        DB::table('document_types')->insert([
+	        	'id' => 2,
+	            'name' => 'Expenses'
+	        ]);
+
+	        DB::table('document_types')->insert([
+	        	'id' => 3,
+	            'name' => 'Bills'
+	        ]);
+
+	        DB::table('document_types')->insert([
+	        	'id' => 4,
+	            'name' => 'Invoices'
+	        ]);
+
+
+
+
 
     }
 }

@@ -58,39 +58,54 @@ class UserBillsController extends Controller
     public function store(Request $request)
     {
         //
+       $this->validate($request, [
+            'reference_no' => 'required',
+            'bill_date' => 'required',
+            'item_id' => 'required',
+            'coa_id' => 'required'
+        ]);
+       
+
         $bills = new Bill;
         $bills->client_id = $request->client_id;
-        $bills->reference_no = $request->bill_no;
-        $bills->vendor_id = $request->vendor_id;
+        $bills->reference_no = $request->reference_no;
         $bills->bill_date = $request->bill_date;
         $bills->due_date = $request->due_date;
+        $bills->vendor_id = $request->vendor_id;
+        $bills->amount = $request->grandTotal;
 
         $id = $bills->save();
 
-        var_dump($_POST);
+        $billLast = Bill::all()->last();
+        $billId = $billLast->id;
+
+
         if($id != 0){
             foreach ($request->item_id as $key => $v)
             {
-                $data = array('bill_id'=>$id,
-                                'item_id'=>[$key],
-                                'client_coa_id'=>$request->coa_id[$key],
-                                'vat_id'=>$request->vat_id[$key],
-                                'vat_amount'=>$request->vat_amount[$key],
-                                'description'=>$request->description[$key],
-                                'price'=>$request->price[$key],
-                                'qty'=>$request->qty[$key]);
-                BillDetail::insert($data);
+
+                $billDetail = new BillDetails([
+                            'bill_id'=>$billId,
+                            'coa_id'=>$request->coa_id[$key],
+                            'item_id'=>$request->item_id[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'qty'=>$request->qty[$key],
+                            'price'=>$request->price[$key],
+                            'vat_amount'=>$request->vat_amount[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'total'=>$request->total[$key]
+
+                ]);
+
+            $billDetail->save();
+
             }
         }
-
+        $client_id = $request->client_id;
+        return \Redirect::route('bill', [$client_id]);
         
     }
 
-    /*public function print(Request $request)
-    {
-       dd ($request->all());
-
-    }*/
 
     /**
      * Display the specified resource.

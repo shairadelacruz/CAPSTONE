@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Client;
 use App\Invoice;
 use App\InvoiceDetail;
+use App\Customer;
+use App\Item;
+use App\Coa;
+use App\Vat;
 use App\Http\Requests;
 
 class UserInvoicesController extends Controller
@@ -35,7 +39,12 @@ class UserInvoicesController extends Controller
     {
         //
         $client = Client::find($client_id);
-        return view('users.receivable.invoice.create', compact('client_id'));
+        $customers = $client->customer;
+        $invoices = $client->invoice;
+        $items = $client->item;
+        $coas = $client->coas;
+        $vats = Vat::all();
+        return view('users.receivable.invoice.create', compact('client_id', 'client', 'items', 'coas', 'vats', 'customers'));
     }
 
     /**
@@ -48,40 +57,51 @@ class UserInvoicesController extends Controller
     {
         //
         $this->validate($request, [
-            'invoice_no' => 'required|alpha_dash|unique:invoices',
-            'client_id' => 'required',
-            'invoice_date' => 'required|date_format:Y-m-d',
-            'due_date' => 'required|date_format:Y-m-d',
-            'products.*.name' => 'required|max:255',
-            'products.*.price' => 'required|numeric|min:1',
-            'products.*.qty' => 'required|integer|min:1'
+            'reference_no' => 'required',
+            'invoice_date' => 'required',
+            'item_id' => 'required',
+            'coa_id' => 'required'
         ]);
+       
 
-        $products = collect($request->products)->transform(function($product) {
-            $product['total'] = $product['qty'] * $product['price'];
-            return new InvoiceProduct($product);
-        });
+        $invoices = new Invoice;
+        $invoices->client_id = $request->client_id;
+        $invoices->reference_no = $request->reference_no;
+        $invoices->invoice_date = $request->invoice_date;
+        $invoices->due_date = $request->due_date;
+        $invoices->customer_id = $request->customer_id;
+        $invoices->amount = $request->grandTotal;
 
-        if($products->isEmpty()) {
-            return response()
-            ->json([
-                'products_empty' => ['One or more Product is required.']
-            ], 422);
+        $id = $invoices->save();
+
+        $invoiceLast = Invoice::all()->last();
+        $invoiceId = $invoiceLast->id;
+
+
+        if($id != 0){
+            foreach ($request->item_id as $key => $v)
+            {
+
+                $invoiceDetail = new InvoiceDetail([
+                            'invoice_id'=>$invoiceId,
+                            'coa_id'=>$request->coa_id[$key],
+                            'item_id'=>$request->item_id[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'qty'=>$request->qty[$key],
+                            'price'=>$request->price[$key],
+                            'vat_amount'=>$request->vat_amount[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'total'=>$request->total[$key]
+
+                ]);
+
+            $invoiceDetail->save();
+
+            }
         }
-
-        $data = $request->except('products');
-        $data['sub_total'] = $products->sum('total');
-        $data['grand_total'] = $data['sub_total'] - $data['discount'];
-
-        $invoice = Invoice::create($data);
-
-        $invoice->products()->saveMany($products);
-
-        return response()
-            ->json([
-                'created' => true,
-                'id' => $invoice->id
-            ]);
+        $client_id = $request->client_id;
+        return \Redirect::route('invoice', [$client_id]);
+        
     }
 
     /**

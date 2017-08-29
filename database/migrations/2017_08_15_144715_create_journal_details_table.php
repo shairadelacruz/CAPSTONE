@@ -21,8 +21,8 @@ class CreateJournalDetailsTable extends Migration
             $table->integer('customer_id')->nullable()->unsigned();
             $table->string('reference_no');
             $table->string('descriptions')->nullable();
-            $table->double('debit')->nullable()->default(0);
-            $table->double('credit')->nullable()->default(0);
+            $table->double('debit')->nullable();
+            $table->double('credit')->nullable();
             $table->double('vat_amount')->nullable();
             $table->foreign('journal_id')->references('id')->on('journals')->onDelete('cascade');
             $table->softDeletes();

@@ -14,7 +14,7 @@ class InvoiceDetail extends Model
     protected $dates = ['deleted_at'];
     
     protected $fillable = [
-        'client_coa_id', 'item_id', 'vat_id', 'vat_amount', 'description', 'qty','price','total'
+        'coa_id', 'item_id', 'vat_id', 'vat_amount', 'description', 'qty','price','total', 'invoice_id'
     ];
 
     public function invoice()

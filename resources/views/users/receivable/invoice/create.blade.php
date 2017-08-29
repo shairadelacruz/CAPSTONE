@@ -9,48 +9,210 @@ Invoice
 @extends('includes.form_includes');
 
 @section('content')
+    <div id="bill">
 
-        <div id="invoice">
-        <div class="panel panel-default" v-cloak>
-            <div class="panel-heading">
-                <div class="clearfix">
-                    <span class="panel-title">Create Invoice</span>
-                    <a href="#" class="btn btn-default pull-right">Back</a>
-                </div>
+        <div class = "panel panel-default" v-clock>
+            
+            <div class = "panel-heading">
+
+                <div class = "clearfix">
+                    
+                    <span class = "panel-title">Create Invoice</span>
+                    <a href="{{ route('invoice', $client_id) }}" class="btn btn-default pull-right">Back</a>
+
+                </div>    
+
             </div>
+
             <div class="panel-body">
-                @include('users.receivable.invoice.form')
+                
+                {!!Form::open(['route' => ['insertinvoice', $client_id], 'id'=>'frmsave', 'method'=>'POST'])!!}
+                
+                            
+                <div class="row">
+
+                    <div class="col-sm-12">
+
+                        <input type="hidden" name='client_id' value="{{ $client_id }}" class="form-control">
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Reference No.</label>
+                                <input type="text" class="form-control" v-model="form.reference_no" name='reference_no'>
+                                <p v-if="errors.reference_no" class="error">@{{ errors.reference_no}}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Invoice Date</label>
+                                <input type="date" class="form-control" v-model="form.invoice_date" name='invoice_date'>
+                                <p v-if="errors.invoice_date" class="error">@{{ errors.invoice_date}}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Due Date</label>
+                                <input type="date" class="form-control" v-model="form.due_date" name='due_date'>
+                                <p v-if="errors.due_date" class="error">@{{ errors.due_date}}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Customer</label>
+                                <select class="table-control" name="customer_id" v-model="detail.customer_id">
+                                    <option value="0" selected="true" disabled="true"></option>
+                                        @if($customers)
+                                        @foreach($customers as $customer)
+                                            <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                        @endforeach
+                                        @endif
+                                </select>
+                                <p v-if="errors.customer_id" class="error">@{{ errors.customer_id}}</p>
+                            </div>
+                        </div>
+                
+                    </div>
+
+                </div>
+
+                    <hr>
+
+                    <div v-if="errors.details_empty">
+                        <p class="alert alert-danger">@{{ errors.details_empty }}</p>
+                        </hr>
+                    </div>
+                    
+                    <div class="body table-responsive">
+                        <table class="table table-bordered table-form" width="100">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Account</th>
+                                    <th>Description</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                    <th>VAT Code</th>
+                                    <th>VAT Amount</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="detail in form.details">
+                                    <td class="table-item_id" :class="{'table-error': errors['details' + $index + '.item_id']}">
+                                    <select class="table-control" name="item_id[]" v-model="detail.item_id">
+                                                    <option value="0" selected="true" disabled="true">Choose</option>
+                                                @if($items)
+                                                @foreach($items as $item)
+                                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                                @endforeach
+                                                @endif
+                                    </select>
+                                        
+                                    </td>
+                                    <td class="table-coa_id" :class="{'table-error': errors['details' + $index + '.coa_id']}">
+                                    <select class="table-control" name="coa_id[]" v-model="detail.coa_id">
+                                                    <option value="0" selected="true" disabled="true">Choose</option>
+                                                @if($coas)
+                                                @foreach($coas as $coa)
+                                                    <option value="{{$coa->id}}">{{$coa->name}}</option>
+                                                @endforeach
+                                                @endif
+                                    </select>
+                                        
+                                    </td>
+                                    <td class="table-descriptions" :class="{'table-error': errors['details' + $index + '.descriptions']}">
+                                        <input type="text" class="table-control" v-model="detail.descriptions" name="descriptions[]">
+                                    </td>
+                                    <td class="table-qty" :class="{'table-error': errors['details' + $index + '.qty']}">
+                                        <input type="number" class="table-control" v-model="detail.qty" name="qty[]">
+                                    </td>
+                                    <td class="table-price" :class="{'table-error': errors['details' + $index + '.price']}">
+                                        <input type="number" class="table-control" v-model="detail.price" name="price[]">
+                                    </td>
+
+                                    <td class="table-vat_id" :class="{'table-error': errors['details' + $index + '.vat_id']}">
+                                        <select class="table-control" name="vat_id[]" v-model="detail.vat_id">
+                                                    <option value="0" selected="true" disabled="true">Choose</option>
+                                                @if($vats)
+                                                @foreach($vats as $vat)
+                                                    <option value="{{$vat->id}}">{{$vat->vat_code}}</option>
+                                                @endforeach
+                                                @endif
+                                    </select>
+                                    </td>
+                                    <td class="table-vat_amount" :class="{'table-error': errors['details' + $index + '.vat_amount']}">
+                                        <input type="number" class="table-control" v-model="detail.vat_amount" name="vat_amount[]">
+                                    </td>
+                                    <td class="table-total" :class="{'table-error': errors['details' + $index + '.total']}">
+                                        <input type="number" value="@{{ detail.qty * detail.price +detail.vat_amount/100 * detail.qty * detail.price }}" class="table-control" v-model="detail.total" name="total[]">
+                                    </td>
+                                    <td class="table-remove">
+                                        <span @click="remove(detail)" class="table-remove-btn">X</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td class="table-empty">
+                                        <span @click="addLine" class="table-add_line">+ Add Line</span>
+                                    </td>
+                                    <td>Total</td>
+                                    <td class="table-grandTotal"><input type="number" value="@{{ grandTotal }}" class="table-control" v-model="detail.grandTotal" name="grandTotal" readonly="true"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
             </div>
+
             <div class="panel-footer">
-                <a href="#" class="btn btn-default">CANCEL</a>
-                <button class="btn btn-success" @click="create" :disabled="isProcessing">CREATE</button>
+
+
+                
+                <a href="{{ route('invoice', $client_id) }}" class="btn btn-default">Cancel</a>
+                
+                <input type='submit' value='Create' class="btn btn-success">
+                
+                {!!Form::close()!!}
+                @include('includes.form_error')
+
             </div>
+
         </div>
         
     </div>
+
 
 @section('scripts')
     <script src="{{asset('js/vue.min.js') }}"></script>
     <script src="{{asset('js/vue-resource.min.js') }}"></script>
     <script type="text/javascript">
+        
         Vue.http.headers.common['X-CSRF-TOKEN'] = '{{csrf_token()}}';
+        
+        window.client = {!! json_encode($client_id) !!} 
+            window._form = {
 
-        window._form = {
-            invoice_no: '',
-            client_id: '{{$client_id}}',
-            customer_id: '',
-            title: '',
-            invoice_date: '',
-            due_date: '',
-            products: [{
-                name: '',
-                price: 0,
-                qty: 1
-            }]
-        };
+                client_id: {{$client_id}},
+                vendor_id: '',
+                invoice_date: '',
+                due_date: '',
+                details:[{
+                    item_id: '',
+                    coa_id: '',
+                    descriptions: '',
+                    price: 0,
+                    qty: 1,
+                    vat_id: '',
+                    vat_amount: 0,
+                    total: 0
+                }]
+            };
+
     </script>
-    <script src="{{asset('js/invoice.js') }}"></script>
-@endsection
+    
+    <script src="{{asset('js/billvue.js') }}"></script>
 
-	
+ 
+@endsection
 @stop

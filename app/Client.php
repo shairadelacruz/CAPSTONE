@@ -54,7 +54,14 @@ class Client extends Model
         );
     }
 
-    public function coas(){
+    public function coaamounts()
+    {
+
+        return $this->hasMany('App\Coaamount');
+    }
+
+    public function coas()
+    {
 
         return $this->belongsToMany('App\Coa');
     }

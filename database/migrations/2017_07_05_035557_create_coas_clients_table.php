@@ -16,7 +16,7 @@ class CreateCoasClientsTable extends Migration
             //
             $table->integer('client_id');
             $table->integer('coa_id');
-            $table->double('amount')->nullable()->unsigned();
+            $table->double('amount')->nullable();
             $table->primary(['coa_id', 'client_id']);
             $table->timestamps();
         });
