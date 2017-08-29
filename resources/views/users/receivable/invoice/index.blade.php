@@ -67,7 +67,7 @@ Invoice
                                         <td>{{$invoice->invoice_date}}</td>
                                         <td>{{$invoice->due_date}}</td>
                                         <td>{{$invoice->amount}}</td>
-                                        <td>{{$invoice->balancel}}</td>
+                                        <td>{{$invoice->balance}}</td>
                                         <td>
                                             <a href ="#" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteInvoice{{$invoice->id}}"><i class="material-icons">delete</i></button>

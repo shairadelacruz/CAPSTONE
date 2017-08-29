@@ -150,16 +150,16 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="transactions.html">Transactions</a>
+                                <a href="transactions">Transactions</a>
                             </li>
                             <li>
-                                <a href="journal-view.html">Journal Entries</a>
+                                <a href="journal">Journal Entries</a>
                             </li>
                             <li>
-                                <a href="coa-view-accounting.html">Chart of Accounts</a>
+                                <a href="coa">Chart of Accounts</a>
                             </li>
                             <li>
-                                <a href="vat-view-accounting.html">VAT Codes</a>
+                                <a href="vat">VAT Codes</a>
                             </li>
                         </ul>
                     </li>

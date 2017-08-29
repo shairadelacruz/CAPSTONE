@@ -67,7 +67,7 @@ Bills
                                         <td>{{$bill->bill_date->toDateString()}}</td>
                                         <td>{{$bill->due_date->toDateString()}}</td>
                                         <td>{{$bill->amount}}</td>
-                                        <td>{{$bill->balancel}}</td>
+                                        <td>{{$bill->balance}}</td>
                                         <td>
                                             <a href ="bill/{{$bill->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteBill{{$bill->id}}"><i class="material-icons">delete</i></button>

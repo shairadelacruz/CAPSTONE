@@ -73,6 +73,7 @@ class UserBillsController extends Controller
         $bills->due_date = $request->due_date;
         $bills->vendor_id = $request->vendor_id;
         $bills->amount = $request->grandTotal;
+        $bills->balance = $request->grandTotal;
 
         $id = $bills->save();
 
@@ -106,10 +107,22 @@ class UserBillsController extends Controller
         
     }
 
-    public function pay(Request $request)
+    public function pay(Request $request, $id)
     {
         //
+        $bill = Bill::findOrFail($id);
 
+        $balance = $bill->balance;
+
+        $amount = $balance - $request->amount;
+
+        $bill->balance = $amount;
+
+        $bill->update();
+    
+        $client_id = $bill->client_id;
+
+        return \Redirect::route('bill', [$client_id]);
         
     }
 

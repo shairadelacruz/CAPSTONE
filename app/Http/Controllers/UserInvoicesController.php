@@ -71,6 +71,7 @@ class UserInvoicesController extends Controller
         $invoices->due_date = $request->due_date;
         $invoices->customer_id = $request->customer_id;
         $invoices->amount = $request->grandTotal;
+        $invoices->balance = $request->grandTotal;
 
         $id = $invoices->save();
 
@@ -104,9 +105,22 @@ class UserInvoicesController extends Controller
         
     }
 
-    public function pay(Request $request)
+    public function pay(Request $request, $id)
     {
         //
+        $invoice = Invoice::findOrFail($id);
+
+        $balance = $invoice->balance;
+
+        $amount = $balance - $request->amount;
+
+        $invoice->balance = $amount;
+
+        $invoice->update();
+    
+        $client_id = $invoice->client_id;
+
+        return \Redirect::route('invoice', [$client_id]);
         
     }
 

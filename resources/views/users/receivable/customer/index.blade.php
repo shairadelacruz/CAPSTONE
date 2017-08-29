@@ -62,7 +62,7 @@ Customer
                                         <td>{{$customer->name}}</td>
                                         <td>{{$customer->email}}</td>
                                         <td>{{$customer->phone}}</td>
-                                        <td>{{$customer->balance}}</td>
+                                        <td>{{$customer->invoice->sum('balance')}}</td>
                                         
                                         <td>
                                             <a href="customer/{{$customer->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>

@@ -62,7 +62,7 @@ Vendor
 										<td>{{$vendor->name}}</td>
 										<td>{{$vendor->email}}</td>
 										<td>{{$vendor->phone}}</td>
-										<td>{{$vendor->balance}}</td>
+										<td>{{$vendor->bills->sum('balance')}}</td>
 										
                                         <td>
                                             <a href="vendor/{{$vendor->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
