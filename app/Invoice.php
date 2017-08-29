@@ -21,15 +21,16 @@ class Invoice extends Model
         return $this->belongsTo('App\Log');
     }
 
-    public function clients()
-    {
+    public function client(){
+
         return $this->belongsTo('App\Client');
     }
 
-    public function customers()
-    {
+    public function customer(){
+
         return $this->belongsTo('App\Customer');
     }
+
 
     public function invoice_details()
     {

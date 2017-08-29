@@ -106,6 +106,13 @@ class UserBillsController extends Controller
         
     }
 
+    public function pay(Request $request)
+    {
+        //
+
+        
+    }
+
 
     /**
      * Display the specified resource.

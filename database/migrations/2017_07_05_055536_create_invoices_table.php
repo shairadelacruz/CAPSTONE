@@ -15,10 +15,10 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('client_id')->index()->unsigned();
+            $table->integer('customer_id')->index()->unsigned();
             $table->string('reference_no');
             $table->date('invoice_date');
             $table->date('due_date');
-            $table->integer('customer_id')->unsigned();
             $table->double('balance');
             $table->double('amount');
             $table->softDeletes();

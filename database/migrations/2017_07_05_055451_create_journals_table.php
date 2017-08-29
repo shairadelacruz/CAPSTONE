@@ -20,6 +20,7 @@ class CreateJournalsTable extends Migration
             $table->dateTime('date')->nullable();
             $table->double('debit_total');
             $table->double('credit_total');
+            $table->tinyInteger('type')->unsigned()->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

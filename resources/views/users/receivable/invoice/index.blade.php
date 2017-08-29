@@ -63,7 +63,7 @@ Invoice
                                     @foreach($invoices as $invoice)
                                     <tr>
                                         <td>{{$invoice->reference_no}}</td>
-                                        <td>{{$invoice->customer_id}}</td>
+                                        <td>{{$invoice->customer->name}}</td>
                                         <td>{{$invoice->invoice_date}}</td>
                                         <td>{{$invoice->due_date}}</td>
                                         <td>{{$invoice->amount}}</td>
@@ -71,6 +71,7 @@ Invoice
                                         <td>
                                             <a href ="#" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteInvoice{{$invoice->id}}"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#payInvoice{{$invoice->id}}"><i class="material-icons">payment</i></button>
                                         </td>
                                     </tr>
                                      @endforeach
@@ -108,6 +109,56 @@ Invoice
                 </div>
             </div>
            <!--End Delete--> 
+                       <!-- Pay -->
+            <div class="modal fade" id="payInvoice{{$invoice->id}}" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Pay Invoice</h4><br>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <div class="row clearfix">
+
+                                {!! Form::open(['method'=>'POST', 'action'=>['UserInvoicesController@pay', $invoice->id, $invoice->client_id]]) !!}
+
+                                    {!! Form:: hidden('client_id', $invoice->client_id) !!}    
+                                
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            {!! Form:: label('date', 'Date:') !!}
+                                            {!! Form:: date('name',null, ['class'=>'form-control']) !!}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            {!! Form:: label('amount', 'Amount:') !!}
+                                            {!! Form:: number('amount',null, ['class'=>'form-control']) !!}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            {!! Form:: label('description', 'Description:') !!}
+                                            {!! Form:: textarea('description',null, ['class'=>'form-control']) !!}
+                                        </div>
+                                    </div>           
+                                     
+                                    <div class="modal-footer">
+                                        {!! Form:: submit('SAVE', ['class'=>'btn btn-primary']) !!}
+                                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                    </div>
+                                 
+                                {!! Form::close() !!}
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!--End Pay--> 
            @endforeach
             @endif
 

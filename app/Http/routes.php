@@ -88,6 +88,8 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/{client_id}/payable/bill/edit', 'UserBillsController@edit');
 
+    Route::get('user/{client_id}/payable/bill/pay', 'UserBillsController@pay');
+
     Route::post('user/{client_id}/payable/bill', array('as'=>'insertbill','uses'=>'UserBillsController@store'));
 
 
@@ -115,7 +117,9 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/{client_id}/receivable/invoice/create', 'UserInvoicesController@create');
 
-    Route::resource('user/{client_id}/receivable/invoice/edit', 'UserBillsController@edit');
+    Route::resource('user/{client_id}/receivable/invoice/edit', 'UserInvoicesController@edit');
+
+    Route::get('user/{client_id}/receivable/invoice/pay', 'UserInvoicesController@pay');
 
     Route::post('user/{client_id}/receivable/invoice', array('as'=>'insertinvoice','uses'=>'UserInvoicesController@store'));
 
