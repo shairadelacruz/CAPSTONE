@@ -22,6 +22,11 @@ class Admin
 
                 return $next($request);
             }
+
+            if(Auth::user()->isManager()){
+
+                return $next($request);
+            }
         }
 
         return redirect('/');

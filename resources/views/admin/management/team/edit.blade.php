@@ -20,7 +20,7 @@ Team
 
 	<div class = "form-group">
 		{!! Form:: label('team_leader', 'Team Leader:') !!}<br>
-		{{Form::select('team_leader[]',$team_leaders,null,array('name'=>'team_leader[]'))}}
+		{!! Form:: select('team_leader', [''=>'Choose Options'] + $team_leaders ,$team->team_leader, ['class'=>'form-control']) !!}
 	</div>
 
 

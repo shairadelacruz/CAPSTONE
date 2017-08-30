@@ -97,7 +97,7 @@
                                 </ul>
                             </li>
                             <li class="footer">
-                                <a href="javascript:void(0);">View All Tasks</a>
+                                <a href="user/tasks">View All Tasks</a>
                             </li>
                         </ul>
                     </li>

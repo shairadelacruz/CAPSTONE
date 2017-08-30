@@ -55,9 +55,13 @@ class AdminTeamsController extends Controller
         'user_id' => 'required',
         ]);
 
-        $users = $request->user_id;
 
-        Team::create($request->all());
+        $newteam = new Team;
+        $newteam->name = $request->name;
+        $newteam->team_leader = $request->team_leader;
+        $newteam->save();
+
+        $users = $request->user_id;
 
         $teams = Team::all();
 
@@ -116,13 +120,19 @@ class AdminTeamsController extends Controller
         'user_id' => 'required',
         ]);
 
+        $team = Team::findOrFail($id);
+        $team->name = $request->name;
+        $team->team_leader = $request->team_leader;
+        $team->update();
+
         $users = $request->user_id;
 
-        $team = Team::findOrFail($id);
+        //$team = Team::findOrFail($id);
 
-        $input = $request->all();
+        //$input = $request->all();
 
-        $team->update($input);
+        //$team->update($input);
+        $team->users()->detach();
 
         $team->users()->sync($users);
 
@@ -141,6 +151,8 @@ class AdminTeamsController extends Controller
         $team = Team::findOrFail($id);
 
         $team->delete();
+
+        $team->users()->detach();
 
         Session::flash('deleted_team','The team has been deleted');
 

@@ -33,6 +33,9 @@ Journal
 <div class="row">
 
     <div class="col-sm-12">
+                @if(Session::has('ref_no'))
+                <p class="bg-danger">{{Session('ref_no')}}</p>
+                @endif
 
         <input type="hidden" name='client_id' value="{{ $client_id }}" class="form-control">
 
@@ -87,7 +90,7 @@ Journal
             <tbody>
                 <tr v-for="detail in form.details">
                     <td class="table-reference_no" :class="{'table-error': errors['details' + $index + '.reference_no']}">
-                        <input id="reference_no" type="text" name="reference_no[]" class="table-control" v-model="detail.reference_no">
+                        <input id="reference_no" type="text" name="reference_no[]" class="table-control" v-model="detail.reference_no" value="{{Session('ref_no')}}">
                     </td>
                     <td class="table-client_coa_id" :class="{'table-error': errors['details' + $index + '.client_coa_id']}">
                     <select class="table-control" name="coa_cli_id[]" v-model="detail.client_coa_id">

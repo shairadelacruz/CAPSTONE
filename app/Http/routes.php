@@ -137,6 +137,9 @@ Route::group(['middleware'=>'auth'], function(){
     Route::resource('users/cashdisbursement', 'UserCashDisbursementsController');
     Route::resource('user/{client_id}/documents', 'UserDocumentsController');
 
+
+    Route::resource('user/tasks', 'UserTasksController');
+
 });
 
 

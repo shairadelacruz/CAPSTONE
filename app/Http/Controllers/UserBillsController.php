@@ -86,6 +86,7 @@ class UserBillsController extends Controller
         $count = Journal::where('type','=','2')->count();
         //Create Journal Header
         $journals = new Journal;
+        $journals->bill_id = $billId;
         $journals->client_id = $client_id;
         $journals->transaction_no = "B".$count;
         $journals->date = $request->bill_date;

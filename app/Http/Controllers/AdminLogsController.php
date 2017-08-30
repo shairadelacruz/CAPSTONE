@@ -33,6 +33,7 @@ class AdminLogsController extends Controller
     public function create()
     {
         //
+
         $documents = DocumentType::pluck('name', 'id')->all();
         $clients = Client::pluck('company_name', 'id')->all();
         $users = User::pluck('name', 'id')->all();
@@ -47,7 +48,13 @@ class AdminLogsController extends Controller
      */
     public function store(Request $request)
     {
-        //  
+        // 
+
+        $this->validate($request, [
+            'reference_no' => 'required',
+            'client_id' => 'required'
+        ]);
+
         $input = $request->all(); 
 
         if($request->file('document_path')) {
@@ -106,6 +113,11 @@ class AdminLogsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'reference_no' => 'required',
+            'client_id' => 'required'
+        ]);
+
         $log = Log::findOrFail($id);
 
         $input = $request->all();

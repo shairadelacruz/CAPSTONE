@@ -36,4 +36,9 @@ class Invoice extends Model
     {
         return $this->hasMany(InvoiceDetail::class);
     }
+
+    public function journal(){
+
+        return $this->hasMany(Journal::class);
+    }
 }

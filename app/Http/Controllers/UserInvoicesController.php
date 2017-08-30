@@ -85,6 +85,7 @@ class UserInvoicesController extends Controller
         $count = Journal::where('type','=','2')->count();
         //Create Journal Header
         $journals = new Journal;
+        $journals->invoice_id = $invoiceId;
         $journals->client_id = $client_id;
         $journals->transaction_no = "I".$count;
         $journals->date = $request->invoice_date;

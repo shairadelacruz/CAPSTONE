@@ -15,6 +15,8 @@ class CreateJournalsTable extends Migration
         Schema::create('journals', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('client_id')->index()->unsigned();
+            $table->integer('bill_id')->index()->unsigned();
+            $table->integer('invoice_id')->index()->unsigned();
             $table->string('transaction_no');
             $table->string('description')->nullable();
             $table->dateTime('date')->nullable();

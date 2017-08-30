@@ -54,8 +54,8 @@ class UsersTableSeeder extends Seeder
 
 	       	DB::table('roles')->insert([
 	        	'id' => 2,
-	            'name' => 'leader',
-	            'label' => 'Team Leader'
+	            'name' => 'manager',
+	            'label' => 'Manager'
 	        ]);
 
 	        DB::table('roles')->insert([

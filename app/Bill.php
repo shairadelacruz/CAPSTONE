@@ -35,4 +35,9 @@ class Bill extends Model
     {
         return $this->hasMany(BillDetails::class);
     }
+
+    public function journal(){
+
+        return $this->hasMany(Journal::class);
+    }
 }

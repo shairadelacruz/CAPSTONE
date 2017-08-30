@@ -83,6 +83,9 @@ class AdminDocumentController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+        'name' => 'required',
+        ]);
         $document = DocumentType::findOrFail($id);
         $input = $request->all();
         $document->update($input);
