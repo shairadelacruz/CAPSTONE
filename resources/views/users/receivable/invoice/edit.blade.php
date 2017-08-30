@@ -158,7 +158,7 @@ Invoice
                                         <span>+ Add Line</span>
                                     </td>
                                     <td>Total</td>
-                                    <td class="table-grandTotal"><input type="number" step="0.01" readonly="true"></td>
+                                    <td class="table-grandTotal"><input type="number" step="0.01" readonly="true" value="{{$invoice->amount}}"></td>
                                 </tr>
                             </tfoot>
                         </table>

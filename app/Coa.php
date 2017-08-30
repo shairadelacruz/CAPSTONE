@@ -31,6 +31,11 @@ class Coa extends Model
 
         return $this->hasMany('App\Item');
     }
+    
+    public function journals_details(){
+
+        return $this->hasMany(JournalDetails::class);
+    }
 
     public function bill_details(){
 
@@ -47,8 +52,5 @@ class Coa extends Model
         return $this->belongsToMany('App\Client');
     }
 
-    public function journals_details(){
 
-        return $this->hasMany('App\JournalDetails', 'client_coa_id');
-    }
 }

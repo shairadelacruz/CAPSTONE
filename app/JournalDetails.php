@@ -27,13 +27,13 @@ class JournalDetails extends Model
     	return $this->quantity * $this->price;
 	}
 
-    public function coas(){
-
-        return $this->belongsToMany('App\Coa');
+    public function coa()
+    {
+        return $this->belongsTo(Coa::class);
     }
 
-    public function vats(){
-
-        return $this->belongsToMany('App\Vat');
+    public function vat()
+    {
+        return $this->belongsTo(Vat::class);
     }
 }

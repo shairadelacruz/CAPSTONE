@@ -59,7 +59,11 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/{client_id}/accounting/journal', 'UserJournalsController');
 
+    Route::resource('user/{client_id}/accounting/journal/create', 'UserJournalsController@create');
+
     Route::get('user/{client_id}/accounting/journal', ['as' => 'journal', 'uses' => 'UserJournalsController@index']);
+
+    Route::resource('user/{client_id}/accounting/journal/edit', 'UserJournalsController@edit');
 
     Route::post('user/{client_id}/accounting/journal', array('as'=>'insertjournal','uses'=>'UserJournalsController@store'));
 

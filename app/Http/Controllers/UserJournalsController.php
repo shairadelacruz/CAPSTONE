@@ -83,9 +83,9 @@ class UserJournalsController extends Controller
                             'descriptions'=>$request->descriptions[$key],
                             'debit'=>$request->debit[$key],
                             'credit'=>$request->credit[$key],
-                            'vat_amount'=>$request->vat_amount[$key],
-                            'vat_id'=>$request->vat_id[$key]
-
+                            'vat_id'=>$request->vat_id[$key],
+                            'vat_amount'=>$request->vat_amount[$key]
+                            
                 ]);
 
             $journalDetail->save();
@@ -113,11 +113,19 @@ class UserJournalsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($client_id, $id)
     {
         //
-         return view('users.accounting.journal.edit');
+
+        $journal = Journal::findOrFail($id);
+        $details = $journal->journal_details;
+        $client = Client::findOrFail($client_id);
+        $coas = $client->coas;
+        $vats = Vat::all();
+
+        return view('users.accounting.journal.edit', compact('journal','details','client_id','coas', 'vats'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -126,9 +134,57 @@ class UserJournalsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $client_id, $id)
     {
         //
+        $this->validate($request, [
+            'transaction_no' => 'required',
+            'date' => 'required',
+            'coa_cli_id' => 'required'
+        ]);
+        
+
+        $journals= Journal::findOrFail($id);
+        $journals->client_id = $request->client_id;
+        $journals->transaction_no = $request->transaction_no;
+        $journals->date = $request->date;
+        $journals->description = $request->description;
+
+        $journals->update();
+
+        
+        $id = $journals->id;
+
+
+        $journalId = $journals->id;
+
+        $client_id = $request->client_id;
+
+        JournalDetails::where('journal_id', $journalId)->delete();
+
+
+        if($id != 0){
+            foreach ($request->coa_id as $key => $v)
+            {
+
+                $journalDetail = new JournalDetails([
+                            'journal_id'=>$journalId,
+                            'coa_id'=>$request->coa_id[$key],
+                            'reference_no'=>$request->reference_no[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'debit'=>$request->debit[$key],
+                            'credit'=>$request->credit[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'vat_amount'=>$request->vat_amount[$key]
+                            
+                ]);
+
+            $journalDetail->save();
+
+            }
+        }
+
+        return \Redirect::route('journal', [$client_id]); 
     }
 
     /**

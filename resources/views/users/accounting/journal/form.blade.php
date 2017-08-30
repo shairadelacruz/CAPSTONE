@@ -50,7 +50,7 @@
 					<th>Description</th>
 					<th>VAT Code</th>
 					<th>VAT Amount</th>
-					<th>Person</th>
+					<!--<th>Person</th>-->
 				</tr>
 			</thead>
 			<tbody>
@@ -91,9 +91,9 @@
 					<td class="table-vat_amount" :class="{'table-error': errors['details' + $index + '.vat_amount']}">
 						<input type="number" class="table-control" v-model="detail.vat_amount" name="vat_amount[]">
 					</td>
-					<td class="table-vendor_id" :class="{'table-error': errors['details' + $index + '.vendor_id']}">
+					<!--<td class="table-vendor_id" :class="{'table-error': errors['details' + $index + '.vendor_id']}">
 						<input type="text" class="table-control" v-model="detail.vendor_id" name="vendor_id[]">
-					</td>
+					</td>-->
 					<td class="table-remove">
 						<span @click="remove(detail)" class="table-remove-btn">X</span>
 					</td>
