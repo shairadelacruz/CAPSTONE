@@ -212,9 +212,20 @@ class UserInvoicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($client_id, $id)
     {
         //
+        $invoice = Invoice::findOrFail($id);
+        $details = $invoice->invoice_details;
+        $client = Client::find($client_id);
+        $customers = $client->customer;
+        $invoices = $client->invoice;
+        $items = $client->item;
+        $coas = $client->coas;
+        $vats = Vat::all();
+
+        //return $details;
+        return view('users.receivable.invoice.edit', compact('invoice','details','client_id', 'client', 'items', 'coas', 'vats', 'customers'));
     }
 
     /**
@@ -224,9 +235,60 @@ class UserInvoicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $client_id, $id)
     {
         //
+
+        $this->validate($request, [
+            'reference_no' => 'required',
+            'invoice_date' => 'required',
+            'item_id' => 'required',
+            'coa_id' => 'required'
+        ]);
+        
+        $invoices= Invoice::findOrFail($id);
+        $invoices->client_id = $request->client_id;
+        $invoices->reference_no = $request->reference_no;
+        $invoices->invoice_date = $request->invoice_date;
+        $invoices->due_date = $request->due_date;
+        $invoices->customer_id = $request->customer_id;
+        $invoices->amount = $request->grandTotal;
+        $invoices->balance = $request->grandTotal;
+
+        $invoices->update();
+
+        $id = $invoices->id;
+
+
+        $invoiceId = $invoices->id;
+
+        $client_id = $request->client_id;
+
+        InvoiceDetail::where('invoice_id', $invoiceId)->delete();
+
+        if($id != 0){
+            foreach ($request->item_id as $key => $v)
+            {
+
+                $invoiceDetail = new InvoiceDetail([
+                            'invoice_id'=>$invoiceId,
+                            'coa_id'=>$request->coa_id[$key],
+                            'item_id'=>$request->item_id[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'qty'=>$request->qty[$key],
+                            'price'=>$request->price[$key],
+                            'vat_amount'=>$request->vat_amount[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'total'=>$request->total[$key]
+
+                ]);
+
+            $invoiceDetail->save();
+
+            }
+        }
+       return \Redirect::route('invoice', [$client_id]);
+
         
     }
 

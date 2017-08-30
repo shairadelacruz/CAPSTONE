@@ -14,7 +14,7 @@ class BillDetails extends Model
     protected $dates = ['deleted_at'];
     
     protected $fillable = [
-        'bill_id','coa_id', 'item_id', 'vat_id', 'vat_amount', 'description', 'qty','price','total'
+        'bill_id','coa_id', 'item_id', 'vat_id', 'vat_amount', 'descriptions', 'qty','price','total'
     ];
 
     public function bill()

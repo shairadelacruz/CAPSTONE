@@ -18,9 +18,9 @@ class Vat extends Model
 
     ];
 
-    public function invoice_details(){
-
-        return $this->hasMany('App\InvoiceDetails');
+    public function invoice_details()
+    {
+        return $this->hasMany(InvoiceDetail::class);
     }
 
     public function bill_details(){

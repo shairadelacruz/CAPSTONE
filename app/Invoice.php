@@ -10,7 +10,8 @@ class Invoice extends Model
     //
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'invoice_date', 'due_date'];
+
 
     protected $fillable = [
         'reference_no', 'invoice_date', 'due_date', 'client_id', 'customer_id', 'balance', 'amount'

@@ -9,112 +9,184 @@ Invoice
 @extends('includes.form_includes');
 
 @section('content')
+    <div id="bill">
 
-        <div class="container-fluid">
+        <div class = "panel panel-default" v-clock>
             
-            <!-- Exportable Table -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                Edit Invoice
-                            </h2><br>
-                            <div class="row clearfix js-sweetalert">
-                                <div class="col-sm-6">
+            <div class = "panel-heading">
 
-                                    <div class = "form-group">
-                                        {!! Form:: label('ref_no', 'Reference No.:') !!}
-                                        {!! Form:: text('ref_no',null, ['class'=>'form-control']) !!}
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="row clearfix js-sweetalert">
-                                <div class="col-sm-4">
-                                    <div class = "form-group">
-                                         {!! Form:: label('date', 'Date:') !!}
-                                        {!! Form:: date('date',null, ['class'=>'form-control datepicker']) !!}
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class = "form-group">
-                                        {!! Form:: label('term', 'Terms:') !!}
-                                        {!! Form:: number('term',null, ['class'=>'form-control']) !!}
-                                    </div>
-                                </div>  
-                            </div>
-                            
-                            <div class="row clearfix js-sweetalert">
-                                 <div class="col-sm-4">
-                                    <div class = "form-group">
-                                         {!! Form:: label('due_date', 'Due Date:') !!}
-                                        {!! Form:: date('due_date',null, ['class'=>'form-control datepicker']) !!}
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class = "form-group">
-                                        {!! Form:: label('customer', 'Customer:') !!}
-                                        {!! Form:: select('customer', [''=>'Choose Customer'] ,null, ['class'=>'form-control']) !!}
-                                    </div>
-                                 </div>   
-                            </div>
+                <div class = "clearfix">
+                    
+                    <span class = "panel-title">Edit Invoice</span>
+                    <a href="{{ route('invoice', $client_id) }}" class="btn btn-default pull-right">Back</a>
 
+                </div>    
 
-                        </div>
-                        <div class="body table-responsive">
-                            <table class="table table-bordered table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Account Title</th>
-                        <th>Description</th>
-                        <th>Rate</th>
-                        <th>Quantity</th>
-                        <th>VAT Code</th>
-                        <th>VAT Amount</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><a class="cutForCompute"></a><select>
-                            <option>No item</option>
-                            <option>Fries</option>
-                            </select></td>
-                        <td>
-                            <select>
-                                <option>Office Supplies</option>
-                                <option>Accounts Payable</option>
-                            </select>
-                        </td>
-                        <td><span data-prefix>₱</span><span contenteditable>150.00</span></td>
-                        <td><span data-prefix>₱</span><span contenteditable>150.00</span></td>
-                        <td><span contenteditable>4</span></td>
-                        <td><span contenteditable>10</span></td>
-                        <td><span data-prefix>₱</span><span>600.00</span></td>
-                        <td><span data-prefix>₱</span><span>600.00</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <a class="addForCompute">+</a>
-            <table class="balanceForCompute">
-
-                <tr>
-                    <th><span contenteditable>Total</span></th>
-                    <td><span data-prefix>₱</span><span>00.00</span></td>
-                </tr>
-                            </table>
-                            
-                            <button type="button" class="btn bg-blue btn-block btn-lg waves-effect">Save</button>
-                            
-                        </div>
-                    </div>
-                </div>
             </div>
-            <!-- #END# Exportable Table -->
-            
+
+            <div class="panel-body">
+                
+                {!! Form::model($invoice,['method'=>'PATCH','action'=>['UserInvoicesController@update',
+                $client_id, $invoice->id]]) !!}
+
+                            
+                <div class="row">
+
+                    <div class="col-sm-12">
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Reference No.</label>
+                                <input type="text" class="form-control" name='reference_no' value="{{$invoice->reference_no}}">
+                               
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Bill Date</label>
+                                <input type="date" class="form-control" name='invoice_date' value="{{$invoice->invoice_date->toDateString()}}">
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Due Date</label>
+                                <input type="date" class="form-control" name='due_date'
+                                value='{{$invoice->due_date->toDateString()}}'>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Customer</label>
+                                <select class="table-control" name="customer_id">
+                                    <option value="{{$invoice->customer->id}}" selected="true">{{$invoice->customer->name}}</option>
+                                        @if($customers)
+                                        @foreach($customers as $customer)
+                                            <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                        @endforeach
+                                        @endif
+                                </select>
+                            </div>
+                        </div>
+                
+                    </div>
+
+                </div>
+              
+                    <div class="body table-responsive">
+                        <table class="table table-bordered table-form">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Account</th>
+                                    <th>Description</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                    <th>VAT Code</th>
+                                    <th>VAT Amount</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             @if($details)
+                                @foreach($details as $detail)
+                                <tr>
+
+                                    <td>
+                                    <select name="item_id[]">
+                                        <option value="{{$detail->item->id}}" selected="true">{{$detail->item->name}}
+                                        </option>
+                                                @if($items)
+                                                @foreach($items as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}
+                                                </option>
+                                                @endforeach
+                                                @endif
+                                    </select>
+                                        
+                                    </td>
+                                    <td class="table-coa_id">
+                                    <select name="coa_id[]" v-model="detail.coa_id">
+                                        <option value="{{$detail->coa->id}}" selected="true">{{$detail->coa->name}}</option>
+                                        @if($coas)
+                                        @foreach($coas as $coa)
+                                        <option value="{{$coa->id}}">{{$coa->name}}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                        
+                                    </td>
+                                    
+                                    <td>
+                                        <input type="text" name="descriptions[]" value='{{$detail->descriptions}}'>
+                                    </td>
+                                    
+                                    <td class="table-qty">
+                                        <input type="number" class="table-control" v-model="detail.qty" name="qty[]" value='{{$detail->qty}}' step="0.01">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="price[]" value='{{$detail->price}}' step="0.01">
+                                    </td>
+
+                                    <td>
+                                        <select name="vat_id[]">
+                                                    <option value="{{$detail->vat->id}}" selected="true">{{$detail->vat->vat_code}}</option>
+                                                @if($vats)
+                                                @foreach($vats as $vat)
+                                                    <option value="{{$vat->id}}">{{$vat->vat_code}}</option>
+                                                @endforeach
+                                                @endif
+                                    </select>
+                                    </td>
+                                    <td>
+                                        <input type="number" name="vat_amount[]" value='{{$detail->vat_amount}}' step="0.01">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="total[]" step="0.01" value='{{$detail->total}}' >
+                                    </td>
+                                    <td class="table-remove">
+                                        <span>X</span>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                    @endif
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td class="table-empty">
+                                        <span>+ Add Line</span>
+                                    </td>
+                                    <td>Total</td>
+                                    <td class="table-grandTotal"><input type="number" step="0.01" readonly="true"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+            </div>
+
+            <div class="panel-footer">
+
+
+                
+                <a href="{{ route('invoice', $client_id) }}" class="btn btn-default">Cancel</a>
+                
+                <input type='submit' value='Edit' class="btn btn-success">
+                
+                {!!Form::close()!!}
+                @include('includes.form_error')
+
+            </div>
 
         </div>
+        
+    </div>
 
-	
+
+@section('scripts')
+    
+
+ 
+@endsection
 @stop

@@ -69,7 +69,7 @@ Invoice
                                         <td>{{$invoice->amount}}</td>
                                         <td>{{$invoice->balance}}</td>
                                         <td>
-                                            <a href ="#" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
+                                            <a href ="invoice/{{$invoice->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteInvoice{{$invoice->id}}"><i class="material-icons">delete</i></button>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#payInvoice{{$invoice->id}}"><i class="material-icons">payment</i></button>
                                         </td>

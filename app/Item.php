@@ -29,7 +29,7 @@ class Item extends Model
 
     public function invoice_details()
     {
-        return $this->hasMany('App\InvoiceDetails');
+        return $this->hasMany(InvoiceDetail::class);
     }
 
     public function bill_details(){

@@ -234,16 +234,17 @@ class UserBillsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $client_id, $id)
     {
         //
-        /*$this->validate($request, [
+
+        $this->validate($request, [
             'reference_no' => 'required',
             'bill_date' => 'required',
             'item_id' => 'required',
             'coa_id' => 'required'
-        ]);*/
-
+        ]);
+        
         $bills= Bill::findOrFail($id);
         $bills->client_id = $request->client_id;
         $bills->reference_no = $request->reference_no;
@@ -253,9 +254,41 @@ class UserBillsController extends Controller
         $bills->amount = $request->grandTotal;
         $bills->balance = $request->grandTotal;
 
-        $id = $bills->update();
+        $bills->update();
 
-        return $id;
+        $id = $bills->id;
+
+        //$billLast = Bill::all()->last();
+        $billId = $bills->id;
+
+        $client_id = $request->client_id;
+
+        BillDetails::where('bill_id', $billId)->delete();
+
+        if($id != 0){
+            foreach ($request->item_id as $key => $v)
+            {
+
+                $billDetail = new BillDetails([
+                            'bill_id'=>$billId,
+                            'coa_id'=>$request->coa_id[$key],
+                            'item_id'=>$request->item_id[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'qty'=>$request->qty[$key],
+                            'price'=>$request->price[$key],
+                            'vat_amount'=>$request->vat_amount[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'total'=>$request->total[$key]
+
+                ]);
+
+                $billDetail->save();
+
+            }
+        }
+       return \Redirect::route('bill', [$client_id]);
+
+        
     }
 
     /**
