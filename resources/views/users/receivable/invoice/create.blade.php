@@ -75,15 +75,9 @@ Invoice
 
                 </div>
 
-                    <hr>
-
-                    <div v-if="errors.details_empty">
-                        <p class="alert alert-danger">@{{ errors.details_empty }}</p>
-                        </hr>
-                    </div>
                     
                     <div class="body table-responsive">
-                        <table class="table table-bordered table-form" width="100">
+                        <table class="table table-bordered table-form">
                             <thead>
                                 <tr>
                                     <th>Item</th>
@@ -185,7 +179,9 @@ Invoice
 
 @section('scripts')
     <script src="{{asset('js/vue.min.js') }}"></script>
+
     <script src="{{asset('js/vue-resource.min.js') }}"></script>
+
     <script type="text/javascript">
         
         Vue.http.headers.common['X-CSRF-TOKEN'] = '{{csrf_token()}}';
@@ -211,7 +207,7 @@ Invoice
 
     </script>
     
-    <script src="{{asset('js/billvue.js') }}"></script>
+    <script src="{{asset('js/billinvoice/app.js') }}"></script>
 
  
 @endsection

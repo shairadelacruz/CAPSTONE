@@ -211,7 +211,7 @@ Bill
 
     </script>
     
-    <script src="{{asset('js/billvue.js') }}"></script>
+    <script src="{{asset('js/billinvoice/app.js') }}"></script>
 
  
 @endsection
