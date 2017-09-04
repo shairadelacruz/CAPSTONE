@@ -127,7 +127,7 @@ Invoice
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             {!! Form:: label('date', 'Date:') !!}
-                                            {!! Form:: date('name',null, ['class'=>'form-control']) !!}
+                                            {!! Form:: date('date',null, ['class'=>'form-control']) !!}
                                         </div>
                                     </div>
 

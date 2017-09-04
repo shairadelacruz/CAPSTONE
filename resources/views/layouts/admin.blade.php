@@ -65,6 +65,7 @@
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="index.html">
                 AMY - Bookkeeping and Project Monitoring System
+
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -150,16 +151,16 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="transactions">Transactions</a>
+                                <a href="/user/{{request()->route('client_id')}}/accounting/transaction">Transactions</a>
                             </li>
                             <li>
-                                <a href="journal">Journal Entries</a>
+                                <a href="/user/{{request()->route('client_id')}}/accounting/journal">Journal Entries</a>
                             </li>
                             <li>
-                                <a href="coa">Chart of Accounts</a>
+                                <a href="/user/{{request()->route('client_id')}}/accounting/coa">Chart of Accounts</a>
                             </li>
                             <li>
-                                <a href="vat">VAT Codes</a>
+                                <a href="/user/{{request()->route('client_id')}}/accounting/vat">VAT Codes</a>
                             </li>
                         </ul>
                     </li>
@@ -171,10 +172,10 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="bills.html">Bills</a>
+                                <a href="/user/{{request()->route('client_id')}}/payable/bill">Bills</a>
                             </li>
                             <li>
-                                <a href="#">Vendor</a>
+                                <a href="/user/{{request()->route('client_id')}}/payable/vendor">Vendor</a>
 
                             </li>
                         </ul>
@@ -186,27 +187,27 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="invoice-view.html">Invoices</a>
+                                <a href="/user/{{request()->route('client_id')}}/receivable/invoice">Invoices</a>
                             </li>
                             <li>
-                                <a href="customers.html">Customers</a>
+                                <a href="/user/{{request()->route('client_id')}}/receivable/customer">Customers</a>
                             </li>
                             <li>
-                                <a href="products-and-services.html">Products and Services</a>
+                                <a href="/user/{{request()->route('client_id')}}/receivable/item">Products and Services</a>
                             </li>
  
                         </ul>
                     </li>
                     
                     <li>
-                        <a href="{{route('users.cashdisbursement.index')}}">
+                        <a href="/user/{{request()->route('client_id')}}/disbursement">
                             <i class="material-icons">monetization_on</i>
                                 <span>Cash Disbursement</span>
                         </a>
                     </li>
                     
                     <li>
-                        <a href="images.html">
+                        <a href="/user/{{request()->route('client_id')}}/documents">
                             <i class="material-icons">description</i>
                                 <span>Documents</span>
                         </a>

@@ -40,18 +40,18 @@ class UserTasksController extends Controller
         $client_id = $task->client_id;
         $documents = $task->log->pluck('reference_no');
 
-        if($task->task_type == 1){
+        if($task->task_type == 0){
             Session::flash('ref_no',$documents);
             //Session::flash('ref_no', array($documents));
 
             return redirect('/user/'.$client_id.'/accounting/journal/create');
         }
-        else if($task->task_type == 2){
+        else if($task->task_type == 1){
 
             return redirect('/user/'.$client_id.'/receivable/invoice/create');
         }
 
-        else if($task->task_type == 3){
+        else if($task->task_type == 2){
 
             return redirect('/user/'.$client_id.'/payable/bill/create');
         }

@@ -147,6 +147,7 @@ class UserBillsController extends Controller
     public function pay(Request $request, $id)
     {
         //
+        //return $request->all();
         $bill = Bill::findOrFail($id);
 
         $balance = $bill->balance;
