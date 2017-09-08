@@ -106,7 +106,17 @@
                     @endif
 
                     @if(Auth::user()->isAdmin()||Auth::user()->isManager()||Auth::user()->isUser()) 
-                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true">Switch&nbsp;<i class="material-icons">group</i></a></li>
+                    <li class="pull-right">
+                    <a href="javascript:void(0);" class="js-right-sidebar" data-close="true">@if($client_name = Auth::user()->clients->find(request()->route('client_id')))
+                    {{$client_name->company_name}}
+                    @else
+                    Switch
+                    @endif
+                    &nbsp;
+                    <i class="material-icons">group</i>
+                    </a>
+
+                    </li>
                     @endif
                 </ul>
             </div>
@@ -175,6 +185,9 @@
                                 <a href="/user/{{request()->route('client_id')}}/payable/bill">Bills</a>
                             </li>
                             <li>
+                                <a href="/user/{{request()->route('client_id')}}/payable/disbursement">Cash Disbursement</a>
+                            </li>
+                            <li>
                                 <a href="/user/{{request()->route('client_id')}}/payable/vendor">Vendor</a>
 
                             </li>
@@ -197,13 +210,6 @@
                             </li>
  
                         </ul>
-                    </li>
-                    
-                    <li>
-                        <a href="/user/{{request()->route('client_id')}}/disbursement">
-                            <i class="material-icons">monetization_on</i>
-                                <span>Cash Disbursement</span>
-                        </a>
                     </li>
                     
                     <li>
@@ -368,7 +374,7 @@
     <script src="{{asset('js/admin.js') }} "></script>
 
     <!-- Demo Js -->
-    <script src="{{asset('js/demo.js') }} "></script>
+    
 
     @yield('scripts')
 

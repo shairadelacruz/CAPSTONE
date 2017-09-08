@@ -130,7 +130,7 @@ class UserInvoicesController extends Controller
                 $credit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
-                            'debit'=>$request->total[$key]
+                            'credit'=>$request->total[$key]
 
                 ]);
 

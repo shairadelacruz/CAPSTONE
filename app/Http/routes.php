@@ -100,6 +100,8 @@ Route::group(['middleware'=>'auth'], function(){
 
    // Route::get('user/{client_id}/payable/bill/edit', 'UserBillsController@update');
 
+    Route::resource('user/{client_id}/payable/disbursement', 'UserCashDisbursementsController');
+
 
     Route::resource('user/{client_id}/receivable/customer', 'UserCustomerController');
 
@@ -133,8 +135,6 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::post('user/{client_id}/receivable/invoice', array('as'=>'insertinvoice','uses'=>'UserInvoicesController@store'));
 
-
-    Route::resource('users/cashdisbursement', 'UserCashDisbursementsController');
     Route::resource('user/{client_id}/documents', 'UserDocumentsController');
 
 
@@ -143,11 +143,6 @@ Route::group(['middleware'=>'auth'], function(){
 });
 
 
-
-
-Route::get('/cashdisbursement', function () {
-    return view('users.cashdisbursement.index');
-});
 
 Route::get('/cashdisbursement/create', function () {
     return view('users.cashdisbursement.create');

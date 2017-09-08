@@ -127,7 +127,7 @@ Journal
             <tfoot>
                 <tr>
                     <td class="table-empty">
-                        <span class="table-add_line">+ Add Line</span>
+                        <span class="table-add_line" >+ Add Line</span>
                     </td>
                     <td>Total</td>
                     <td class="table-debittot"><input type="number" class="table-control" name="debittot[]" readonly="true" value="{{$detail->debit_total}}"></td>
@@ -152,8 +152,62 @@ Journal
             </div>
 
         </div>
+
+            <table class="table">
+  <thead>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Job</strong></td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="row in rows">
+      <td><input type="text" v-model="row.name"></td>
+      <td><input type="text" v-model="row.job"></td>
+      <td><a @click="removeRow(row)">Remove</a></td>
+    </tr>
+  </tbody>
+</table>
+<div>
+  <button class="button btn-primary" >Add row</button>
+</div>
         
     </div>
+
+
+
+
+
+@section('scripts')
+    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.1/vue.min.js"></script>
+
+        <script>
+
+            var app  = new Vue({
+  el: "#journal",
+  data: {
+    rows: [
+      {name: "James Bond",job: "spy"},
+      {name: "Goldfinger", job: "villain"}
+    ]
+  },
+  methods:{
+    addRow: function(){
+      this.rows.push({name:"",job:""});
+    },
+    removeRow: function(row){
+      //console.log(row);
+      this.rows.$remove(row);
+    }
+  }
+});
+
+        </script>
+ 
+@endsection
 
     
     

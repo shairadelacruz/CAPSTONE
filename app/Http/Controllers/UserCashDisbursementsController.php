@@ -16,7 +16,7 @@ class UserCashDisbursementsController extends Controller
     public function index()
     {
         //
-         return view('users.cashdisbursement.index');
+         return view('users.payable.cashdisbursement.index');
     }
 
     /**
@@ -27,7 +27,7 @@ class UserCashDisbursementsController extends Controller
     public function create()
     {
         //
-         return view('users.cashdisbursement.create');
+         return view('users.payable.cashdisbursement.create');
     }
 
     /**
