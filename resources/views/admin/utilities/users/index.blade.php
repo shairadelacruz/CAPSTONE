@@ -23,7 +23,7 @@ Users
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <a href= "{{route('admin.users.create')}}" type="button" class="btn btn-primary waves-effect">+Add</a>
+                                    <a href= "{{route('admin.utilities.users.create')}}" type="button" class="btn btn-primary waves-effect">+Add</a>
                                 </div>
                             </div>
 
@@ -68,7 +68,7 @@ Users
 										<td>{{$user->is_active == 1 ? 'Active' : 'Not Active'}}</td>
 										
                                         <td>
-                                            <a href="{{route('admin.users.edit', $user->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
+                                            <a href="{{route('admin.utilities.users.edit', $user->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteUsers{{$user->id}}"><i class="material-icons">delete</i></button>
                                         </td>
                                     </tr>

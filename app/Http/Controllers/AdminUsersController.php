@@ -23,7 +23,7 @@ class AdminUsersController extends Controller
 
         $users = User::all();
 
-        return view('admin.users.index', compact('users'));
+        return view('admin.utilities.users.index', compact('users'));
 
     }
 
@@ -38,7 +38,7 @@ class AdminUsersController extends Controller
 
         $roles = Role::pluck('name', 'id')->all();
 
-        return view('admin.users.create', compact('roles'));
+        return view('admin.utilities.users.create', compact('roles'));
     }
 
     /**
@@ -70,7 +70,7 @@ class AdminUsersController extends Controller
         User::create($input);
         $user = User::latest()->first();
         $user->assignRole($role_name);
-        return redirect('/admin/users');
+        return redirect('/admin/utilities/users');
     }
 
 
@@ -81,12 +81,6 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-
-        return view('admin.users.show');
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -101,7 +95,7 @@ class AdminUsersController extends Controller
         $user = User::findOrFail($id);
         $user_role = $user->roles->pluck('name')->first();
         $roles = Role::lists('name', 'id')->all();
-        return view('admin.users.edit', compact('user', 'roles', 'user_role'));
+        return view('admin.utilities.users.edit', compact('user', 'roles', 'user_role'));
         
     }
 
@@ -140,7 +134,7 @@ class AdminUsersController extends Controller
         $user->update($input);
         //$user = User::latest()->first();
         $user->assignRole($role_name);
-        return redirect('/admin/users');
+        return redirect('/admin/utilities/users');
     }
 
     /**
@@ -158,6 +152,6 @@ class AdminUsersController extends Controller
 
         Session::flash('deleted_user','The user has been deleted');
 
-        return redirect('/admin/users');
+        return redirect('/admin/utilities/users');
     }
 }

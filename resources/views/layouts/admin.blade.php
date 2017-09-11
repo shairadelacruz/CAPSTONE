@@ -8,10 +8,11 @@
     <title>@yield('page_title')</title>
     <!-- Favicon-->
     <link rel="icon" href="{{asset('images/logo.png') }}" type="image/x-icon">
+    <!-- Favicon-->
+    <link rel="stylesheet" href="{{asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
     <link href="{{asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
@@ -74,7 +75,7 @@
                     <!-- Tasks -->
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <i class="material-icons">notifications</i>
+                            <i class="fa fa-bell-o fa-fw fa-lg" aria-hidden="true"></i>&nbsp;
                             <span class="label-count">{{Auth::user()->tasks()->where('status', 0)->count()}}</span>
                         </a>
                         <ul class="dropdown-menu">
@@ -88,7 +89,7 @@
                                             <div class="menu-info">
                                                 <h4>{{$task->name}}</h4>
                                                 <p>
-                                                    <i class="material-icons">access_time</i> {{$task->deadline->diffForHumans()}}
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i> {{$task->deadline->diffForHumans()}}
                                                 </p>
                                             </div>
                                         </a>
@@ -113,7 +114,7 @@
                     Switch
                     @endif
                     &nbsp;
-                    <i class="material-icons">group</i>
+                    <i class="fa fa-users fa-fw fa-lg" aria-hidden="true"></i>
                     </a>
 
                     </li>
@@ -132,10 +133,10 @@
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div>
                     <div class="email">{{ Auth::user()->email }}</div>
                     <div class="btn-group user-helper-dropdown">
-                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                        <i class="fa fa-angle-down fa-lg" aria-hidden="true"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
-                            <li><a href="{{ url('/logout') }}"><i class="material-icons">input</i>Sign Out</a></li>
+                            <li><a href="javascript:void(0);"><i class="fa fa-user fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Profile</a></li>
+                            <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -148,16 +149,13 @@
                     @can('menu_user')
                     <li class="header">ACCOUNTANT</li>
                     <li>
-                        <a href="/ames/public/admin">
-                            <i class="material-icons">home</i>
-                            <span>Home</span>
-                        </a>
+                        <a href="/admin">
+                            <i class="fa fa-home fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Home</strong></a>
                     </li>
                     
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">format_list_numbered</i>
-                            <span>Accounting</span>
+                            <i class="fa fa-calculator fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Accounting</strong>
                         </a>
                         <ul class="ml-menu">
                             <li>
@@ -177,8 +175,7 @@
                     
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">payment</i>
-                            <span>Accounts Payable</span>
+                            <i class="fa fa-credit-card-alt fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Accounts Payable</strong>
                         </a>
                         <ul class="ml-menu">
                             <li>
@@ -195,8 +192,7 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">view_list</i>
-                            <span>Accounts Receivable</span>
+                            <i class="fa fa-credit-card fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Accounts Receivable</strong>
                         </a>
                         <ul class="ml-menu">
                             <li>
@@ -211,19 +207,19 @@
  
                         </ul>
                     </li>
-                    
                     <li>
                         <a href="/user/{{request()->route('client_id')}}/documents">
-                            <i class="material-icons">description</i>
-                                <span>Documents</span>
+                            <i class="fa fa-angle-double-right fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Adjusting Entries</strong>
                         </a>
                     </li>
-
-
+                    <li>
+                        <a href="/user/{{request()->route('client_id')}}/documents">
+                            <i class="fa fa-file-text fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Documents</strong>
+                        </a>
+                    </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">assessment</i>
-                            <span>Reports</span>
+                            <i class="fa fa-bar-chart fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Reports</strong>
                         </a>
                         
                     </li>
@@ -239,33 +235,18 @@
                     @endIf
                     
                     @can('menu_admin')
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                           <i class="material-icons">account_circle</i>
-                            <span>Employees</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="{{route('admin.users.index')}}">Users</a>
-                            </li>
-                            <li>
-                                <a href="/">Evaluation</a>
-                            </li>
-                        </ul>
-                    </li>
+
                         
                     <li>
                         <a href="{{route('admin.clients.index')}}">
-                            <i class="material-icons">group</i>
-                            <span>Clients</span>
+                            <i class="fa fa-users fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Clients</strong>
                         </a>
                     </li>
                     @endcan
                     @can('menu_manager')
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">assignment</i>
-                            <span>Management</span>
+                            <i class="fa fa-calendar fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Management</strong>
                         </a>
                         <ul class="ml-menu">
                             <li>
@@ -286,15 +267,13 @@
                     @can('menu_receptionist')
                     <li>
                         <a href="{{route('admin.management.logs.index')}}">
-                            <i class="material-icons">description</i>
-                            <span>Document Logs</span>
+                            <i class="fa fa-book fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Document Logs</strong>
                         </a>
                     </li>
                     @endcan
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">list</i>
-                            <span>Lists</span>
+                            <i class="fa fa-list fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Lists</strong>
                         </a>
                         <ul class="ml-menu">
                             <li>
@@ -310,6 +289,20 @@
                                 <a href="{{route('admin.lists.document.index')}}">Document Types</a>
                             </li>
 
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                           <i class="fa fa-wrench fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Utilities</strong>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="{{route('admin.utilities.users.index')}}">Users</a>
+                            </li>
+                            <li>
+                                <a href="/">Audit Trail</a>
+                            </li>
                         </ul>
                     </li>
                     @endcan

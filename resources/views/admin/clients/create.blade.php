@@ -17,13 +17,17 @@ Clients
 
 	<div class = "form-group">
 		{!! Form:: label('company_name', 'Company Name:') !!}
-		{!! Form:: text('company_name',null, ['class'=>'form-control']) !!}
+		{!! Form:: text('company_name',null, ['class'=>'form-control', 'required']) !!}
 	</div>
 
 	<div class = "form-group">
 		{!! Form:: label('legal_name', 'Legal Name:') !!}
 		{!! Form:: text('legal_name',null, ['class'=>'form-control']) !!}
+	</div>
 
+	<div class = "form-group">
+		{!! Form:: label('code', 'Code:') !!}
+		{!! Form:: text('code',null, ['class'=>'form-control','maxlength' => 3,'required']) !!}
 	</div>
 
 	<div class = "form-group">
@@ -45,7 +49,7 @@ Clients
 
 	<div class = "form-group">
 		{!! Form:: label('contact_name', 'Name of Contact:') !!}
-		{!! Form:: text('contact_name',null, ['class'=>'form-control datepicker']) !!}
+		{!! Form:: text('contact_name',null, ['class'=>'form-control datepicker','required']) !!}
 	</div>
 
 	<div class = "form-group">

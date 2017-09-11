@@ -36,7 +36,7 @@ Clients
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>Code</th>
                                         <th>Company Name</th>
                                         <th>Address</th>
                                         <th>Contact Person</th>
@@ -46,7 +46,7 @@ Clients
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>Code</th>
                                         <th>Company Name</th>
                                         <th>Address</th>
                                         <th>Contact Person</th>
@@ -59,7 +59,7 @@ Clients
                                 @if($clients)
                                     @foreach($clients as $client)
                                     <tr>
-                                        <td>{{$client->id}}</td>
+                                        <td>{{$client->code}}{{$client->id}}</td>
                                         <td>{{$client->company_name}}</td>
                                         <td>{{$client->address}}</td>
                                         <td>{{$client->contact_name}}</td>         
