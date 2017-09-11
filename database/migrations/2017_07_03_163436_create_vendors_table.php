@@ -20,8 +20,7 @@ class CreateVendorsTable extends Migration
             $table->string('middle_name');
             $table->string('last_name');
             $table->string('email');
-            $table->string('address1');
-            $table->string('address2');
+            $table->string('address');
             $table->string('phone');
             $table->string('mobile');
             $table->softDeletes();

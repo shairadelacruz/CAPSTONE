@@ -48,14 +48,8 @@ Customer
 
         <div class="form-group form-float">
             <div class="form-line">
-                {!! Form:: label('address1', 'Address:') !!}
-				{!! Form:: textarea('address1',null, ['class'=>'form-control no-resize']) !!}
-            </div>
-        </div>
-         <div class="form-group form-float">
-            <div class="form-line">
-                {!! Form:: label('address2', 'Shipping Address:') !!}
-				{!! Form:: textarea('address2',null, ['class'=>'form-control no-resize']) !!}
+                {!! Form:: label('address', 'Address:') !!}
+                {!! Form:: textarea('address',null, ['class'=>'form-control no-resize']) !!}
             </div>
         </div>
 
