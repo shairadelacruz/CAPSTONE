@@ -35,28 +35,12 @@ Bill
 
                         <input type="hidden" name='client_id' value="{{ $client_id }}" class="form-control">
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Reference No.</label>
                                 <input type="text" class="form-control" v-model="form.reference_no" name='reference_no'>
                                 <p v-if="errors.reference_no" class="error">@{{ errors.reference_no}}</p>
                             </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>Bill Date</label>
-                                <input type="date" class="form-control" v-model="form.bill_date" name='bill_date'>
-                                <p v-if="errors.bill_date" class="error">@{{ errors.bill_date}}</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>Due Date</label>
-                                <input type="date" class="form-control" v-model="form.due_date" name='due_date'>
-                                <p v-if="errors.due_date" class="error">@{{ errors.due_date}}</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Vendor</label>
                                 <select class="table-control" name="vendor_id" v-model="detail.vendor_id">
@@ -70,17 +54,33 @@ Bill
                                 <p v-if="errors.vendor_id" class="error">@{{ errors.vendor_id}}</p>
                             </div>
                         </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Bill Date</label>
+                                <input type="date" class="form-control" v-model="form.bill_date" name='bill_date'>
+                                <p v-if="errors.bill_date" class="error">@{{ errors.bill_date}}</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Due Date</label>
+                                <input type="date" class="form-control" v-model="form.due_date" name='due_date'>
+                                <p v-if="errors.due_date" class="error">@{{ errors.due_date}}</p>
+                            </div>
+                        </div>
+                       
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select class="table-control" name="bill_type">
+                                    <option value="0" selected="true">Bill</option>
+                                    <option value="1">Cash Disbursement</option>
+                                </select>
+                            </div>
+                        </div>
                 
                     </div>
 
                 </div>
 
-                    <hr>
-
-                    <div v-if="errors.details_empty">
-                        <p class="alert alert-danger">@{{ errors.details_empty }}</p>
-                        </hr>
-                    </div>
                     
                     <div class="body table-responsive">
                         <table class="table table-bordered table-form" width="100">
@@ -157,7 +157,7 @@ Bill
                                         <span @click="addLine" class="table-add_line">+ Add Line</span>
                                     </td>
                                     <td>Total</td>
-                                    <td class="table-grandTotal"><input type="number" value="@{{ grandTotal }}" class="table-control" v-model="detail.grandTotal" name="grandTotal" readonly="true"></td>
+                                    <td class="table-grandTotal right-align-text"><input type="number" value="@{{ grandTotal }}" class="table-control" v-model="detail.grandTotal" name="grandTotal" readonly="true"></td>
                                 </tr>
                             </tfoot>
                         </table>

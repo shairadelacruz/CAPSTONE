@@ -2,10 +2,12 @@
 @import url(materialize.css);
 
 #amyLogo{
-    height: 70px;
-    width: 70px;
+    height: 100%;
+    width: 100%;
     position: relative;
 }
+
+.right-align-text { text-align: right; }
 
 .navbar {
   font-family: "Roboto", sans-serif;
@@ -2397,7 +2399,7 @@ a {
   animation: none !important; }
 
 section.content {
-  margin: 100px 15px 0 315px;
+  margin: 100px 15px 0 260px;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
   -webkit-transition: 0.5s;
@@ -7460,7 +7462,7 @@ fieldset[disabled] .form-control {
   transition: all 0.5s;
   font-family: "Roboto", sans-serif;
   background: #fdfdfd;
-  width: 300px;
+  width: 240px;
   overflow: hidden;
   display: inline-block;
   height: calc(100vh - 70px);
@@ -7504,7 +7506,7 @@ fieldset[disabled] .form-control {
     border-bottom: 1px solid #e9e9e9;
     background: url("../images/logo.png") no-repeat no-repeat;
     background-size: cover;
-    height: 130px; }
+    height: 100px; }
     .sidebar .user-info .image {
       margin-right: 12px;
       display: inline-block; }
@@ -7651,7 +7653,7 @@ fieldset[disabled] .form-control {
           padding-left: 95px; }
 
 .right-sidebar {
-  width: 280px;
+  width: 250px;
   height: calc(100vh - 70px);
   position: fixed;
   right: -300px;

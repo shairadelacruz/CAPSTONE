@@ -182,9 +182,6 @@
                                 <a href="/user/{{request()->route('client_id')}}/payable/bill">Bills</a>
                             </li>
                             <li>
-                                <a href="/user/{{request()->route('client_id')}}/payable/disbursement">Cash Disbursement</a>
-                            </li>
-                            <li>
                                 <a href="/user/{{request()->route('client_id')}}/payable/vendor">Vendor</a>
 
                             </li>
@@ -301,7 +298,7 @@
                                 <a href="{{route('admin.utilities.users.index')}}">Users</a>
                             </li>
                             <li>
-                                <a href="/">Audit Trail</a>
+                                <a href="{{route('admin.utilities.audit.index')}}">Audit Trail</a>
                             </li>
                         </ul>
                     </li>

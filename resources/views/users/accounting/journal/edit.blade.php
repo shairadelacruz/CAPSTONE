@@ -93,10 +93,10 @@ Journal
                         
                     </td>
                     <td class="table-debit">
-                        <input type="number" class="table-control" name="debit[]" value="{{$detail->debit}}">
+                        <input type="number" class="table-control right-align-text" name="debit[]" value="{{$detail->debit}}">
                     </td>
                     <td class="table-credit">
-                        <input type="number" class="table-control" name="credit[]" value="{{$detail->credit}}">
+                        <input type="number" class="table-control right-align-text" name="credit[]" value="{{$detail->credit}}">
                     </td>
                     <td class="table-description">
                         <input type="text" class="table-control" name="descriptions[]" value="{{$detail->descriptions}}">
@@ -112,7 +112,7 @@ Journal
                     </select>
                     </td>
                     <td class="table-vat_amount">
-                        <input type="number" class="table-control" name="vat_amount[]" value="{{$detail->vat_amount}}">
+                        <input type="number" class="table-control right-align-text" name="vat_amount[]" value="{{$detail->vat_amount}}">
                     </td>
                     <!--<td class="table-vendor_id">
                         <input type="text" class="table-control" name="vendor_id[]">
@@ -130,8 +130,8 @@ Journal
                         <span class="table-add_line" >+ Add Line</span>
                     </td>
                     <td>Total</td>
-                    <td class="table-debittot"><input type="number" class="table-control" name="debittot[]" readonly="true" value="{{$detail->debit_total}}"></td>
-                    <td class="table-credittot"><input type="number" class="table-control" name="credittot[]" readonly="true" value="{{$detail->credit_total}}"></td>
+                    <td class="table-debittot right-align-text"><input type="number" class="table-control" name="debittot[]" readonly="true" value="{{$detail->debit_total}}"></td>
+                    <td class="table-credittot right-align-text"><input type="number" class="table-control" name="credittot[]" readonly="true" value="{{$detail->credit_total}}"></td>
                 </tr>
             </tfoot>
         </table>

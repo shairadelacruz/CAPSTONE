@@ -104,10 +104,10 @@ Journal
                         
                     </td>
                     <td class="table-debit" :class="{'table-error': errors['details' + $index + '.debit']}">
-                        <input type="number" class="table-control" v-model="detail.debit" name="debit[]">
+                        <input type="number" class="table-control right-align-text" v-model="detail.debit" name="debit[]">
                     </td>
                     <td class="table-credit" :class="{'table-error': errors['details' + $index + '.credit']}">
-                        <input type="number" class="table-control" v-model="detail.credit" name="credit[]">
+                        <input type="number" class="table-control right-align-text" v-model="detail.credit" name="credit[]">
                     </td>
                     <td class="table-description" :class="{'table-error': errors['details' + $index + '.description']}">
                         <input type="text" class="table-control" v-model="detail.description" name="descriptions[]">
@@ -123,7 +123,7 @@ Journal
                     </select>
                     </td>
                     <td class="table-vat_amount" :class="{'table-error': errors['details' + $index + '.vat_amount']}">
-                        <input type="number" class="table-control" v-model="detail.vat_amount" name="vat_amount[]">
+                        <input type="number" class="table-control right-align-text" v-model="detail.vat_amount" name="vat_amount[]">
                     </td>
                     <!--<td class="table-vendor_id" :class="{'table-error': errors['details' + $index + '.vendor_id']}">
                         <input type="text" class="table-control" v-model="detail.vendor_id" name="vendor_id[]">
@@ -139,8 +139,8 @@ Journal
                         <span @click="addLine" class="table-add_line">+ Add Line</span>
                     </td>
                     <td>Total</td>
-                    <td class="table-debittot"><input type="number" class="table-control" v-model="detail.debittot" name="debittot[]" value="@{{ debitTot }}" readonly="true"></td>
-                    <td class="table-credittot"><input type="number" class="table-control" v-model="detail.credittot" name="credittot[]" value="@{{ creditTot }}" readonly="true"></td>
+                    <td class="table-debittot"><input type="number" class="table-control right-align-text" v-model="detail.debittot" name="debittot[]" value="@{{ debitTot }}" readonly="true"></td>
+                    <td class="table-credittot"><input type="number" class="table-control right-align-text" v-model="detail.credittot" name="credittot[]" value="@{{ creditTot }}" readonly="true"></td>
                 </tr>
             </tfoot>
         </table>

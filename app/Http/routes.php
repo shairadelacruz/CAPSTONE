@@ -29,6 +29,8 @@ Route::group(['middleware'=>'admin'], function(){
 
 	Route::resource('admin/utilities/users', 'AdminUsersController');
 
+    Route::resource('admin/utilities/audit', 'AdminAuditController');
+
 	Route::resource('admin/clients', 'AdminClientsController');
 
 	Route::resource('admin/lists/coa', 'AdminCoasController');
@@ -99,9 +101,6 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('user/{client_id}/payable/bill', array('as'=>'insertbill','uses'=>'UserBillsController@store'));
 
    // Route::get('user/{client_id}/payable/bill/edit', 'UserBillsController@update');
-
-    Route::resource('user/{client_id}/payable/disbursement', 'UserCashDisbursementsController');
-
 
     Route::resource('user/{client_id}/receivable/customer', 'UserCustomerController');
 
