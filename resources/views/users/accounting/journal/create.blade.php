@@ -139,8 +139,8 @@ Journal
                         <span @click="addLine" class="table-add_line">+ Add Line</span>
                     </td>
                     <td>Total</td>
-                    <td class="table-debittot"><input type="number" class="table-control right-align-text" v-model="detail.debittot" name="debittot[]" value="@{{ debitTot }}" readonly="true"></td>
-                    <td class="table-credittot"><input type="number" class="table-control right-align-text" v-model="detail.credittot" name="credittot[]" value="@{{ creditTot }}" readonly="true"></td>
+                    <td class="table-debittot"><input type="number" class="table-control right-align-text" v-model="detail.debittot" name="debittot" value="@{{ debitTot }}" readonly="true"></td>
+                    <td class="table-credittot"><input type="number" class="table-control right-align-text" v-model="detail.credittot" name="credittot" value="@{{ creditTot }}" readonly="true"></td>
                 </tr>
             </tfoot>
         </table>

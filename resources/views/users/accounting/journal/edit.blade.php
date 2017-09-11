@@ -82,7 +82,7 @@ Journal
                         <input id="reference_no" type="text" name="reference_no[]" class="table-control" value="{{$detail->reference_no}}">
                     </td>
                     <td class="table-client_coa_id">
-                    <select class="table-control" name="coa_id[]">
+                    <select class="table-control" name="coa_cli_id[]">
                                 <option value="{{$detail->coa->id}}" selected="true">{{$detail->coa->name}}</option>
                                 @if($coas)
                                 @foreach($coas as $coa)
@@ -130,8 +130,8 @@ Journal
                         <span class="table-add_line" >+ Add Line</span>
                     </td>
                     <td>Total</td>
-                    <td class="table-debittot right-align-text"><input type="number" class="table-control" name="debittot[]" readonly="true" value="{{$detail->debit_total}}"></td>
-                    <td class="table-credittot right-align-text"><input type="number" class="table-control" name="credittot[]" readonly="true" value="{{$detail->credit_total}}"></td>
+                    <td class="table-debittot right-align-text"><input type="number" class="table-control" name="debittot" readonly="true" value="{{$detail->debit_total}}"></td>
+                    <td class="table-credittot right-align-text"><input type="number" class="table-control" name="credittot" readonly="true" value="{{$detail->credit_total}}"></td>
                 </tr>
             </tfoot>
         </table>

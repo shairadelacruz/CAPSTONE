@@ -14,8 +14,14 @@ class Journal extends Model
     protected $dates = ['deleted_at', 'date'];
 
     protected $fillable = [
-    	'transaction_no', 'description', 'date', 'client_id'
+    	'transaction_no', 'description', 'date', 'client_id', 'debit', 'credit'
     ];
+
+    //For Audit Trail
+
+    use RecordsActivity;
+
+    //protected static $recordEvents = ['created'];
 
 
     public function journal_details(){

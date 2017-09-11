@@ -64,6 +64,8 @@ class UserJournalsController extends Controller
         $journals->transaction_no = $request->transaction_no;
         $journals->date = $request->date;
         $journals->description = $request->description;
+        $journals->debit_total = $request->debittot;
+        $journals->credit_total = $request->credittot;
 
         $id = $journals->save();
 
@@ -149,6 +151,8 @@ class UserJournalsController extends Controller
         $journals->transaction_no = $request->transaction_no;
         $journals->date = $request->date;
         $journals->description = $request->description;
+        $journals->debit_total = $request->debittot;
+        $journals->credit_total = $request->credittot;
 
         $journals->update();
 
@@ -164,12 +168,12 @@ class UserJournalsController extends Controller
 
 
         if($id != 0){
-            foreach ($request->coa_id as $key => $v)
+            foreach ($request->coa_cli_id as $key => $v)
             {
 
                 $journalDetail = new JournalDetails([
                             'journal_id'=>$journalId,
-                            'coa_id'=>$request->coa_id[$key],
+                            'coa_id'=>$request->coa_cli_id[$key],
                             'reference_no'=>$request->reference_no[$key],
                             'descriptions'=>$request->descriptions[$key],
                             'debit'=>$request->debit[$key],

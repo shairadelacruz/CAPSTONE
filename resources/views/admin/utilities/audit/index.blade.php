@@ -26,23 +26,25 @@ Audit Trail
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-										<th>Name</th>
-										<th>Email</th>
-										<th>Role</th>
-										<th>Status</th>
-										<th>Action</th>
+                                        <th>Client</th>
+										<th>Last Modified</th>
+										<th>Modified By</th>
+										<th>Date</th>
+										<th>Account</th>
+										<th>Debit</th>
+                                        <th>Credit</th>
 
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>ID</th>
-										<th>Name</th>
-										<th>Email</th>
-										<th>Role</th>
-										<th>Status</th>
-										<th>Action</th>
+                                        <th>Client</th>
+                                        <th>Last Modified</th>
+                                        <th>Modified By</th>
+                                        <th>Date</th>
+                                        <th>Account</th>
+                                        <th>Debit</th>
+                                        <th>Credit</th>
 
                                     </tr>
                                 </tfoot>
