@@ -87,7 +87,7 @@ Task
                                         {!! Form::close() !!}
 
                                         
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#status{{$task->id}}"><i class="material-icons">create</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#status{{$task->id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                     @endforeach

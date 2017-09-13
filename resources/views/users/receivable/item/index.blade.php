@@ -62,8 +62,8 @@ Item
                                         <td>{{$item->price}}</td>
                                         
                                         <td>
-                                           <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editItem{{$item->id}}"><i class="material-icons">create</i></button>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteItem{{$item->id}}"><i class="material-icons">delete</i></button>
+                                           <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editItem{{$item->id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteItem{{$item->id}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                     @endforeach

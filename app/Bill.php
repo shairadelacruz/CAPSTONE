@@ -38,6 +38,6 @@ class Bill extends Model
 
     public function journal(){
 
-        return $this->hasMany(Journal::class);
+        return $this->hasOne(Journal::class);
     }
 }

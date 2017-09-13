@@ -60,8 +60,8 @@ COA
                                         <td>{{$coa->name}}</td>
                                         <td>{{$coa->description}}</td>  
                                         <td>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editCoa{{$coa->id}}"><i class="material-icons">create</i></button>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteCoa{{$coa->id}}"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editCoa{{$coa->id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteCoa{{$coa->id}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                     @endforeach

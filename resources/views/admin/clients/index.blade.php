@@ -64,9 +64,9 @@ Clients
                                         <td>{{$client->address}}</td>
                                         <td>{{$client->contact_name}}</td>         
                                         <td>
-                                            <a href="{{route('admin.clients.edit', $client->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteClients{{$client->id}}"><i class="material-icons">delete</i></button>
-                                            <button class="btn btn-default btn-xs waves-effect"><i class="material-icons">print</i></button>
+                                            <a href="{{route('admin.clients.edit', $client->id)}}" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteClients{{$client->id}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                            <button class="btn btn-default btn-xs waves-effect"><i class="fa fa-print" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
 

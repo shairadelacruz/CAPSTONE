@@ -63,8 +63,8 @@ Team Assignment
                                         <td>{{$team->user->name}}</td>
                                         <td><button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewMembers{{$team->id}}">View Employees</button></td>     
                                         <td>
-                                            <a href="{{route('admin.management.team.edit', $team->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteLogEntry"><i class="material-icons">delete</i></button>
+                                            <a href="{{route('admin.management.team.edit', $team->id)}}" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteLogEntry"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                     @endforeach

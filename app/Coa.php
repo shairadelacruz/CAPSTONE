@@ -21,10 +21,9 @@ class Coa extends Model
         return $this->belongsTo('App\Coacategory');
     }
 
-    public function coaamounts()
-    {
-
-        return $this->hasMany('App\Coaamount');
+    public function coapartner(){
+        
+        return $this->belongsToMany('App\Coapartner', 'coapartners','coa_id', 'partnercoa_id');
     }
 
     public function item(){

@@ -60,8 +60,8 @@ VAT
                                         <td>{{$vat->rate}}</td>
                                         <td>{{$vat->description}}</td>  
                                         <td>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editVAT{{$vat->id}}"><i class="material-icons">create</i></button>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteVAT{{$vat->id}}"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editVAT{{$vat->id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteVAT{{$vat->id}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                     @endforeach

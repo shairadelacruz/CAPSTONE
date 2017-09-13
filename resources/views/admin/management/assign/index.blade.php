@@ -60,7 +60,7 @@ Client Assignment
 
                                             <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewMembers{{$client->id}}">View Employees</button></td>     
                                         <td>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#editAssign{{$client->id}}"><i class="material-icons">create</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#editAssign{{$client->id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                     @endforeach

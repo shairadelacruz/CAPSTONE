@@ -63,7 +63,7 @@ COA
                                         <td>{{$coa->description}}</td>
                                         <td></td> 
                                         <td>
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteCoa{{$coa->id}}"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteCoa{{$coa->id}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                     @endforeach

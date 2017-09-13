@@ -77,9 +77,9 @@ Task
                                         @if($task->status == 2) For Quality Assurance
                                         @endif</td>                                        
                                         <td>
-                                            <a href="{{route('admin.management.task.edit', $task->id)}}" class="btn btn-default btn-xs waves-effect"><i class="material-icons">create</i></a>
+                                            <a href="{{route('admin.management.task.edit', $task->id)}}" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteTask{{$task->id}}"><i class="material-icons">delete</i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteTask{{$task->id}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                     @endforeach

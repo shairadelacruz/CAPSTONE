@@ -33,7 +33,7 @@ Documents
 
                         </div>
                         <div class="body table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-exportable" da>
+                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
                                         <th>Document</th>

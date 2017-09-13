@@ -131,7 +131,7 @@ class UserBillsController extends Controller
                 $debit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
-                            'debit'=>$request->total[$key]
+                            'debit'=>$request->price[$key]
 
                 ]);
 
@@ -267,6 +267,32 @@ class UserBillsController extends Controller
 
         BillDetails::where('bill_id', $billId)->delete();
 
+
+        //Create Journal Header
+        $journals = Journal::where('bill_id', $billId)->first();
+
+        $journals->bill_id = $billId;
+        $journals->client_id = $client_id;
+        //$journals->transaction_no = "B".$count;
+        $journals->date = $request->bill_date;
+        $journals->debit_total = $request->grandTotal;
+        $journals->credit_total = $request->grandTotal;
+        $journals->type = 2;
+        $journals->update();
+
+        //$id = $journals->id;
+        $journalId = $journals->id;
+
+        //Create Credit detail
+
+        JournalDetails::where('journal_id', $journalId)->delete();
+
+        $credit = new JournalDetails;
+        $credit->journal_id = $journalId;
+        $credit->coa_id = 8;
+        $credit->credit = $request->grandTotal;
+        $credit->save();
+
         if($id != 0){
             foreach ($request->item_id as $key => $v)
             {
@@ -285,6 +311,17 @@ class UserBillsController extends Controller
                 ]);
 
                 $billDetail->save();
+
+                 //Create Debit detail
+
+                $debit = new JournalDetails([
+                            'journal_id'=>$journalId,
+                            'coa_id'=>$request->coa_id[$key],
+                            'debit'=>$request->price[$key]
+
+                ]);
+
+                $debit->save();
 
             }
         }
