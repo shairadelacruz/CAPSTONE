@@ -267,6 +267,9 @@ class UserInvoicesController extends Controller
 
         InvoiceDetail::where('invoice_id', $invoiceId)->delete();
 
+
+        
+
         if($id != 0){
             foreach ($request->item_id as $key => $v)
             {

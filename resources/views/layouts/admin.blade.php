@@ -218,6 +218,11 @@
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="fa fa-bar-chart fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Reports</strong>
                         </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/user/{{request()->route('client_id')}}/reports/audit">Audit Trail</a>
+                            </li>
+                        </ul>
                         
                     </li>
 
@@ -298,7 +303,7 @@
                                 <a href="{{route('admin.utilities.users.index')}}">Users</a>
                             </li>
                             <li>
-                                <a href="{{route('admin.utilities.audit.index')}}">Audit Trail</a>
+                                <a href="{{route('admin.utilities.activity.index')}}">Activity Log</a>
                             </li>
                         </ul>
                     </li>

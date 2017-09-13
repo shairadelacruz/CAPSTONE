@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class AdminAuditController extends Controller
+class UserAuditController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class AdminAuditController extends Controller
     public function index()
     {
         //
-        return view('admin.utilities.audit.index');
+        return view('users.report.audit.index');
     }
 
     /**

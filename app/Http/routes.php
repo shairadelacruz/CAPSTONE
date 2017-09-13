@@ -29,7 +29,7 @@ Route::group(['middleware'=>'admin'], function(){
 
 	Route::resource('admin/utilities/users', 'AdminUsersController');
 
-    Route::resource('admin/utilities/audit', 'AdminAuditController');
+    Route::resource('admin/utilities/activity', 'AdminActivityController');
 
 	Route::resource('admin/clients', 'AdminClientsController');
 
@@ -136,6 +136,7 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/{client_id}/documents', 'UserDocumentsController');
 
+     Route::resource('user/{client_id}/reports/audit', 'UserAuditController');
 
     Route::resource('user/tasks', 'UserTasksController');
 
