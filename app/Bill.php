@@ -10,6 +10,8 @@ class Bill extends Model
     //
     use SoftDeletes;
 
+    use RecordsActivity;
+
     protected $dates = ['deleted_at', 'bill_date', 'due_date'];
 
     protected $fillable = [

@@ -7,13 +7,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
 
     use SoftDeletes;
+
+    use RecordsActivity;
 
     protected $dates = ['deleted_at'];
 
@@ -115,5 +112,10 @@ class User extends Authenticatable
     public function tasks()
     {
         return $this->hasMany('App\Task');
+    }
+
+    public function activities(){
+
+        return $this->hasMany('App\Activity');
     }
 }

@@ -64,7 +64,7 @@ Users
                                         <td>{{$user->id}}</td>
 										<td>{{$user->name}}</td>
 										<td>{{$user->email}}</td>
-										<td>{{$user->roles->first()->name}}</td>
+										<td>{{$user->roles->first()->label}}</td>
 										<td>{{$user->is_active == 1 ? 'Active' : 'Not Active'}}</td>
 										
                                         <td>

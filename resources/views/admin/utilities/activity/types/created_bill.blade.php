@@ -1,0 +1,1 @@
+Created a bill {{$activity->subject->transaction_no}} for {{$activity->subject->client->company_name}}

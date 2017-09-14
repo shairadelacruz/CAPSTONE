@@ -10,6 +10,8 @@ class Task extends Model
     //
     use SoftDeletes;
 
+    use RecordsActivity;
+
     protected $dates = ['deleted_at', 'deadline'];
 
     protected $fillable = [

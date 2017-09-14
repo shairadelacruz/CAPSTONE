@@ -10,6 +10,8 @@ class Invoice extends Model
     //
     use SoftDeletes;
 
+    use RecordsActivity;
+
     protected $dates = ['deleted_at', 'invoice_date', 'due_date'];
 
 

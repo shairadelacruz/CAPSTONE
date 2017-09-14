@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-Audit Trail
+Activity Log
 
 @endsection
 
@@ -18,7 +18,7 @@ Audit Trail
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Audit Trail
+                                Activity Log
                             </h2><br>
 
                         </div>
@@ -26,38 +26,32 @@ Audit Trail
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th>Client</th>
-										<th>Last Modified</th>
-										<th>Modified By</th>
-										<th>Date</th>
-										<th>Account</th>
-										<th>Debit</th>
-                                        <th>Credit</th>
-
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>User</th>
+                                        <th>Activity</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Client</th>
-                                        <th>Last Modified</th>
-                                        <th>Modified By</th>
                                         <th>Date</th>
-                                        <th>Account</th>
-                                        <th>Debit</th>
-                                        <th>Credit</th>
+                                        <th>Time</th>
+                                        <th>User</th>
+                                        <th>Activity</th>
 
                                     </tr>
                                 </tfoot>
                                 <tbody>
-
+                                @if($activities)
+                                    @foreach($activities as $activity)
                                     <tr>
-                                        <td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									      
+                                        <td>{{$activity->created_at->toDateString()}}</td>
+                                        <td>{{$activity->created_at->toTimeString()}}</td>
+										<td>{{$activity->user->name}}</td>
+										<td>@include ("admin.utilities.activity.types.{$activity->name}")</td>
                                     </tr>
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>

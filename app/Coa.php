@@ -10,6 +10,8 @@ class Coa extends Model
     //
     use SoftDeletes;
 
+    use RecordsActivity;
+
 	protected $dates = ['deleted_at'];
 
     protected $fillable = [

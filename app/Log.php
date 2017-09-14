@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Log extends Model
 {
     //
-use SoftDeletes;
+    use SoftDeletes;
+
+    use RecordsActivity;
 
     protected $dates = ['deleted_at', 'date_received'];
 

@@ -1,0 +1,1 @@
+Voided a journal {{$activity->subject->transaction_no}} for {{$activity->subject->client->company_name}}
