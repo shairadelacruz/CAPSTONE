@@ -102,7 +102,7 @@ VAT
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             {!! Form:: label('rate', 'Rate:') !!}
-                                            {!! Form:: number('rate',null, ['class'=>'form-control']) !!}
+                                            {!! Form:: number('rate',null, ['class'=>'form-control','step' => '0.01']) !!}
                                         </div>
                                     </div>
                                     
@@ -152,7 +152,7 @@ VAT
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             {!! Form:: label('rate', 'Rate:') !!}
-                                            {!! Form:: number('rate',null, ['class'=>'form-control']) !!}
+                                            {!! Form:: number('rate',null, ['class'=>'form-control','step' => '0.01']) !!}
                                         </div>
                                     </div>
                                     

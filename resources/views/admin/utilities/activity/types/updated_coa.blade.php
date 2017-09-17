@@ -1,0 +1,1 @@
+Updated an account {{$activity->subject->name}}

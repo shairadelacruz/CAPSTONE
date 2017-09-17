@@ -1,0 +1,1 @@
+Deleted a task {{$activity->subject->name}} for {{$activity->subject->user->name}}

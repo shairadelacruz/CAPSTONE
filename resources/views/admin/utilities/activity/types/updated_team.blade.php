@@ -1,0 +1,1 @@
+Updated a team {{$activity->subject->name}}

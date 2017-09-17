@@ -1,0 +1,1 @@
+Created a team {{$activity->subject->name}}

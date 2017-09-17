@@ -267,8 +267,31 @@ class UserInvoicesController extends Controller
 
         InvoiceDetail::where('invoice_id', $invoiceId)->delete();
 
+        //Create Journal Header
+        $journals = Journal::where('invoice_id', $invoiceId)->first();
 
-        
+        $journals->invoice_id = $invoiceId;
+        $journals->client_id = $client_id;
+        //$journals->transaction_no = "B".$count;
+        $journals->date = $request->invoice_date;
+        $journals->debit_total = $request->grandTotal;
+        $journals->credit_total = $request->grandTotal;
+        $journals->type = 1;
+        $journals->update();
+
+        //$id = $journals->id;
+        $journalId = $journals->id;
+
+         //Create Debit detail
+
+        JournalDetails::where('journal_id', $journalId)->delete();
+
+        $debit = new JournalDetails;
+        $debit->journal_id = $journalId;
+        $debit->coa_id = 2;
+        $debit->debit = $request->grandTotal;
+        $debit->save();
+
 
         if($id != 0){
             foreach ($request->item_id as $key => $v)
@@ -287,7 +310,18 @@ class UserInvoicesController extends Controller
 
                 ]);
 
-            $invoiceDetail->save();
+                $invoiceDetail->save();
+
+                //Create Credit detail
+
+                $credit = new JournalDetails([
+                            'journal_id'=>$journalId,
+                            'coa_id'=>$request->coa_id[$key],
+                            'credit'=>$request->price[$key]
+
+                ]);
+
+                $debit->save();
 
             }
         }

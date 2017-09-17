@@ -1,0 +1,1 @@
+Updated vendor information {{$activity->subject->name}} for {{$activity->subject->client->company_name}}

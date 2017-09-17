@@ -1,1 +1,1 @@
-Created a document type
+Created a document type {{$activity->subject->name}}

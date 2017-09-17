@@ -15,7 +15,7 @@ class CreateVatsTable extends Migration
         Schema::create('vats', function (Blueprint $table) {
             $table->increments('id');
             $table->string('vat_code')->unique();
-            $table->integer('rate');
+            $table->decimal('rate');
             $table->string('description');
             $table->softDeletes();
             $table->timestamps();

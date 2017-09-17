@@ -1,0 +1,1 @@
+Created VAT {{$activity->subject->vat_code}}

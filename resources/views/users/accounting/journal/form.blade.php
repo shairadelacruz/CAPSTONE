@@ -70,10 +70,10 @@
 						
 					</td>
 					<td class="table-debit" :class="{'table-error': errors['details' + $index + '.debit']}">
-						<input type="number" class="table-control" v-model="detail.debit" name="debit[]">
+						<input type="number" class="table-control" v-model="detail.debit" name="debit[]" step="0.01">
 					</td>
 					<td class="table-credit" :class="{'table-error': errors['details' + $index + '.credit']}">
-						<input type="number" class="table-control" v-model="detail.credit" name="credit[]">
+						<input type="number" class="table-control" v-model="detail.credit" name="credit[]" step="0.01">
 					</td>
 					<td class="table-description" :class="{'table-error': errors['details' + $index + '.description']}">
 						<input type="text" class="table-control" v-model="detail.description" name="descriptions[]">
@@ -89,7 +89,7 @@
                     </select>
 					</td>
 					<td class="table-vat_amount" :class="{'table-error': errors['details' + $index + '.vat_amount']}">
-						<input type="number" class="table-control" v-model="detail.vat_amount" name="vat_amount[]">
+						<input type="number" class="table-control" v-model="detail.vat_amount" name="vat_amount[]" step="0.01">
 					</td>
 					<!--<td class="table-vendor_id" :class="{'table-error': errors['details' + $index + '.vendor_id']}">
 						<input type="text" class="table-control" v-model="detail.vendor_id" name="vendor_id[]">

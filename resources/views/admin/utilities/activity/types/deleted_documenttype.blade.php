@@ -1,0 +1,1 @@
+Deleted a document type {{$activity->subject->name}}

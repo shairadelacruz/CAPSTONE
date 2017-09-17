@@ -1,0 +1,1 @@
+Deleted a vendor {{$activity->subject->name}} for {{$activity->subject->client->company_name}}

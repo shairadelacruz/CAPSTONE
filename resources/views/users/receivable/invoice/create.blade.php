@@ -118,10 +118,10 @@ Invoice
                                         <input type="text" class="table-control" v-model="detail.descriptions" name="descriptions[]">
                                     </td>
                                     <td class="table-qty" :class="{'table-error': errors['details' + $index + '.qty']}">
-                                        <input type="number" class="table-control" v-model="detail.qty" name="qty[]">
+                                        <input type="number" class="table-control" v-model="detail.qty" name="qty[]" step="0.01">
                                     </td>
                                     <td class="table-price" :class="{'table-error': errors['details' + $index + '.price']}">
-                                        <input type="number" class="table-control" v-model="detail.price" name="price[]">
+                                        <input type="number" class="table-control" v-model="detail.price" name="price[]" step="0.01">
                                     </td>
 
                                     <td class="table-vat_id" :class="{'table-error': errors['details' + $index + '.vat_id']}">
@@ -135,10 +135,10 @@ Invoice
                                     </select>
                                     </td>
                                     <td class="table-vat_amount" :class="{'table-error': errors['details' + $index + '.vat_amount']}">
-                                        <input type="number" class="table-control" v-model="detail.vat_amount" name="vat_amount[]">
+                                        <input type="number" class="table-control" v-model="detail.vat_amount" name="vat_amount[]" step="0.01">
                                     </td>
                                     <td class="table-total" :class="{'table-error': errors['details' + $index + '.total']}">
-                                        <input type="number" value="@{{ detail.qty * detail.price +detail.vat_amount/100 * detail.qty * detail.price }}" class="table-control" v-model="detail.total" name="total[]">
+                                        <input type="number" value="@{{ detail.qty * detail.price +detail.vat_amount/100 * detail.qty * detail.price }}" class="table-control" v-model="detail.total" name="total[]" step="0.01">
                                     </td>
                                     <td class="table-remove">
                                         <span @click="remove(detail)" class="table-remove-btn">X</span>
@@ -151,7 +151,7 @@ Invoice
                                         <span @click="addLine" class="table-add_line">+ Add Line</span>
                                     </td>
                                     <td>Total</td>
-                                    <td class="table-grandTotal"><input type="number" value="@{{ grandTotal }}" class="table-control" v-model="detail.grandTotal" name="grandTotal" readonly="true"></td>
+                                    <td class="table-grandTotal"><input type="number" value="@{{ grandTotal }}" class="table-control" v-model="detail.grandTotal" name="grandTotal" readonly="true" step="0.01"></td>
                                 </tr>
                             </tfoot>
                         </table>

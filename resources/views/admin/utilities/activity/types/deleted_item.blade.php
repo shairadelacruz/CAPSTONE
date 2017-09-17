@@ -1,0 +1,1 @@
+Deleted a product/service {{$activity->subject->name}} for {{$activity->subject->client->company_name}}
