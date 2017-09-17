@@ -103,7 +103,11 @@ Journal
                     </td>
                     <td class="table-vat_id">
                         <select class="table-control" name="vat_id[]">
+                                    @if(!empty($detail->vat->id))
                                     <option value="{{$detail->vat->id}}" selected="true">{{$detail->vat->vat_code}}</option>
+                                    @else
+                                    <option value="0" selected="true" disabled="true"></option>
+                                    @endif
                                 @if($vats)
                                 @foreach($vats as $vat)
                                     <option value="{{$vat->id}}">{{$vat->vat_code}}</option>

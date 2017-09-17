@@ -18,7 +18,7 @@ Audit Trail
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Activity Log
+                                Audit Trail
                             </h2><br>
 
                         </div>

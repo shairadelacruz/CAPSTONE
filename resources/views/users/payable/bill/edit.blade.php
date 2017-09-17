@@ -131,7 +131,11 @@ Bill
 
                                     <td>
                                         <select name="vat_id[]">
-                                                    <option value="{{$detail->vat->id}}" selected="true">{{$detail->vat->vat_code}}</option>
+                                                @if(!empty($detail->vat->id))
+                                                <option value="{{$detail->vat->id}}" selected="true">{{$detail->vat->vat_code}}</option>
+                                                @else
+                                                <option value="0" selected="true" disabled="true"></option>
+                                                @endif
                                                 @if($vats)
                                                 @foreach($vats as $vat)
                                                     <option value="{{$vat->id}}">{{$vat->vat_code}}</option>
