@@ -24,7 +24,6 @@ class CreateInvoiceDetailsTable extends Migration
             $table->decimal('price');
             $table->decimal('total');
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

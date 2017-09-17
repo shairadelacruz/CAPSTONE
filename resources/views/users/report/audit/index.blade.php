@@ -26,8 +26,7 @@ Audit Trail
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th>Client</th>
-										<th>Last Modified</th>
+										<th>Date</th>
 										<th>Modified By</th>
 										<th>Date</th>
 										<th>Account</th>
@@ -38,8 +37,7 @@ Audit Trail
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Client</th>
-                                        <th>Last Modified</th>
+                                        <th>Date</th>
                                         <th>Modified By</th>
                                         <th>Date</th>
                                         <th>Account</th>
@@ -51,11 +49,11 @@ Audit Trail
                                 <tbody>
 
                                     <tr>
-                                        <td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
+                                        <td>fg</td>
+										<td>hfg</td>
+										<td>gfh</td>
+										<td>hfg</td>
+										<td>fg</td>
 									      
                                     </tr>
                                 </tbody>

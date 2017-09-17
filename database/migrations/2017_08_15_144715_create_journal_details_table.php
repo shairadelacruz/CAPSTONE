@@ -25,7 +25,6 @@ class CreateJournalDetailsTable extends Migration
             $table->double('credit')->nullable();
             $table->double('vat_amount')->nullable();
             $table->foreign('journal_id')->references('id')->on('journals')->onDelete('cascade');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

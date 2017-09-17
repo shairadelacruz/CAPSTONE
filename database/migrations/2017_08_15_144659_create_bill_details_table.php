@@ -24,7 +24,6 @@ class CreateBillDetailsTable extends Migration
             $table->decimal('price');
             $table->decimal('total');
             $table->foreign('bill_id')->references('id')->on('bills')->onDelete('cascade');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

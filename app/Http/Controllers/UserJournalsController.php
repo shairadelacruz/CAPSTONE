@@ -202,9 +202,18 @@ class UserJournalsController extends Controller
         //
         $journal = Journal::findOrFail($id);
 
-        $journal->delete();
+        $journal->debit_total = 0;
 
-        Session::flash('deleted_journal','The journal has been deleted');
+        $journal->credit_total = 0;
+        
+        $journal->update();
+
+        $journalId = $journal->id;
+
+        JournalDetails::where('journal_id', '=', $journalId)
+        ->update(['debit' => 0, 'credit' => 0, 'vat_amount' => 0]);
+
+        Session::flash('deleted_journal','The journal has been voided');
 
         return \Redirect::route('journal', [$client_id]);
     }

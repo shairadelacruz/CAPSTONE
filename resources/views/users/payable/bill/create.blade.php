@@ -127,7 +127,7 @@ Bill
                                         <input type="number" class="table-control" v-model="detail.qty" name="qty[]">
                                     </td>
                                     <td class="table-price" :class="{'table-error': errors['details' + $index + '.price']}">
-                                        <input type="number" class="table-control" v-model="detail.price" name="price[]">
+                                        <input type="number" class="table-control" v-model="detail.price" name="price[]" step="0.01">
                                     </td>
 
                                     <td class="table-vat_id" :class="{'table-error': errors['details' + $index + '.vat_id']}">
@@ -140,11 +140,11 @@ Bill
                                                 @endif
                                     </select>
                                     </td>
-                                    <td class="table-vat_amount" :class="{'table-error': errors['details' + $index + '.vat_amount']}">
+                                    <td class="table-vat_amount" :class="{'table-error': errors['details' + $index + '.vat_amount']}" step="0.01">
                                         <input type="number" class="table-control" v-model="detail.vat_amount" name="vat_amount[]">
                                     </td>
                                     <td class="table-total" :class="{'table-error': errors['details' + $index + '.total']}">
-                                        <input type="number" value="@{{ detail.qty * detail.price +detail.vat_amount/100 * detail.qty * detail.price }}" class="table-control" v-model="detail.total" name="total[]">
+                                        <input type="number" value="@{{ detail.qty * detail.price +detail.vat_amount/100 * detail.qty * detail.price }}" class="table-control" v-model="detail.total" name="total[]" step="0.01">
                                     </td>
                                     <td class="table-remove">
                                         <span @click="remove(detail)" class="table-remove-btn">X</span>
@@ -157,7 +157,7 @@ Bill
                                         <span @click="addLine" class="table-add_line">+ Add Line</span>
                                     </td>
                                     <td>Total</td>
-                                    <td class="table-grandTotal right-align-text"><input type="number" value="@{{ grandTotal }}" class="table-control" v-model="detail.grandTotal" name="grandTotal" readonly="true"></td>
+                                    <td class="table-grandTotal right-align-text"><input type="number" value="@{{ grandTotal }}" class="table-control" v-model="detail.grandTotal" name="grandTotal" readonly="true" step="0.01"></td>
                                 </tr>
                             </tfoot>
                         </table>

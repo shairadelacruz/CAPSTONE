@@ -126,11 +126,12 @@ class UserInvoicesController extends Controller
 
 
                 //Create credit detail
+             $subTotal = $request->total[$key] - $request->vat_amount[$key];
 
                 $credit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
-                            'credit'=>$request->price[$key]
+                            'credit'=>$subTotal
 
                 ]);
 
@@ -314,11 +315,15 @@ class UserInvoicesController extends Controller
 
                 //Create Credit detail
 
+                $subTotal = $request->total[$key] - $request->vat_amount[$key];
+
                 $credit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
-                            'credit'=>$request->price[$key]
-
+                            'vat_amount'=>$request->vat_amount[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'credit'=>$subTotal
+                            //not adding vat. only getting price but not getting subtotal for credit...store update invoice bill
                 ]);
 
                 $debit->save();
@@ -341,9 +346,31 @@ class UserInvoicesController extends Controller
         //
         $invoice = Invoice::findOrFail($id);
 
-        $invoice->delete();
+        $invoice->balance = 0;
 
-        Session::flash('deleted_invoice','The invoice has been deleted');
+        $invoice->amount = 0;
+        
+        $invoice->update();
+
+        $invoiceId = $invoice->id;
+
+        InvoiceDetail::where('invoice_id', '=', $invoiceId)
+        ->update(['price' => 0, 'total' => 0, 'vat_amount' => 0]);
+
+        $journal = Journal::where('invoice_id', $invoiceId)->first();
+
+        $journal->debit_total = 0;
+
+        $journal->credit_total = 0;
+        
+        $journal->update();
+
+        $journalId = $journal->id;
+
+        JournalDetails::where('journal_id', '=', $journalId)
+        ->update(['debit' => 0, 'credit' => 0, 'vat_amount' => 0]);
+
+        Session::flash('deleted_invoice','The invoice has been voided');
 
         return \Redirect::route('invoice', [$client_id]);
     }

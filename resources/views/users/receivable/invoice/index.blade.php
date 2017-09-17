@@ -91,10 +91,10 @@ Invoice
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Delete Invoice</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Void Invoice</h4><br>
                         </div>
                         <div class="modal-body">
-                            Are you sure you want to delete?
+                            Are you sure you want to void?
                         </div>
                         <div class="modal-footer">
                             {!! Form::open(['method'=>'DELETE', 'action'=>['UserInvoicesController@destroy', $invoice->id, $invoice->client_id]]) !!}

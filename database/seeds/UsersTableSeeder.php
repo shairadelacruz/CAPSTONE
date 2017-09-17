@@ -290,20 +290,58 @@ class UsersTableSeeder extends Seeder
 
 	       	DB::table('vats')->insert([
 	        	'id' => 1,
-	            'vat_code' => 'A',
+	            'vat_code' => 'OV Sales',
 	            'rate' => 12,
+	            'description' => 'Output VAT on Sales',
 	        ]);
 
 	        DB::table('vats')->insert([
 	        	'id' => 2,
-	            'vat_code' => 'B',
-	            'rate' => 10,
+	            'vat_code' => 'OV Ex',
+	            'rate' => 0,
+	            'description' => 'Output VAT on Exempt Sales',
 	        ]);
 
 	        DB::table('vats')->insert([
 	        	'id' => 3,
-	            'vat_code' => 'C',
-	            'rate' => 15,
+	            'vat_code' => 'OV Zero',
+	            'rate' => 0,
+	            'description' => 'Output VAT on Zero Rated Sales',
+	        ]);
+
+	        DB::table('vats')->insert([
+	        	'id' => 4,
+	            'vat_code' => 'IV Services',
+	            'rate' => 12,
+	            'description' => 'Input VAT on Services',
+	        ]);
+
+	        DB::table('vats')->insert([
+	        	'id' => 5,
+	            'vat_code' => 'IV Capital',
+	            'rate' => 12,
+	            'description' => 'Input VAT on Capital Goods',
+	        ]);
+
+	        DB::table('vats')->insert([
+	        	'id' => 6,
+	            'vat_code' => 'IV Goods',
+	            'rate' => 12,
+	            'description' => 'Input VAT on Other Goods',
+	        ]);
+
+	        DB::table('vats')->insert([
+	        	'id' => 7,
+	            'vat_code' => 'IV Zero',
+	            'rate' => 0,
+	            'description' => 'Input VAT on Zero Rated Purchases',
+	        ]);
+
+	        DB::table('vats')->insert([
+	        	'id' => 8,
+	            'vat_code' => 'IV Ex',
+	            'rate' => 0,
+	            'description' => 'Input VAT on Exempt Purchases',
 	        ]);
 
 	        DB::table('businesses')->insert([
@@ -333,22 +371,37 @@ class UsersTableSeeder extends Seeder
 
 	        DB::table('document_types')->insert([
 	        	'id' => 1,
-	            'name' => 'Sales'
+	            'name' => 'Bills'
 	        ]);
 
 	        DB::table('document_types')->insert([
 	        	'id' => 2,
-	            'name' => 'Expenses'
+	            'name' => 'Expenses/Receipts'
 	        ]);
 
 	        DB::table('document_types')->insert([
 	        	'id' => 3,
-	            'name' => 'Bills'
+	            'name' => 'Sales/OR Cash Sales'
 	        ]);
 
 	        DB::table('document_types')->insert([
 	        	'id' => 4,
 	            'name' => 'Invoices'
+	        ]);
+
+	        DB::table('document_types')->insert([
+	        	'id' => 5,
+	            'name' => 'Payments(AR)'
+	        ]);
+
+	        DB::table('document_types')->insert([
+	        	'id' => 6,
+	            'name' => 'Payments(AP)'
+	        ]);
+
+	        DB::table('document_types')->insert([
+	        	'id' => 7,
+	            'name' => 'Others'
 	        ]);
 
 

@@ -123,7 +123,7 @@ Bill
                                     </td>
                                     
                                     <td class="table-qty">
-                                        <input type="number" class="table-control" v-model="detail.qty" name="qty[]" value='{{$detail->qty}}' step="0.01">
+                                        <input type="number" class="table-control" v-model="detail.qty" name="qty[]" value='{{$detail->qty}}'>
                                     </td>
                                     <td>
                                         <input type="number" name="price[]" value='{{$detail->price}}' step="0.01">

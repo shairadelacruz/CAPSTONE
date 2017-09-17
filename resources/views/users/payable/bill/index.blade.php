@@ -91,10 +91,10 @@ Bills
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Delete Bill</h4><br>
+                            <h4 class="modal-title" id="smallModalLabel">Void Bill</h4><br>
                         </div>
                         <div class="modal-body">
-                            Are you sure you want to delete?
+                            Are you sure you want to void?
                         </div>
                         <div class="modal-footer">
                             {!! Form::open(['method'=>'DELETE', 'action'=>['UserBillsController@destroy', $bill->id, $bill->client_id]]) !!}

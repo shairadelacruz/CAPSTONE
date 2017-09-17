@@ -21,7 +21,6 @@ class CreateBillsTable extends Migration
             $table->date('due_date');
             $table->double('balance');
             $table->double('amount');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

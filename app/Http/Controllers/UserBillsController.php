@@ -127,11 +127,12 @@ class UserBillsController extends Controller
 
 
                 //Create Debit detail
+                $subTotal = $request->total[$key] - $request->vat_amount[$key];
 
                 $debit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
-                            'debit'=>$request->price[$key]
+                            'debit'=>$subTotal
 
                 ]);
 
@@ -313,11 +314,12 @@ class UserBillsController extends Controller
                 $billDetail->save();
 
                  //Create Debit detail
+                $subTotal = $request->total[$key] - $request->vat_amount[$key];
 
                 $debit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
-                            'debit'=>$request->price[$key]
+                            'debit'=>$subTotal
 
                 ]);
 
@@ -341,9 +343,31 @@ class UserBillsController extends Controller
         //
         $bill = Bill::findOrFail($id);
 
-        $bill->delete();
+        $bill->balance = 0;
 
-        Session::flash('deleted_bill','The bill has been deleted');
+        $bill->amount = 0;
+        
+        $bill->update();
+
+        $billId = $bill->id;
+
+        BillDetails::where('bill_id', '=', $billId)
+        ->update(['price' => 0, 'total' => 0, 'vat_amount' => 0]);
+
+        $journal = Journal::where('bill_id', $billId)->first();
+
+        $journal->debit_total = 0;
+
+        $journal->credit_total = 0;
+        
+        $journal->update();
+
+        $journalId = $journal->id;
+
+        JournalDetails::where('journal_id', '=', $journalId)
+        ->update(['debit' => 0, 'credit' => 0, 'vat_amount' => 0]);
+
+        Session::flash('deleted_bill','The bill has been voided');
 
         return \Redirect::route('bill', [$client_id]);
     }
