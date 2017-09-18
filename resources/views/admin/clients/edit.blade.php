@@ -36,7 +36,7 @@ Clients
 
 	<div class = "form-group">
 		{!! Form:: label('business_id', 'Industry Type:') !!}
-	    {!! Form:: select('business_id', [''=>'Choose Options'] + $industries ,null, ['class'=>'form-control']) !!}
+	    {!! Form:: select('business_id', [''=>'Choose Options'] + $industries ,null, ['class'=>'form-control chosen-select']) !!}
     </div>
 
 	<div class = "form-group">

@@ -26,17 +26,17 @@ Assign Task
 
 	<div class = "form-group">
 		{!! Form:: label('client_id', 'Client:') !!}
-		{!! Form:: select('client_id', [''=>'Choose Options'] + $clients ,null, ['class'=>'form-control']) !!}
+		{!! Form:: select('client_id', [''=>'Choose Options'] + $clients ,null, ['class'=>'form-control chosen-select']) !!}
 	</div>
 
 	<div class = "form-group">
 		{!! Form:: label('user_id', 'Accountant:') !!}
-		{!! Form:: select('user_id', [''=>'Choose Options'] + $users ,null, ['class'=>'form-control']) !!}
+		{!! Form:: select('user_id', [''=>'Choose Options'] + $users ,null, ['class'=>'form-control chosen-select']) !!}
 	</div>
 
 	<div class = "form-group">
 		{!! Form:: label('log_id', 'Document:') !!}
-		{{Form::select('log_id[]',$logs,null,array('multiple'=>'multiple','reference_no'=>'log_id[]'))}}
+		{{Form::select('log_id[]',$logs,null,['class'=>'chosen-select form-control', 'multiple'=>'multiple'],array('reference_no'=>'log_id[]'))}}
 	</div>
 
 	<div class = "form-group">

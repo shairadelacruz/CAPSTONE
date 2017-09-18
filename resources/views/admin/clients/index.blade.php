@@ -30,6 +30,14 @@ Clients
                                @if(Session::has('deleted_client'))
                                  <p class="bg-danger">{{Session('deleted_client')}}</p>
                                 @endif
+                                    @if(Session::has('created_client'))
+                                    <br>
+                                    <div class="bg-danger">
+                                        Do you want to set up your accounts? <br>
+                                        <a href="/user/{{Session('created_client')}}/accounting/coa" class="btn btn-danger">Yes</a>
+                                        <input class="btn btn-danger" type="button" value="No" onClick="window.location.reload()">
+                                    </div>
+                                    @endif
 
                         </div>
                         <div class="body">
@@ -108,6 +116,9 @@ Clients
 
             @endforeach
          @endif
+
+
+
 
         </div>
 
