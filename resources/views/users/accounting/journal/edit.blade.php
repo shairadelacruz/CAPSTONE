@@ -60,7 +60,7 @@ Journal
 
     
     <div class="body table-responsive">
-        <table class="table table-bordered table-form">
+        <table id="dataTable" class="table table-bordered table-form">
             <thead>
                 <tr>
                     <th>Reference No.</th>
@@ -122,7 +122,7 @@ Journal
                         <input type="text" class="table-control" name="vendor_id[]">
                     </td>-->
                     <td class="table-remove">
-                        <span class="table-remove-btn" onclick="removeRow()">X</span>
+                        <span class="table-remove-btn removeRow">X</span>
                     </td>
                 </tr>
                 @endforeach
@@ -162,11 +162,6 @@ Journal
             
         //Para sa journal
 
-
-$('.addRow').on('click', function(){
-    addRow();
-
-});
 
 function addRow() {
     var tr = '<tr>'+
@@ -210,7 +205,7 @@ function addRow() {
             '<td class="table-vat_amount">'+
             '<input type="number" class="table-control" name="vat_amount[]" disabled="true">'+
             '</td>'+
-            '<td><span class="table-remove-btn removeRow" onclick="removeRow()">X</span></td>'+
+            '<td><span class="table-remove-btn removeRow">X</span></td>'+
             '</tr>';
 
     $('tbody').append(tr);
@@ -218,13 +213,23 @@ function addRow() {
 }
 
 $('.removeRow').on('click', function(){
-    removeRow();
+    var l=$('tbody tr').length;
+    if(l==1){
+        alert("Not applicable");
+    }
+    else{
+        $(this).parent().parent().remove();
+    }
 });
 
-function removeRow(){
-    $(this).parent().parent().remove();
-}
-        </script>
+$(document).ready(function(){
+
+ $("#dataTable").on('click','.removeRow',function(){
+       $(this).closest('tr').remove();
+     });
+
+});
+</script>
     
     
 @stop

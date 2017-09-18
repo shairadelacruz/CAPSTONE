@@ -20,7 +20,7 @@ Team
 
 	<div class = "form-group">
 		{!! Form:: label('team_leader', 'Team Leader:') !!}<br>
-		{!! Form:: select('team_leader', [''=>'Choose Options'] + $team_leaders ,$team->team_leader, ['class'=>'form-control']) !!}
+		{!! Form:: select('team_leader', [''=>'Choose Options'] + $team_leaders ,$team->team_leader, ['class'=>'form-control chosen-select']) !!}
 	</div>
 
 
@@ -31,7 +31,10 @@ Team
 			<li>{{$user->name}}</li>
 			@endforeach
 		</ul>
-		{{Form::select('user_id[]',$users,null,array('multiple'=>'multiple','reference_no'=>'log_id[]'))}}
+
+		{!! Form:: label('user_id', 'Employees:') !!}<br>
+
+		{!! Form:: select('user_id[]', [''=>'Choose Options'] + $users ,$team->users->first()->name, ['class'=>'form-control chosen-select', 'multiple'=>'multiple']) !!}
 	</div>
 
 	<div class = "form-group">

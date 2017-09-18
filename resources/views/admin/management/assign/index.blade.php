@@ -79,14 +79,13 @@ Client Assignment
            <!-- Edit-->
 
             <div class="modal fade" id="editAssign{{$client->id}}" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="smallModalLabel">Assign</h4><br>
                         </div>
                         <div class="modal-body">
                             
-                            <div class="row clearfix">
 
                                 {!! Form::open(['method'=>'POST', 'action'=>'AdminClientUserController@store']) !!}
                                 
@@ -94,15 +93,11 @@ Client Assignment
                                 {!! Form:: hidden('client_id',$client->id) !!}
 
                                     
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
+                                    
                                             {!! Form:: label('user_id', 'Accountant:') !!}
 
-                                            {{Form::select('user_id',$allUsers,null,array('multiple'=>'multiple','name'=>'user_id[]'))}}
-
-                                           
-                                        </div>
-                                    </div>
+                                            <select class="chosen-select" multiple="multiple" id="user_id" name="user_id"><option value="1">Yuuri Katsuki</option><option value="2">Viktor Nikiforov</option><option value="3">Otabek Altin</option><option value="4">Yuri Plisetsky</option></select>  
+                               
                                     
                                     <div class="modal-footer">
                                         {!! Form:: submit('SAVE', ['class'=>'btn btn-primary']) !!}
@@ -110,7 +105,7 @@ Client Assignment
                                     </div>
                                  
                                 {!! Form::close() !!}
-                            </div>
+                            
 
                             
                         </div>
