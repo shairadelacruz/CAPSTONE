@@ -39,25 +39,31 @@ Journal
 
         <input type="hidden" name='client_id' value="{{ $client_id }}" class="form-control">
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Transaction No.</label>
                 <input type="text" class="form-control" v-model="form.transaction_no" name='transaction_no'>
                 <p v-if="errors.transaction_no" class="error">@{{ errors.transaction_no}}</p>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Date</label>
-                <input type="date" class="form-control" v-model="form.date" name='date'>
+                <input type="date" class="form-control" v-model="form.date" name='date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
                 <p v-if="errors.date" class="error">@{{ errors.date}}</p>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Description</label>
                 <textarea class="form-control" v-model="form.description" name='description'></textarea>
                 <p v-if="errors.description" class="error">@{{ errors.description}}</p>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label>Reference Documents</label><br>
+                <a href="#" class="btn btn-primary"  target="_blank">View</a>
             </div>
         </div>
 

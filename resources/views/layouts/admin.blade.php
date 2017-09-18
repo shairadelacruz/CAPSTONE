@@ -26,8 +26,10 @@
     <!-- Morris Chart Css-->
     <link href="{{asset('plugins/morrisjs/morris.css') }}" rel="stylesheet" />
 
-    <!-- Bootstrap Select Css -->
-    <link href="{{asset('plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
+    <!-- Bootstrap Select Css
+    <link href="{{asset('plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" /> -->
+
+          <link rel="stylesheet" href="{{asset('chosen.min.css') }}"/>
 
     @yield('links')
 
@@ -348,13 +350,13 @@
     </section>
 
     <!-- Jquery Core Js -->
-    <script src="{{asset('plugins/jquery/jquery.min.js') }} "></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <!-- Bootstrap Core Js -->
     <script src="{{asset('plugins/bootstrap/js/bootstrap.js') }} "></script>
 
-    <!-- Select Plugin Js -->
-    <script src="{{asset('plugins/bootstrap-select/js/bootstrap-select.js') }} "></script>
+    <!-- Select Plugin Js 
+    <script src="{{asset('plugins/bootstrap-select/js/bootstrap-select.js') }} "></script>-->
 
     <!-- Slimscroll Plugin Js -->
     <script src="{{asset('plugins/jquery-slimscroll/jquery.slimscroll.js') }} "></script>
@@ -369,6 +371,12 @@
     <script src="{{asset('js/admin.js') }} "></script>
 
     <!-- Demo Js -->
+
+    <script src="{{asset('chosen.jquery.min.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+      $(".chosen-select").chosen()
+
+</script>
     
 
     @yield('scripts')

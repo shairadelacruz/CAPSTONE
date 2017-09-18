@@ -45,14 +45,14 @@ Invoice
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Invoice Date</label>
-                                <input type="date" class="form-control" v-model="form.invoice_date" name='invoice_date'>
+                                <input type="date" class="form-control" v-model="form.invoice_date" name='invoice_date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
                                 <p v-if="errors.invoice_date" class="error">@{{ errors.invoice_date}}</p>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Due Date</label>
-                                <input type="date" class="form-control" v-model="form.due_date" name='due_date'>
+                                <input type="date" class="form-control" v-model="form.due_date" name='due_date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
                                 <p v-if="errors.due_date" class="error">@{{ errors.due_date}}</p>
                             </div>
                         </div>

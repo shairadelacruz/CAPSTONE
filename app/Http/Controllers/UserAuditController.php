@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Activity;
 use App\Http\Requests;
 
 class UserAuditController extends Controller
@@ -16,7 +16,8 @@ class UserAuditController extends Controller
     public function index()
     {
         //
-        return view('users.report.audit.index');
+        $activities = Activity::with('subject')->get();
+        return view('users.report.audit.index', compact('activities'));
     }
 
     /**

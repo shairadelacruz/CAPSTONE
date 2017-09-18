@@ -2,15 +2,16 @@
 
 @section('page_title')
 
-Audit Trail
+Trial Balance
 
 @endsection
 
 @extends('includes.table_includes');
 
+
 @section('content')
-    
-    <div class="container-fluid">
+
+        <div class="container-fluid">
             
             <!-- Exportable Table -->
             <div class="row clearfix">
@@ -18,51 +19,47 @@ Audit Trail
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Audit Trail
+                                Trial Balance
                             </h2><br>
+                             <div class="row clearfix js-sweetalert">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    
+
+                                   <input type="text" class="datepicker form-control" placeholder="From Date">
+
+                                    <input type="text" class="datepicker form-control" placeholder="To Date">
+
+                                    <input type="submit" name="">
+
+                                </div>
+                            </div>
 
                         </div>
-                        <div class="body">
+                        <div class="body table-responsive">
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Modified By</th>
-                                        <th>Date</th>
                                         <th>Account</th>
                                         <th>Debit</th>
                                         <th>Credit</th>
+                                        
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                
+                                <tfoot>                         
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Modified By</th>
-                                        <th>Date</th>
                                         <th>Account</th>
                                         <th>Debit</th>
                                         <th>Credit</th>
                                     </tr>
-                                    
                                 </tfoot>
                                 <tbody>
-                                @if($activities)
-                                
-                                    @foreach($activities as $activity)
-                                    @if($activity->subject_type == 'App\Journal'OR $activity->subject_type == 'App\Bill'OR $activity->subject_type == 'App\Invoice')
+                                    
                                     <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
                                     </tr>
-                                     @endif
-                                   @endforeach
-                               
-                                @endif
+                                   
                                 </tbody>
                             </table>
                         </div>

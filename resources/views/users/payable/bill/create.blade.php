@@ -57,12 +57,12 @@ Bill
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Bill Date</label>
-                                <input type="date" class="form-control" v-model="form.bill_date" name='bill_date'>
+                                <input type="date" class="form-control" v-model="form.bill_date" name='bill_date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
                                 <p v-if="errors.bill_date" class="error">@{{ errors.bill_date}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Due Date</label>
-                                <input type="date" class="form-control" v-model="form.due_date" name='due_date'>
+                                <input type="date" class="form-control" v-model="form.due_date" name='due_date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
                                 <p v-if="errors.due_date" class="error">@{{ errors.due_date}}</p>
                             </div>
                         </div>

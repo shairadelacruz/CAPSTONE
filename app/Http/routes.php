@@ -137,9 +137,11 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('user/{client_id}/documents', 'UserDocumentsController');
 
-     Route::resource('user/{client_id}/reports/audit', 'UserAuditController');
-
     Route::resource('user/tasks', 'UserTasksController');
+
+    Route::resource('user/{client_id}/reports/audit', 'UserAuditController');
+
+    Route::get('user/{client_id}/reports/trialbalance', 'UserReportsController@trial_balance_index');
 
 });
 
