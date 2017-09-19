@@ -58,6 +58,7 @@ Log
 				</div>
 
 				<div class = "form-group">
+					<a class="btn btn-default" href="{{ URL::previous() }}">Cancel</a>
 					{!! Form:: submit('Save', ['class'=>'btn btn-primary']) !!}
 				</div>
 				

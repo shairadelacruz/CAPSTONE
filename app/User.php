@@ -80,6 +80,16 @@ class User extends Authenticatable
         return false;
     }
 
+    public function isAssigned($id){
+
+        if($this->clients->find($id)){
+
+            return true;
+        }
+
+        return false;
+    }
+
 
     public function clients(){
 

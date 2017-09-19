@@ -40,6 +40,7 @@ Users
 	</div>
 
 	<div class = "form-group">
+		<a class="btn btn-default" href="{{ URL::previous() }}">Cancel</a>
 		{!! Form:: submit('Create User', ['class'=>'btn btn-primary']) !!}
 	</div>
 	

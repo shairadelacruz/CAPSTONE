@@ -43,7 +43,8 @@ Users
 			</div>
 
 			<div class = "form-group">
-				{!! Form:: submit('Edit User', ['class'=>'btn btn-primary col-sm-6']) !!}
+				<a class="btn btn-default" href="{{ URL::previous() }}">Cancel</a>
+				{!! Form:: submit('Edit User', ['class'=>'btn btn-primary']) !!}
 			</div>
 
 		{!! Form::close() !!}

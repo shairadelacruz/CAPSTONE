@@ -67,6 +67,7 @@ Clients
     </div>
 
 	<div class = "form-group">
+		<a class="btn btn-default" href="{{ URL::previous() }}">Cancel</a>
 		{!! Form:: submit('Update', ['class'=>'btn btn-primary']) !!}
 	</div>
 	

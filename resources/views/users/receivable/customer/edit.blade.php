@@ -67,6 +67,7 @@ Customers
 
         <div class="form-group form-float">
             <div class="form-line">
+                <a class="btn btn-default" href="{{ URL::previous() }}">Cancel</a>
 				{!! Form:: submit('Edit Customer', ['class'=>'btn btn-primary']) !!}
             </div>
         </div>

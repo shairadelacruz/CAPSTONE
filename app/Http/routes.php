@@ -17,9 +17,9 @@ Route::get('/', function () {
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
 
-Route::get('/admin', function(){
+Route::get('/home', function(){
 
 	return view ('admin.index');
 });
@@ -52,7 +52,7 @@ Route::group(['middleware'=>'admin'], function(){
 
 });
 
-Route::group(['middleware'=>'auth'], function(){
+Route::group(['middleware'=>'user'], function(){
 
     Route::resource('user/{client_id}/home', 'UserHomeController');
 
