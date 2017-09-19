@@ -89,6 +89,10 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::resource('user/{client_id}/payable/bill', 'UserBillsController');
 
+    Route::resource('user/{client_id}/payable/cb', 'UserBillsController');
+
+    Route::post('user/{client_id}/payable/cb', array('as'=>'insertcb','uses'=>'UserBillsController@cbstore'));
+
     Route::get('user/{client_id}/payable/bill', ['as' => 'bill', 'uses' => 'UserBillsController@index']);
 
     Route::resource('user/{client_id}/payable/bill/create', 'UserBillsController@create');

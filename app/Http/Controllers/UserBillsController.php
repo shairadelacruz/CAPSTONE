@@ -60,12 +60,15 @@ class UserBillsController extends Controller
     public function store(Request $request)
     {
         //
+        return $request->bill_type;
        $this->validate($request, [
             'reference_no' => 'required',
             'bill_date' => 'required',
             'item_id' => 'required',
             'coa_id' => 'required'
         ]);
+
+
 
         $bills = new Bill;
         $bills->client_id = $request->client_id;
@@ -143,6 +146,67 @@ class UserBillsController extends Controller
         //$client_id = $request->client_id;
         return \Redirect::route('bill', [$client_id]);
         
+    }
+    public function cbstore(Request $request)
+    {
+        return $request->all();
+        /*
+        foreach ($request->coa_id as $key => $v)
+            {
+                $bill = new Bill([
+                            'client_id'=>$request->client_id;[$key],
+                            'coa_id'=>$request->coa_id[$key],
+                            'item_id'=>$request->item_id[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'qty'=>$request->qty[$key],
+                            'price'=>$request->price[$key],
+                            'vat_amount'=>$request->vat_amount[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'total'=>$request->total[$key]
+
+                ]);
+
+                $bills = new Bill;
+        $bills->client_id = $request->client_id;
+        $bills->reference_no = $request->reference_no;
+        $bills->bill_date = $request->bill_date;
+        $bills->due_date = $request->due_date;
+        $bills->vendor_id = $request->vendor_id;
+        $bills->amount = $request->grandTotal;
+        $bills->balance = $request->grandTotal;
+
+                $bill->save();
+
+                $billLast = Bill::all()->last();
+                $billId = $billLast->id;
+
+                $billDetail = new BillDetails([
+                            'bill_id'=>$billId,
+                            'coa_id'=>$request->coa_id[$key],
+                            'item_id'=>$request->item_id[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'qty'=>$request->qty[$key],
+                            'price'=>$request->price[$key],
+                            'vat_amount'=>$request->vat_amount[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'total'=>$request->total[$key]
+
+                ]);
+
+                $billDetail->save();
+
+
+                //Create Debit detail
+                $subTotal = $request->total[$key] - $request->vat_amount[$key];
+
+                $debit = new JournalDetails([
+                            'journal_id'=>$journalId,
+                            'coa_id'=>$request->coa_id[$key],
+                            'debit'=>$subTotal
+
+                ]);
+
+                $debit->save();*/
     }
 
     public function pay(Request $request, $id)
