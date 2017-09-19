@@ -14,20 +14,13 @@
                             </thead>
                             <tbody>
                                 <tr v-for="detail in form.details">
-                                    <td class="table-item_id" :class="{'table-error': errors['details' + $index + '.item_id']}">
-                                    <select class="table-control" name="item_id[]" v-model="detail.item_id">
-                                                    <option value="0" selected="true" disabled="true">Choose</option>
-                                                @if($items)
-                                                @foreach($items as $item)
-                                                    <option value="{{$item->id}}">{{$item->name}}</option>
-                                                @endforeach
-                                                @endif
-                                    </select>
+                                    <td class="table-reference_no" :class="{'table-error': errors['details' + $index + '.reference_no']}">
+                                    <input type="reference_no" class="table-control" v-model="detail.reference_no" name="reference_no[]">
                                         
                                     </td>
                                     
-                                    <td class="table-date" :class="{'table-error': errors['details' + $index + '.date']}">
-                                        <input type="date" class="table-control" v-model="detail.date" name="date[]">
+                                    <td class="table-bill_date" :class="{'table-error': errors['details' + $index + '.bill_date']}">
+                                        <input type="date" class="table-control" v-model="detail.bill_date" name="bill_date[]">
                                     </td>
                                     <td class="table-vendor" :class="{'table-error': errors['details' + $index + '.vendor']}">
                                         <select class="table-control" name="vendor_id[]" v-model="detail.vendor_id">

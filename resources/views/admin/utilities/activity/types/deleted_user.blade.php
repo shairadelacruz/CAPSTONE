@@ -1,0 +1,1 @@
+Deleted a user {{$activity->subject->name}}

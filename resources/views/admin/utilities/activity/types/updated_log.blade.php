@@ -1,0 +1,1 @@
+Updated a log {{$activity->subject->reference_no}}
