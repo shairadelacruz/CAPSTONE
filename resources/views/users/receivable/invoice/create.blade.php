@@ -59,7 +59,7 @@ Invoice
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Customer</label>
-                                <select class="table-control" name="customer_id" v-model="detail.customer_id">
+                                <select class="table-control chosen-select" name="customer_id" v-model="detail.customer_id">
                                     <option value="0" selected="true" disabled="true"></option>
                                         @if($customers)
                                         @foreach($customers as $customer)
@@ -93,7 +93,7 @@ Invoice
                             <tbody>
                                 <tr v-for="detail in form.details">
                                     <td class="table-item_id" :class="{'table-error': errors['details' + $index + '.item_id']}">
-                                    <select class="table-control" name="item_id[]" v-model="detail.item_id">
+                                    <select class="table-control chosen-select" name="item_id[]" v-model="detail.item_id">
                                                     <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($items)
                                                 @foreach($items as $item)
@@ -104,7 +104,7 @@ Invoice
                                         
                                     </td>
                                     <td class="table-coa_id" :class="{'table-error': errors['details' + $index + '.coa_id']}">
-                                    <select class="table-control" name="coa_id[]" v-model="detail.coa_id">
+                                    <select class="table-control chosen-select" name="coa_id[]" v-model="detail.coa_id">
                                                     <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($coas)
                                                 @foreach($coas as $coa)
@@ -125,7 +125,7 @@ Invoice
                                     </td>
 
                                     <td class="table-vat_id" :class="{'table-error': errors['details' + $index + '.vat_id']}">
-                                        <select class="table-control" name="vat_id[]" v-model="detail.vat_id">
+                                        <select class="table-control chosen-select" name="vat_id[]" v-model="detail.vat_id">
                                                     <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($vats)
                                                 @foreach($vats as $vat)

@@ -113,7 +113,7 @@ Task
 
                             {!! Form:: label('status', 'Status:') !!}
 
-                            {!! Form:: select('status', array(0=>'Pending', 1=>'Done', 2=>'For Quality Assurance'), null, ['class'=>'form-control show-tick']) !!}
+                            {!! Form:: select('status', array(0=>'Pending', 1=>'Done', 2=>'For Quality Assurance'), null, ['class'=>'chosen-select']) !!}
                         </div>
                         <div class="modal-footer">
                             

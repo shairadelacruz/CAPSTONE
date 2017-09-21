@@ -14,7 +14,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Vendor</label>
-                                <select class="table-control" name="vendor_id" v-model="detail.vendor_id">
+                                <select class="table-control chosen-select" name="vendor_id" v-model="detail.vendor_id">
                                     <option value="0" selected="true" disabled="true"></option>
                                         @if($vendors)
                                         @foreach($vendors as $vendor)
@@ -60,7 +60,7 @@
                             <tbody>
                                 <tr v-for="detail in form.details">
                                     <td class="table-item_id" :class="{'table-error': errors['details' + $index + '.item_id']}">
-                                    <select class="table-control" name="item_id[]" v-model="detail.item_id">
+                                    <select class="table-control chosen-select" name="item_id[]" v-model="detail.item_id">
                                                     <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($items)
                                                 @foreach($items as $item)
@@ -71,7 +71,7 @@
                                         
                                     </td>
                                     <td class="table-coa_id" :class="{'table-error': errors['details' + $index + '.coa_id']}">
-                                    <select class="table-control" name="coa_id[]" v-model="detail.coa_id">
+                                    <select class="table-control chosen-select" name="coa_id[]" v-model="detail.coa_id">
                                                     <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($coas)
                                                 @foreach($coas as $coa)
@@ -92,7 +92,7 @@
                                     </td>
 
                                     <td class="table-vat_id" :class="{'table-error': errors['details' + $index + '.vat_id']}">
-                                        <select class="table-control" name="vat_id[]" v-model="detail.vat_id">
+                                        <select class="table-control chosen-select" name="vat_id[]" v-model="detail.vat_id">
                                                     <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($vats)
                                                 @foreach($vats as $vat)

@@ -116,14 +116,14 @@ Item
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             {!! Form:: label('coa_id', 'Account:') !!}
-                                            {!! Form:: select('coa_id', [''=>'Choose Options'] + $coas ,null, ['class'=>'form-control']) !!}
+                                            {!! Form:: select('coa_id', [''=>'Choose Options'] + $coas ,null, ['class'=>'form-control chosen-select']) !!}
                                         </div>
                                     </div>
 
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             {!! Form:: label('vat_id', 'VAT Code:') !!}
-                                            {!! Form:: select('vat_id', [''=>'Choose Options'] + $vats ,null, ['class'=>'form-control']) !!}
+                                            {!! Form:: select('vat_id', [''=>'Choose Options'] + $vats ,null, ['class'=>'form-control chosen-select']) !!}
                                         </div>
                                     </div>
                                     
@@ -183,14 +183,14 @@ Item
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             {!! Form:: label('coa_id', 'Account:') !!}
-                                            {!! Form:: select('coa_id', [''=>'Choose Options'] + $coas ,null, ['class'=>'form-control']) !!}
+                                            {!! Form:: select('coa_id', [''=>'Choose Options'] + $coas ,null, ['class'=>'form-control chosen-select']) !!}
                                         </div>
                                     </div>
 
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             {!! Form:: label('vat_id', 'VAT Code:') !!}
-                                            {!! Form:: select('vat_id', [''=>'Choose Options'] + $vats ,null, ['class'=>'form-control']) !!}
+                                            {!! Form:: select('vat_id', [''=>'Choose Options'] + $vats ,null, ['class'=>'form-control chosen-select']) !!}
                                         </div>
                                     </div>
                                        

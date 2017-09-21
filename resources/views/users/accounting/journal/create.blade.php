@@ -99,7 +99,7 @@ Journal
                         <input id="reference_no" type="text" name="reference_no[]" class="table-control" v-model="detail.reference_no" value="{{Session('ref_no')}}">
                     </td>
                     <td class="table-client_coa_id" :class="{'table-error': errors['details' + $index + '.client_coa_id']}">
-                    <select class="table-control" name="coa_cli_id[]" v-model="detail.client_coa_id">
+                    <select class="table-control chosen-select" name="coa_cli_id[]" v-model="detail.client_coa_id">
                                     <option value="0" selected="true" disabled="true"></option>
                                 @if($coas)
                                 @foreach($coas as $coa)
@@ -119,7 +119,7 @@ Journal
                         <input type="text" class="table-control" v-model="detail.description" name="descriptions[]">
                     </td>
                     <td class="table-vat_id" :class="{'table-error': errors['details' + $index + '.vat_id']}">
-                        <select class="table-control" name="vat_id[]" v-model="detail.vat_id">
+                        <select class="table-control chosen-select" name="vat_id[]" v-model="detail.vat_id">
                                     <option value="0" selected="true" disabled="true"></option>
                                 @if($vats)
                                 @foreach($vats as $vat)

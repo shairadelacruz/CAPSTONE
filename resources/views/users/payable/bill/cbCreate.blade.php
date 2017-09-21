@@ -23,7 +23,7 @@
                                         <input type="date" class="table-control" v-model="detail.bill_date" name="bill_date[]">
                                     </td>
                                     <td class="table-vendor" :class="{'table-error': errors['details' + $index + '.vendor']}">
-                                        <select class="table-control" name="vendor_id[]" v-model="detail.vendor_id">
+                                        <select class="table-control chosen-select" name="vendor_id[]" v-model="detail.vendor_id">
                                     <option value="0" selected="true" disabled="true"></option>
                                         @if($vendors)
                                         @foreach($vendors as $vendor)
@@ -33,7 +33,7 @@
                                 </select>
                                     </td>
                                     <td class="table-coa_id" :class="{'table-error': errors['details' + $index + '.coa_id']}">
-                                    <select class="table-control" name="coa_id[]" v-model="detail.coa_id">
+                                    <select class="table-control chosen-select" name="coa_id[]" v-model="detail.coa_id">
                                                     <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($coas)
                                                 @foreach($coas as $coa)
@@ -48,7 +48,7 @@
                                     </td>
 
                                     <td class="table-vat_id" :class="{'table-error': errors['details' + $index + '.vat_id']}">
-                                        <select class="table-control" name="vat_id[]" v-model="detail.vat_id">
+                                        <select class="table-control chosen-select" name="vat_id[]" v-model="detail.vat_id">
                                                     <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($vats)
                                                 @foreach($vats as $vat)

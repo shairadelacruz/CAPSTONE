@@ -34,9 +34,9 @@ class AdminLogsController extends Controller
     {
         //
 
-        $documents = DocumentType::pluck('name', 'id')->all();
-        $clients = Client::pluck('company_name', 'id')->all();
-        $users = User::pluck('name', 'id')->all();
+        $documents = DocumentType::all();
+        $clients = Client::all();
+        $users = User::all();
         return view('admin.management.logs.create', compact('documents', 'clients', 'users'));
     }
 
@@ -50,7 +50,7 @@ class AdminLogsController extends Controller
     {
         // 
 
-        $this->validate($request, [
+       /* $this->validate($request, [
             'reference_no' => 'required',
             'client_id' => 'required'
         ]);
@@ -71,7 +71,9 @@ class AdminLogsController extends Controller
         Log::create($input);
 
         //Log::create($request->all());
-        return redirect('/admin/management/logs');
+        return redirect('/admin/management/logs');*/
+                return $request->all();
+
     }
 
     /**

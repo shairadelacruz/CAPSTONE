@@ -122,7 +122,7 @@ Journal
                         <input type="text" class="table-control" name="vendor_id[]">
                     </td>-->
                     <td class="table-remove">
-                        <span class="table-remove-btn removeRow">X</span>
+                        <span class="table-remove-btn" onclick="removeRow(this)">X</span>
                     </td>
                 </tr>
                 @endforeach
@@ -205,30 +205,17 @@ function addRow() {
             '<td class="table-vat_amount">'+
             '<input type="number" class="table-control" name="vat_amount[]" disabled="true">'+
             '</td>'+
-            '<td><span class="table-remove-btn removeRow">X</span></td>'+
+            '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
             '</tr>';
 
     $('tbody').append(tr);
     $(".chosen-select").chosen()
 }
 
-$('.removeRow').on('click', function(){
-    var l=$('tbody tr').length;
-    if(l==1){
-        alert("Not applicable");
-    }
-    else{
-        $(this).parent().parent().remove();
-    }
-});
-
-$(document).ready(function(){
-
- $("#dataTable").on('click','.removeRow',function(){
-       $(this).closest('tr').remove();
-     });
-
-});
+function removeRow(btn) {
+            var row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
 </script>
     
     

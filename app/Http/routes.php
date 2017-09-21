@@ -52,11 +52,19 @@ Route::group(['middleware'=>'admin'], function(){
 
 });
 
+Route::group(['middleware'=>'auth'], function(){
+
+
+    Route::resource('user/tasks', 'UserTasksController');
+
+    Route::resource('user/accounting/vat', 'UserVatsController');
+
+});
+
 Route::group(['middleware'=>'user'], function(){
 
     Route::resource('user/{client_id}/home', 'UserHomeController');
 
-	Route::resource('user/accounting/vat', 'UserVatsController');
 
     Route::resource('user/{client_id}/accounting/transaction', 'UserTransactionsController');
 
@@ -141,7 +149,6 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::resource('user/{client_id}/documents', 'UserDocumentsController');
 
-    Route::resource('user/tasks', 'UserTasksController');
 
     Route::resource('user/{client_id}/reports/audit', 'UserAuditController');
 

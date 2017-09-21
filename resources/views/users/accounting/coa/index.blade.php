@@ -102,7 +102,7 @@ COA
                                         <div class="form-line">
                                             {!! Form:: label('coacategory_id', 'Category:') !!}
 
-                                            {!! Form:: select('coacategory_id', array(1=>'Asset', 2=>'Liability', 3=>'Expense', 4=>'Revenue', 5=>'Equity' ), null, ['class'=>'form-control show-tick']) !!}
+                                            {!! Form:: select('coacategory_id', array(1=>'Asset', 2=>'Liability', 3=>'Expense', 4=>'Revenue', 5=>'Equity' ), null, ['class'=>'form-control show-tick chosen-select']) !!}
 
                                         </div>
                                     </div>

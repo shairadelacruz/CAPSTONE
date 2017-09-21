@@ -59,7 +59,7 @@ Invoice
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Customer</label>
-                                <select class="table-control" name="customer_id">
+                                <select class="table-control chosen-select" name="customer_id">
                                     <option value="{{$invoice->customer->id}}" selected="true">{{$invoice->customer->name}}</option>
                                         @if($customers)
                                         @foreach($customers as $customer)
@@ -94,7 +94,7 @@ Invoice
                                 <tr>
 
                                     <td>
-                                    <select name="item_id[]">
+                                    <select class="table-control chosen-select" name="item_id[]">
                                         <option value="{{$detail->item->id}}" selected="true">{{$detail->item->name}}
                                         </option>
                                                 @if($items)
@@ -107,7 +107,7 @@ Invoice
                                         
                                     </td>
                                     <td class="table-coa_id">
-                                    <select name="coa_id[]" v-model="detail.coa_id">
+                                    <select class="table-control chosen-select" name="coa_id[]" v-model="detail.coa_id">
                                         <option value="{{$detail->coa->id}}" selected="true">{{$detail->coa->name}}</option>
                                         @if($coas)
                                         @foreach($coas as $coa)
@@ -130,7 +130,7 @@ Invoice
                                     </td>
 
                                     <td>
-                                        <select name="vat_id[]">
+                                        <select class="table-control chosen-select" name="vat_id[]">
                                                 @if(!empty($detail->vat->id))
                                                 <option value="{{$detail->vat->id}}" selected="true">{{$detail->vat->vat_code}}</option>
                                                 @else
