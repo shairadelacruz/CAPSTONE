@@ -73,7 +73,6 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                @if(Auth::user()->isUser()) 
                     <!-- Tasks -->
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
@@ -101,12 +100,12 @@
                                 </ul>
                             </li>
                             <li class="footer">
-                                <a href="user/tasks">View All Tasks</a>
+                                <a href="/user/tasks">View All Tasks</a>
                             </li>
                         </ul>
                     </li>
                     <!-- #END# Tasks -->
-                    @endif
+
 
                     @if(Auth::user()->isAdmin()||Auth::user()->isManager()||Auth::user()->isUser()) 
                     <li class="pull-right">
@@ -254,13 +253,29 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="{{route('admin.management.team.index')}}">Team Assignment</a>
+                                <a href="{{route('admin.management.assign.index')}}">Clients</a>
                             </li>
                             <li>
-                                <a href="{{route('admin.management.assign.index')}}">Client Assignment</a>
+                                <a href="javascript:void(0);" class="menu-toggle">Team</a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="/">My Teams</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('admin.management.team.index')}}">Assignment</a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
-                                <a href="{{route('admin.management.task.index')}}">Task Assignment</a>
+                                <a href="javascript:void(0);" class="menu-toggle">Tasks</a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="/user/tasks">My Tasks</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('admin.management.task.index')}}">Assignment</a>
+                                    </li>
+                                </ul>
                             </li>
                         
                          
@@ -303,6 +318,9 @@
                         <ul class="ml-menu">
                             <li>
                                 <a href="{{route('admin.utilities.users.index')}}">Users</a>
+                            </li>
+                            <li>
+                                <a href="{{route('admin.utilities.closing.index')}}">Closing Transactions</a>
                             </li>
                             <li>
                                 <a href="{{route('admin.utilities.activity.index')}}">Activity Log</a>

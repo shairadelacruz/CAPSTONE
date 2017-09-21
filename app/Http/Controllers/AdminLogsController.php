@@ -53,26 +53,46 @@ class AdminLogsController extends Controller
        /* $this->validate($request, [
             'reference_no' => 'required',
             'client_id' => 'required'
-        ]);
-
-        $input = $request->all(); 
-
-        if($request->file('document_path')) {
-
-            $file = $request->file('document_path');
-            $name = time() . $file->getClientOriginalName();
-            //$file = $request->file('document_path');
-            //$file->move('images', $name);
-            $file->move(public_path().'/images/',$name);
-            $input['document_path'] = $name;
-        }  
+        ]);*/
+        $date_received = $request->date_received;
+        $client_id = $request->client_id;
+        $received_from = $request->received_from;
+        $user_id = $request->user_id;
 
 
-        Log::create($input);
+        foreach ($request->reference_no as $key => $v){
 
-        //Log::create($request->all());
-        return redirect('/admin/management/logs');*/
-                return $request->all();
+            $input = $request->all(); 
+
+            if($request->file('document_path[$key]')) {
+                $file[$key] = $request->file('document_path');
+                $name = time() . $file[$key]->getClientOriginalName();
+                //$file = $request->file('document_path');
+                //$file->move('images', $name);
+                $file->move(public_path().'/images/',$name);
+                $input['document_path'] = $name;
+                    
+            } 
+
+            $logs = new Log([
+                            'date_received'=>$date_received,
+                            'client_id'=>$client_id,
+                            'received_from'=>$received_from,
+                            'user_id'=>$request->$user_id,
+                            'reference_no'=>$request->reference_no[$key],
+                            'document_type_id'=>$request->document_type_id[$key],
+                            'document_path'=>$file[0]->getClientOriginalName()
+                            
+                ]);
+
+            $logs->save();
+
+        }
+
+        //Log::create($input);
+
+       // return redirect('/admin/management/logs');
+        return $input;
 
     }
 

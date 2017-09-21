@@ -24,6 +24,7 @@ class AdminTasksController extends Controller
         return view('admin.management.task.index',compact('tasks'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *

@@ -22,7 +22,7 @@ class AdminClientUserController extends Controller
 
         $allClients = Client::pluck('company_name', 'id')->all();
 
-        $allUsers = User::pluck('name', 'id')->all();
+        $allUsers = User::all();
 
         return view('admin.management.assign.index', compact('clients', 'allClients', 'allUsers'));
     }

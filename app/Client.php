@@ -112,4 +112,9 @@ class Client extends Model
     {
         return $this->hasMany('App\Bill');
     }
+
+    public function closing(){
+
+        return $this->hasMany('App\Closing');
+    }
 }

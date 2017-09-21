@@ -96,7 +96,15 @@ Client Assignment
                                     
                                             {!! Form:: label('user_id', 'Accountant:') !!}
 
-                                            <select class="chosen-select" multiple="multiple" id="user_id" name="user_id"><option value="1">Yuuri Katsuki</option><option value="2">Viktor Nikiforov</option><option value="3">Otabek Altin</option><option value="4">Yuri Plisetsky</option></select>  
+                                            <select class="chosen-select" multiple="multiple" id="user_id" name="user_id">
+                                                @if($allUsers)
+                                                @foreach($allUsers as $user)
+                                                @if(!$user->isAdmin())
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                                @endif
+                                                @endforeach
+                                                @endif
+                                            </select>  
                                
                                     
                                     <div class="modal-footer">

@@ -30,6 +30,8 @@ Route::group(['middleware'=>'admin'], function(){
 
 	Route::resource('admin/utilities/users', 'AdminUsersController');
 
+    Route::resource('admin/utilities/closing', 'AdminClosingController');
+
     Route::resource('admin/utilities/activity', 'AdminActivityController');
 
 	Route::resource('admin/clients', 'AdminClientsController');
@@ -42,9 +44,17 @@ Route::group(['middleware'=>'admin'], function(){
 
     Route::resource('admin/lists/document', 'AdminDocumentController');
 
+
+
+});
+
+Route::group(['middleware'=>'manager'], function(){
+
     Route::resource('admin/management/assign', 'AdminClientUserController');
 
     Route::resource('admin/management/team', 'AdminTeamsController');
+
+    Route::resource('admin/management/myteam', 'AdminTeamsController');
 
     Route::resource('admin/management/logs', 'AdminLogsController');
 
@@ -156,18 +166,3 @@ Route::group(['middleware'=>'user'], function(){
 
 });
 
-
-
-Route::get('/cashdisbursement/create', function () {
-    return view('users.cashdisbursement.create');
-});
-
-Route::get('/cashdisbursement/edit', function () {
-    return view('users.cashdisbursement.edit');
-});
-
-Route::get('/evaluate', function () {
-    return view('admin.management.evaluate.index');
-});
-
-Route::get('/print', array('as'=>'print', 'uses'=>'UserBillsController@print'));

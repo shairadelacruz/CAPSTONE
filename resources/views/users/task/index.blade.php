@@ -18,7 +18,7 @@ Task
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Task
+                                My Tasks
                             </h2><br>
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -41,7 +41,6 @@ Task
                                         <th>Task</th>
                                         <th>Date</th>
                                         <th>Deadline</th>
-                                        <th>Assigned Accountant</th>
                                         <th>Documents</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -52,20 +51,18 @@ Task
                                         <th>Task</th>
                                         <th>Date</th>
                                         <th>Deadline</th>
-                                        <th>Assigned Accountant</th>
                                         <th>Documents</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                @if($tasks)
+                                    @if($tasks = Auth::user()->tasks()->where('status', 0)->get())
                                     @foreach($tasks as $task)
                                     <tr>
                                         <td>{{$task->name}}</td>
                                         <td>{{$task->created_at->toDateString()}}</td>
                                         <td>{{$task->deadline->toDateString()}}</td>
-                                        <td>{{$task->user->name}}</td>
                                         <td>
 
                                             <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewDocuments{{$task->id}}">View Documents</button></td>     
@@ -81,7 +78,84 @@ Task
                                         {!! Form::open(['method'=>'POST', 'action'=>'UserTasksController@store']) !!}
                                         <input type="hidden" name="task" value="{{$task->id}}">
                                         <button type="submit" class="btn btn-default btn-xs waves-effect">
-                                        <i class="material-icons">play_arrow</i>
+                                        <i class="fa fa-play-circle" aria-hidden="true"></i></button>
+                                            
+                                        {!! Form::close() !!}
+
+                                        
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#status{{$task->id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Exportable Table -->
+
+
+            <!-- Exportable Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                Completed Tasks
+                            </h2><br>
+                                @if(Session::has('deleted_task'))
+                                 <p class="bg-danger">{{Session('deleted_task')}}</p>
+                                @endif
+
+                        </div>
+                        <div class="body table-responsive">
+                            <table class="table table-bordered table-striped table-hover dataTable js-exportable" da>
+                                <thead>
+
+                                    <tr>
+                                        <th>Task</th>
+                                        <th>Date</th>
+                                        <th>Deadline</th>
+                                        <th>Documents</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Task</th>
+                                        <th>Date</th>
+                                        <th>Deadline</th>
+                                        <th>Documents</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @if($tasks = Auth::user()->tasks()->where('status', 1)->get())
+                                    @foreach($tasks as $task)
+                                    <tr>
+                                        <td>{{$task->name}}</td>
+                                        <td>{{$task->created_at->toDateString()}}</td>
+                                        <td>{{$task->deadline->toDateString()}}</td>
+                                        <td>
+
+                                            <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewDocuments{{$task->id}}">View Documents</button></td>     
+                                        </td>
+                                        <td>
+                                        @if($task->status == 0) Pending
+                                        @endif
+                                        @if($task->status == 1) Done
+                                        @endif
+                                        @if($task->status == 2) For Quality Assurance
+                                        @endif</td>                                        
+                                        <td>
+                                        {!! Form::open(['method'=>'POST', 'action'=>'UserTasksController@store']) !!}
+                                        <input type="hidden" name="task" value="{{$task->id}}">
+                                        <button type="submit" class="btn btn-default btn-xs waves-effect">
+                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
                                         </button>
                                             
                                         {!! Form::close() !!}

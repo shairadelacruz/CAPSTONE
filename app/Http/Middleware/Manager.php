@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class Admin
+class Manager
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,11 @@ class Admin
     {
         if(Auth::check()){
 
-            if(Auth::user()->isAdmin()){
+            if(Auth::user()->isManager()){
+
+                return $next($request);
+            }
+            else if(Auth::user()->isAdmin()){
 
                 return $next($request);
             }
