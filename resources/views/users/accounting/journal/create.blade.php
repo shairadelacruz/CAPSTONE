@@ -33,9 +33,16 @@ Journal
 <div class="row">
 
     <div class="col-sm-12">
-                @if(Session::has('ref_no'))
-                <p class="bg-danger">{{Session('ref_no')}}</p>
-                @endif
+               
+                <ul>
+                    @if(Session::has('ref_no'))
+                     @foreach (Session::get('ref_no') as $ref_no)
+                    <li>{{$ref_no}}</li>
+                    @endforeach
+                    @endif
+                </ul>
+                
+                
 
         <input type="hidden" name='client_id' value="{{ $client_id }}" class="form-control">
 
@@ -71,13 +78,6 @@ Journal
 
 </div>
 
-
-    <hr>
-
-    <div v-if="errors.details_empty">
-        <p class="alert alert-danger">@{{ errors.details_empty }}</p>
-        </hr>
-    </div>
     
     <div class="body table-responsive">
         <table class="table table-bordered table-form">
@@ -94,9 +94,11 @@ Journal
                 </tr>
             </thead>
             <tbody>
+                @if(Session::has('ref_no'))
+                     @foreach (Session::get('ref_no') as $ref_no)
                 <tr v-for="detail in form.details">
                     <td class="table-reference_no" :class="{'table-error': errors['details' + $index + '.reference_no']}">
-                        <input id="reference_no" type="text" name="reference_no[]" class="table-control" v-model="detail.reference_no" value="{{Session('ref_no')}}">
+                        <input type="text" name="reference_no[]" class="table-control" value="{{$ref_no}}">
                     </td>
                     <td class="table-client_coa_id" :class="{'table-error': errors['details' + $index + '.client_coa_id']}">
                     <select class="table-control chosen-select" name="coa_cli_id[]" v-model="detail.client_coa_id">
@@ -131,18 +133,18 @@ Journal
                     <td class="table-vat_amount" :class="{'table-error': errors['details' + $index + '.vat_amount']}">
                         <input type="number" class="table-control right-align-text" v-model="detail.vat_amount" name="vat_amount[]">
                     </td>
-                    <!--<td class="table-vendor_id" :class="{'table-error': errors['details' + $index + '.vendor_id']}">
-                        <input type="text" class="table-control" v-model="detail.vendor_id" name="vendor_id[]">
-                    </td>-->
+
                     <td class="table-remove">
-                        <span @click="remove(detail)" class="table-remove-btn">X</span>
+                        <span @click="remove(detail)" onclick="removeRow(this) class="table-remove-btn">X</span>
                     </td>
                 </tr>
+                @endforeach
+                    @endif
             </tbody>
             <tfoot>
                 <tr>
                     <td class="table-empty">
-                        <span @click="addLine" class="table-add_line">+ Add Line</span>
+                        <span onclick="addRow()" class="table-add_line">+ Add Line</span>
                     </td>
                     <td>Total</td>
                     <td class="table-debittot"><input type="number" class="table-control right-align-text" v-model="detail.debittot" name="debittot" value="@{{ debitTot }}" readonly="true"></td>
@@ -203,6 +205,61 @@ Journal
 
 
     <script src="{{asset('js/app.js') }}"></script>
+<script>
+    function addRow() {
+    var tr = '<tr>'+
+            '<td class="table-reference_no">'+
+            '<select class="table-control" name="reference_no[]">'+
+            '<option value="0" selected="true" disabled="true"></option>'+
+            
+            '<option></option>'+
+            
+            '</select>'+
+            '</td>'+
+            '<td class="table-client_coa_id">'+
+            '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
+            '<option value="0" selected="true" disabled="true"></option>'+
+            '@if($coas)'+
+            '@foreach($coas as $coa)'+
+                '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
+            '@endforeach'+
+            '@endif'+
+            '</select>'+
+            '</td>'+
+            '<td class="table-debit">'+
+            '<input type="number" class="table-control" name="debit[]">'+
+            '</td>'+
+            '<td class="table-credit">'+
+            '<input type="number" class="table-control" name="credit[]">'+
+            '</td>'+
+            '<td class="table-description">'+
+            '<input type="text" class="table-control" name="descriptions[]">'+
+            '</td>'+
+            '<td class="table-vat_id">'+
+            '<select class="table-control chosen-select" name="vat_id[]" data-live-search="true">'+
+            '<option value="0" selected="true" disabled="true"></option>'+
+            '@if($vats)'+
+            '@foreach($vats as $vat)'+
+                '<option value="{{$vat->id}}">{{$vat->vat_code}}</option>'+
+            '@endforeach'+
+            '@endif'+
+            '</select>'+
+            '</td>'+
+            '<td class="table-vat_amount">'+
+            '<input type="number" class="table-control" name="vat_amount[]" disabled="true">'+
+            '</td>'+
+            '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
+            '</tr>';
+
+    $('tbody').append(tr);
+    $(".chosen-select").chosen()
+}
+
+function removeRow(btn) {
+            var row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+</script>
 @endsection
 	
 @stop

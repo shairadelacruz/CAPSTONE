@@ -42,7 +42,6 @@ class UserTasksController extends Controller
 
         if($task->task_type == 0){
             Session::flash('ref_no',$documents);
-            //Session::flash('ref_no', array($documents));
 
             return redirect('/user/'.$client_id.'/accounting/journal/create');
         }

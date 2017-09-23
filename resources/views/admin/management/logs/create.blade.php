@@ -12,13 +12,14 @@ Log
 
 	{!! Form::open(['method'=>'POST', 'action'=>'AdminLogsController@store', 'files'=>true]) !!}
 	
-			{!! Form:: hidden('user_id', Auth::user()->id) !!}
+            
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
                                 	<label>Date Received</label>
                                     <input type="date" class="datepicker form-control" placeholder="Date Received" name="date_received">
                                     <label>Client</label>

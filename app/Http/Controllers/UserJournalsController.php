@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Coa;
 use App\Coaamount;
+use App\Log;
 use App\Vat;
 use App\Client;
 use App\Journal;
@@ -40,7 +41,8 @@ class UserJournalsController extends Controller
         $client = Client::find($client_id);
         $coas = $client->coas;
         $vats = Vat::all();
-        return view('users.accounting.journal.create', compact('client_id','coas', 'vats'));
+        $refs = $client->log;
+        return view('users.accounting.journal.create', compact('client_id','coas', 'vats', 'refs'));
     }
 
     /**
@@ -124,8 +126,9 @@ class UserJournalsController extends Controller
         $client = Client::findOrFail($client_id);
         $coas = $client->coas;
         $vats = Vat::all();
+        $refs = $client->log;
 
-        return view('users.accounting.journal.edit', compact('journal','details','client_id','coas', 'vats'));
+        return view('users.accounting.journal.edit', compact('journal','details','client_id','coas', 'vats', 'refs'));
     }
 
 

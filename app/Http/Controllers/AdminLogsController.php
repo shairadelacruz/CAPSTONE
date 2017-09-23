@@ -60,48 +60,39 @@ class AdminLogsController extends Controller
         $user_id = $request->user_id;
 
 
-        foreach ($request->reference_no as $key => $v){
-
             $input = $request->all(); 
+            $images=array();
+            if($files=$request->file('document_path')) {
+                foreach($files as $key => $v){
+                    $file=$request->file('document_path');
+                    $name = time() . $file[$key]->getClientOriginalName();
+                    $file[$key]->move(public_path().'/images/',$name);
+                    $images[]=$name;
 
-            if($request->file('document_path[$key]')) {
-                $file[$key] = $request->file('document_path');
-                $name = time() . $file[$key]->getClientOriginalName();
-                //$file = $request->file('document_path');
-                //$file->move('images', $name);
-                $file->move(public_path().'/images/',$name);
-                $input['document_path'] = $name;
-                    
-            } 
-
-            $logs = new Log([
+                    $logs = new Log([
                             'date_received'=>$date_received,
                             'client_id'=>$client_id,
                             'received_from'=>$received_from,
-                            'user_id'=>$request->$user_id,
+                            'user_id'=>$user_id,
                             'reference_no'=>$request->reference_no[$key],
                             'document_type_id'=>$request->document_type_id[$key],
-                            'document_path'=>$file[0]->getClientOriginalName()
+                            'document_path'=>$name
                             
                 ]);
 
-            $logs->save();
+                $logs->save();
+                }   
 
-        }
+
+            }
 
         //Log::create($input);
 
-       // return redirect('/admin/management/logs');
-        return $input;
+       return redirect('/admin/management/logs');
+        //return $images;
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //

@@ -259,7 +259,7 @@
                                 <a href="javascript:void(0);" class="menu-toggle">Team</a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="/">My Teams</a>
+                                        <a href="/admin/management/myteam">My Teams</a>
                                     </li>
                                     <li>
                                         <a href="{{route('admin.management.team.index')}}">Assignment</a>

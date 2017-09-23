@@ -99,9 +99,7 @@ Client Assignment
                                             <select class="chosen-select" multiple="multiple" id="user_id" name="user_id">
                                                 @if($allUsers)
                                                 @foreach($allUsers as $user)
-                                                @if(!$user->isAdmin())
                                                 <option value="{{$user->id}}">{{$user->name}}</option>
-                                                @endif
                                                 @endforeach
                                                 @endif
                                             </select>  
