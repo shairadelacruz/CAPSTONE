@@ -10,14 +10,14 @@ var app = new Vue({
   },
 
 	methods: {
-		/*addLine: function() {
+		addLine: function() {
 
 			this.form.details.push({reference_no: '', debit: 0, credit: 0, vat_amount: 0})
 		},
 
 		remove: function(detail) {
 			this.form.details.$remove(detail);
-		},*/
+		},
 
 	    create: function() {
 	      this.isProcessing = true;

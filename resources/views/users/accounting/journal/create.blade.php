@@ -49,22 +49,19 @@ Journal
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Transaction No.</label>
-                <input type="text" class="form-control" v-model="form.transaction_no" name='transaction_no'>
-                <p v-if="errors.transaction_no" class="error">@{{ errors.transaction_no}}</p>
+                <input type="text" class="form-control" name='transaction_no'>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Date</label>
-                <input type="date" class="form-control" v-model="form.date" name='date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
-                <p v-if="errors.date" class="error">@{{ errors.date}}</p>
+                <input type="date" class="form-control" name='date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
             </div>
         </div>
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Description</label>
-                <textarea class="form-control" v-model="form.description" name='description'></textarea>
-                <p v-if="errors.description" class="error">@{{ errors.description}}</p>
+                <textarea class="form-control" name='description'></textarea>
             </div>
         </div>
         <div class="col-sm-3">
@@ -80,7 +77,7 @@ Journal
 
     
     <div class="body table-responsive">
-        <table class="table table-bordered table-form">
+        <table id="journalTable" class="table table-bordered table-form">
             <thead>
                 <tr>
                     <th>Reference No.</th>
@@ -96,12 +93,19 @@ Journal
             <tbody>
                 @if(Session::has('ref_no'))
                      @foreach (Session::get('ref_no') as $ref_no)
-                <tr v-for="detail in form.details">
-                    <td class="table-reference_no" :class="{'table-error': errors['details' + $index + '.reference_no']}">
-                        <input type="text" name="reference_no[]" class="table-control" value="{{$ref_no}}">
+                <tr>
+                    <td class="table-reference_no">
+                        <select class="table-control chosen-select" name="reference_no[]" data-live-search="true">
+                                <option value="0" selected="true" disabled="true">{{$ref_no}}</option>
+                                @if($refs)
+                                @foreach($refs as $ref)
+                                    <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
+                                @endforeach
+                                @endif
+                        </select>
                     </td>
-                    <td class="table-client_coa_id" :class="{'table-error': errors['details' + $index + '.client_coa_id']}">
-                    <select class="table-control chosen-select" name="coa_cli_id[]" v-model="detail.client_coa_id">
+                    <td class="table-client_coa_id">
+                   <select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">
                                     <option value="0" selected="true" disabled="true"></option>
                                 @if($coas)
                                 @foreach($coas as $coa)
@@ -111,44 +115,96 @@ Journal
                     </select>
                         
                     </td>
-                    <td class="table-debit" :class="{'table-error': errors['details' + $index + '.debit']}">
-                        <input type="number" class="table-control right-align-text" v-model="detail.debit" name="debit[]">
+                    <td class="table-debit">
+                        <input type="number" class="table-control right-align-text sumThis" name="debit[]" value="0" onchange="update_vats()">
                     </td>
-                    <td class="table-credit" :class="{'table-error': errors['details' + $index + '.credit']}">
-                        <input type="number" class="table-control right-align-text" v-model="detail.credit" name="credit[]">
+                    <td class="table-credit">
+                        <input type="number" class="table-control right-align-text sumThis1" name="credit[]" value="0" onchange="update_vats()">
                     </td>
-                    <td class="table-description" :class="{'table-error': errors['details' + $index + '.description']}">
-                        <input type="text" class="table-control" v-model="detail.description" name="descriptions[]">
+                    <td class="table-description">
+                        <input type="text" class="table-control" name="descriptions[]">
                     </td>
-                    <td class="table-vat_id" :class="{'table-error': errors['details' + $index + '.vat_id']}">
-                        <select class="table-control chosen-select" name="vat_id[]" v-model="detail.vat_id">
+                    <td class="table-vat_id">
+                        <select class="table-control chosen-select vat_id" name="vat_id[]" onchange="update_vats()">
                                     <option value="0" selected="true" disabled="true"></option>
                                 @if($vats)
                                 @foreach($vats as $vat)
-                                    <option value="{{$vat->id}}">{{$vat->vat_code}}</option>
+                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
                                 @endforeach
                                 @endif
                     </select>
                     </td>
-                    <td class="table-vat_amount" :class="{'table-error': errors['details' + $index + '.vat_amount']}">
-                        <input type="number" class="table-control right-align-text" v-model="detail.vat_amount" name="vat_amount[]">
+                    <td class="table-vat_amount">
+                        <input type="number" class="table-control right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
                     </td>
 
                     <td class="table-remove">
-                        <span @click="remove(detail)" onclick="removeRow(this) class="table-remove-btn">X</span>
+                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
                     </td>
                 </tr>
                 @endforeach
+                    @else
+                    <tr>
+                    <td class="table-reference_no">
+                        <select class="table-control chosen-select" name="reference_no[]" data-live-search="true">
+                                    <option value="0" selected="true" disabled="true"></option>
+                                @if($refs)
+                                @foreach($refs as $ref)
+                                    <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
+                                @endforeach
+                                @endif
+                        </select>
+                    </td>
+                    <td class="table-client_coa_id">
+                   <select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">
+                                    <option value="0" selected="true" disabled="true"></option>
+                                @if($coas)
+                                @foreach($coas as $coa)
+                                    <option value="{{$coa->id}}">{{$coa->name}}</option>
+                                @endforeach
+                                @endif
+                    </select>
+                        
+                    </td>
+                    <td class="table-debit">
+                        <input type="number" class="table-control right-align-text sumThis" name="debit[]" value="0" onchange="update_vats()">
+                    </td>
+                    <td class="table-credit">
+                        <input type="number" class="table-control right-align-text sumThis1" name="credit[]" value="0" onchange="update_vats()">
+                    </td>
+                    <td class="table-description">
+                        <input type="text" class="table-control" name="descriptions[]">
+                    </td>
+                    <td class="table-vat_id">
+                        <select class="table-control chosen-select vat_id" name="vat_id[]" onchange="update_vats()">
+                                    <option value="0" selected="true" disabled="true"></option>
+                                @if($vats)
+                                @foreach($vats as $vat)
+                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
+                                @endforeach
+                                @endif
+                    </select>
+                    </td>
+                    <td class="table-vat_amount">
+                        <input type="number" class="table-control right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
+                    </td>
+
+                    <td class="table-remove">
+                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
+                    </td>
+                </tr>
                     @endif
             </tbody>
             <tfoot>
-                <tr>
-                    <td class="table-empty">
+                <tr id="totals">
+                    <td>
                         <span onclick="addRow()" class="table-add_line">+ Add Line</span>
                     </td>
                     <td>Total</td>
-                    <td class="table-debittot"><input type="number" class="table-control right-align-text" v-model="detail.debittot" name="debittot" value="@{{ debitTot }}" readonly="true"></td>
-                    <td class="table-credittot"><input type="number" class="table-control right-align-text" v-model="detail.credittot" name="credittot" value="@{{ creditTot }}" readonly="true"></td>
+                    
+                    <td><input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="0"></td>
+                    <td><input id="credittot" type="number" class="table-control right-align-text" name="credittot" readonly="true" value="0"></td>
+
                 </tr>
             </tfoot>
         </table>
@@ -175,50 +231,23 @@ Journal
 
         
 @section('scripts')
-    <script src="{{asset('js/vue.min.js') }}"></script>
 
-    <script src="{{asset('js/vue-resource.min.js') }}"></script>
-
-    <script type="text/javascript">
-        
-        Vue.http.headers.common['X-CSRF-TOKEN'] = '{{csrf_token()}}';
-        
-        window.client = {!! json_encode($client_id) !!} 
-            window._form = {
-
-                client_id: {{$client_id}},
-                transaction_no: '',
-                date: '',
-                description: '',
-                details:[{
-                    reference_no: '',
-                    description: '',
-                    debit: 0,
-                    credit: 0,
-                    vat_id: '',
-                    vat_amount: 0,
-                    client_coa_id: ''
-                }]
-            };
-
-    </script>
-
-
-    <script src="{{asset('js/app.js') }}"></script>
 <script>
     function addRow() {
     var tr = '<tr>'+
             '<td class="table-reference_no">'+
-            '<select class="table-control" name="reference_no[]">'+
+            '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
             '<option value="0" selected="true" disabled="true"></option>'+
-            
-            '<option></option>'+
-            
+            '@if($refs)'+
+            '@foreach($refs as $ref)'+
+            '<option value="{{$ref->id}}">{{$ref->reference_no}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>'+
+            '@endforeach'+
+            '@endif'+
             '</select>'+
             '</td>'+
             '<td class="table-client_coa_id">'+
             '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true"  disabled="true"></option>'+
             '@if($coas)'+
             '@foreach($coas as $coa)'+
                 '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
@@ -227,26 +256,27 @@ Journal
             '</select>'+
             '</td>'+
             '<td class="table-debit">'+
-            '<input type="number" class="table-control" name="debit[]">'+
+            '<input type="number" class="table-control right-align-text sumThis" name="debit[]" value="0" onchange="update_vats()">'+
             '</td>'+
+
             '<td class="table-credit">'+
-            '<input type="number" class="table-control" name="credit[]">'+
+            '<input type="number" class="table-control right-align-text sumThis1" name="credit[]" value="0" onchange="update_vats()">'+
             '</td>'+
             '<td class="table-description">'+
             '<input type="text" class="table-control" name="descriptions[]">'+
             '</td>'+
             '<td class="table-vat_id">'+
-            '<select class="table-control chosen-select" name="vat_id[]" data-live-search="true">'+
+            '<select class="table-control chosen-select vat_id" name="vat_id[]" data-live-search="true">'+
             '<option value="0" selected="true" disabled="true"></option>'+
             '@if($vats)'+
             '@foreach($vats as $vat)'+
-                '<option value="{{$vat->id}}">{{$vat->vat_code}}</option>'+
+                '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate" onchange="update_vats()">{{ number_format($vat->rate, 0) }}</span>%</option>'+
             '@endforeach'+
             '@endif'+
             '</select>'+
             '</td>'+
             '<td class="table-vat_amount">'+
-            '<input type="number" class="table-control" name="vat_amount[]" disabled="true">'+
+            '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
             '</td>'+
             '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
             '</tr>';
@@ -256,10 +286,65 @@ Journal
 }
 
 function removeRow(btn) {
+    alert('hi');
             var row = btn.parentNode.parentNode;
             row.parentNode.removeChild(row);
-        }
+}
+//Total
+
+var body= $('#journalTable').children('tbody').first();
+var totals = $('#totals');
+body.on('change', '.sumThis', function() {
+  var total = 0;
+  var columnIndex = $(this).closest('td').index();
+  var rows = body.find('tr');
+  $.each(rows, function() {
+      var amount = $(this).children('td').eq(columnIndex).children('.sumThis').val();    
+      total += new Number(amount);
+  });
+  //totals.children('td').eq(columnIndex).text(total);
+   document.getElementById("debittot").value = total;
+  
+});
+
+var body1= $('#journalTable').children('tbody').first();
+var totals1 = $('#totals');
+
+body1.on('change', '.sumThis1', function() {
+  var total = 0;
+  var columnIndex = $(this).closest('td').index();
+  var rows = body1.find('tr');
+  $.each(rows, function() {
+      var amount = $(this).children('td').eq(columnIndex).children('.sumThis1').val();    
+      total += new Number(amount);
+  });
+  //totals.children('td').eq(columnIndex).text(total);
+   document.getElementById("credittot").value = total;
+  
+});
+
+
+//VAT
+
+
+function update_vats()
+{
+
+    var sum = 0.0;
+    $('#journalTable > tbody  > tr:not(:last)').each(function() {
+        var debcred = parseFloat($(this).find('.sumThis').val() || 0,10);
+        var vat = parseFloat($(this).find('.vat_rate').val() || 0,10);
+        var rate = vat/100;
+        var amount = (rate*debcred);
+        sum+=amount;
+        $(this).find('.vat_amount').val(''+amount);
+    });
+
+}
+
+
 </script>
+
 @endsection
 	
 @stop

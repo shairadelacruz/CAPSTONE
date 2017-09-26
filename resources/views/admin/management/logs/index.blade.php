@@ -6,7 +6,6 @@ Log
 
 @endsection
 
-@extends('includes.table_includes');
 @extends('includes.gallery_includes');
 
 @section('content')
@@ -26,9 +25,9 @@ Log
 
                                     <a href= "{{route('admin.management.logs.create')}}" type="button" class="btn btn-primary waves-effect">+Add</a>
 
-                                   <!-- <input type="text" class="datepicker form-control" placeholder="From Date">
+                                   <input id="min" type="date" class="datepicker form-control" placeholder="From Date">
 
-                                    <input type="text" class="datepicker form-control" placeholder="To Date"> -->
+                                    <input id="max" type="date" class="datepicker form-control" placeholder="To Date">
 
                                 </div>
                             </div>
@@ -40,10 +39,10 @@ Log
 
                         </div>
                         <div class="body table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-exportable" da>
+                            <table id="tableLog" class="table table-bordered table-striped table-hover dataTable js-exportable" da>
                                 <thead>
                                     <tr>
-                                        <th>Document</th>
+                                        <th onclick="wow()">Document</th>
                                         <th>Date</th>
                                         <th>Type</th>
                                         <th>Client</th>
@@ -122,6 +121,39 @@ Log
            
 
         </div>
+
+@section('scripts')
+
+    <!-- Jquery DataTable Plugin Js -->
+            <script src="{{asset('plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+          
+        /* Add event listeners to the two range filtering inputs */
+        $('#min, #max').keyup( function() {
+            table.draw();
+        } );
+    } );
+</script>
+    <script type="text/javascript">
+    function wow(){
+        alert('hi');
+    }
+</script>
+    <script src="{{asset('plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
+    <script src="{{asset('plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js') }}"></script>
+    <script src="{{asset('plugins/jquery-datatable/extensions/export/buttons.flash.min.js') }}"></script>
+    <script src="{{asset('plugins/jquery-datatable/extensions/export/jszip.min.js') }}"></script>
+    <script src="{{asset('/plugins/jquery-datatable/extensions/export/pdfmake.min.js') }}"></script>
+    <script src="{{asset('plugins/jquery-datatable/extensions/export/vfs_fonts.js') }}"></script>
+    <script src="{{asset('plugins/jquery-datatable/extensions/export/buttons.html5.min.js') }}"></script>
+    <script src="{{asset('plugins/jquery-datatable/extensions/export/buttons.print.min.js') }}"></script>
+
+    <!--custom-->
+    <script src="{{asset('js/pages/tables/jquery-datatable.js') }}"></script>
+
+@endsection
 
 	
 @stop
