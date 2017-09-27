@@ -43,6 +43,7 @@ Close Transactions
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                
                                 @if($closings)
                                     @foreach($closings as $closing)
                                     @if($closing->status == 1)

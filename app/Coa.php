@@ -15,7 +15,7 @@ class Coa extends Model
 	protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'name', 'coacategory_id', 'description', 'amount'
+        'name', 'coacategory_id', 'description', 'is_generic'
     ];
 
     public function coacategory(){

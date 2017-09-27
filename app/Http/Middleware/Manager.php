@@ -29,6 +29,6 @@ class Manager
 
         }
 
-        return redirect('/home');
+        return redirect('/user/profile');
     }
 }

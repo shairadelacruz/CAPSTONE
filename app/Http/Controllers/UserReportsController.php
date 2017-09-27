@@ -16,14 +16,23 @@ class UserReportsController extends Controller
     public function trial_balance_index($client_id)
     {
         //
-        //$client = Client::find($client_id);
 
-        //$coa = Journal::with('journal_details')->get();
 
-        $coa = DB::select(DB::raw('SELECT * FROM users'));
+        $client = Client::find($client_id);
 
-        return $coa;
+        $trials = $client->coas()->with('journals_details')->get();
 
-        //return view('users.report.general.trialbalance', compact('trial'));
+        return view('users.report.general.trialbalance', compact('trials'));
+    }
+    
+
+    public function general_ledger_index($client_id)
+    {
+        //
+        $client = Client::find($client_id);
+
+        $ledgers = $client->coas()->with('journals_details')->get();
+
+        return view('users.report.general.generalledger', compact('ledgers'));
     }
 }

@@ -26,6 +26,6 @@ class UserMiddleware
             }
         }
 
-            return redirect('/home');
+            return redirect('/user/profile');
     }
 }

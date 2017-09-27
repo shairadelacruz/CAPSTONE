@@ -17,9 +17,12 @@ Route::get('/', function () {
 
 Route::auth();
 
-//Route::get('/home', 'HomeController@index');
-
 Route::get('/home', function(){
+
+    return view ('admin.index');
+});
+
+Route::get('/user/profile', function(){
 
 	return view ('admin.index');
 });
@@ -78,6 +81,8 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::resource('user/{client_id}/accounting/transaction', 'UserTransactionsController');
 
+    //Journal
+
     Route::resource('user/{client_id}/accounting/journal', 'UserJournalsController');
 
     Route::resource('user/{client_id}/accounting/journal/create', 'UserJournalsController@create');
@@ -87,6 +92,20 @@ Route::group(['middleware'=>'user'], function(){
     Route::resource('user/{client_id}/accounting/journal/edit', 'UserJournalsController@edit');
 
     Route::post('user/{client_id}/accounting/journal', array('as'=>'insertjournal','uses'=>'UserJournalsController@store'));
+
+    //Adjusting
+
+    Route::resource('user/{client_id}/adjusting', 'UserAdjustingController');
+
+    Route::resource('user/{client_id}/adjusting/create', 'UserAdjustingController@create');
+
+    Route::get('user/{client_id}/accounting/adjusting', ['as' => 'adjusting', 'uses' => 'UserAdjustingController@index']);
+
+    Route::resource('user/{client_id}/adjusting/edit', 'UserAdjustingController@edit');
+
+    Route::post('user/{client_id}/adjusting', array('as'=>'insertadjusting','uses'=>'UserAdjustingController@store'));
+
+    //COA
 
     Route::resource('user/{client_id}/accounting/coa', 'UserCoasController');
 
@@ -163,6 +182,8 @@ Route::group(['middleware'=>'user'], function(){
     Route::resource('user/{client_id}/reports/audit', 'UserAuditController');
 
     Route::get('user/{client_id}/reports/trialbalance', 'UserReportsController@trial_balance_index');
+
+    Route::get('user/{client_id}/reports/generalledger', 'UserReportsController@general_ledger_index');
 
 });
 

@@ -77,7 +77,11 @@
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
                             <i class="fa fa-bell-o fa-fw fa-lg" aria-hidden="true"></i>&nbsp;
+                            @if(Auth::user()->tasks()->where('status', 0)->count() != 0)
                             <span class="label-count">{{Auth::user()->tasks()->where('status', 0)->count()}}</span>
+                            @else 
+                            <span></span>
+                            @endif
                         </a>
                         <ul class="dropdown-menu">
                             <li class="header">Tasks</li>
@@ -136,7 +140,7 @@
                     <div class="btn-group user-helper-dropdown">
                         <i class="fa fa-angle-down fa-lg" aria-hidden="true"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="fa fa-user fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Profile</a></li>
+                            <li><a href="/user/profile"><i class="fa fa-user fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Profile</a></li>
                             <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Sign Out</a></li>
                         </ul>
                     </div>
@@ -150,7 +154,7 @@
                     @can('menu_user')
                     <li class="header">ACCOUNTANT</li>
                     <li>
-                        <a href="/admin">
+                        <a href="/user/{{request()->route('client_id')}}/home">
                             <i class="fa fa-home fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Home</strong></a>
                     </li>
                     
@@ -206,7 +210,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/user/{{request()->route('client_id')}}/documents">
+                        <a href="/user/{{request()->route('client_id')}}/adjusting">
                             <i class="fa fa-angle-double-right fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Adjusting Entries</strong>
                         </a>
                     </li>
@@ -222,6 +226,12 @@
                         <ul class="ml-menu">
                             <li>
                                 <a href="/user/{{request()->route('client_id')}}/reports/audit">Audit Trail</a>
+                            </li>
+                            <li>
+                                <a href="/user/{{request()->route('client_id')}}/reports/trialbalance">Trial Balance</a>
+                            </li>
+                            <li>
+                                <a href="/user/{{request()->route('client_id')}}/reports/generalledger">General Ledger</a>
                             </li>
                         </ul>
                         
@@ -369,7 +379,8 @@
 
 
     <!-- Jquery Core Js -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+    <script src="{{asset('plugins/jquery/jquery.min.js') }} "></script>
 
     <!-- Bootstrap Core Js -->
     <script src="{{asset('plugins/bootstrap/js/bootstrap.js') }} "></script>

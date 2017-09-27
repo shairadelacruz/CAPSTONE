@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-Trial Balance
+General Ledger
 
 @endsection
 
@@ -19,7 +19,7 @@ Trial Balance
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Trial Balance
+                                General Ledger
                             </h2><br>
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -34,32 +34,41 @@ Trial Balance
 
                         </div>
                         <div class="body table-responsive">
-                            <table id="trialBalanceTable" class="table table-bordered table-striped table-hover dataTable js-exportable">
+                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th>Account</th>
+                                        <th>COA</th>
+                                        <th>Category</th>
                                         <th>Debit</th>
                                         <th>Credit</th>
-                                        
+                                        <th>Net Movement</th>
+
                                     </tr>
                                 </thead>
-                                <tfoot>                         
-                                    <tr id="totals">
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
                                         <th>Total</th>
+                                        <th>Debit Total</th>
+                                        <th>Credit Total</th>
                                         <th></th>
-                                        <th></th>
+
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @if($trials)
-                                    @foreach($trials as $trial)
+                                    
+                                    @if($ledgers)
+                                    @foreach($ledgers as $ledger)
                                     <tr>
-                                        <td>{{$trial->name}}</td>
-                                        <td>{{$trial->journals_details->sum('debit')}}</td>
-                                        <td>{{$trial->journals_details->sum('credit')}}</td>
+                                        <td>{{$ledger->name}}</td>
+                                        <td>{{$ledger->coacategory->name}}</td>
+                                        <td>{{$ledger->journals_details->sum('debit')}}</td>
+                                        <td>{{$ledger->journals_details->sum('credit')}}</td>
+                                        <td>{{$ledger->journals_details->sum('debit') - $ledger->journals_details->sum('credit')}}</td>
                                     </tr>
                                    @endforeach
                                    @endif
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -68,22 +77,6 @@ Trial Balance
             </div>
             <!-- #END# Exportable Table -->
         </div>
-
-
-        <script type="text/javascript">
-            var body= $('#trialBalanceTable').children('tbody').first();
-            var totals = $('#totals');
-
-              var total = 0;
-              var columnIndex = $(this).closest('td').index();
-              var rows = body.find('tr');
-              $.each(rows, function() {
-                  var amount = $(this).children('td').eq(columnIndex).children('.sumThis').val();    
-                  total += new Number(amount);
-              });
-              totals.children('td').eq(columnIndex).text(total);
-              
-        </script>
 
     
 @stop

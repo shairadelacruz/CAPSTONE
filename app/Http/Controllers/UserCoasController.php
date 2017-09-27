@@ -23,11 +23,15 @@ class UserCoasController extends Controller
 
         $client = Client::find($client_id);
 
-        $coas = $client->coas;
+        //$coas = $client->coas;
+
+        $coaselect = $client->coas->pluck('name', 'id')->all();
 
         /*$amount = DB::select(DB::raw('SELECT `amount` FROM `client_coa` WHERE `client_coa`.`client_id` = 1'));*/
 
-        return view('users.accounting.coa.index', compact('coas', 'client_id'));
+        $coas = $client->coas()->with('journals_details')->get();
+
+        return view('users.accounting.coa.index', compact('coas', 'client_id', 'coaselect'));
     }
 
     /**
@@ -51,6 +55,7 @@ class UserCoasController extends Controller
     public function store(Request $request)
     {
         //
+
         $client_id = $request->client_id;
 
         $client = Client::find($client_id);

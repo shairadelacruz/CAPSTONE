@@ -26,23 +26,24 @@ Audit Trail
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
+                                        <th>Transaction No.</th>
                                         <th>Date</th>
                                         <th>Modified By</th>
                                         <th>Date</th>
                                         <th>Account</th>
-                                        <th>Debit</th>
-                                        <th>Credit</th>
+                                        <th>Total</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                 
                                     <tr>
+                                        <th>Transaction No.</th>
                                         <th>Date</th>
                                         <th>Modified By</th>
                                         <th>Date</th>
                                         <th>Account</th>
-                                        <th>Debit</th>
-                                        <th>Credit</th>
+                                        <th>Total</th>
+
                                     </tr>
                                     
                                 </tfoot>
@@ -50,15 +51,18 @@ Audit Trail
                                 @if($activities)
                                 
                                     @foreach($activities as $activity)
-                                    @if($activity->subject_type == 'App\Journal'OR $activity->subject_type == 'App\Bill'OR $activity->subject_type == 'App\Invoice')
+                                    @if($activity->subject_type == 'App\Journal')
+                                    @if($activity->subject->client == $client)
                                     <tr>
+                                        <td>{{$activity->subject->transaction_no}}</td>
+                                        <td>{{$activity->subject->transaction_no}}</td>
+                                        <td>{{$activity->user->name}}</td>
+                                        <td>{{$activity->created_at->toDateString()}}</td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{$activity->subject->debit_total}}</td>
+
                                     </tr>
+                                     @endif
                                      @endif
                                    @endforeach
                                

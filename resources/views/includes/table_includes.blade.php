@@ -10,7 +10,7 @@
 
     <!-- Jquery DataTable Plugin Js -->
             <script src="{{asset('plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
-    <script src="{{asset('plugins/datatables/filtering/row-based/range_dates.js') }}"></script>
+    <!--<script src="{{asset('plugins/datatables/filtering/row-based/range_dates.js') }}"></script>
     <script type="text/javascript">
     $(document).ready(function() {
         var table = $('#tableLog').DataTable();
@@ -25,7 +25,7 @@
     function wow(){
         alert('hi');
     }
-</script>
+</script>-->
     <script src="{{asset('plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
     <script src="{{asset('plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js') }}"></script>
     <script src="{{asset('plugins/jquery-datatable/extensions/export/buttons.flash.min.js') }}"></script>

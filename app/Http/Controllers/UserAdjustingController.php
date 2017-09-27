@@ -3,23 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Activity;
-use App\Client;
+
 use App\Http\Requests;
 
-class UserAuditController extends Controller
+class UserAdjustingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($client_id)
+    public function index()
     {
         //
-        $activities = Activity::with('subject')->get();
-        $client = Client::find($client_id);
-        return view('users.report.audit.index', compact('activities', 'client'));
     }
 
     /**

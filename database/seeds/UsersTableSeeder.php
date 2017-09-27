@@ -187,106 +187,121 @@ class UsersTableSeeder extends Seeder
 	        	'id' => 1,
 	            'name' => 'Cash and Cash Equipment',
 	            'coacategory_id' => 1,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 2,
 	            'name' => 'Accounts Receivable',
 	            'coacategory_id' => 1,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 3,
 	            'name' => 'Inventories',
 	            'coacategory_id' => 1,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 4,
 	            'name' => 'Property, Plant, Equipment',
 	            'coacategory_id' => 1,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 5,
 	            'name' => 'Intangible Assets',
 	            'coacategory_id' => 1,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 6,
 	            'name' => 'Investments',
 	            'coacategory_id' => 1,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 7,
 	            'name' => 'Biological Assets',
 	            'coacategory_id' => 1,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 8,
 	            'name' => 'Accounts Payable',
 	            'coacategory_id' => 2,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 9,
 	            'name' => 'Current Liabilities',
 	            'coacategory_id' => 2,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 10,
 	            'name' => 'Provisions',
 	            'coacategory_id' => 2,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 11,
 	            'name' => 'Non-Current Liabilities',
 	            'coacategory_id' => 2,
+	            'is_generic' => 0,
 	        ]);
 
     		DB::table('coas')->insert([
 	        	'id' => 12,
 	            'name' => 'Sales',
 	            'coacategory_id' => 4,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 13,
 	            'name' => 'Sales Discount',
 	            'coacategory_id' => 4,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 14,
 	            'name' => 'Sale Allowance',
 	            'coacategory_id' => 4,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 15,
 	            'name' => 'Capital',
 	            'coacategory_id' => 5,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 16,
 	            'name' => 'Drawing',
 	            'coacategory_id' => 5,
+	            'is_generic' => 0,
 	        ]);
 
 	        DB::table('coas')->insert([
 	        	'id' => 17,
 	            'name' => 'Retained Earnings',
 	            'coacategory_id' => 5,
+	            'is_generic' => 0,
 	        ]);
 
-
-	        //Delete when system is implemented
 
 	       	DB::table('vats')->insert([
 	        	'id' => 1,

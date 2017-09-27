@@ -17,7 +17,7 @@ class CreateCoasTable extends Migration
             $table->string('name')->unique();
             $table->integer('coacategory_id')->index()->unsigned()->nullable();
             $table->string('description');
-            //$table->double('amount')->nullable()->unsigned();
+            $table->integer('is_generic')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
