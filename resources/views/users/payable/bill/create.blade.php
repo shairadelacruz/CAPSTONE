@@ -11,7 +11,7 @@ Bill
 @section('content')
     <div id="bill">
 
-        <div class = "panel panel-default" v-clock>
+        <div class = "panel panel-default">
             
             <div class = "panel-heading">
 
@@ -66,34 +66,7 @@ Bill
 
 
 @section('scripts')
-    <script src="{{asset('js/vue.min.js') }}"></script>
-    <script src="{{asset('js/vue-resource.min.js') }}"></script>
-    <script type="text/javascript">
-        
-        Vue.http.headers.common['X-CSRF-TOKEN'] = '{{csrf_token()}}';
-        
-        window.client = {!! json_encode($client_id) !!} 
-            window._form = {
 
-                client_id: {{$client_id}},
-                vendor_id: '',
-                bill_date: '',
-                due_date: '',
-                details:[{
-                    item_id: '',
-                    coa_id: '',
-                    descriptions: '',
-                    price: 0,
-                    qty: 1,
-                    vat_id: '',
-                    vat_amount: 0,
-                    total: 0
-                }]
-            };
-
-    </script>
-    
-    <script src="{{asset('js/billinvoice/app.js') }}"></script>
  
 @endsection
 @stop

@@ -42,7 +42,10 @@ class UserJournalsController extends Controller
         $coas = $client->coas;
         $vats = Vat::all();
         $refs = $client->log;
-        return view('users.accounting.journal.create', compact('client_id','coas', 'vats', 'refs'));
+        $carbon = \Carbon\Carbon::now(); 
+        $count = Journal::whereYear('created_at','=', $carbon->year)->count()+1;
+
+        return view('users.accounting.journal.create', compact('client_id','coas', 'vats', 'refs','count'));
     }
 
     /**
@@ -57,7 +60,9 @@ class UserJournalsController extends Controller
          $this->validate($request, [
             'transaction_no' => 'required',
             'date' => 'required',
-            'coa_cli_id' => 'required'
+            'coa_cli_id' => 'required',
+            'debittot' => 'required|integer',
+            'credittot' => 'required|integer|same:debittot'
         ]);
         
 

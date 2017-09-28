@@ -29,7 +29,7 @@
     <!-- Bootstrap Select Css
     <link href="{{asset('plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" /> -->
 
-          <link rel="stylesheet" href="{{asset('chosen.min.css') }}"/>
+    <link rel="stylesheet" href="{{asset('chosen.min.css') }}"/>
 
     @yield('links')
 

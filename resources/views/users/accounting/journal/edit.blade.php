@@ -60,7 +60,7 @@ Journal
 
     
     <div class="body table-responsive">
-        <table id="dataTable" class="table table-bordered table-form">
+        <table id="journalTable" class="table table-bordered table-form">
             <thead>
                 <tr>
                     <th>Reference No.</th>
@@ -93,10 +93,10 @@ Journal
                         
                     </td>
                     <td class="table-debit">
-                        <input type="number" class="table-control right-align-text" name="debit[]" value="{{$detail->debit}}">
+                        <input type="number" class="table-control right-align-text sumThis" name="debit[]" value="{{$detail->debit}}" onchange="update_vats()">
                     </td>
                     <td class="table-credit">
-                        <input type="number" class="table-control right-align-text" name="credit[]" value="{{$detail->credit}}">
+                        <input type="number" class="table-control right-align-text sumThis1" name="credit[]" value="{{$detail->credit}}" onchange="update_vats()">
                     </td>
                     <td class="table-description">
                         <input type="text" class="table-control" name="descriptions[]" value="{{$detail->descriptions}}">
@@ -129,13 +129,13 @@ Journal
                 @endif
             </tbody>
             <tfoot>
-                <tr>
+                <tr id="totals">
                     <td class="table-empty">
                         <span class="table-add_line" onclick="addRow()" >+ Add Line</span>
                     </td>
                     <td>Total</td>
-                    <td class="table-debittot right-align-text"><input type="number" class="table-control" name="debittot" readonly="true" value="{{$detail->debit_total}}"></td>
-                    <td class="table-credittot right-align-text"><input type="number" class="table-control" name="credittot" readonly="true" value="{{$detail->credit_total}}"></td>
+                    <td class="table-debittot"><input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="{{$journal->debit_total}}"></td>
+                    <td class="table-credittot"><input id="credittot"t type="number" class="table-control right-align-text" name="credittot" readonly="true" value="{{$journal->credit_total}}"></td>
                 </tr>
             </tfoot>
         </table>
@@ -158,24 +158,22 @@ Journal
         </div>
 
 
-        <script>
-            
-        //Para sa journal
-
-
-function addRow() {
+<script>
+    function addRow() {
     var tr = '<tr>'+
             '<td class="table-reference_no">'+
-            '<select class="table-control" name="reference_no[]" data-live-search="true">'+
+            '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
             '<option value="0" selected="true" disabled="true"></option>'+
-            
-            '<option></option>'+
-            
+            '@if($refs)'+
+            '@foreach($refs as $ref)'+
+            '<option value="{{$ref->id}}">{{$ref->reference_no}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>'+
+            '@endforeach'+
+            '@endif'+
             '</select>'+
             '</td>'+
             '<td class="table-client_coa_id">'+
             '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true"  disabled="true"></option>'+
             '@if($coas)'+
             '@foreach($coas as $coa)'+
                 '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
@@ -184,26 +182,27 @@ function addRow() {
             '</select>'+
             '</td>'+
             '<td class="table-debit">'+
-            '<input type="number" class="table-control" name="debit[]">'+
+            '<input type="number" class="table-control right-align-text sumThis" name="debit[]" value="0" onchange="update_vats()">'+
             '</td>'+
+
             '<td class="table-credit">'+
-            '<input type="number" class="table-control" name="credit[]">'+
+            '<input type="number" class="table-control right-align-text sumThis1" name="credit[]" value="0" onchange="update_vats()">'+
             '</td>'+
             '<td class="table-description">'+
             '<input type="text" class="table-control" name="descriptions[]">'+
             '</td>'+
             '<td class="table-vat_id">'+
-            '<select class="table-control chosen-select" name="vat_id[]" data-live-search="true">'+
+            '<select class="table-control chosen-select vat_id" name="vat_id[]" data-live-search="true">'+
             '<option value="0" selected="true" disabled="true"></option>'+
             '@if($vats)'+
             '@foreach($vats as $vat)'+
-                '<option value="{{$vat->id}}">{{$vat->vat_code}}</option>'+
+                '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate" onchange="update_vats()">{{ number_format($vat->rate, 0) }}</span>%</option>'+
             '@endforeach'+
             '@endif'+
             '</select>'+
             '</td>'+
             '<td class="table-vat_amount">'+
-            '<input type="number" class="table-control" name="vat_amount[]" disabled="true">'+
+            '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
             '</td>'+
             '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
             '</tr>';
@@ -213,10 +212,65 @@ function addRow() {
 }
 
 function removeRow(btn) {
+
             var row = btn.parentNode.parentNode;
             row.parentNode.removeChild(row);
-        }
-</script>
-    
+}
+//Total
+
+var body= $('#journalTable').children('tbody').first();
+var totals = $('#totals');
+body.on('change', '.sumThis', function() {
+  alert('hi');
+  var total = 0;
+  var columnIndex = $(this).closest('td').index();
+  var rows = body.find('tr');
+  $.each(rows, function() {
+      var amount = $(this).children('td').eq(columnIndex).children('.sumThis').val();    
+      total += new Number(amount);
+  });
+  //totals.children('td').eq(columnIndex).text(total);
+   document.getElementById("debittot").value = total;
+  
+});
+
+var body1= $('#journalTable').children('tbody').first();
+var totals1 = $('#totals');
+
+body1.on('change', '.sumThis1', function() {
+      alert('hi');
+  var total = 0;
+  var columnIndex = $(this).closest('td').index();
+  var rows = body1.find('tr');
+  $.each(rows, function() {
+      var amount = $(this).children('td').eq(columnIndex).children('.sumThis1').val();    
+      total += new Number(amount);
+  });
+  //totals.children('td').eq(columnIndex).text(total);
+   document.getElementById("credittot").value = total;
+  
+});
+
+
+//VAT
+
+
+function update_vats()
+{
+
+    var sum = 0.0;
+    $('#journalTable > tbody  > tr:not(:last)').each(function() {
+        var debcred = parseFloat($(this).find('.sumThis').val() || 0,10);
+        var vat = parseFloat($(this).find('.vat_rate').val() || 0,10);
+        var rate = vat/100;
+        var amount = (rate*debcred);
+        sum+=amount;
+        $(this).find('.vat_amount').val(''+amount);
+    });
+
+}
+
+
+</script>    
     
 @stop

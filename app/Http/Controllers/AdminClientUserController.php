@@ -35,9 +35,17 @@ class AdminClientUserController extends Controller
 
         $client = Client::findOrFail($client_id);
 
+        $admin = User::findOrFail(1);
+
+        $adminId = $admin->id; 
+
+        //$request->request->add(['user_id' => $adminId]);
+
         $users = $request->get('user_id');
 
         $client->users()->sync($users);
+
+        $client->users()->attach($admin);
 
         return redirect('/admin/management/assign');
     }

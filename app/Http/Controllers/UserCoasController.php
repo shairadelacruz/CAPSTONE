@@ -136,12 +136,12 @@ class UserCoasController extends Controller
 
         $coa = Coa::findOrFail($id)->first();
 
-        //$client->coas()->detach($coa);
+        $client->coas()->detach($coa);
 
-        return $client;
+        
 
-       // Session::flash('deleted_coa','The account has been deleted');
+       Session::flash('deleted_coa','The account has been deleted');
 
-       // return \Redirect::route('coa', [$client_id]);
+        return \Redirect::route('coa', [$client_id]);
     }
 }

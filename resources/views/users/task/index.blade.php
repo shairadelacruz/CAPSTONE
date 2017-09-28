@@ -20,13 +20,6 @@ Task
                             <h2>
                                 My Tasks
                             </h2><br>
-                             <div class="row clearfix js-sweetalert">
-                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-
-                                    <a href= "{{route('admin.management.task.create')}}" type="button" class="btn btn-primary waves-effect">+Add</a>
-
-                                </div>
-                            </div>
                             
                                 @if(Session::has('deleted_task'))
                                  <p class="bg-danger">{{Session('deleted_task')}}</p>

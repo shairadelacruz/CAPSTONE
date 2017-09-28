@@ -1,7 +1,15 @@
 {!!Form::open(['route' => ['insertcb', $client_id], 'id'=>'frmsave2', 'method'=>'POST'])!!}
-<div class="body table-responsive">
-                        <table class="table table-bordered table-form" width="100">
+<div class="body">
+                        <table style="table-layout:fixed;" class="table table-bordered table-form" width="100">
                             <thead>
+                                <col width="14%">
+                                <col width="14%">
+                                <col width="14%">
+                                <col width="14%">
+                                <col width="14%">
+                                <col width="14%">
+                                <col width="14%">
+
                                 <tr>
                                     <th>Reference No.</th>
                                     <th>Date</th>
@@ -13,17 +21,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="detail in form.details">
-                                    <td class="table-reference_no" :class="{'table-error': errors['details' + $index + '.reference_no']}">
-                                    <input type="reference_no" class="table-control" v-model="detail.reference_no" name="reference_no[]">
-                                        
+                                <tr>
+                                    <td class="table-reference_no">
+                                    <input type="reference_no" class="table-control" name="reference_no[]">   
                                     </td>
                                     
-                                    <td class="table-bill_date" :class="{'table-error': errors['details' + $index + '.bill_date']}">
-                                        <input type="date" class="table-control" v-model="detail.bill_date" name="bill_date[]">
+                                    <td class="table-bill_date">
+                                        <input type="date" class="table-control" name="bill_date[]">
                                     </td>
-                                    <td class="table-vendor" :class="{'table-error': errors['details' + $index + '.vendor']}">
-                                        <select class="table-control chosen-select" name="vendor_id[]" v-model="detail.vendor_id">
+                                    <td class="table-vendor">
+                                        <select class="table-control chosen-select" name="vendor_id[]">
                                     <option value="0" selected="true" disabled="true"></option>
                                         @if($vendors)
                                         @foreach($vendors as $vendor)
@@ -32,23 +39,23 @@
                                         @endif
                                 </select>
                                     </td>
-                                    <td class="table-coa_id" :class="{'table-error': errors['details' + $index + '.coa_id']}">
-                                    <select class="table-control chosen-select" name="coa_id[]" v-model="detail.coa_id">
-                                                    <option value="0" selected="true" disabled="true">Choose</option>
+                                    <td class="table-coa_id">
+                                    <select class="table-control chosen-select" name="coa_id[]">
+                                            <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($coas)
                                                 @foreach($coas as $coa)
-                                                    <option value="{{$coa->id}}">{{$coa->name}}</option>
+                                            <option value="{{$coa->id}}">{{$coa->name}}</option>
                                                 @endforeach
                                                 @endif
                                     </select>
                                         
                                     </td>
-                                    <td class="table-amount" :class="{'table-error': errors['details' + $index + '.amount']}">
-                                        <input type="number" class="table-control" v-model="detail.amount" name="amount[]" step="0.01">
+                                    <td class="table-amount">
+                                        <input type="number" class="table-control" name="amount[]" step="0.01">
                                     </td>
 
-                                    <td class="table-vat_id" :class="{'table-error': errors['details' + $index + '.vat_id']}">
-                                        <select class="table-control chosen-select" name="vat_id[]" v-model="detail.vat_id">
+                                    <td class="table-vat_id">
+                                        <select class="table-control chosen-select" name="vat_id[]">
                                                     <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($vats)
                                                 @foreach($vats as $vat)
@@ -57,19 +64,19 @@
                                                 @endif
                                     </select>
                                     </td>
-                                    <td class="table-vat_amount" :class="{'table-error': errors['details' + $index + '.vat_amount']}" step="0.01">
-                                        <input type="number" class="table-control" v-model="detail.vat_amount" name="vat_amount[]">
+                                    <td class="table-vat_amount">
+                                        <input type="number" class="table-control" name="vat_amount[]" step="0.01">
                                     </td>
                                     <td class="table-remove">
                                         <input type="hidden" name='client_id[]' value="{{ $client_id }}" class="form-control">
-                                        <span @click="remove(detail)" class="table-remove-btn">X</span>
+                                        <span class="table-remove-btn">X</span>
                                     </td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td class="table-empty">
-                                        <input type="button" id ="addLine" @click="addLine" class="table-add_line" value="+ Add Line">
+                                        <input type="button" id ="addLine" class="table-add_line" value="+ Add Line">
                                     </td>
                                 </tr>
                             </tfoot>

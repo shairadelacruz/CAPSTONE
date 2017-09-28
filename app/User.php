@@ -90,6 +90,16 @@ class User extends Authenticatable
         return false;
     }
 
+    public function isTeamMember($id){
+
+        if($this->teams->find($id)){
+
+            return true;
+        }
+
+        return false;
+    }
+
 
     public function clients(){
 

@@ -49,7 +49,10 @@ Journal
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Transaction No.</label>
-                <input type="text" class="form-control" name='transaction_no'>
+                @if($client_name = Auth::user()->clients->find(request()->route('client_id')))
+                    
+                <input type="text" class="form-control" name='transaction_no' value="{{Carbon\Carbon::today()->format('Y')}}-{{$client_name->code}}{{$client_name->id}}-{{$count}}-J" readonly="true">
+                @endif
             </div>
         </div>
         <div class="col-sm-3">
@@ -286,7 +289,7 @@ Journal
 }
 
 function removeRow(btn) {
-    alert('hi');
+
             var row = btn.parentNode.parentNode;
             row.parentNode.removeChild(row);
 }
@@ -320,7 +323,7 @@ body1.on('change', '.sumThis1', function() {
   });
   //totals.children('td').eq(columnIndex).text(total);
    document.getElementById("credittot").value = total;
-  
+
 });
 
 

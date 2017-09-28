@@ -26,7 +26,7 @@ Clients
 	</div>
 
 	<div class = "form-group">
-		{!! Form:: label('code', 'Code:') !!}
+		{!! Form:: label('code', 'Client Code:') !!}
 		{!! Form:: text('code',null, ['class'=>'form-control','maxlength' => 3,'required']) !!}
 	</div>
 

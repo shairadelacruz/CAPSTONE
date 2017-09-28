@@ -31,7 +31,7 @@ class AdminTeamsController extends Controller
     public function create()
     {
         //
-        $users = User::pluck('name', 'id')->all();
+        $users = User::all();
 
         $role = Role::find(2);
 
@@ -95,7 +95,7 @@ class AdminTeamsController extends Controller
 
         $team = Team::findOrFail($id);
 
-        $users = User::pluck('name', 'id')->all();
+        $users = User::all();
 
         $role = Role::find(2);
 

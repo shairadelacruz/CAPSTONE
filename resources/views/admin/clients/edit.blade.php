@@ -25,6 +25,11 @@ Clients
 	</div>
 
 	<div class = "form-group">
+		{!! Form:: label('code', 'Client Code:') !!}
+		{!! Form:: text('code',null, ['class'=>'form-control','maxlength' => 3,'required']) !!}
+	</div>
+
+	<div class = "form-group">
 		{!! Form:: label('tin_number', 'Tin Number:') !!}
 		{!! Form:: text('tin_number',null, ['class'=>'form-control', 'required']) !!}
 	</div>

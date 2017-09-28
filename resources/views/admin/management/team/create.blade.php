@@ -26,7 +26,19 @@ Team
 
 	<div class = "form-group">
 		{!! Form:: label('user_id', 'Employees:') !!}<br>
-		{{Form::select('user_id[]',$users,null,['class'=>'chosen-select form-control', 'multiple'=>'multiple'],array('reference_no'=>'user_id[]'))}}
+
+		
+		<select name="user_id[]" class="chosen-select form-control" multiple="true">
+		@if($users)
+		@foreach($users as $user)
+		@if(!$user->isManager())
+			<option value="{{$user->id}}">{{$user->name}}</option>
+		@endif
+		@endforeach
+		@endif
+		</select>
+
+		
 	</div>
 
 	<div class = "form-group">

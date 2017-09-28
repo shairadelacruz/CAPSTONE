@@ -25,16 +25,29 @@ Team
 
 
 	<div class = "form-group">
-		{!! Form:: label('user_id', 'Employees:') !!}<br>
-		<ul>
-			@foreach($team->users as $user)
-			<li>{{$user->name}}</li>
-			@endforeach
-		</ul>
 
 		{!! Form:: label('user_id', 'Employees:') !!}<br>
 
-		{!! Form:: select('user_id[]', [''=>'Choose Options'] + $users ,$team->users->first()->name, ['class'=>'form-control chosen-select', 'multiple'=>'multiple']) !!}
+		<select name="user_id[]" class="chosen-select form-control" multiple="true">
+
+		@if($team->users)
+		@foreach($team->users as $user)
+		@if(!$user->isManager())
+			<option selected="selected" value="{{$user->id}}">{{$user->name}}</option>
+		@endif
+		@endforeach
+		@endif
+
+		@if($users)
+		@foreach($users as $user)
+		@if(!$user->isTeamMember($team->id))
+		@if(!$user->isManager())
+			<option value="{{$user->id}}">{{$user->name}}</option>
+		@endif
+		@endif
+		@endforeach
+		@endif
+		</select>
 	</div>
 
 	<div class = "form-group">

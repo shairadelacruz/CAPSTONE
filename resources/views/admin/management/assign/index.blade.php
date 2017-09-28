@@ -96,10 +96,23 @@ Client Assignment
                                     
                                             {!! Form:: label('user_id', 'Accountant:') !!}
 
-                                            <select class="chosen-select" multiple="multiple" id="user_id" name="user_id">
+                                            <select class="chosen-select" multiple="multiple" id="user_id" name="user_id[]">
+
+                                                @if($client->users)
+                                                @foreach($client->users as $user)
+                                                @if(!$user->isAdmin())
+                                                <option selected="selected" value="{{$user->id}}">{{$user->name}}</option>
+                                                @endif
+                                                @endforeach
+                                                @endif
+
                                                 @if($allUsers)
                                                 @foreach($allUsers as $user)
+                                                @if(!$user->isAssigned($client->id))
+                                                @if(!$user->isAdmin())
                                                 <option value="{{$user->id}}">{{$user->name}}</option>
+                                                @endif
+                                                @endif
                                                 @endforeach
                                                 @endif
                                             </select>  
@@ -133,7 +146,7 @@ Client Assignment
                             <ul>
                                 @foreach ($client->users as $user)
                                 
-                                <li>{{$user->name}} - {{$user->roles->pluck('label')}}</li>
+                                <li>{{$user->name}} - {{$user->roles->first()->label}}</li>
                                 
                                 @endforeach
                             </ul>
