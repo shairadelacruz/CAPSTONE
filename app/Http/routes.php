@@ -134,6 +134,22 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::resource('user/{client_id}/payable/bill/create', 'UserBillsController@create');
 
+    Route::get('user/{client_id}/payable/bill/create/findPrice/{item_id?}','UserBillsController@findPrice');
+
+    /*Route::get('/findPrice', function(){
+
+        if(Request::ajax()){
+            return 'getRequest has loaded';
+        }
+    });
+
+    Route::get('user/{client_id}/payable/bill/create/findPrice/{item_id}',function($item_id){
+   $data= Item::select('price')->whereId($item_id)->first();
+
+    return response()->json($data);
+    });*/
+
+
     Route::resource('user/{client_id}/payable/bill/edit', 'UserBillsController@edit');
 
     Route::resource('user/{client_id}/payable/bill/pay', 'UserBillsController@pay');

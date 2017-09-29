@@ -4,7 +4,7 @@
 
                     <div class="col-sm-12">
 
-                        <input type="hidden" name='client_id' value="{{ $client_id }}" class="form-control">
+                        <input type="hidden" class="clientHidden" name='client_id' value="{{ $client_id }}" class="form-control">
 
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -40,8 +40,8 @@
                 </div>
 
                     
-                    <div class="body">
-                        <table style="table-layout:fixed;" class="table table-bordered">
+                    <div class="body table-responsive">
+                        <table class="table table-bordered">
                             <thead>
                                 <col width="14%">
                                 <col width="20%">
@@ -64,11 +64,11 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="billTbody">
                                 <tr>
                                     <td class="table-item_id">
-                                    <select class="table-control chosen-select" name="item_id[]">
-                                                    
+                                    <select class="table-control chosen-select productname" name="item_id[]">
+                                          <option value="0" selected="true" disabled="true"></option>          
                                                 @if($items)
                                                 @foreach($items as $item)
                                                     <option value="{{$item->id}}">{{$item->name}}</option>
@@ -78,8 +78,8 @@
                                         
                                     </td>
                                     <td class="table-coa_id">
-                                    <select class="table-control chosen-select" name="coa_id[]">
-                                                    
+                                    <select class="table-control chosen-select coaname" name="coa_id[]">
+                                                 <option value="0" selected="true" disabled="true"></option>   
                                                 @if($coas)
                                                 @foreach($coas as $coa)
                                                     <option value="{{$coa->id}}">{{$coa->name}}</option>
@@ -89,13 +89,13 @@
                                         
                                     </td>
                                     <td class="table-descriptions">
-                                        <input type="text" name="descriptions[]">
+                                        <input type="text" class="description" name="descriptions[]">
                                     </td>
                                     <td class="table-qty">
-                                        <input type="number" class="form-control" name="qty[]">
+                                        <input type="number" class="qty" name="qty[]">
                                     </td>
                                     <td class="table-price">
-                                        <input type="number" class="table-control" name="price[]" step="0.01">
+                                        <input type="number" class="price" name="price[]" step="0.01">
                                     </td>
 
                                     <td class="table-vat_id">
@@ -109,21 +109,21 @@
                                     </select>
                                     </td>
                                     <td class="table-vat_amount" >
-                                        <input type="number" class="table-control" name="vat_amount[]" step="0.01">
+                                        <input type="number" name="vat_amount[]" step="0.01">
                                     </td>
                                     <td class="table-total">
                                         <input type="number" value="" class="table-control" name="total[]" step="0.01">
                                     </td>
 
                                     <td class="table-remove">
-                                        <span class="table-remove-btn">X</span>
+                                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
                                     </td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td class="table-empty">
-                                        <input type="button" id ="addLine" class="table-add_line" value="+ Add Line">
+                                        <span onclick="addRow()" class="table-add_line">+ Add Line</span>
                                     </td>
                                     <td>Total</td>
                                     <td class="table-grandTotal">

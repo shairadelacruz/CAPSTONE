@@ -413,6 +413,17 @@ class UserBillsController extends Controller
         
     }
 
+    public function findPrice(/*$item_id*/Request $request)
+    {
+
+
+        $data= Item::find($request->id);
+
+        return response()->json($data);
+        //return Response::json($data);
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
