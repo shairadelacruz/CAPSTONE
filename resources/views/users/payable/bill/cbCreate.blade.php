@@ -20,7 +20,7 @@
                                     <th>VAT Amount</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="cbTbody">
                                 <tr>
                                     <td class="table-reference_no">
                                     <input type="reference_no" class="table-control" name="reference_no[]">   
@@ -69,14 +69,14 @@
                                     </td>
                                     <td class="table-remove">
                                         <input type="hidden" name='client_id[]' value="{{ $client_id }}" class="form-control">
-                                        <span class="table-remove-btn">X</span>
+                                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
                                     </td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td class="table-empty">
-                                        <input type="button" id ="addLine" class="table-add_line" value="+ Add Line">
+                                        <span onclick="addRowCb()" class="table-add_line">+ Add Line</span>
                                     </td>
                                 </tr>
                             </tfoot>

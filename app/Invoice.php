@@ -14,7 +14,7 @@ class Invoice extends Model
 
 
     protected $fillable = [
-        'reference_no', 'invoice_date', 'due_date', 'client_id', 'customer_id', 'balance', 'amount'
+        'reference_no', 'invoice_date', 'due_date', 'client_id', 'customer_id', 'balance', 'amount', 'transaction_no'
     ];
 
     public function logs()

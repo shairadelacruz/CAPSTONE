@@ -66,6 +66,8 @@ Task
                                         @if($task->status == 1) Done
                                         @endif
                                         @if($task->status == 2) For Quality Assurance
+                                        @endif
+                                        @if($task->status == 3) For Revision
                                         @endif</td>                                        
                                         <td>
                                         {!! Form::open(['method'=>'POST', 'action'=>'UserTasksController@store']) !!}

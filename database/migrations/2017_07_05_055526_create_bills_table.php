@@ -14,6 +14,7 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('transaction_no');
             $table->integer('client_id')->index()->unsigned();
             $table->integer('vendor_id')->index()->unsigned();
             $table->string('reference_no');

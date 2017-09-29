@@ -49,7 +49,7 @@ Assign Task
 
 	<div class = "form-group">
 		{!! Form:: label('status', 'Status:') !!}
-		{!! Form:: select('status', array(0=>'Pending', 1=>'Done', 2=>'For Quality Assurance'), 0, ['class'=>'form-control show-tick']) !!}
+		{!! Form:: select('status', array(0=>'Pending', 1=>'Done', 2=>'For Quality Assurance', 3=>'For Revision'), 0, ['class'=>'form-control show-tick']) !!}
 	</div>
 
 	<div class = "form-group">

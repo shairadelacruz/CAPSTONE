@@ -13,7 +13,7 @@ class Bill extends Model
     protected $dates = ['deleted_at', 'bill_date', 'due_date'];
 
     protected $fillable = [
-        'reference_no', 'bill_date', 'due_date', 'client_id', 'vendor_id', 'balance', 'amount'
+        'reference_no', 'bill_date', 'due_date', 'client_id', 'vendor_id', 'balance', 'amount', 'transaction_no'
     ];
 
     public function logs()

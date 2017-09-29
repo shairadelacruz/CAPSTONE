@@ -75,6 +75,8 @@ Task
                                         @if($task->status == 1) Done
                                         @endif
                                         @if($task->status == 2) For Quality Assurance
+                                        @endif
+                                        @if($task->status == 3) For Revision
                                         @endif</td>                                        
                                         <td>
                                             <a href="{{route('admin.management.task.edit', $task->id)}}" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
