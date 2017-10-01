@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Coa;
+use App\Coapartner;
 use App\Client;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -67,18 +68,126 @@ class UserCoasController extends Controller
         $coa = Coa::where('name', '=', $coaName)->where('coacategory_id', '=', $coaCat)->first();
 
             if($coa!=null){
+
+                $coaId = $coa->id;
+
+                if($request->debit_partner != null && $request->credit_partner == null)
+                {
+                    $client->coas()->attach($coa);
+
+                    $coapartner = new Coapartner;
+                    $coapartner->client_id = $client_id;
+                    $coapartner->coa_id = $coaId;
+                    $coapartner->partnercoa_id = $request->debit_partner;
+                    $coapartner->type = 0;
+                    $coapartner->save();
+
+                }
+
+                else if($request->credit_partner != null && $request->debit_partner == null)
+                {
+                    $client->coas()->attach($coa);
+
+                    $coapartner = new Coapartner;
+                    $coapartner->client_id = $client_id;
+                    $coapartner->coa_id = $coaId;
+                    $coapartner->partnercoa_id = $request->credit_partner;
+                    $coapartner->type = 1;
+                    $coapartner->save();
+
+                }
+
+                else if($request->debit_partner != null && $request->credit_partner != null)
+                {
+                    $client->coas()->attach($coa);
+
+                    $coapartner1 = new Coapartner;
+                    $coapartner1->client_id = $client_id;
+                    $coapartner1->coa_id = $coaId;
+                    $coapartner1->partnercoa_id = $request->debit_partner;
+                    $coapartner1->type = 0;
+                    $coapartner1->save();
+
+                    $coapartner = new Coapartner;
+                    $coapartner->client_id = $client_id;
+                    $coapartner->coa_id = $coaId;
+                    $coapartner->partnercoa_id = $request->credit_partner;
+                    $coapartner->type = 1;
+                    $coapartner->save();
+
+                }
+
+                else
+                {
+                    $client->coas()->attach($coa);
+                }
                 
-                $client->coas()->attach($coa);
 
             }
 
             else{
 
-                Coa::create($request->all());
+                $newCoa = new Coa;
+                $newCoa->name = $request->name;
+                $newCoa->coacategory_id = $request->coacategory_id;
+                $newCoa->description = $request->description;
+                $newCoa->is_generic = $request->is_generic;
+                $newCoa->save();
 
-                $newCoa = Coa::latest()->first();
+                $newCoaId = $newCoa->id;
 
-                $client->coas()->attach($newCoa);
+                //$newCoa = Coa::latest()->first();
+
+                if($request->debit_partner != null && $request->credit_partner == null)
+                {
+                    $client->coas()->attach($newCoa);
+
+                    $coapartner = new Coapartner;
+                    $coapartner->client_id = $client_id;
+                    $coapartner->coa_id = $newCoaId;
+                    $coapartner->partnercoa_id = $request->debit_partner;
+                    $coapartner->type = 0;
+                    $coapartner->save();
+
+                }
+
+                else if($request->credit_partner != null && $request->debit_partner == null)
+                {
+                    $client->coas()->attach($newCoa);
+
+                    $coapartner = new Coapartner;
+                    $coapartner->client_id = $client_id;
+                    $coapartner->coa_id = $newCoaId;
+                    $coapartner->partnercoa_id = $request->credit_partner;
+                    $coapartner->type = 1;
+                    $coapartner->save();
+
+                }
+
+                else if($request->debit_partner != null && $request->credit_partner != null)
+                {
+                    $client->coas()->attach($newCoa);
+
+                    $coapartner1 = new Coapartner;
+                    $coapartner1->client_id = $client_id;
+                    $coapartner1->coa_id = $newCoaId;
+                    $coapartner1->partnercoa_id = $request->debit_partner;
+                    $coapartner1->type = 0;
+                    $coapartner1->save();
+
+                    $coapartner = new Coapartner;
+                    $coapartner->client_id = $client_id;
+                    $coapartner->coa_id = $newCoaId;
+                    $coapartner->partnercoa_id = $request->credit_partner;
+                    $coapartner->type = 1;
+                    $coapartner->save();
+
+                }
+
+                else
+                {
+                    $client->coas()->attach($newCoa);
+                }
 
             }
 

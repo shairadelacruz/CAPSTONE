@@ -98,10 +98,10 @@ Bill
             '</td>'+
 
             '<td class="table-vat_id">'+
-            '<select class="table-control chosen-select" name="vat_id[]">'+
+            '<select class="vat_id table-control chosen-select" name="vat_id[]">'+
                 '<option value="0" selected="true" disabled="true">Choose</option>'+
                 '@if($vats)@foreach($vats as $vat)'+
-                '<option value="{{$vat->id}}">{{$vat->vat_code}}</option>'+
+                '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>'+
                 '@endforeach @endif'+
             '</select>'+
             '</td>'+
@@ -116,6 +116,8 @@ Bill
 
     $('#billTbody').append(tr);
     $(".chosen-select").chosen()
+
+
 }
 
 function removeRow(btn) {
@@ -123,6 +125,7 @@ function removeRow(btn) {
         var row = btn.parentNode.parentNode;
         row.parentNode.removeChild(row);
 }
+
 $('tbody').delegate('.productname','change',function(){
     var tr = $(this).parent().parent();
     tr.find('.qty').focus();
@@ -130,6 +133,7 @@ $('tbody').delegate('.productname','change',function(){
 });
 
 $('tbody').delegate('.productname','change',function(){
+
     var tr = $(this).parent().parent();
     var id = tr.find('.productname').val();
     var client_id = $('.clientHidden').val();
@@ -140,29 +144,62 @@ $('tbody').delegate('.productname','change',function(){
         dataType: 'json',
         data    : {'id':id},
         success:function(data){
-            $(".coaname").val(data.coa_id);
+            
+
+            tr.find('.coaname').val(data.coa_id);
             tr.find('.description').val(data.description);
             tr.find('.price').val(data.price);
+            tr.find('.vat_id').val(data.vat_id);
+
             
-            //alert(data.price);
         }
+       
     });
+            tr.find('.chosen-select').trigger("chosen:updated");
+            //tr.find('.chosen-select').trigger("liszt:updated");
+           
 });
 
-/*$(document).ready(function(){
-    $('tbody').delegate('.productname','change',function(){
-        var tr = $(this).parent().parent();
-        var client_id = $('.clientHidden').val();
-        var id = tr.find('.productname').val();
-        alert(id);
-        //var dataId = {'id':id};
-        $.get('/user/'+client_id+'/payable/bill/create/findPrice/'+id, function(data){
-            tr.find('.price').val(data.price);
-            console.log(data);
-        })
-    });
+//subTotals
+
+$('tbody').delegate('.qty','change',function(){
+    var tr = $(this).parent().parent();
+    //tr.find('.qty').focus();
+    var qty = tr.find('.qty').val();
+    var price = tr.find('.price').val();
+    var getrate = tr.find('.vat_id').find(":selected").text().slice(0,-1);
+    var rates = getrate.split('-').splice(1);
+
+    var rate = rates/100;
+
+    alert(rates);
+
+    var subtotal = price * qty;
+    var total = subtotal * rate;
+    tr.find('.subTotal').val(total);
+ 
 });
-    */
+
+$('tbody').delegate('.price','change',function(){
+    var tr = $(this).parent().parent();
+    //tr.find('.qty').focus();
+    var qty = tr.find('.qty').val();
+    var price = tr.find('.price').val();
+    var subtotal = price * qty;
+    tr.find('.subTotal').val(subtotal);
+ 
+});
+
+$('tbody').delegate('.productname','change',function(){
+    var tr = $(this).parent().parent();
+    //tr.find('.qty').focus();
+    var qty = tr.find('.qty').val();
+    var price = tr.find('.price').val();
+    var subtotal = price * qty;
+    tr.find('.subTotal').val(subtotal);
+ 
+});
+
 
 //CB Add row
 

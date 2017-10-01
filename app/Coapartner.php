@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Coapartner extends Model
 {
     //
-    protected $table = 'coas';
+    protected $fillable = [
+        'client_id', 'coa_id', 'partnercoa_id', 'type'
+    ];
 
     public function client(){
 
@@ -16,6 +18,11 @@ class Coapartner extends Model
 
     public function coa(){
 
-    	return $this->belongsToMany('App\Coa', 'coapartners', 'partnercoa_id', 'coa_id');
+    	return $this->belongsTo('App\Coa', 'coa_id');
+	}
+
+    public function coas(){
+
+    	return $this->belongsTo('App\Coa', 'partnercoa_id');
 	}
 }

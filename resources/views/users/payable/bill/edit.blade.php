@@ -150,7 +150,7 @@ Bill
                                         <input type="number" name="total[]" step="0.01" value='{{$detail->total}}' >
                                     </td>
                                     <td class="table-remove">
-                                        <span>X</span>
+                                        <span onclick="removeRow(this)">X</span>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -159,7 +159,7 @@ Bill
                             <tfoot>
                                 <tr>
                                     <td class="table-empty">
-                                        <span>+ Add Line</span>
+                                        <span onclick="addRow()">+ Add Line</span>
                                     </td>
                                     <td>Total</td>
                                     <td class="table-grandTotal right-align-text"><input type="number" step="0.01" readonly="true" value="{{$bill->amount}}"></td>
@@ -190,7 +190,64 @@ Bill
 
 @section('scripts')
     
+<script>
+    function addRow() {
+    
+    var tr = '<tr>'+
+            '<td class="table-item_id">'+
+            '<select class="table-control chosen-select productname" name="item_id[]">'+
+            '<option value="0" selected="true" disabled="true">Choose</option>'+  '@if($items)@foreach($items as $item)'+
+                    '<option value="{{$item->id}}">{{$item->name}}</option>'+
+                    '@endforeach @endif'+
+            '</select>'+
+                                        
+            '</td>'+
+            '<td class="table-coa_id">'+
+            '<select class="table-control chosen-select coaname" name="coa_id[]">'+
+                '<option value="0" selected="true" disabled="true">Choose</option>'+
+                    '@if($coas)@foreach($coas as $coa)'+
+                        '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
+                    '@endforeach @endif'+
+            '</select>'+                           
+            '</td>'+
+            '<td class="table-descriptions">'+
+            '<input type="text" class="description" name="descriptions[]">'+
+            '</td>'+
+            '<td class="table-qty">'+
+            '<input type="number" class="qty" name="qty[]">'+
+            '</td>'+
+            '<td class="table-price">'+
+            '<input type="number" class="price" name="price[]" step="0.01">'+
+            '</td>'+
 
+            '<td class="table-vat_id">'+
+            '<select class="table-control chosen-select" name="vat_id[]">'+
+                '<option value="0" selected="true" disabled="true">Choose</option>'+
+                '@if($vats)@foreach($vats as $vat)'+
+                '<option value="{{$vat->id}}">{{$vat->vat_code}}</option>'+
+                '@endforeach @endif'+
+            '</select>'+
+            '</td>'+
+            '<td class="table-vat_amount" >'+
+            '<input type="number" name="vat_amount[]" step="0.01">'+
+            '</td>'+
+            '<td class="table-total">'+
+            '<input type="number" value="" class="table-control" name="total[]" step="0.01">'+
+            '</td>'+
+            '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
+            '</tr>';
+
+    $('tbody').append(tr);
+    $(".chosen-select").chosen()
+}
+
+function removeRow(btn) {
+
+        var row = btn.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+}
+
+</script>
  
 @endsection
 @stop

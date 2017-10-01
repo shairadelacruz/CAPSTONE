@@ -18,14 +18,57 @@ class Coa extends Model
         'name', 'coacategory_id', 'description', 'is_generic'
     ];
 
+    //GET DEBIT PARTNER
+
+    public function debitPartner($client_id){
+
+        if($this->coapartner->contains('client_id', $client_id)){
+            
+            if($this->coapartner->contains('type', 0)){
+                $coapartnerid = $this->coapartner->where('type',0)->first()->id;
+                $partner = Coapartner::find($coapartnerid);
+                //$partnername = $partner->coas->name;
+                return $partner->coas->name;
+            }
+            
+        }
+        return false;
+    }
+
+        //GET CREDIT PARTNER
+
+    public function creditPartner($client_id){
+            
+        if($this->coapartner->contains('client_id', $client_id)){
+            
+            if($this->coapartner->contains('type', 1)){
+                $coapartnerid = $this->coapartner->where('type',1)->first()->id;
+                $partner = Coapartner::find($coapartnerid);
+                return $partner->coas->name;
+            }
+            
+        }
+        return false;
+    }
+
+
     public function coacategory(){
 
         return $this->belongsTo('App\Coacategory');
     }
 
-    public function coapartner(){
+    /*public function coapartner(){
         
         return $this->belongsToMany('App\Coapartner', 'coapartners','coa_id', 'partnercoa_id');
+    }*/
+    public function coapartner(){
+
+        return $this->hasMany('App\Coapartner', 'coa_id');
+    }
+
+    public function coapartners(){
+
+        return $this->hasMany('App\Coapartner', 'partnercoa_id');
     }
 
     public function item(){

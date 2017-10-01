@@ -53,7 +53,8 @@ class AdminLogsController extends Controller
        $this->validate($request, [
             'reference_no' => 'required',
             'client_id' => 'required',
-            'reference_no' => 'required'
+            'reference_no' => 'required',
+            'document_path' => 'required'
         ]);
         $date_received = $request->date_received;
         $client_id = $request->client_id;

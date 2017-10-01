@@ -7,7 +7,10 @@
 
 @section('scripts')
 
-    <!-- Light Gallery Plugin Js -->
+
+
     <script src="{{asset('plugins/light-gallery/js/lightgallery-all.js') }}"></script>
+
+
 
 @endsection

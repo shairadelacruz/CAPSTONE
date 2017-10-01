@@ -3,11 +3,6 @@
 <!-- JQuery DataTable Css -->
  <link href="{{asset('plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css') }}" rel="stylesheet">
 
- <style type="text/css">
-     input{
-        width: 100% !important;
-     }
- </style>
 
 
 @endsection

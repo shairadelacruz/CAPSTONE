@@ -67,20 +67,21 @@ Journal
                 <textarea class="form-control" name='description'></textarea>
             </div>
         </div>
+        @if(Session::has('ref_no'))
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Reference Documents</label><br>
                 <a href="#" class="btn btn-primary"  target="_blank">View</a>
             </div>
         </div>
-
+        @endif
     </div>
 
 </div>
 
     
     <div class="body table-responsive">
-        <table id="journalTable" class="table table-bordered table-form">
+        <table id="journalTable" class="table table-bordered">
             <thead>
                 <tr>
                     <th>Reference No.</th>
@@ -97,8 +98,8 @@ Journal
                 @if(Session::has('ref_no'))
                      @foreach (Session::get('ref_no') as $ref_no)
                 <tr>
-                    <td class="table-reference_no">
-                        <select class="table-control chosen-select" name="reference_no[]" data-live-search="true">
+                    <td>
+                        <select class="chosen-select" name="reference_no[]">
                                 <option value="0" selected="true" disabled="true">{{$ref_no}}</option>
                                 @if($refs)
                                 @foreach($refs as $ref)
@@ -108,7 +109,7 @@ Journal
                         </select>
                     </td>
                     <td class="table-client_coa_id">
-                   <select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">
+                   <select class="table-control chosen-select" name="coa_cli_id[]">
                                     <option value="0" selected="true" disabled="true"></option>
                                 @if($coas)
                                 @foreach($coas as $coa)
@@ -161,7 +162,7 @@ Journal
                         </select>
                     </td>
                     <td class="table-client_coa_id">
-                   <select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">
+                   <select class="table-control chosen-select" name="coa_cli_id[]">
                                     <option value="0" selected="true" disabled="true"></option>
                                 @if($coas)
                                 @foreach($coas as $coa)
@@ -212,7 +213,7 @@ Journal
                         </select>
                     </td>
                     <td class="table-client_coa_id">
-                   <select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">
+                   <select class="table-control chosen-select" name="coa_cli_id[]">
                                     <option value="0" selected="true" disabled="true"></option>
                                 @if($coas)
                                 @foreach($coas as $coa)
@@ -228,11 +229,11 @@ Journal
                     <td>
                         <input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0">
                     </td>
-                    <td class="table-description">
-                        <input type="text" class="table-control" name="descriptions[]">
+                    <td>
+                        <input style="word-wrap:break-word" type="text" name="descriptions[]">
                     </td>
-                    <td class="table-vat_id">
-                        <select class="table-control chosen-select vat_id getrate" name="vat_id[]">
+                    <td>
+                        <select class="chosen-select vat_id getrate" name="vat_id[]">
                                     <option value="0" selected="true" disabled="true"></option>
                                 @if($vats)
                                 @foreach($vats as $vat)
@@ -242,7 +243,7 @@ Journal
                     </select>
                     </td>
                     <td>
-                        <input type="number" class="table-control right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
+                        <input type="number" class="right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
                     </td>
 
                     <td class="table-remove">
@@ -288,8 +289,8 @@ Journal
         
 @section('scripts')
 
-<script>
-    function addRow() {
+<script type="text/javascript">
+        function addRow() {
     var tr = '<tr>'+
             '<td class="table-reference_no">'+
             '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
@@ -311,11 +312,11 @@ Journal
             '@endif'+
             '</select>'+
             '</td>'+
-            '<td class="table-debit">'+
+            '<td>'+
             '<input type="number" class="table-control right-align-text sumThis debit creddeb getrate" name="debit[]" value="0" >'+
             '</td>'+
 
-            '<td class="table-credit">'+
+            '<td>'+
             '<input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0" >'+
             '</td>'+
             '<td class="table-description">'+
@@ -531,8 +532,9 @@ $('tbody').delegate('.getrate','change',function(){
     });
 
 }*/
-
 </script>
+
+
 
 @endsection
 	

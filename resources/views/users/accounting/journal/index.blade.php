@@ -39,7 +39,7 @@ Journal
                                     <tr>
                                         <th>Date</th>
                                         <th>Transaction No.</th>
-                                        <th>Affected</th>
+                                        <!--<th>Affected</th>-->
                                         <th>Debit</th>
                                         <th>Credit</th>
                                         <th>Description</th>
@@ -50,7 +50,7 @@ Journal
                                     <tr>
                                         <th>Date</th>
                                         <th>Transaction No.</th>
-                                        <th>Affected</th>
+                                        <!--<th>Affected</th>-->
                                         <th>Debit</th>
                                         <th>Credit</th>
                                         <th>Description</th>
@@ -63,9 +63,9 @@ Journal
                                     <tr>
                                         <td>{{$journal->date->toDateString()}}</td>
                                         <td>{{$journal->transaction_no}}</td>
-                                        <td><button class="btn btn-default btn-xs waves-effect">View</button></td>
-                                        <td>{{$journal->journal_details->sum('debit')}}</td>
-                                        <td>{{$journal->journal_details->sum('credit')}}</td>
+                                        <!--<td><button class="btn btn-default btn-xs waves-effect">View</button></td>-->
+                                        <td>{{$journal->debit_total}}</td>
+                                        <td>{{$journal->credit_total}}</td>
                                         <td>{{$journal->description}}</td>
                                         <td>
                                             <a href ="journal/{{$journal->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

@@ -39,6 +39,8 @@ COA
                                         <th>Category</th>
                                         <th>Account</th>
                                         <th>Description</th>
+                                        <th>Debit Account</th>
+                                        <th>Credit Account</th>
                                         <th>Amount</th>
                                         <th>Action</th>
 
@@ -49,6 +51,8 @@ COA
                                         <th>Category</th>
                                         <th>Account</th>
                                         <th>Description</th>
+                                        <th>Debit Account</th>
+                                        <th>Credit Account</th>
                                         <th>Amount</th>
                                         <th>Action</th>
 
@@ -58,9 +62,12 @@ COA
                                     @if($coas)
                                     @foreach($coas as $coa)
                                     <tr>
+
                                         <td>{{$coa->coacategory->name}}</td>
                                         <td>{{$coa->name}}</td>
                                         <td>{{$coa->description}}</td>
+                                        <td>{{$coa->debitPartner($client_id)}}</td>
+                                        <td>{{$coa->creditPartner($client_id)}}</td>
                                         <td>{{$coa->journals_details->sum('debit') - $coa->journals_details->sum('credit')}}</td> 
                                         <td>
                                             @if($coa->is_generic == 1)
@@ -123,6 +130,8 @@ COA
                                         <div class="form-line">
                                             {!! Form:: label('debit_partner', 'Partner Debit:') !!}
 
+
+
                                             {!! Form:: select('debit_partner', [''=>'Choose Options'] + $coaselect ,null, ['class'=>'form-control chosen-select']) !!}
 
                                         </div>
@@ -168,6 +177,8 @@ COA
                             <div class="row clearfix">
                             @include('includes.form_error')
                                 {!! Form::model($coa,['method'=>'PATCH', 'action'=>['AdminCoasController@update', $coa->id]]) !!}
+
+            
                                 
                                     <div class="form-group form-float">
                                         <div class="form-line">
@@ -179,7 +190,7 @@ COA
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             {!! Form:: label('coacategory_id', 'Category:') !!}
-                                            {!! Form:: select('coacategory_id', array(1=>'Asset', 2=>'Liability', 3=>'Revenue', 4=>'Expense', 5=>'Equity' ), null, ['class'=>'form-control show-tick']) !!}
+                                            {!! Form:: select('coacategory_id', array(1=>'Asset', 2=>'Liability', 3=>'Expense', 4=>'Revenue', 5=>'Equity' ), null, ['class'=>'form-control show-tick']) !!}
                                         </div>
                                     </div>
                                     
@@ -195,6 +206,8 @@ COA
                                             {!! Form:: label('debit_partner', 'Partner Debit:') !!}
 
                                             {!! Form:: select('debit_partner', [''=>'Choose Options'] + $coaselect ,null, ['class'=>'form-control chosen-select']) !!}
+
+
 
                                         </div>
                                     </div>
