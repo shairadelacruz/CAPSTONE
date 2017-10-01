@@ -205,7 +205,7 @@ COA
                                         <div class="form-line">
                                             {!! Form:: label('debit_partner', 'Partner Debit:') !!}
 
-                                            {!! Form:: select('debit_partner', [''=>'Choose Options'] + $coaselect ,null, ['class'=>'form-control chosen-select']) !!}
+                                            {!! Form:: select('debit_partner', [''=>'Choose Options'] + $coaselect ,$coa->debitPartnerId($client_id), ['class'=>'form-control chosen-select']) !!}
 
 
 
@@ -216,7 +216,7 @@ COA
                                         <div class="form-line">
                                             {!! Form:: label('credit_partner', 'Partner Credit:') !!}
 
-                                            {!! Form:: select('credit_partner', [''=>'Choose Options'] + $coaselect ,null, ['class'=>'form-control chosen-select']) !!}
+                                            {!! Form:: select('credit_partner', [''=>'Choose Options'] + $coaselect ,$coa->creditPartnerId($client_id), ['class'=>'form-control chosen-select']) !!}
 
                                         </div>
                                     </div>

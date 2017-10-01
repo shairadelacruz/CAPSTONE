@@ -27,7 +27,6 @@ class Coa extends Model
             if($this->coapartner->contains('type', 0)){
                 $coapartnerid = $this->coapartner->where('type',0)->first()->id;
                 $partner = Coapartner::find($coapartnerid);
-                //$partnername = $partner->coas->name;
                 return $partner->coas->name;
             }
             
@@ -45,6 +44,36 @@ class Coa extends Model
                 $coapartnerid = $this->coapartner->where('type',1)->first()->id;
                 $partner = Coapartner::find($coapartnerid);
                 return $partner->coas->name;
+            }
+            
+        }
+        return false;
+    }
+
+        public function debitPartnerId($client_id){
+
+        if($this->coapartner->contains('client_id', $client_id)){
+            
+            if($this->coapartner->contains('type', 0)){
+                $coapartnerid = $this->coapartner->where('type',0)->first()->id;
+                $partner = Coapartner::find($coapartnerid);
+                return $partner->coas->id;
+            }
+            
+        }
+        return false;
+    }
+
+        //GET CREDIT PARTNER
+
+    public function creditPartnerId($client_id){
+            
+        if($this->coapartner->contains('client_id', $client_id)){
+            
+            if($this->coapartner->contains('type', 1)){
+                $coapartnerid = $this->coapartner->where('type',1)->first()->id;
+                $partner = Coapartner::find($coapartnerid);
+                return $partner->coas->id;
             }
             
         }
