@@ -26,11 +26,11 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Bill Date</label>
-                                <input type="date" class="form-control" name='bill_date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" min="{{ \Carbon\Carbon::parse($client->closing->last()->created_at)->format('Y-m') }}-01">
+                                <input type="date" class="form-control" name='bill_date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
                             </div>
                             <div class="form-group">
                                 <label>Due Date</label>
-                                <input type="date" class="form-control" name='due_date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" min="{{ \Carbon\Carbon::parse($client->closing->last()->created_at)->format('Y-m') }}-01">
+                                <input type="date" class="form-control" name='due_date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
                             
                             </div>
                         </div>

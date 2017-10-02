@@ -44,7 +44,7 @@ Journal
         <div class="col-sm-4">
             <div class="form-group">
                 <label>Date</label>
-                <input type="date" class="form-control" name='date' value="{{$journal->date->toDateString()}}" min="{{ \Carbon\Carbon::parse($client->closing->last()->created_at)->format('Y-m') }}-01">
+                <input type="date" class="form-control" name='date' value="{{$journal->date->toDateString()}}" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
             </div>
         </div>
         <div class="col-sm-4">

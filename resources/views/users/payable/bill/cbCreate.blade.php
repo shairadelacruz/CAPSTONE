@@ -1,14 +1,8 @@
 {!!Form::open(['route' => ['insertcb', $client_id], 'id'=>'frmsave2', 'method'=>'POST'])!!}
 <div class="body">
-                        <table style="table-layout:fixed;" class="table table-bordered table-form" width="100">
+                        <table class="table table-bordered table-form">
                             <thead>
-                                <col width="14%">
-                                <col width="14%">
-                                <col width="14%">
-                                <col width="14%">
-                                <col width="14%">
-                                <col width="14%">
-                                <col width="14%">
+                                
 
                                 <tr>
                                     <th>Reference No.</th>
@@ -27,7 +21,7 @@
                                     </td>
                                     
                                     <td class="table-bill_date">
-                                        <input type="date" class="table-control" name="bill_date[]" min="{{ \Carbon\Carbon::parse($client->closing->last()->created_at)->format('Y-m') }}-01">
+                                        <input type="date" class="table-control" name="bill_date[]" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
                                     </td>
                                     <td class="table-vendor">
                                         <select class="table-control chosen-select" name="vendor_id[]">

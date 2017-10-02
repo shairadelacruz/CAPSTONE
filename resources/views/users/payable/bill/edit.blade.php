@@ -44,7 +44,7 @@ Bill
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Bill Date</label>
-                                <input type="date" class="form-control" name='bill_date' value="{{$bill->bill_date->toDateString()}}" min="{{ \Carbon\Carbon::parse($client->closing->last()->created_at)->format('Y-m') }}-01">
+                                <input type="date" class="form-control" name='bill_date' value="{{$bill->bill_date->toDateString()}}" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
                                 
                             </div>
                         </div>
@@ -52,7 +52,7 @@ Bill
                             <div class="form-group">
                                 <label>Due Date</label>
                                 <input type="date" class="form-control" name='due_date'
-                                value='{{$bill->due_date->toDateString()}}' min="{{ \Carbon\Carbon::parse($client->closing->last()->created_at)->format('Y-m') }}-01">
+                                value='{{$bill->due_date->toDateString()}}' min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
                                 
                             </div>
                         </div>

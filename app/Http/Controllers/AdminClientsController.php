@@ -7,6 +7,7 @@ use App\Http\Requests\ClientsEditRequest;
 use App\Http\Requests\ClientsRequest;
 use Illuminate\Http\Request;
 use App\Client;
+use App\Closing;
 use App\User;
 use App\Role;
 use App\Business;
@@ -55,11 +56,23 @@ class AdminClientsController extends Controller
 
         $client = Client::latest()->first();
 
+        //Assign admin
+
         $client->assignAdmin();
 
         $client_id = $client->id;
 
+        //Attach Generic COA
+
         $client->coas()->sync([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]);
+
+        //Add Closing
+
+        $closing1 = new Closing;
+
+        $closing1->client_id = $client_id;
+
+        $closing1->save();
 
         Session::flash('created_client',$client_id);
         
