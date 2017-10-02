@@ -24,7 +24,7 @@ Adjusting Entries
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
-                                    <a href="journal/create" class="btn btn-primary waves-effect">+Add</a>
+                                    <a href="adjusting/create" class="btn btn-primary waves-effect">+Add</a>
 
                                 </div>
                             </div>
@@ -39,7 +39,6 @@ Adjusting Entries
                                     <tr>
                                         <th>Date</th>
                                         <th>Transaction No.</th>
-                                        <th>Affected</th>
                                         <th>Debit</th>
                                         <th>Credit</th>
                                         <th>Description</th>
@@ -50,7 +49,6 @@ Adjusting Entries
                                     <tr>
                                         <th>Date</th>
                                         <th>Transaction No.</th>
-                                        <th>Affected</th>
                                         <th>Debit</th>
                                         <th>Credit</th>
                                         <th>Description</th>
@@ -68,7 +66,7 @@ Adjusting Entries
                                         <td>{{$journal->journal_details->sum('credit')}}</td>
                                         <td>{{$journal->description}}</td>
                                         <td>
-                                            <a href ="journal/{{$journal->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a href ="adjusting/{{$journal->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteJournal{{$journal->id}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
@@ -97,7 +95,7 @@ Adjusting Entries
                             Are you sure you want to void?
                         </div>
                         <div class="modal-footer">
-                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserJournalsController@destroy', $journal->id, $journal->client_id]]) !!}
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserAdjustingController@destroy', $journal->id, $journal->client_id]]) !!}
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
 

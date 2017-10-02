@@ -27,7 +27,7 @@
                                     </td>
                                     
                                     <td class="table-bill_date">
-                                        <input type="date" class="table-control" name="bill_date[]">
+                                        <input type="date" class="table-control" name="bill_date[]" min="{{ \Carbon\Carbon::parse($client->closing->last()->created_at)->format('Y-m') }}-01">
                                     </td>
                                     <td class="table-vendor">
                                         <select class="table-control chosen-select" name="vendor_id[]">

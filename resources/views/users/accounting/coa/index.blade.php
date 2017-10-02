@@ -176,9 +176,11 @@ COA
                             
                             <div class="row clearfix">
                             @include('includes.form_error')
-                                {!! Form::model($coa,['method'=>'PATCH', 'action'=>['AdminCoasController@update', $coa->id]]) !!}
+                                {!! Form::model($coa,['method'=>'PATCH', 'action'=>['UserCoasController@update', $coa->id,$client_id]]) !!}s
 
-            
+                                {!! Form:: hidden('client_id', $client_id) !!}
+
+                                    {!! Form:: hidden('is_generic', 1) !!} 
                                 
                                     <div class="form-group form-float">
                                         <div class="form-line">

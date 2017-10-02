@@ -2,9 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-
+use App\Coa;
+use App\Coaamount;
+use App\Log;
+use App\Vat;
+use App\Client;
+use App\Journal;
+use App\JournalDetails;
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 
 class UserAdjustingController extends Controller
 {
@@ -13,9 +21,14 @@ class UserAdjustingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($client_id)
     {
         //
+        $client = Client::find($client_id);
+
+        $journals = $client->journal->where('type', 6)->all();
+
+        return view('users.adjusting.index', compact('journals'));
     }
 
     /**
@@ -23,9 +36,17 @@ class UserAdjustingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($client_id)
     {
         //
+        $client = Client::find($client_id);
+        $coas = $client->coas;
+        $vats = Vat::all();
+        $refs = $client->log;
+        $carbon = \Carbon\Carbon::now(); 
+        $count = Journal::whereYear('created_at','=', $carbon->year)->count()+1;
+
+        return view('users.adjusting.create', compact('client_id','coas', 'vats', 'refs','count'));
     }
 
     /**
@@ -37,6 +58,53 @@ class UserAdjustingController extends Controller
     public function store(Request $request)
     {
         //
+         $this->validate($request, [
+            'transaction_no' => 'required',
+            'date' => 'required',
+            'coa_cli_id' => 'required',
+            'debittot' => 'required|integer',
+            'credittot' => 'required|integer|same:debittot'
+        ]);
+        
+
+        $journals = new Journal;
+        $journals->client_id = $request->client_id;
+        $journals->transaction_no = $request->transaction_no;
+        $journals->date = $request->date;
+        $journals->description = $request->description;
+        $journals->debit_total = $request->debittot;
+        $journals->credit_total = $request->credittot;
+        $journals->type = 6;
+
+        $id = $journals->save();
+
+        
+        $journ = Journal::all()->last();
+        $journalId = $journ->id;
+
+
+        if($id != 0){
+            foreach ($request->coa_cli_id as $key => $v)
+            {
+
+                $journalDetail = new JournalDetails([
+                            'journal_id'=>$journalId,
+                            'coa_id'=>$request->coa_cli_id[$key],
+                            'reference_no'=>$request->reference_no[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'debit'=>$request->debit[$key],
+                            'credit'=>$request->credit[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'vat_amount'=>$request->vat_amount[$key]
+                            
+                ]);
+
+            $journalDetail->save();
+
+            }
+        }
+        $client_id = $request->client_id;
+        return \Redirect::route('adjusting', [$client_id]); 
     }
 
     /**
@@ -56,9 +124,18 @@ class UserAdjustingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($client_id, $id)
     {
         //
+
+        $journal = Journal::findOrFail($id);
+        $details = $journal->journal_details;
+        $client = Client::findOrFail($client_id);
+        $coas = $client->coas;
+        $vats = Vat::all();
+        $refs = $client->log;
+
+        return view('users.adjusting.edit', compact('journal','details','client_id','coas', 'vats', 'refs'));
     }
 
     /**
@@ -68,9 +145,60 @@ class UserAdjustingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $client_id, $id)
     {
         //
+        $this->validate($request, [
+            'transaction_no' => 'required',
+            'date' => 'required',
+            'coa_cli_id' => 'required'
+        ]);
+        
+
+        $journals= Journal::findOrFail($id);
+        $journals->client_id = $request->client_id;
+        $journals->transaction_no = $request->transaction_no;
+        $journals->date = $request->date;
+        $journals->description = $request->description;
+        $journals->debit_total = $request->debittot;
+        $journals->credit_total = $request->credittot;
+        $journals->type = 6;
+
+        $journals->update();
+
+        
+        $id = $journals->id;
+
+
+        $journalId = $journals->id;
+
+        $client_id = $request->client_id;
+
+        JournalDetails::where('journal_id', $journalId)->delete();
+
+
+        if($id != 0){
+            foreach ($request->coa_cli_id as $key => $v)
+            {
+
+                $journalDetail = new JournalDetails([
+                            'journal_id'=>$journalId,
+                            'coa_id'=>$request->coa_cli_id[$key],
+                            'reference_no'=>$request->reference_no[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'debit'=>$request->debit[$key],
+                            'credit'=>$request->credit[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'vat_amount'=>$request->vat_amount[$key]
+                            
+                ]);
+
+            $journalDetail->save();
+
+            }
+        }
+
+        return \Redirect::route('adjusting', [$client_id]); 
     }
 
     /**
@@ -79,8 +207,24 @@ class UserAdjustingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $client_id)
     {
         //
+        $journal = Journal::findOrFail($id);
+
+        $journal->debit_total = 0;
+
+        $journal->credit_total = 0;
+        
+        $journal->update();
+
+        $journalId = $journal->id;
+
+        JournalDetails::where('journal_id', '=', $journalId)
+        ->update(['debit' => 0, 'credit' => 0, 'vat_amount' => 0]);
+
+        Session::flash('deleted_journal','The journal has been voided');
+
+        return \Redirect::route('journal', [$client_id]);
     }
 }

@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-Journal
+Adjusting Entries
 
 @endsection
 
@@ -12,13 +12,13 @@ Journal
 
     <div id="journal">
 
-        <div class = "panel panel-default">
+        <div class = "panel panel-default" v-clock>
             
             <div class = "panel-heading">
 
                 <div class = "clearfix">
                     
-                    <span class = "panel-title">Edit Journal</span>
+                    <span class = "panel-title">Create Adjusting Entry</span>
                     <a href="{{ route('journal', $client_id) }}" class="btn btn-default pull-right">Back</a>
 
                 </div>    
@@ -27,40 +27,61 @@ Journal
 
             <div class="panel-body">
                 
-                {!! Form::model($journal,['method'=>'PATCH','action'=>['UserJournalsController@update',
-                $client_id, $journal->id]]) !!}
+                {!!Form::open(['route' => ['insertjournal', $client_id], 'id'=>'frmsave', 'method'=>'POST'])!!}
                 
                     
 <div class="row">
 
     <div class="col-sm-12">
+               
+                <ul>
+                    @if(Session::has('ref_no'))
+                     @foreach (Session::get('ref_no') as $ref_no)
+                    <li>{{$ref_no}}</li>
+                    @endforeach
+                    @endif
+                </ul>
+                
+                
 
-        <div class="col-sm-4">
+        <input type="hidden" name='client_id' value="{{ $client_id }}" class="form-control">
+
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Transaction No.</label>
-                <input type="text" class="form-control" name='transaction_no' value="{{$journal->transaction_no}}">
+                @if($client_name = Auth::user()->clients->find(request()->route('client_id')))
+                    
+                <input type="text" class="form-control" name='transaction_no' value="{{Carbon\Carbon::today()->format('Y')}}-{{$client_name->code}}{{$client_name->id}}-{{$count}}-J" readonly="true">
+                @endif
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Date</label>
-                <input type="date" class="form-control" name='date' value="{{$journal->date->toDateString()}}" min="{{ \Carbon\Carbon::parse($client->closing->last()->created_at)->format('Y-m') }}-01">
+                <input type="date" class="form-control" name='date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Description</label>
-                <textarea class="form-control" name='description'>{{$journal->description}}</textarea>
+                <textarea class="form-control" name='description'></textarea>
             </div>
         </div>
-
+        @if(Session::has('ref_no'))
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label>Reference Documents</label><br>
+                <a href="#" class="btn btn-primary"  target="_blank">View</a>
+            </div>
+        </div>
+        @endif
     </div>
 
 </div>
 
     
     <div class="body table-responsive">
-        <table id="journalTable" class="table table-bordered table-form">
+        <table id="journalTable" class="table table-bordered">
             <thead>
                 <tr>
                     <th>Reference No.</th>
@@ -74,68 +95,173 @@ Journal
                 </tr>
             </thead>
             <tbody>
-                 @if($details)
-                    @foreach($details as $detail)
-
+                @if(Session::has('ref_no'))
+                     @foreach (Session::get('ref_no') as $ref_no)
                 <tr>
-                    <td class="table-reference_no">
-                        <input id="reference_no" type="text" name="reference_no[]" class="table-control" value="{{$detail->reference_no}}">
+                    <td>
+                        <select class="chosen-select" name="reference_no[]">
+                                <option value="0" selected="true" disabled="true">{{$ref_no}}</option>
+                                @if($refs)
+                                @foreach($refs as $ref)
+                                    <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
+                                @endforeach
+                                @endif
+                        </select>
                     </td>
                     <td class="table-client_coa_id">
-                    <select class="table-control chosen-select" name="coa_cli_id[]">
-                                <option value="{{$detail->coa->id}}" selected="true">{{$detail->coa->name}}</option>
+                   <select class="table-control chosen-select" name="coa_cli_id[]">
+                                    <option value="0" selected="true" disabled="true"></option>
                                 @if($coas)
                                 @foreach($coas as $coa)
-                                <option value="{{$coa->id}}">{{$coa->name}}</option>
+                                    <option value="{{$coa->id}}">{{$coa->name}}</option>
                                 @endforeach
                                 @endif
                     </select>
                         
                     </td>
-                    <td class="table-debit">
-                        <input type="number" class="table-control right-align-text sumThis" name="debit[]" value="{{$detail->debit}}" onchange="update_vats()">
+                    <td>
+                        <input type="number" class="table-control right-align-text sumThis debit creddeb getrate" name="debit[]" value="0">
                     </td>
-                    <td class="table-credit">
-                        <input type="number" class="table-control right-align-text sumThis1" name="credit[]" value="{{$detail->credit}}" onchange="update_vats()">
+                    <td>
+                        <input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0">
                     </td>
                     <td class="table-description">
-                        <input type="text" class="table-control" name="descriptions[]" value="{{$detail->descriptions}}">
+                        <input type="text" class="table-control" name="descriptions[]">
                     </td>
-                    <td class="table-vat_id col-sm-2">
-                        <select class="table-control chosen-select" name="vat_id[]">
-                                    @if(!empty($detail->vat->id))
-                                    <option value="{{$detail->vat->id}}" selected="true">{{$detail->vat->vat_code}}</option>
-                                    @else
+                    <td class="table-vat_id">
+                        <select class="table-control chosen-select vat_id getrate" name="vat_id[]">
                                     <option value="0" selected="true" disabled="true"></option>
-                                    @endif
                                 @if($vats)
                                 @foreach($vats as $vat)
-                                    <option value="{{$vat->id}}">{{$vat->vat_code}}</option>
+                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - 
+                                        <span class ="vat_rate">{{ number_format($vat->rate, 0) }}</span>
+                                    </option>
                                 @endforeach
                                 @endif
                     </select>
                     </td>
-                    <td class="table-vat_amount">
-                        <input type="number" class="table-control right-align-text" name="vat_amount[]" value="{{$detail->vat_amount}}">
+                    <td>
+                        <input type="number" class="table-control right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
                     </td>
-                    <!--<td class="table-vendor_id">
-                        <input type="text" class="table-control" name="vendor_id[]">
-                    </td>-->
+
                     <td class="table-remove">
-                        <span class="table-remove-btn" onclick="removeRow(this)">X</span>
+                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
                     </td>
                 </tr>
                 @endforeach
-                @endif
+                    @else
+                    <tr>
+                    <td class="table-reference_no">
+                        <select class="table-control chosen-select" name="reference_no[]" data-live-search="true">
+                                    <option value="0" selected="true" disabled="true"></option>
+                                @if($refs)
+                                @foreach($refs as $ref)
+                                    <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
+                                @endforeach
+                                @endif
+                        </select>
+                    </td>
+                    <td class="table-client_coa_id">
+                   <select class="table-control chosen-select" name="coa_cli_id[]">
+                                    <option value="0" selected="true" disabled="true"></option>
+                                @if($coas)
+                                @foreach($coas as $coa)
+                                    <option value="{{$coa->id}}">{{$coa->name}}</option>
+                                @endforeach
+                                @endif
+                    </select>
+                        
+                    </td>
+                    <td>
+                        <input type="number" class="table-control right-align-text sumThis debit creddeb getrate" name="debit[]" value="0">
+                    </td>
+                    <td>
+                        <input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0">
+                    </td>
+                    <td class="table-description">
+                        <input type="text" class="table-control" name="descriptions[]">
+                    </td>
+                    <td class="table-vat_id">
+                        <select class="table-control chosen-select vat_id getrate" name="vat_id[]">
+                                    <option value="0" selected="true" disabled="true"></option>
+                                @if($vats)
+                                @foreach($vats as $vat)
+                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
+                                @endforeach
+                                @endif
+                    </select>
+                    </td>
+                    <td>
+                        <input type="number" class="table-control right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
+                    </td>
+
+                    <td class="table-remove">
+                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="table-reference_no">
+                        <select class="table-control chosen-select" name="reference_no[]" data-live-search="true">
+                                    <option value="0" selected="true" disabled="true"></option>
+                                @if($refs)
+                                @foreach($refs as $ref)
+                                    <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
+                                @endforeach
+                                @endif
+                        </select>
+                    </td>
+                    <td class="table-client_coa_id">
+                   <select class="table-control chosen-select" name="coa_cli_id[]">
+                                    <option value="0" selected="true" disabled="true"></option>
+                                @if($coas)
+                                @foreach($coas as $coa)
+                                    <option value="{{$coa->id}}">{{$coa->name}}</option>
+                                @endforeach
+                                @endif
+                    </select>
+                        
+                    </td>
+                    <td>
+                        <input type="number" class="table-control right-align-text sumThis debit creddeb getrate" name="debit[]" value="0">
+                    </td>
+                    <td>
+                        <input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0">
+                    </td>
+                    <td>
+                        <input style="word-wrap:break-word" type="text" name="descriptions[]">
+                    </td>
+                    <td>
+                        <select class="chosen-select vat_id getrate" name="vat_id[]">
+                                    <option value="0" selected="true" disabled="true"></option>
+                                @if($vats)
+                                @foreach($vats as $vat)
+                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
+                                @endforeach
+                                @endif
+                    </select>
+                    </td>
+                    <td>
+                        <input type="number" class="right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
+                    </td>
+
+                    <td class="table-remove">
+                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
+                    </td>
+                </tr>
+                    @endif
             </tbody>
             <tfoot>
                 <tr id="totals">
-                    <td class="table-empty">
-                        <span class="table-add_line" onclick="addRow()" >+ Add Line</span>
+                    <td>
+                        <span onclick="addRow()" class="table-add_line">+ Add Line</span>
                     </td>
                     <td>Total</td>
-                    <td class="table-debittot"><input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="{{$journal->debit_total}}"></td>
-                    <td class="table-credittot"><input id="credittot"t type="number" class="table-control right-align-text" name="credittot" readonly="true" value="{{$journal->credit_total}}"></td>
+                    
+                    <td><input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="0"></td>
+                    <td><input id="credittot" type="number" class="table-control right-align-text" name="credittot" readonly="true" value="0"></td>
+
                 </tr>
             </tfoot>
         </table>
@@ -145,10 +271,11 @@ Journal
 
             <div class="panel-footer">
 
+
                 
                 <a href="{{ route('journal', $client_id) }}" class="btn btn-default">Cancel</a>
                 
-                <input type='submit' value='Edit' class="btn btn-success">
+                <input type='submit' value='Create' class="btn btn-success">
                 
                 {!!Form::close()!!}
                 @include('includes.form_error')
@@ -156,7 +283,11 @@ Journal
             </div>
 
         </div>
+        
+    </div>
 
+        
+@section('scripts')
 
 <script type="text/javascript">
         function addRow() {
@@ -387,7 +518,24 @@ $('tbody').delegate('.getrate','change',function(){
 
 });
 
+
+/*function update_vats()
+{
+    var sum = 0.0;
+    $('#journalTable > tbody  > tr:not(:last)').each(function() {
+        var debcred = parseFloat($(this).find('.sumThis').val() || 0,10);
+        var vat = parseFloat($(this).find('.vat_rate').val() || 0,10);
+        var rate = vat/100;
+        var amount = (rate*debcred);
+        sum+=amount;
+        $(this).find('.vat_amount').val(''+amount);
+    });
+
+}*/
 </script>
-  
-    
+
+
+
+@endsection
+	
 @stop

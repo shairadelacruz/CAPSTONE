@@ -28,8 +28,7 @@ Close Transactions
                                     <tr>
                                         <th>Code</th>
                                         <th>Company Name</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
+                                        <th>Current Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -37,22 +36,23 @@ Close Transactions
                                     <tr>
                                         <th>Code</th>
                                         <th>Company Name</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
+                                        <th>Current Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                 
-                                @if($closings)
-                                    @foreach($closings as $closing)
-                                    @if($closing->status == 1)
+                                @if($clients)
+                                    @foreach($clients as $client)
+                                     @if($client->closing->last()->status == 1)
                                     <tr>
-                                        <td>{{$closing->client->code}}{{$closing->client->id}}</td>
-                                        <td>{{$closing->client->company_name}}</td>
-                                        <td>{{ \Carbon\Carbon::parse($closing->created_at)->format('m-Y') }}</td>
-                                        <td>{{$closing->status == 1 ? 'Open' : 'Closed'}}</td>
-										<td></td>
+                                        <td>{{$client->code}}{{$client->id}}</td>
+                                        <td>{{$client->company_name}}</td>
+                                        <td>{{ \Carbon\Carbon::parse($client->closing->last()->created_at)->format('m-Y') }}</td>
+										<td>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#open{{$client->id}}"><i class="fa fa-folder-open-o" aria-hidden="true"></i></button>
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#close{{$client->id}}"><i class="fa fa-times-circle" aria-hidden="true"></i></button>                              
+                                        </td>
                                     </tr>
                                     @endif
                                     @endforeach
@@ -64,6 +64,75 @@ Close Transactions
                 </div>
             </div>
             <!-- #END# Exportable Table -->
+
+            @if($clients)
+                @foreach($clients as $client)
+            <!-- Edit -->
+            <div class="modal fade" id="open{{$client->id}}" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Open Transaction</h4><br>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <div class="row clearfix">
+                                {!! Form::model($client,['method'=>'PATCH', 'action'=>['AdminClosingController@update', $client->id]]) !!}
+                                
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            {!! Form:: label('month', 'Month:') !!}
+                                            {!! Form:: selectMonth('month',null, ['class'=>'form-control']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            {!! Form:: label('year', 'Year:') !!}
+                                            {!! Form:: selectYear('year',Carbon\Carbon::today()->format('Y'), 1900, ['class'=>'form-control']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        {!! Form:: submit('SAVE', ['class'=>'btn btn-primary']) !!}
+                                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                    </div>
+                                 
+                                {!! Form::close() !!}
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!--End Edit --> 
+           
+            
+            <!-- Delete-->
+            <div class="modal fade" id="close{{$client->id}}" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Close</h4><br>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to close the book for this period?
+                        </div>
+                        <div class="modal-footer">
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['AdminClosingController@destroy', $client->id]]) !!}
+
+                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!--End Delete--> 
+           @endforeach
+            @endif
+
         </div>
 
 	

@@ -45,7 +45,7 @@ class UserJournalsController extends Controller
         $carbon = \Carbon\Carbon::now(); 
         $count = Journal::whereYear('created_at','=', $carbon->year)->count()+1;
 
-        return view('users.accounting.journal.create', compact('client_id','coas', 'vats', 'refs','count'));
+        return view('users.accounting.journal.create', compact('client_id','coas', 'vats', 'refs','count', 'client'));
     }
 
     /**

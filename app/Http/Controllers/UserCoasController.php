@@ -216,6 +216,7 @@ class UserCoasController extends Controller
     public function edit($id)
     {
         //
+
     }
 
     /**
@@ -228,7 +229,89 @@ class UserCoasController extends Controller
     public function update(Request $request, $id)
     {
         //
+        /*$client_id = $request->client_id;
 
+        $client = Client::find($client_id);
+
+        $coa = Coa::findOrFail($id);
+
+                $coa->name = $request->name;
+                $coa->coacategory_id = $request->coacategory_id;
+                $coa->description = $request->description;
+                $coa->is_generic = $request->is_generic;
+                $coa->update();
+
+                $newCoaId = $coa->id;
+
+
+                if($request->debit_partner != null && $request->credit_partner == null)
+                {
+                    $client->coas()->detach();
+                    $client->coas()->attach($coa);
+
+                    $coapartnerid = $coa->debitPartnerId;
+
+                    $coapartner = Coapartner::findOrFail($coapartnerid);
+                    $coapartner->client_id = $client_id;
+                    $coapartner->coa_id = $newCoaId;
+                    $coapartner->partnercoa_id = $request->debit_partner;
+                    $coapartner->type = 0;
+                    $coapartner->update();
+
+                }
+
+                else if($request->credit_partner != null && $request->debit_partner == null)
+                {
+                    $client->coas()->detach();
+                    $client->coas()->attach($coa);
+
+                    $coapartnerid = $coa->creditPartnerId;
+
+                    $coapartner = Coapartner::findOrFail($coapartnerid);
+                    $coapartner->client_id = $client_id;
+                    $coapartner->coa_id = $newCoaId;
+                    $coapartner->partnercoa_id = $request->credit_partner;
+                    $coapartner->type = 1;
+                    $coapartner->update();
+
+                }
+
+                else if($request->debit_partner != null && $request->credit_partner != null)
+                {
+                    $client->coas()->detach();
+                    $client->coas()->attach($coa);
+
+                    $coapartnerid = $coa->debitPartnerId;
+
+                    $coapartner1s = Coapartner::findOrFail($coapartnerid);
+                    $coapartner1->client_id = $client_id;
+                    $coapartner1->coa_id = $newCoaId;
+                    $coapartner1->partnercoa_id = $request->debit_partner;
+                    $coapartner1->type = 0;
+                    $coapartner1->update();
+
+                    $coapartnerid = $coa->creditPartnerId;
+
+                    $coapartner = Coapartner::findOrFail($coapartnerid);
+                    $coapartner->client_id = $client_id;
+                    $coapartner->coa_id = $newCoaId;
+                    $coapartner->partnercoa_id = $request->credit_partner;
+                    $coapartner->type = 1;
+                    $coapartner->update();
+
+                }
+
+                else
+                {
+                    $client->coas()->detach();
+                    $client->coas()->attach($coa);
+                }
+
+
+        $input = $request->all();
+        
+        return \Redirect::route('coa', [$client_id]);*/
+        return $request->all();
     }
 
     /**
@@ -247,9 +330,7 @@ class UserCoasController extends Controller
 
         $client->coas()->detach($coa);
 
-        
-
-       Session::flash('deleted_coa','The account has been deleted');
+        Session::flash('deleted_coa','The account has been deleted');
 
         return \Redirect::route('coa', [$client_id]);
     }

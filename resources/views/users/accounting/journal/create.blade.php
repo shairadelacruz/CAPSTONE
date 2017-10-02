@@ -58,7 +58,7 @@ Journal
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Date</label>
-                <input type="date" class="form-control" name='date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
+                <input type="date" class="form-control" name='date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" min="{{ \Carbon\Carbon::parse($client->closing->last()->created_at)->format('Y-m') }}-01">
             </div>
         </div>
         <div class="col-sm-3">

@@ -17,8 +17,8 @@ class AdminClosingController extends Controller
     public function index()
     {
         //
-        $closings = Closing::all()->last();
-        return view('admin.utilities.closing.index', compact('closings'));
+        $clients = Client::all();
+        return view('admin.utilities.closing.index', compact('clients'));
     }
 
     /**
@@ -29,6 +29,7 @@ class AdminClosingController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -74,6 +75,7 @@ class AdminClosingController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return $request->all();
     }
 
     /**
