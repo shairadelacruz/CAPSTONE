@@ -32,9 +32,23 @@ Assign Task
 		{!! Form:: select('user_id', [''=>'Choose Options'] + $users ,null, ['class'=>'form-control chosen-select']) !!}
 	</div>
 
+
 	<div class = "form-group">
 		{!! Form:: label('log_id', 'Document:') !!}
-		{{Form::select('log_id[]',$logs,null,['class'=>'chosen-select form-control', 'multiple'=>'multiple'], array($task->log->first()->reference_no), array('multiple'))}}
+
+		<select class="chosen-select form-control" name="log_id[]" multiple="multiple">
+			@if($task->log->first())
+			@foreach($task->log as $tasklog)
+			<option selected>{{$tasklog->reference_no}}</option>
+			@endforeach
+			@endif
+			@if($logs)
+			@foreach($logs as $log)
+			<option>{{$log}}</option>
+			@endforeach
+			@endif
+			<option>as</option>
+		</select>
 	</div>
 
 	<div class = "form-group">

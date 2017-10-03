@@ -218,7 +218,7 @@ Item
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserItemsController@destroy', $item->id, $item->client_id]]) !!}
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserItemsController@destroy', $item->client_id, $item->id]]) !!}
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
 

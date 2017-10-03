@@ -15,7 +15,7 @@ class Journal extends Model
 
     //protected static $recordEvents = ['created'];
 
-    protected $dates = ['deleted_at', 'date'];
+    protected $dates = ['date'];
 
     protected $fillable = [
     	'transaction_no', 'description', 'date', 'client_id', 'debit', 'credit'

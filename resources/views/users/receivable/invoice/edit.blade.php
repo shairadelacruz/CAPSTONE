@@ -34,29 +34,20 @@ Invoice
 
                     <div class="col-sm-12">
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Transaction No.</label>
+                                @if($client_name = Auth::user()->clients->find(request()->route('client_id')))
+                                <input type="text" class="form-control" name='transaction_no' value="{{$invoice->transaction_no}}" readonly="true">
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Reference No.</label>
                                 <input type="text" class="form-control" name='reference_no' value="{{$invoice->reference_no}}">
-                               
                             </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>Invoice Date</label>
-                                <input type="date" class="form-control" name='invoice_date' value="{{$invoice->invoice_date->toDateString()}}" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
-                                
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>Due Date</label>
-                                <input type="date" class="form-control" name='due_date'
-                                value='{{$invoice->due_date->toDateString()}}' min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
-                                
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Customer</label>
                                 <select class="table-control chosen-select" name="customer_id">
@@ -67,6 +58,17 @@ Invoice
                                         @endforeach
                                         @endif
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Invoice Date</label>
+                                <input type="date" class="form-control" name='invoice_date' value="{{$invoice->invoice_date->toDateString()}}" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
+                            </div>
+                            <div class="form-group">
+                                <label>Due Date</label>
+                                <input type="date" class="form-control" name='due_date'
+                                value='{{$invoice->due_date->toDateString()}}' min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
                             </div>
                         </div>
                 

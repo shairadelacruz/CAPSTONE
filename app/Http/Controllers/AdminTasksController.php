@@ -53,18 +53,29 @@ class AdminTasksController extends Controller
         'name' => 'required',
         'deadline' => 'required',
         'user_id' => 'required',
-        'client_id' => 'required',
+        'client_id' => 'required'
         ]);
 
-        $documents = $request->log_id;
+        //$documents = $request->log_id;
+        $input = $request->all();
 
-        Task::create($request->all());
+        if ($request->status == 3)
+        {
+            $input['revisions'] = 1;
+        }
 
-        $tasks = Task::all();
+        Task::create($input);
 
-        $task = $tasks->last();
+        if($request->log_id)
+        {
+            $tasks = Task::all();
 
-        $task->log()->sync($documents);
+            $task = $tasks->last();
+
+            $task->log()->sync($request->log_id);
+        }
+
+        
 
         return redirect('/admin/management/task');
     }
@@ -95,7 +106,8 @@ class AdminTasksController extends Controller
 
         $date = $task->deadline->toDateString();
 
-        $logs = Log::lists('reference_no', 'id')->all();
+        $logs = Log::all();
+        
 
         $clients = Client::lists('company_name', 'id')->all();
 
@@ -127,9 +139,18 @@ class AdminTasksController extends Controller
 
         $input = $request->all();
 
+        if ($request->status == 3)
+        {
+
+            $input['revisions'] = $task->revisions + 1;
+        }
+
         $task->update($input);
 
-        $task->log()->sync($documents);
+        if($request->log_id)
+        {
+            $task->log()->sync($documents);
+        }
 
         return redirect('/admin/management/task');      
 

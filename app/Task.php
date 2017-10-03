@@ -15,7 +15,7 @@ class Task extends Model
     protected $dates = ['deleted_at', 'deadline'];
 
     protected $fillable = [
-        'deadline', 'name', 'description', 'status', 'user_id', 'client_id'
+        'deadline', 'name', 'description', 'status', 'user_id', 'client_id', 'revisions'
     ];
 
     public function user()

@@ -91,10 +91,10 @@ Bill
             '<input type="text" class="description" name="descriptions[]">'+
             '</td>'+
             '<td class="table-qty">'+
-            '<input type="number" class="qty" name="qty[]">'+
+            '<input type="number" class="qty right-align-text" name="qty[]" value="0">'+
             '</td>'+
             '<td class="table-price">'+
-            '<input type="number" class="price" name="price[]" step="0.01">'+
+            '<input type="number" class="price right-align-text" name="price[]" value="0" step="0.01">'+
             '</td>'+
 
             '<td class="table-vat_id">'+
@@ -106,10 +106,10 @@ Bill
             '</select>'+
             '</td>'+
             '<td class="table-vat_amount" >'+
-            '<input type="number" name="vat_amount[]" step="0.01">'+
+            '<input type="number" name="vat_amount[]" value="0" class="right-align-text" step="0.01">'+
             '</td>'+
             '<td class="table-total">'+
-            '<input type="number" value="" class="table-control" name="total[]" step="0.01">'+
+            '<input type="number" value="0" class="subTotal right-align-text" name="total[]" value="0" step="0.01">'+
             '</td>'+
             '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
             '</tr>';
@@ -136,7 +136,7 @@ $('tbody').delegate('.productname','change',function(){
 
     var tr = $(this).parent().parent();
     var newtr = tr.next('tr').parent().parent();
-    newtr.find('.description').val("wowww");
+    newtr.find('.description').val();
     var id = tr.find('.productname').val();
     var client_id = $('.clientHidden').val();
     var dataId = {'id':id};

@@ -10,7 +10,7 @@ class Invoice extends Model
 
     use RecordsActivity;
 
-    protected $dates = ['deleted_at', 'invoice_date', 'due_date'];
+    protected $dates = ['invoice_date', 'due_date'];
 
 
     protected $fillable = [

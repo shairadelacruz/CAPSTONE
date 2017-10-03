@@ -11,7 +11,7 @@ Bill
 @section('content')
     <div id="bill">
 
-        <div class = "panel panel-default" v-clock>
+        <div class = "panel panel-default">
             
             <div class = "panel-heading">
 
@@ -34,29 +34,20 @@ Bill
 
                     <div class="col-sm-12">
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Transaction No.</label>
+                                @if($client_name = Auth::user()->clients->find(request()->route('client_id')))
+                                <input type="text" class="form-control" name='transaction_no' value="{{$bill->transaction_no}}" readonly="true">
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Reference No.</label>
                                 <input type="text" class="form-control" name='reference_no' value="{{$bill->reference_no}}">
-                               
                             </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>Bill Date</label>
-                                <input type="date" class="form-control" name='bill_date' value="{{$bill->bill_date->toDateString()}}" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
-                                
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>Due Date</label>
-                                <input type="date" class="form-control" name='due_date'
-                                value='{{$bill->due_date->toDateString()}}' min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
-                                
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Vendor</label>
                                 <select class="table-control chosen-select" name="vendor_id">
@@ -67,6 +58,18 @@ Bill
                                         @endforeach
                                         @endif
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Bill Date</label>
+                                <input type="date" class="form-control" name='bill_date' value="{{$bill->bill_date->toDateString()}}" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
+                            </div>
+                            <div class="form-group">
+                                <label>Due Date</label>
+                                <input type="date" class="form-control" name='due_date'
+                                value='{{$bill->due_date->toDateString()}}' min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
+                                
                             </div>
                         </div>
                 

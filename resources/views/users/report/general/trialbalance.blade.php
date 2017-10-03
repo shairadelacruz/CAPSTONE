@@ -24,10 +24,12 @@ Trial Balance
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                     
+                                    <label>From</label>
+                                   <input class="date" type="date" class="datepicker form-control" name="to" id="to">
+                                   <label>To</label>
+                                    <input class="date" type="date" class="datepicker form-control" name="from" id="from">
 
-                                   <input type="date" class="datepicker form-control" placeholder="From Date">
-
-                                    <input type="date" class="datepicker form-control" placeholder="To Date">
+                                    <input type="hidden" class="clientHidden" name='client_id' value="{{request()->route('client_id')}}" class="form-control">
 
                                 </div>
                             </div>
@@ -50,10 +52,11 @@ Trial Balance
                                         <th></th>
                                     </tr>
                                 </tfoot>
-                                <tbody>
+                                <tbody id="reportTbody">
                                     @if($trials)
                                     @foreach($trials as $trial)
                                     <tr>
+                                        <td>{{$trial->journals_details}}</td>
                                         <td>{{$trial->name}}</td>
                                         <td>{{$trial->journals_details->sum('debit')}}</td>
                                         <td>{{$trial->journals_details->sum('credit')}}</td>
@@ -69,21 +72,57 @@ Trial Balance
             <!-- #END# Exportable Table -->
         </div>
 
+@section('scripts')
+<script type="text/javascript">
+    var body= $('#trialBalanceTable').children('tbody').first();
+    var totals = $('#totals');
 
-        <script type="text/javascript">
-            var body= $('#trialBalanceTable').children('tbody').first();
-            var totals = $('#totals');
+    var total = 0;
+    var columnIndex = $(this).closest('td').index();
+    var rows = body.find('tr');
+    $.each(rows, function() {
+        var amount = $(this).children('td').eq(columnIndex).children('.sumThis').val();    
+        total += new Number(amount);
+    });
+    totals.children('td').eq(columnIndex).text(total);
 
-              var total = 0;
-              var columnIndex = $(this).closest('td').index();
-              var rows = body.find('tr');
-              $.each(rows, function() {
-                  var amount = $(this).children('td').eq(columnIndex).children('.sumThis').val();    
-                  total += new Number(amount);
-              });
-              totals.children('td').eq(columnIndex).text(total);
+
+    $('.date').on('change', function() {
+        var from = $('#from').val();
+        var to = $('#to').val();
+        var client_id = $('.clientHidden').val();
+        $.ajax({
+            type    : 'get',
+            url     : '/user/'+client_id+'/reports/trialbalance/generate/',
+            dataType: 'json',
+            data    : {
+                'from':from,
+                'to':to,
+                'client_id':client_id
+                },
+            success:function(data){
+                $('td').remove();
+                for(var ctr = 0; ctr < data.length; ctr++)
+                {
+
+                   $('#reportTbody').append(
+
+                            
+                                '<tr><td>'+ data[ctr].name +'</td><td>{{$trial->journals_details->sum("debit")}}</td><td>{{$trial->journals_details->sum("credit")}}</td></tr>'+
+                            
+                }
+                alert('success');
+                
+                
+            }
+           
+        });
+    });
+
+
+
               
-        </script>
-
+</script>
+@endsection
     
 @stop

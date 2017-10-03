@@ -8,8 +8,6 @@ class JournalDetails extends Model
 {
     //
 
-    protected $dates = ['deleted_at'];
-
     protected $fillable = [
     	'reference_no', 'description', 'debit', 'credit', 'vat_amount', 'vat_id', 'coa_id', 'vendor_id','customer_id', 'journal_id'
     ];

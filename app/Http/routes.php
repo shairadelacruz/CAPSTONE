@@ -174,6 +174,8 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::resource('user/{client_id}/receivable/invoice/create', 'UserInvoicesController@create');
 
+    Route::get('user/{client_id}/receivable/invoice/create/findPrice/{item_id?}','UserInvoicesController@findPrice');
+
     Route::resource('user/{client_id}/receivable/invoice/edit', 'UserInvoicesController@edit');
 
     Route::resource('user/{client_id}/receivable/invoice/pay', 'UserInvoicesController@pay');
@@ -187,9 +189,15 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::resource('user/{client_id}/reports/audit', 'UserAuditController');
 
+    //REPORTS
+
     Route::get('user/{client_id}/reports/trialbalance', 'UserReportsController@trial_balance_index');
 
+    Route::get('user/{client_id}/reports/trialbalance/generate', 'UserReportsController@trial_balance_generate');
+
     Route::get('user/{client_id}/reports/generalledger', 'UserReportsController@general_ledger_index');
+    
+    Route::get('user/{client_id}/reports/generalledger/generate', 'UserReportsController@general_ledger_generate');
 
 });
 

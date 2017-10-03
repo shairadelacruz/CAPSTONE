@@ -51,7 +51,7 @@ Adjusting Entries
                 <label>Transaction No.</label>
                 @if($client_name = Auth::user()->clients->find(request()->route('client_id')))
                     
-                <input type="text" class="form-control" name='transaction_no' value="{{Carbon\Carbon::today()->format('Y')}}-{{$client_name->code}}{{$client_name->id}}-{{$count}}-J" readonly="true">
+                <input type="text" class="form-control" name='transaction_no' value="{{Carbon\Carbon::today()->format('Y')}}-{{$client_name->code}}{{$client_name->id}}-{{$count}}-A" readonly="true">
                 @endif
             </div>
         </div>

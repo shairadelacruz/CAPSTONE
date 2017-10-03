@@ -46,7 +46,9 @@ class UserInvoicesController extends Controller
         $items = $client->item;
         $coas = $client->coas;
         $vats = Vat::all();
-        return view('users.receivable.invoice.create', compact('client_id', 'client', 'items', 'coas', 'vats', 'customers'));
+        $carbon = \Carbon\Carbon::now();
+        $count = Invoice::whereYear('created_at','=', $carbon->year)->count()+1;
+        return view('users.receivable.invoice.create', compact('client_id', 'client', 'items', 'coas', 'vats', 'customers', 'count'));
     }
 
     /**
@@ -335,12 +337,17 @@ class UserInvoicesController extends Controller
         
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function findPrice(/*$item_id*/Request $request)
+    {
+
+
+        $data= Item::find($request->id);
+
+        return response()->json($data);
+        //return Response::json($data);
+
+    }
+    
     public function destroy($id, $client_id)
     {
         //

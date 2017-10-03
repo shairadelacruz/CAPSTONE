@@ -6,7 +6,16 @@
 
                         <input type="hidden" class="clientHidden" name='client_id' value="{{ $client_id }}" class="form-control">
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Transaction No.</label>
+                                @if($client_name = Auth::user()->clients->find(request()->route('client_id')))
+                                <input type="text" class="form-control" name='transaction_no' value="{{Carbon\Carbon::today()->format('Y')}}-{{$client_name->code}}{{$client_name->id}}-{{$count}}-B" readonly="true">
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Reference No.</label>
                                 <input type="text" class="form-control" name='reference_no'>
@@ -23,7 +32,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Bill Date</label>
                                 <input type="date" class="form-control" name='bill_date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
@@ -43,15 +52,6 @@
                     <div class="body table-responsive">
                         <table class="table table-bordered">
                             <thead>
-                                <col width="14%">
-                                <col width="20%">
-                                <col width="20%">
-                                <col width="8%">
-                                <col width="14%">
-                                <col width="14%">
-                                <col width="14%">
-                                <col width="14%">
-                                <col width="4%">
                                 <tr>
                                     <th>Item</th>
                                     <th>Account</th>
@@ -92,10 +92,10 @@
                                         <input type="text" class="description" name="descriptions[]">
                                     </td>
                                     <td class="table-qty">
-                                        <input type="number" class="qty" name="qty[]">
+                                        <input type="number" class="qty right-align-text" value="0" name="qty[]" >
                                     </td>
                                     <td class="table-price">
-                                        <input type="number" class="price" name="price[]" step="0.01">
+                                        <input type="number" class="price right-align-text" value="0" name="price[]" step="0.01">
                                     </td>
 
                                     <td class="table-vat_id">
@@ -110,7 +110,7 @@
                                     </select>
                                     </td>
                                     <td class="table-vat_amount" >
-                                        <input type="number" name="vat_amount[]" step="0.01">
+                                        <input type="number" name="vat_amount[]" value="0" class="right-align-text" step="0.01">
                                     </td>
                                     <td class="table-total">
                                         <input type="number" value="0" class="subTotal right-align-text" name="total[]" step="0.01">

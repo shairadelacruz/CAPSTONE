@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Bill extends Model
 {
     //
 
     use RecordsActivity;
 
-    protected $dates = ['deleted_at', 'bill_date', 'due_date'];
+    protected $dates = ['bill_date', 'due_date'];
 
     protected $fillable = [
         'reference_no', 'bill_date', 'due_date', 'client_id', 'vendor_id', 'balance', 'amount', 'transaction_no'

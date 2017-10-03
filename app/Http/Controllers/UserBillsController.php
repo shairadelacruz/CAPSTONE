@@ -46,7 +46,9 @@ class UserBillsController extends Controller
         $items = $client->item;
         $coas = $client->coas;
         $vats = Vat::all();
-        return view('users.payable.bill.create', compact('client_id', 'client', 'items', 'coas', 'vats', 'vendors'));
+        $carbon = \Carbon\Carbon::now();
+        $count = Bill::whereYear('created_at','=', $carbon->year)->count()+1;
+        return view('users.payable.bill.create', compact('client_id', 'client', 'items', 'coas', 'vats', 'vendors', 'count'));
 
 
     }
@@ -60,7 +62,7 @@ class UserBillsController extends Controller
     public function store(Request $request)
     {
         //
-        return $request->bill_type;
+
        $this->validate($request, [
             'reference_no' => 'required',
             'bill_date' => 'required',
@@ -72,6 +74,7 @@ class UserBillsController extends Controller
 
         $bills = new Bill;
         $bills->client_id = $request->client_id;
+        $bills->transaction_no = $request->transaction_no;
         $bills->reference_no = $request->reference_no;
         $bills->bill_date = $request->bill_date;
         $bills->due_date = $request->due_date;
@@ -85,13 +88,11 @@ class UserBillsController extends Controller
         $billId = $billLast->id;
 
         $client_id = $request->client_id;
-        //Get how many journal to put in transaction_no
-        $count = Journal::where('type','=','2')->count();
         //Create Journal Header
         $journals = new Journal;
         $journals->bill_id = $billId;
         $journals->client_id = $client_id;
-        $journals->transaction_no = "B".$count;
+        $journals->transaction_no = $request->transaction_no;
         $journals->date = $request->bill_date;
         $journals->debit_total = $request->grandTotal;
         $journals->credit_total = $request->grandTotal;
@@ -109,7 +110,7 @@ class UserBillsController extends Controller
         $credit->save();
 
 
-        if($id != 0){
+        if($journalId != 0){
             foreach ($request->item_id as $key => $v)
             {
 
@@ -130,7 +131,7 @@ class UserBillsController extends Controller
 
 
                 //Create Debit detail
-                $subTotal = $request->total[$key] - $request->vat_amount[$key];
+                $subTotal = $request->price[$key] * $request->qty[$key];
 
                 $debit = new JournalDetails([
                             'journal_id'=>$journalId,
@@ -331,6 +332,7 @@ class UserBillsController extends Controller
         
         $bills= Bill::findOrFail($id);
         $bills->client_id = $request->client_id;
+        $bills->transaction_no = $request->transaction_no;
         $bills->reference_no = $request->reference_no;
         $bills->bill_date = $request->bill_date;
         $bills->due_date = $request->due_date;
@@ -395,7 +397,7 @@ class UserBillsController extends Controller
                 $billDetail->save();
 
                  //Create Debit detail
-                $subTotal = $request->total[$key] - $request->vat_amount[$key];
+                $subTotal = $request->price[$key] * $request->qty[$key];
 
                 $debit = new JournalDetails([
                             'journal_id'=>$journalId,

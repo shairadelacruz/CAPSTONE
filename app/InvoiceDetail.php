@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class InvoiceDetail extends Model
 {
     //
-
-
-    protected $dates = ['deleted_at'];
     
     protected $fillable = [
         'coa_id', 'item_id', 'vat_id', 'vat_amount', 'descriptions', 'qty','price','total', 'invoice_id'

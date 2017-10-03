@@ -24,6 +24,20 @@ class UserReportsController extends Controller
 
         return view('users.report.general.trialbalance', compact('trials'));
     }
+
+    public function trial_balance_generate(Request $request)
+    {
+        //
+        $client = Client::find($request->client_id);
+
+        $start = \Carbon\Carbon::parse($request->from)->startOfDay();  
+
+        $end = \Carbon\Carbon::parse($request->to)->endOfDay();
+
+        $data= $client->coas()->with('journals_details')->whereBetween('date',[$start,$end])->get();
+
+        return response()->json($data);
+    }
     
 
     public function general_ledger_index($client_id)
@@ -34,5 +48,11 @@ class UserReportsController extends Controller
         $ledgers = $client->coas()->with('journals_details')->get();
 
         return view('users.report.general.generalledger', compact('ledgers'));
+    }
+
+    public function general_ledger_generate($client_id)
+    {
+        //
+        
     }
 }
