@@ -115,6 +115,8 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::get('user/{client_id}/accounting/coa', ['as' => 'coa', 'uses' => 'UserCoasController@index']);
 
+    //Vendor
+
 	Route::resource('user/{client_id}/payable/vendor', 'UserVendorController');
 
     Route::get('user/{client_id}/payable/vendor', ['as' => 'vendor', 'uses' => 'UserVendorController@index']);
@@ -122,6 +124,8 @@ Route::group(['middleware'=>'user'], function(){
 	Route::resource('user/{client_id}/payable/vendor/create', 'UserVendorController@create');
 
     Route::resource('user/{client_id}/payable/vendor/edit', 'UserVendorController@edit');
+
+    //Bill
 
 
     Route::resource('user/{client_id}/payable/bill', 'UserBillsController');
@@ -135,20 +139,6 @@ Route::group(['middleware'=>'user'], function(){
     Route::resource('user/{client_id}/payable/bill/create', 'UserBillsController@create');
 
     Route::get('user/{client_id}/payable/bill/create/findPrice/{item_id?}','UserBillsController@findPrice');
-
-    /*Route::get('/findPrice', function(){
-
-        if(Request::ajax()){
-            return 'getRequest has loaded';
-        }
-    });
-
-    Route::get('user/{client_id}/payable/bill/create/findPrice/{item_id}',function($item_id){
-   $data= Item::select('price')->whereId($item_id)->first();
-
-    return response()->json($data);
-    });*/
-
 
     Route::resource('user/{client_id}/payable/bill/edit', 'UserBillsController@edit');
 

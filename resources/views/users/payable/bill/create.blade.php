@@ -135,6 +135,8 @@ $('tbody').delegate('.productname','change',function(){
 $('tbody').delegate('.productname','change',function(){
 
     var tr = $(this).parent().parent();
+    var newtr = tr.next('tr').parent().parent();
+    newtr.find('.description').val("wowww");
     var id = tr.find('.productname').val();
     var client_id = $('.clientHidden').val();
     var dataId = {'id':id};

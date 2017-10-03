@@ -226,10 +226,10 @@ class UserCoasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $client_id, $id)
     {
         //
-        /*$client_id = $request->client_id;
+        $client_id = $request->client_id;
 
         $client = Client::find($client_id);
 
@@ -246,10 +246,8 @@ class UserCoasController extends Controller
 
                 if($request->debit_partner != null && $request->credit_partner == null)
                 {
-                    $client->coas()->detach();
-                    $client->coas()->attach($coa);
 
-                    $coapartnerid = $coa->debitPartnerId;
+                    $coapartnerid = $coa->debitPartnerId($client_id);
 
                     $coapartner = Coapartner::findOrFail($coapartnerid);
                     $coapartner->client_id = $client_id;
@@ -262,10 +260,8 @@ class UserCoasController extends Controller
 
                 else if($request->credit_partner != null && $request->debit_partner == null)
                 {
-                    $client->coas()->detach();
-                    $client->coas()->attach($coa);
 
-                    $coapartnerid = $coa->creditPartnerId;
+                    $coapartnerid = $coa->creditPartnerId($client_id);
 
                     $coapartner = Coapartner::findOrFail($coapartnerid);
                     $coapartner->client_id = $client_id;
@@ -278,19 +274,17 @@ class UserCoasController extends Controller
 
                 else if($request->debit_partner != null && $request->credit_partner != null)
                 {
-                    $client->coas()->detach();
-                    $client->coas()->attach($coa);
 
-                    $coapartnerid = $coa->debitPartnerId;
+                    $coapartnerid = $coa->debitPartnerId($client_id);
 
-                    $coapartner1s = Coapartner::findOrFail($coapartnerid);
+                    $coapartner1 = Coapartner::findOrFail($coapartnerid);
                     $coapartner1->client_id = $client_id;
                     $coapartner1->coa_id = $newCoaId;
                     $coapartner1->partnercoa_id = $request->debit_partner;
                     $coapartner1->type = 0;
                     $coapartner1->update();
 
-                    $coapartnerid = $coa->creditPartnerId;
+                    $coapartnerid = $coa->creditPartnerId($client_id);
 
                     $coapartner = Coapartner::findOrFail($coapartnerid);
                     $coapartner->client_id = $client_id;
@@ -303,15 +297,12 @@ class UserCoasController extends Controller
 
                 else
                 {
-                    $client->coas()->detach();
-                    $client->coas()->attach($coa);
+                    //return \Redirect::route('coa', [$client_id]);
+
                 }
-
-
-        $input = $request->all();
         
-        return \Redirect::route('coa', [$client_id]);*/
-        return $request->all();
+        return \Redirect::route('coa', [$client_id]);
+
     }
 
     /**
@@ -320,18 +311,19 @@ class UserCoasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $client_id)
+    public function destroy($client_id, $id)
     {
         //
-
+        
         $client = Client::findOrFail($client_id);
 
-        $coa = Coa::findOrFail($id)->first();
+        //$coa = Coa::findOrFail($id);
 
-        $client->coas()->detach($coa);
+        $client->coas()->detach($id);
 
         Session::flash('deleted_coa','The account has been deleted');
 
         return \Redirect::route('coa', [$client_id]);
+
     }
 }

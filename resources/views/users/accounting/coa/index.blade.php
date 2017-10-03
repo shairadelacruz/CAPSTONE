@@ -175,8 +175,8 @@ COA
                         <div class="modal-body">
                             
                             <div class="row clearfix">
-                            @include('includes.form_error')
-                                {!! Form::model($coa,['method'=>'PATCH', 'action'=>['UserCoasController@update', $coa->id,$client_id]]) !!}s
+
+                                {!! Form::model($coa,['method'=>'PATCH', 'action'=>['UserCoasController@update', $client_id, $coa->id]]) !!}
 
                                 {!! Form:: hidden('client_id', $client_id) !!}
 
@@ -208,8 +208,6 @@ COA
                                             {!! Form:: label('debit_partner', 'Partner Debit:') !!}
 
                                             {!! Form:: select('debit_partner', [''=>'Choose Options'] + $coaselect ,$coa->debitPartnerId($client_id), ['class'=>'form-control chosen-select']) !!}
-
-
 
                                         </div>
                                     </div>
@@ -248,9 +246,10 @@ COA
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserCoasController@destroy',$client_id, $coa->id]]) !!}
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserCoasController@destroy', $client_id, $coa->id]]) !!}
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+
 
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
 
