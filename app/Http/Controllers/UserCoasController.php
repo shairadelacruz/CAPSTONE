@@ -229,9 +229,8 @@ class UserCoasController extends Controller
     public function update(Request $request, $client_id, $id)
     {
         //
-        $client_id = $request->client_id;
 
-        $client = Client::find($client_id);
+        $client = Client::findOrFail($client_id);
 
         $coa = Coa::findOrFail($id);
 
@@ -242,7 +241,6 @@ class UserCoasController extends Controller
                 $coa->update();
 
                 $newCoaId = $coa->id;
-
 
                 if($request->debit_partner != null && $request->credit_partner == null)
                 {
@@ -295,12 +293,7 @@ class UserCoasController extends Controller
 
                 }
 
-                else
-                {
-                    //return \Redirect::route('coa', [$client_id]);
-
-                }
-        
+        Session::flash('deleted_coa','The account has been updated');        
         return \Redirect::route('coa', [$client_id]);
 
     }

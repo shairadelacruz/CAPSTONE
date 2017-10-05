@@ -3,40 +3,73 @@
 @section('content')
 
 <div class="container-fluid">
-    <div class="block-header">
-    	<h2>{{ Auth::user()->name }}</h2>
-    </div>
     <div class="row clearfix">
         <!-- Profile -->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <div class="card">
-                <div class="body bg-light-green">
-                    <div>
-                    	<img src="../images/thumb/thumb-15.jpg">
-                	</div>
-                    <ul class="dashboard-stat-list">
-                        <li>
-                        		NAME
-                        	<span class="pull-right"><b>{{ Auth::user()->name }}</b></span>
-                        </li>
-                        <li>
-                                BIRTHDAY
-                            <span class="pull-right"><b>03 June 1980</b></span>
-                        </li>
-                        <li>
-                                EMPLOYEE ID
-                            <span class="pull-right"><b>2010-00003-AMY-0</b></span>
-                        </li>
-                    </ul>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="info-box bg-pink hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text">COMPLETED TASKS</div>
+                        <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">30</div>
+                    </div>
                 </div>
             </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="info-box bg-cyan hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text">PENDING TASKS</div>
+                        <div class="number count-to" data-from="0" data-to="10" data-speed="15" data-fresh-interval="1">10</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box bg-light-green hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text">CLIENTS</div>
+                            <div class="number count-to" data-from="0" data-to="30" data-speed="1000" data-fresh-interval="20">30</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box bg-orange hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text">PROFICIENCY</div>
+                            <div class="number count-to" data-from="0" data-to="80" data-speed="15" data-fresh-interval="5">80%</div>
+                        </div>
+                    </div>
+                </div>
         </div>
         <!-- #END# Profile -->
         <!-- Calendar -->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <div class="card">
                 <div class="body bg-cyan">
-                    <div class="m-b--35 font-bold">CALENDAR</div>
+                    <div class="m-b--35 font-bold" style="text-align: center;">{{ Auth::user()->name }}</div>
+                    <div>
+                        <img class="img-responsive" src="../../../public/plugins/ckeditor/plugins/smiley/images/heart.png" alt="" width="75">
+                    </div>
+                    <ul class="dashboard-stat-list">
+                        <li>
+                                NAME
+                            <span class="pull-right"><b>{{ Auth::user()->name }}</b></span>
+                        </li>
+                        <li>
+                                POSITION
+                            <span class="pull-right"><b>{{ Auth::user()->roles->first()->label }}</b></span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -57,8 +90,6 @@
                             </a>
                             <ul class="dropdown-menu pull-right">
                                 <li><a href="javascript:void(0);">View all tasks</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -92,7 +123,7 @@
                     </table>
                 </div>
             </div>
-    	</div>
+        </div>
     </div>
     <!-- #END# Exportable Table -->
 </div>

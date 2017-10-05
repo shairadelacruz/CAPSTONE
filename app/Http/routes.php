@@ -111,7 +111,7 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::resource('user/{client_id}/accounting/coa/create', 'UserCoasController@create');
 
-    Route::resource('user/{client_id}/accounting/coa/edit', 'UserCoasController@edit');
+    //Route::resource('user/{client_id}/accounting/coa/edit', 'UserCoasController@edit');
 
     Route::get('user/{client_id}/accounting/coa', ['as' => 'coa', 'uses' => 'UserCoasController@index']);
 

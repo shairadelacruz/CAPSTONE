@@ -39,7 +39,7 @@ Log
 
                         </div>
                         <div class="body table-responsive">
-                            <table id="tableLog" class="table table-bordered table-striped table-hover dataTable js-exportable" da>
+                            <table id="tableLog" class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
                                         <th onclick="wow()">Document</th>

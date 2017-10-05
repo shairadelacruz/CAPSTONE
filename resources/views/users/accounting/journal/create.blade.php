@@ -33,14 +33,7 @@ Journal
 <div class="row">
 
     <div class="col-sm-12">
-               
-                <ul>
-                    @if(Session::has('ref_no'))
-                     @foreach (Session::get('ref_no') as $ref_no)
-                    <li>{{$ref_no}}</li>
-                    @endforeach
-                    @endif
-                </ul>
+            
                 
                 
 
@@ -100,7 +93,7 @@ Journal
                 <tr>
                     <td>
                         <select class="chosen-select" name="reference_no[]">
-                                <option value="0" selected="true" disabled="true">{{$ref_no}}</option>
+                                <option value="0" selected="true">Please select an option</option>
                                 @if($refs)
                                 @foreach($refs as $ref)
                                     <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
@@ -110,7 +103,7 @@ Journal
                     </td>
                     <td class="table-client_coa_id">
                    <select class="table-control chosen-select" name="coa_cli_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                    <option value="0" selected="true">Please select an option</option>
                                 @if($coas)
                                 @foreach($coas as $coa)
                                     <option value="{{$coa->id}}">{{$coa->name}}</option>
@@ -130,7 +123,7 @@ Journal
                     </td>
                     <td class="table-vat_id">
                         <select class="table-control chosen-select vat_id getrate" name="vat_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                    <option value="0" selected="true">Please select an option</option>
                                 @if($vats)
                                 @foreach($vats as $vat)
                                     <option value="{{$vat->id}}">{{$vat->vat_code}} - 
@@ -153,7 +146,7 @@ Journal
                     <tr>
                     <td class="table-reference_no">
                         <select class="table-control chosen-select" name="reference_no[]" data-live-search="true">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                <option value="0" selected="true">Please select an option</option>
                                 @if($refs)
                                 @foreach($refs as $ref)
                                     <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
@@ -163,7 +156,7 @@ Journal
                     </td>
                     <td class="table-client_coa_id">
                    <select class="table-control chosen-select" name="coa_cli_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                    <option value="0" selected="true">Please select an option</option>
                                 @if($coas)
                                 @foreach($coas as $coa)
                                     <option value="{{$coa->id}}">{{$coa->name}}</option>
@@ -183,7 +176,7 @@ Journal
                     </td>
                     <td class="table-vat_id">
                         <select class="table-control chosen-select vat_id getrate" name="vat_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                   <option value="0" selected="true">Please select an option</option>
                                 @if($vats)
                                 @foreach($vats as $vat)
                                     <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
@@ -204,7 +197,7 @@ Journal
                 <tr>
                     <td class="table-reference_no">
                         <select class="table-control chosen-select" name="reference_no[]" data-live-search="true">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                    <option value="0" selected="true">Please select an option</option>
                                 @if($refs)
                                 @foreach($refs as $ref)
                                     <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
@@ -214,7 +207,7 @@ Journal
                     </td>
                     <td class="table-client_coa_id">
                    <select class="table-control chosen-select" name="coa_cli_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                    <option value="0" selected="true">Please select an option</option>
                                 @if($coas)
                                 @foreach($coas as $coa)
                                     <option value="{{$coa->id}}">{{$coa->name}}</option>
@@ -234,7 +227,7 @@ Journal
                     </td>
                     <td>
                         <select class="chosen-select vat_id getrate" name="vat_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                <option value="0" selected="true">Please select an option</option>
                                 @if($vats)
                                 @foreach($vats as $vat)
                                     <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
@@ -294,7 +287,7 @@ Journal
     var tr = '<tr>'+
             '<td class="table-reference_no">'+
             '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($refs)'+
             '@foreach($refs as $ref)'+
             '<option value="{{$ref->id}}">{{$ref->reference_no}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>'+
@@ -304,7 +297,7 @@ Journal
             '</td>'+
             '<td class="table-client_coa_id">'+
             '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
-            '<option value="0" selected="true"  disabled="true"></option>'+
+            '<option value="0" selected="true"  disabled="true">Select an option</option>'+
             '@if($coas)'+
             '@foreach($coas as $coa)'+
                 '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
@@ -324,7 +317,7 @@ Journal
             '</td>'+
             '<td class="table-vat_id">'+
             '<select class="table-control chosen-select vat_id getrate" name="vat_id[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($vats)'+
             '@foreach($vats as $vat)'+
                 '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate" >{{ number_format($vat->rate, 0) }}</span>%</option>'+
@@ -342,7 +335,7 @@ Journal
             '<tr>'+
             '<td class="table-reference_no">'+
             '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($refs)'+
             '@foreach($refs as $ref)'+
             '<option value="{{$ref->id}}">{{$ref->reference_no}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>'+
@@ -352,7 +345,7 @@ Journal
             '</td>'+
             '<td class="table-client_coa_id">'+
             '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
-            '<option value="0" selected="true"  disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($coas)'+
             '@foreach($coas as $coa)'+
                 '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
@@ -372,7 +365,7 @@ Journal
             '</td>'+
             '<td class="table-vat_id">'+
             '<select class="table-control chosen-select vat_id getrate" name="vat_id[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($vats)'+
             '@foreach($vats as $vat)'+
                 '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>'+

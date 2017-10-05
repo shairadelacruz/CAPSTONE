@@ -38,9 +38,9 @@ class Log extends Model
         return $this->belongsToMany('App\Task');
     }
 
-    public function journal_info()
-    {
-        return $this->hasMany('App\Journal_Info');
+    public function journal_details(){
+
+        return $this->hasMany('App\JournalDetails');
     }
 
     public function bill()

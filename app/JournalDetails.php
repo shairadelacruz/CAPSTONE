@@ -31,4 +31,10 @@ class JournalDetails extends Model
     {
         return $this->belongsTo(Vat::class);
     }
+
+    public function log()
+    {
+        return $this->belongsTo('App\Log', 'reference_no');
+    }
+
 }

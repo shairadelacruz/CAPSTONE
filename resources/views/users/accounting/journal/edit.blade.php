@@ -34,26 +34,35 @@ Journal
 <div class="row">
 
     <div class="col-sm-12">
+               
+        <input type="hidden" name='client_id' value="{{ $client_id }}" class="form-control">
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Transaction No.</label>
-                <input type="text" class="form-control" name='transaction_no' value="{{$journal->transaction_no}}">
+                    
+                <input type="text" class="form-control" name='transaction_no' value="{{$journal->transaction_no}}" readonly="true">
+
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Date</label>
                 <input type="date" class="form-control" name='date' value="{{$journal->date->toDateString()}}" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Description</label>
                 <textarea class="form-control" name='description'>{{$journal->description}}</textarea>
             </div>
         </div>
-
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label>Reference Documents</label><br>
+                <a href="#" class="btn btn-primary"  target="_blank">View</a>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -78,8 +87,18 @@ Journal
                     @foreach($details as $detail)
 
                 <tr>
-                    <td class="table-reference_no">
-                        <input id="reference_no" type="text" name="reference_no[]" class="table-control" value="{{$detail->reference_no}}">
+                    <td>
+                        <select class="chosen-select" name="reference_no[]">
+                                @if($detail->reference_no)
+                                <option value="{{$detail->reference_no}}" selected="true">{{$detail->log->reference_no}}</option>
+                                <option value="0" selected="true">Select an option</option>
+                                @endif
+                                @if($refs)
+                                @foreach($refs as $ref)
+                                    <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
+                                @endforeach
+                                @endif
+                        </select>
                     </td>
                     <td class="table-client_coa_id">
                     <select class="table-control chosen-select" name="coa_cli_id[]">
@@ -93,30 +112,30 @@ Journal
                         
                     </td>
                     <td class="table-debit">
-                        <input type="number" class="table-control right-align-text sumThis" name="debit[]" value="{{$detail->debit}}" onchange="update_vats()">
+                        <input type="number" class="table-control right-align-text sumThis debit creddeb getrate" name="debit[]" value="{{$detail->debit}}" onchange="update_vats()">
                     </td>
                     <td class="table-credit">
-                        <input type="number" class="table-control right-align-text sumThis1" name="credit[]" value="{{$detail->credit}}" onchange="update_vats()">
+                        <input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="{{$detail->credit}}" onchange="update_vats()">
                     </td>
                     <td class="table-description">
-                        <input type="text" class="table-control" name="descriptions[]" value="{{$detail->descriptions}}">
+                        <input type="text" class="table-control description" name="descriptions[]" value="{{$detail->descriptions}}">
                     </td>
                     <td class="table-vat_id col-sm-2">
-                        <select class="table-control chosen-select" name="vat_id[]">
+                        <select class="table-control chosen-select vat_id getrate" name="vat_id[]">
                                     @if(!empty($detail->vat->id))
                                     <option value="{{$detail->vat->id}}" selected="true">{{$detail->vat->vat_code}}</option>
                                     @else
-                                    <option value="0" selected="true" disabled="true"></option>
+                                    <option value="0" selected="true">Select an option</option>
                                     @endif
                                 @if($vats)
                                 @foreach($vats as $vat)
-                                    <option value="{{$vat->id}}">{{$vat->vat_code}}</option>
+                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
                                 @endforeach
                                 @endif
                     </select>
                     </td>
                     <td class="table-vat_amount">
-                        <input type="number" class="table-control right-align-text" name="vat_amount[]" value="{{$detail->vat_amount}}">
+                        <input type="number" class="right-align-text vat_amount" name="vat_amount[]" value="{{$detail->vat_amount}}" readonly="true">
                     </td>
                     <!--<td class="table-vendor_id">
                         <input type="text" class="table-control" name="vendor_id[]">
@@ -158,12 +177,14 @@ Journal
         </div>
 
 
+@section('scripts')
+
 <script type="text/javascript">
-        function addRow() {
+function addRow() {
     var tr = '<tr>'+
             '<td class="table-reference_no">'+
             '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($refs)'+
             '@foreach($refs as $ref)'+
             '<option value="{{$ref->id}}">{{$ref->reference_no}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>'+
@@ -173,7 +194,7 @@ Journal
             '</td>'+
             '<td class="table-client_coa_id">'+
             '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
-            '<option value="0" selected="true"  disabled="true"></option>'+
+            '<option value="0" selected="true"  disabled="true">Select an option</option>'+
             '@if($coas)'+
             '@foreach($coas as $coa)'+
                 '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
@@ -193,7 +214,7 @@ Journal
             '</td>'+
             '<td class="table-vat_id">'+
             '<select class="table-control chosen-select vat_id getrate" name="vat_id[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($vats)'+
             '@foreach($vats as $vat)'+
                 '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate" >{{ number_format($vat->rate, 0) }}</span>%</option>'+
@@ -211,7 +232,7 @@ Journal
             '<tr>'+
             '<td class="table-reference_no">'+
             '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($refs)'+
             '@foreach($refs as $ref)'+
             '<option value="{{$ref->id}}">{{$ref->reference_no}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>'+
@@ -221,7 +242,7 @@ Journal
             '</td>'+
             '<td class="table-client_coa_id">'+
             '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
-            '<option value="0" selected="true"  disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($coas)'+
             '@foreach($coas as $coa)'+
                 '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
@@ -241,7 +262,7 @@ Journal
             '</td>'+
             '<td class="table-vat_id">'+
             '<select class="table-control chosen-select vat_id getrate" name="vat_id[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($vats)'+
             '@foreach($vats as $vat)'+
                 '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>'+
@@ -387,7 +408,25 @@ $('tbody').delegate('.getrate','change',function(){
 
 });
 
+
+/*function update_vats()
+{
+    var sum = 0.0;
+    $('#journalTable > tbody  > tr:not(:last)').each(function() {
+        var debcred = parseFloat($(this).find('.sumThis').val() || 0,10);
+        var vat = parseFloat($(this).find('.vat_rate').val() || 0,10);
+        var rate = vat/100;
+        var amount = (rate*debcred);
+        sum+=amount;
+        $(this).find('.vat_amount').val(''+amount);
+    });
+
+}*/
 </script>
+
+
+
+@endsection
   
     
 @stop

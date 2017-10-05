@@ -126,7 +126,7 @@ Close Transactions
 
                             {{ Form::hidden('closing_id', $client->closing->where('status', 0)->last()->id) }}
 
-                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+                            {!! Form:: submit('SUBMIT', ['class'=>'btn btn-link waves-effect']) !!}
 
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
 
