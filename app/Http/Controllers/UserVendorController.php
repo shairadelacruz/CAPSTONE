@@ -93,7 +93,7 @@ class UserVendorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $client_id, $id)
     {
         //
         $vendor = Vendor::findOrFail($id);
@@ -118,7 +118,7 @@ class UserVendorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $client_id)
+    public function destroy($client_id, $id)
     {
         //
         $vendor = Vendor::findOrFail($id);

@@ -90,7 +90,7 @@ class UserCustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $client_id, $id)
     {
         //
         $customer = Customer::findOrFail($id);
@@ -111,7 +111,7 @@ class UserCustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $client_id)
+    public function destroy($client_id, $id)
     {
         //
         $customer = Customer::findOrFail($id);

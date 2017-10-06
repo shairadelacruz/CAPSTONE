@@ -22,10 +22,7 @@ Route::get('/home', function(){
     return view ('admin.index');
 });
 
-Route::get('/user/profile', function(){
 
-	return view ('admin.index');
-});
 
 
 Route::group(['middleware'=>'admin'], function(){
@@ -67,6 +64,7 @@ Route::group(['middleware'=>'manager'], function(){
 
 Route::group(['middleware'=>'auth'], function(){
 
+    Route::get('user/profile', 'UserHomeController@profile');
 
     Route::resource('user/tasks', 'UserTasksController');
 

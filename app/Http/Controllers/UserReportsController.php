@@ -16,8 +16,6 @@ class UserReportsController extends Controller
     public function trial_balance_index($client_id)
     {
         //
-
-
         $client = Client::find($client_id);
 
         $trials = $client->coas()->with('journals_details')->get();
@@ -34,7 +32,10 @@ class UserReportsController extends Controller
 
         $end = \Carbon\Carbon::parse($request->to)->endOfDay();
 
-        $data= $client->coas()->with('journals_details')->whereBetween('date',[$start,$end])->get();
+        //select a.name from coas a inner join journal_details b on a.id = b.coa_id inner join journals c on b.journal_id = c.id WHERE (c.date BETWEEN '2017-10-01' AND '2017-10-30')
+
+        //$data= $client->coas()->with('journals_details')->whereBetween('date',[$start,$end])->get();
+        $data = DB::select("select a.name from coas a inner join journal_details b on a.id = b.coa_id inner join journals c on b.journal_id = c.id WHERE (c.date BETWEEN '$start' AND '$end')");
 
         return response()->json($data);
     }

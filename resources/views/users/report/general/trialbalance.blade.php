@@ -56,7 +56,6 @@ Trial Balance
                                     @if($trials)
                                     @foreach($trials as $trial)
                                     <tr>
-                                        <td>{{$trial->journals_details}}</td>
                                         <td>{{$trial->name}}</td>
                                         <td>{{$trial->journals_details->sum('debit')}}</td>
                                         <td>{{$trial->journals_details->sum('credit')}}</td>

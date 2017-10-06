@@ -9,8 +9,8 @@ Vendors
 @section('content')
 
 <h1>Edit Vendor</h1>
-	{!! Form::model($vendor,['method'=>'PATCH', 'action'=>['UserVendorController@update',$vendor->id,
-    $client_id]]) !!}
+	{!! Form::model($vendor,['method'=>'PATCH', 'action'=>['UserVendorController@update',
+    $vendor->client_id,$vendor->id]]) !!}
 
         {!! Form:: hidden('client_id', $client_id) !!} 
 

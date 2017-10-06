@@ -93,7 +93,7 @@ Vendor
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserVendorController@destroy', $vendor->id, $vendor->client_id]]) !!}
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserVendorController@destroy', $vendor->client_id, $vendor->id]]) !!}
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
 

@@ -93,7 +93,7 @@ Customer
                             Are you sure you want to delete?
                         </div>
                         <div class="modal-footer">
-                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserCustomerController@destroy', $customer->id, $customer->client_id]]) !!}
+                            {!! Form::open(['method'=>'DELETE', 'action'=>['UserCustomerController@destroy', $customer->client_id, $customer->id]]) !!}
 
                             {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
 

@@ -29,34 +29,32 @@
                 </div>
                 
                 <div class="body table-responsive">
-                    <table class="table table-hover dashboard-task-infos">
+                    <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Task</th>
+                                <th>Date</th>
+                                <th>Time</th>
                                 <th>User</th>
-                            	<th>Status</th>
-                           	</tr>
+                                <th>Activity</th>               
+                            </tr>
                         </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>User</th>
+                                <th>Activity</th>
+                            </tr>
+                        </tfoot>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><a href="#">Created new journal</a></td>
-                                <td>Viktor Nikiforov</td>
-                                <td><span class="label bg-orange">Draft</span></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a href="#">New Cash Disbursement</a></td>
-                                <td>Otabek Altin</td>
-                                <td><span class="label bg-green">Done</span></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><a href="#">Added new document</a></td>
-                                <td>Otabek Altin</td>
-                                <td><span class="label bg-green">Done</span></td>
-                            </tr>
+                            
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                
                         </tbody>
                     </table>
                 </div>

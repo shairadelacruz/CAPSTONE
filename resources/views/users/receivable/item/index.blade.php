@@ -157,7 +157,7 @@ Item
                         <div class="modal-body">
                             
                             <div class="row clearfix">
-                                    {!! Form::model($item,['method'=>'PATCH', 'action'=>['UserItemsController@update',$item->id,$client_id]]) !!}
+                                    {!! Form::model($item,['method'=>'PATCH', 'action'=>['UserItemsController@update',$client_id,$item->id]]) !!}
                                 
                                     <div class="form-group form-float">
                                         <div class="form-line">
