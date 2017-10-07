@@ -173,14 +173,14 @@
                                 <a href="/user/{{request()->route('client_id')}}/accounting/coa">Chart of Accounts</a>
                             </li>
                             <li>
-                                <a href="/user/{{request()->route('client_id')}}/accounting/vat">VAT Codes</a>
+                                <a href="/user/accounting/vat">VAT Codes</a>
                             </li>
                         </ul>
                     </li>
                     
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="fa fa-credit-card-alt fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Accounts Payable</strong>
+                            <i class="fa fa-credit-card-alt fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Expenses</strong>
                         </a>
                         <ul class="ml-menu">
                             <li>
@@ -194,7 +194,7 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="fa fa-credit-card fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Accounts Receivable</strong>
+                            <i class="fa fa-credit-card fa-fw fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Sales</strong>
                         </a>
                         <ul class="ml-menu">
                             <li>

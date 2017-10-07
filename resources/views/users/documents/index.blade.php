@@ -40,8 +40,8 @@ Documents
                                         <th>Reference No</th>
                                         <th>Date</th>
                                         <th>Type</th>
-                                        <th>Received From</th>
                                         <th>Received By</th>
+                                        <th>Received From</th>
                                     </tr>
                                 </thead>
                                 <tfoot>                         
@@ -50,8 +50,8 @@ Documents
                                         <th>Reference No</th>
                                         <th>Date</th>
                                         <th>Type</th>
-                                        <th>Received From</th>
                                         <th>Received By</th>
+                                        <th>Received From</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>

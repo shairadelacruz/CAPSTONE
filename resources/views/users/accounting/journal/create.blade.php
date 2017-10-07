@@ -60,6 +60,12 @@ Journal
                 <textarea class="form-control" name='description'></textarea>
             </div>
         </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label>JV No.</label>
+                <input type="number" name="">
+            </div>
+        </div>
         @if(Session::has('ref_no'))
         <div class="col-sm-3">
             <div class="form-group">

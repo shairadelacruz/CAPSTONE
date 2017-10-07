@@ -128,7 +128,7 @@
                                     </td>
                                     <td>Total</td>
                                     <td class="table-grandTotal">
-                                        <input type="number" value="" class="table-control right-align-text" name="grandTotal" readonly="true" step="0.01">
+                                        <input type="number" value="" class="table-control right-align-text" name="grandTotal" step="0.01">
                                     </td>
                                 </tr>
                             </tfoot>

@@ -62,7 +62,7 @@ class UserJournalsController extends Controller
             'date' => 'required',
             'coa_cli_id' => 'required',
             'debittot' => 'required|integer',
-            'credittot' => 'required|integer|same:debittot'
+            'debittot' => 'required|integer|same:credittot'
         ]);
         
 

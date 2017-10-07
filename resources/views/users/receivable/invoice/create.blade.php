@@ -39,7 +39,7 @@ Invoice
                             <div class="form-group">
                                 <label>Transaction No.</label>
                                 @if($client_name = Auth::user()->clients->find(request()->route('client_id')))
-                                <input type="text" class="form-control" name='transaction_no' value="{{Carbon\Carbon::today()->format('Y')}}-{{$client_name->code}}{{$client_name->id}}-{{$count}}-B" readonly="true">
+                                <input type="text" class="form-control" name='transaction_no' value="{{Carbon\Carbon::today()->format('Y')}}-{{$client_name->code}}{{$client_name->id}}-{{$count}}-I" readonly="true">
                                 @endif
                             </div>
                         </div>
@@ -121,10 +121,10 @@ Invoice
                                         <input type="text" class="description" name="descriptions[]">
                                     </td>
                                     <td class="table-qty">
-                                        <input type="number" class="qty" name="qty[]">
+                                        <input type="number" class="qty right-align-text" name="qty[]">
                                     </td>
                                     <td class="table-price">
-                                        <input type="number" class="price" name="price[]" step="0.01">
+                                        <input type="number" class="price right-align-text" name="price[]" step="0.01">
                                     </td>
 
                                     <td class="table-vat_id">
@@ -139,7 +139,7 @@ Invoice
                                     </select>
                                     </td>
                                     <td class="table-vat_amount" >
-                                        <input type="number" name="vat_amount[]" step="0.01">
+                                        <input type="number" class="right-align-text" name="vat_amount[]" step="0.01">
                                     </td>
                                     <td class="table-total">
                                         <input type="number" value="0" class="subTotal right-align-text" name="total[]" step="0.01">
@@ -157,7 +157,7 @@ Invoice
                                     </td>
                                     <td>Total</td>
                                     <td class="table-grandTotal">
-                                        <input type="number" value="" class="table-control right-align-text" name="grandTotal" readonly="true" step="0.01">
+                                        <input type="number" value="" class="table-control right-align-text" name="grandTotal"  step="0.01">
                                     </td>
                                 </tr>
                             </tfoot>
@@ -206,10 +206,10 @@ Invoice
             '<input type="text" class="description" name="descriptions[]">'+
             '</td>'+
             '<td class="table-qty">'+
-            '<input type="number" class="qty" name="qty[]">'+
+            '<input type="number" class="qty right-align-text" name="qty[]">'+
             '</td>'+
             '<td class="table-price">'+
-            '<input type="number" class="price" name="price[]" step="0.01">'+
+            '<input type="number" class="price right-align-text" name="price[]" step="0.01">'+
             '</td>'+
 
             '<td class="table-vat_id">'+
@@ -221,7 +221,7 @@ Invoice
             '</select>'+
             '</td>'+
             '<td class="table-vat_amount" >'+
-            '<input type="number" name="vat_amount[]" step="0.01">'+
+            '<input type="number" class="right-align-text" name="vat_amount[]" step="0.01">'+
             '</td>'+
             '<td class="table-total">'+
             '<input type="number" value="" class="table-control" name="total[]" step="0.01">'+
