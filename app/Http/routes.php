@@ -91,6 +91,8 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::post('user/{client_id}/accounting/journal', array('as'=>'insertjournal','uses'=>'UserJournalsController@store'));
 
+    Route::get('user/{client_id}/accounting/journal/pdfview',array('as'=>'journalpdfview','uses'=>'UserJournalsController@pdfview'));
+
     //Adjusting
 
     Route::resource('user/{client_id}/adjusting', 'UserAdjustingController');
@@ -140,6 +142,8 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::resource('user/{client_id}/payable/bill/edit', 'UserBillsController@edit');
 
+    Route::get('user/{client_id}/payable/bill/{bill_id}/edit/findPrice/{item_id?}','UserBillsController@findPrice');
+
     Route::resource('user/{client_id}/payable/bill/pay', 'UserBillsController@pay');
 
     Route::get('user/{client_id}/payable/bill/pay', 'UserBillsController@pay');
@@ -174,6 +178,8 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::get('user/{client_id}/receivable/invoice/create/findPrice/{item_id?}','UserInvoicesController@findPrice');
 
+    Route::get('user/{client_id}/receivable/invoice/{invoice_id}/edit/findPrice/{item_id?}','UserInvoicesController@findPrice');
+
     Route::resource('user/{client_id}/receivable/invoice/edit', 'UserInvoicesController@edit');
 
     Route::resource('user/{client_id}/receivable/invoice/pay', 'UserInvoicesController@pay');
@@ -196,6 +202,14 @@ Route::group(['middleware'=>'user'], function(){
     Route::get('user/{client_id}/reports/generalledger', 'UserReportsController@general_ledger_index');
     
     Route::get('user/{client_id}/reports/generalledger/generate', 'UserReportsController@general_ledger_generate');
+
+    Route::get('user/{client_id}/reports/balancesheet', 'UserReportsController@balance_sheet_index');
+    
+    Route::get('user/{client_id}/reports/balancesheet/generate', 'UserReportsController@balance_sheet_generate');
+
+    Route::get('user/{client_id}/reports/profitandloss', 'UserReportsController@profit_and_loss_index');
+    
+    Route::get('user/{client_id}/reports/profitandloss/generate', 'UserReportsController@profit_and_loss_generate');
 
 });
 

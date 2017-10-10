@@ -93,6 +93,7 @@ Journal
                                 <option value="{{$detail->reference_no}}" selected="true">{{$detail->log->reference_no}}</option>
                                 <option value="0" selected="true">Select an option</option>
                                 @endif
+                                <option value="0" selected="true">Select an option</option>
                                 @if($refs)
                                 @foreach($refs as $ref)
                                     <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
@@ -226,55 +227,8 @@ function addRow() {
             '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
             '</td>'+
             '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
-            '</tr>' +
+            '</tr>' 
 
-
-            '<tr>'+
-            '<td class="table-reference_no">'+
-            '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
-            '<option value="0" selected="true">Select an option</option>'+
-            '@if($refs)'+
-            '@foreach($refs as $ref)'+
-            '<option value="{{$ref->id}}">{{$ref->reference_no}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>'+
-            '@endforeach'+
-            '@endif'+
-            '</select>'+
-            '</td>'+
-            '<td class="table-client_coa_id">'+
-            '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
-            '<option value="0" selected="true">Select an option</option>'+
-            '@if($coas)'+
-            '@foreach($coas as $coa)'+
-                '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
-            '@endforeach'+
-            '@endif'+
-            '</select>'+
-            '</td>'+
-            '<td class="table-debit">'+
-            '<input type="number" class="table-control right-align-text sumThis debit creddeb getrate" name="debit[]" value="0" >'+
-            '</td>'+
-
-            '<td class="table-credit">'+
-            '<input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0" >'+
-            '</td>'+
-            '<td class="table-description">'+
-            '<input type="text" class="table-control" name="descriptions[]">'+
-            '</td>'+
-            '<td class="table-vat_id">'+
-            '<select class="table-control chosen-select vat_id getrate" name="vat_id[]" data-live-search="true">'+
-            '<option value="0" selected="true">Select an option</option>'+
-            '@if($vats)'+
-            '@foreach($vats as $vat)'+
-                '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>'+
-            '@endforeach'+
-            '@endif'+
-            '</select>'+
-            '</td>'+
-            '<td>'+
-            '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
-            '</td>'+
-            '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
-            '</tr>';
 
     $('tbody').append(tr);
     $(".chosen-select").chosen()
@@ -341,11 +295,12 @@ body.on('change', '.sumThis', function() {
   var columnIndex = $(this).closest('td').index();
   var rows = body.find('tr');
   $.each(rows, function() {
-      var amount = $(this).children('td').eq(columnIndex).children('.sumThis').val();    
+      var amount = $(this).children('td').eq(columnIndex).children('.sumThis').val();
+      var vat = $(this).children('td').eq(columnIndex).children('.vat_amount').val();    
       total += new Number(amount);
   });
   //totals.children('td').eq(columnIndex).text(total);
-   document.getElementById("debittot").value = total;
+   document.getElementById("debittot").value = total+vat;
 
    var debittot = document.getElementById("debittot").value;
    var credittot = document.getElementById("credittot").value;
@@ -364,11 +319,12 @@ body1.on('change', '.sumThis1', function() {
   var columnIndex = $(this).closest('td').index();
   var rows = body1.find('tr');
   $.each(rows, function() {
-      var amount = $(this).children('td').eq(columnIndex).children('.sumThis1').val();    
+      var amount = $(this).children('td').eq(columnIndex).children('.sumThis1').val();
+      var vat = $(this).children('td').eq(columnIndex).children('.vat_amount').val();  
       total += new Number(amount);
   });
   //totals.children('td').eq(columnIndex).text(total);
-   document.getElementById("credittot").value = total;
+   document.getElementById("credittot").value = total+vat;
 
    var debittot = document.getElementById("debittot").value;
    var credittot = document.getElementById("credittot").value;

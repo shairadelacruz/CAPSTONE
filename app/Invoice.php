@@ -19,7 +19,7 @@ class Invoice extends Model
 
     public function logs()
     {
-        return $this->belongsTo('App\Log');
+        return $this->belongsTo('App\Log', 'reference_no');
     }
 
     public function client(){

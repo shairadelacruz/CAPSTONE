@@ -45,11 +45,11 @@ class Log extends Model
 
     public function bill()
     {
-        return $this->hasMany('App\Bill');
+        return $this->hasMany('App\Bill', 'reference_no');
     }
 
     public function invoice()
     {
-        return $this->hasMany('App\Invoice');
+        return $this->hasMany('App\Invoice', 'reference_no');
     }
 }

@@ -60,12 +60,12 @@ Journal
                 <textarea class="form-control" name='description'></textarea>
             </div>
         </div>
-        <div class="col-sm-3">
+        <!--<div class="col-sm-3">
             <div class="form-group">
                 <label>JV No.</label>
                 <input type="number" name="">
             </div>
-        </div>
+        </div>-->
         @if(Session::has('ref_no'))
         <div class="col-sm-3">
             <div class="form-group">
@@ -335,55 +335,7 @@ Journal
             '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
             '</td>'+
             '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
-            '</tr>' +
-
-
-            '<tr>'+
-            '<td class="table-reference_no">'+
-            '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
-            '<option value="0" selected="true">Select an option</option>'+
-            '@if($refs)'+
-            '@foreach($refs as $ref)'+
-            '<option value="{{$ref->id}}">{{$ref->reference_no}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>'+
-            '@endforeach'+
-            '@endif'+
-            '</select>'+
-            '</td>'+
-            '<td class="table-client_coa_id">'+
-            '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
-            '<option value="0" selected="true">Select an option</option>'+
-            '@if($coas)'+
-            '@foreach($coas as $coa)'+
-                '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
-            '@endforeach'+
-            '@endif'+
-            '</select>'+
-            '</td>'+
-            '<td class="table-debit">'+
-            '<input type="number" class="table-control right-align-text sumThis debit creddeb getrate" name="debit[]" value="0" >'+
-            '</td>'+
-
-            '<td class="table-credit">'+
-            '<input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0" >'+
-            '</td>'+
-            '<td class="table-description">'+
-            '<input type="text" class="table-control" name="descriptions[]">'+
-            '</td>'+
-            '<td class="table-vat_id">'+
-            '<select class="table-control chosen-select vat_id getrate" name="vat_id[]" data-live-search="true">'+
-            '<option value="0" selected="true">Select an option</option>'+
-            '@if($vats)'+
-            '@foreach($vats as $vat)'+
-                '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>'+
-            '@endforeach'+
-            '@endif'+
-            '</select>'+
-            '</td>'+
-            '<td>'+
-            '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
-            '</td>'+
-            '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
-            '</tr>';
+            '</tr>' 
 
     $('tbody').append(tr);
     $(".chosen-select").chosen()
@@ -449,6 +401,9 @@ body.on('change', '.sumThis', function() {
   var total = 0;
   var columnIndex = $(this).closest('td').index();
   var rows = body.find('tr');
+  var tr = $(this).parent().parent();
+    //tr.find('.qty').focus();
+    var credit = tr.find('.credit').val();
   $.each(rows, function() {
       var amount = $(this).children('td').eq(columnIndex).children('.sumThis').val();    
       total += new Number(amount);
@@ -505,6 +460,14 @@ $('tbody').delegate('.getrate','change',function(){
     {
         var amount = (rate*deb);
         tr.find('.vat_amount').val(amount);
+
+        /*var totals = $('#debittot').val();
+
+        var wow = parseInt(totals)+amount;
+
+        alert(wow);
+
+        $('#debittot').val(wow)*/
     }
     else if (cred != 0){
         var amount = (rate*cred);

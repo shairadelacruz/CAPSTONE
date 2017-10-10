@@ -45,10 +45,11 @@ class UserBillsController extends Controller
         $bills = $client->bill;
         $items = $client->item;
         $coas = $client->coas;
+        $refs = $client->log;
         $vats = Vat::all();
         $carbon = \Carbon\Carbon::now();
         $count = Bill::whereYear('created_at','=', $carbon->year)->count()+1;
-        return view('users.payable.bill.create', compact('client_id', 'client', 'items', 'coas', 'vats', 'vendors', 'count'));
+        return view('users.payable.bill.create', compact('client_id', 'client', 'items', 'coas', 'vats', 'vendors', 'count', 'refs'));
 
 
     }
@@ -107,6 +108,8 @@ class UserBillsController extends Controller
         $credit->journal_id = $journalId;
         $credit->coa_id = 8;
         $credit->credit = $request->grandTotal;
+        $credit->reference_no = 0;
+        $credit->vat_amount = 0;
         $credit->save();
 
 
@@ -136,7 +139,11 @@ class UserBillsController extends Controller
                 $debit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
-                            'debit'=>$subTotal
+                            'debit'=>$subTotal,
+                            'descriptions'=>$request->descriptions[$key],
+                            'vat_amount'=>$request->vat_amount[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'reference_no'=>$request->reference_no
 
                 ]);
 
@@ -218,7 +225,8 @@ class UserBillsController extends Controller
                 $debit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
-                            'debit'=>$request->amount[$key]
+                            'debit'=>$request->amount[$key],
+                            
                 ]);
 
                 $debit->save();
@@ -245,11 +253,39 @@ class UserBillsController extends Controller
     
         $client_id = $bill->client_id;
 
+        $billId = $bill->id;
+
+        //Update Journal with payment debit and credit
+
+        $journals = Journal::where('bill_id', $billId)->first();
+
+        $journalId = $journals->id;
+
+        //Create Debit detail
+        $debit = new JournalDetails;
+        $debit->journal_id = $journalId;
+        $debit->coa_id = 8;
+        $debit->debit = $minus;
+        $debit->descriptions = $request->description;
+        $debit->reference_no = 0;
+        $debit->vat_amount = 0;
+        $debit->save();
+
+        //Create Credit detail
+        $credit = new JournalDetails;
+        $credit->journal_id = $journalId;
+        $credit->coa_id = 1;
+        $credit->credit = $minus;
+        $credit->descriptions = $request->description;
+        $credit->reference_no = 0;
+        $credit->vat_amount = 0;
+        $credit->save();
+
 
         //Get how many journal to put in transaction_no
-        $count = Journal::where('type','=','4')->count();
+        //$count = Journal::where('type','=','4')->count();
         //Create Journal Header
-        $journals = new Journal;
+        /*$journals = new Journal;
         $journals->client_id = $client_id;
         $journals->transaction_no = "BP".$count;
         $journals->date = $request->date;
@@ -274,7 +310,7 @@ class UserBillsController extends Controller
         $credit->journal_id = $journalId;
         $credit->coa_id = 1;
         $credit->credit = $minus;
-        $credit->save();
+        $credit->save();*/
 
         return \Redirect::route('bill', [$client_id]);
     }
@@ -308,7 +344,8 @@ class UserBillsController extends Controller
         $items = $client->item;
         $coas = $client->coas;
         $vats = Vat::all();
-        return view('users.payable.bill.edit', compact('bill','details','client_id', 'client', 'items', 'coas', 'vats', 'vendors'));
+        $refs = $client->log;
+        return view('users.payable.bill.edit', compact('bill','details','client_id', 'client', 'items', 'coas', 'vats', 'vendors','refs'));
     }
 
 

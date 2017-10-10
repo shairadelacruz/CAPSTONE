@@ -9,7 +9,7 @@ Invoice
 @extends('includes.form_includes');
 
 @section('content')
-    <div id="bill">
+    <div id="invoice">
 
         <div class = "panel panel-default" v-clock>
             
@@ -33,7 +33,7 @@ Invoice
 
                     <div class="col-sm-12">
 
-                        <input type="hidden" name='client_id' value="{{ $client_id }}" class="form-control">
+                        <input type="hidden" name='client_id' value="{{ $client_id }}" class="clientHidden">
 
                         <div class="col-sm-4">
                             <div class="form-group">
@@ -47,7 +47,14 @@ Invoice
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Reference No.</label>
-                                <input type="text" class="form-control" name='reference_no'>
+                                <select class="chosen-select form-control" name="reference_no">
+                                <option value="0" selected="true">Please select an option</option>
+                                @if($refs)
+                                @foreach($refs as $ref)
+                                    <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
+                                @endforeach
+                                @endif
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Customer</label>
@@ -96,7 +103,7 @@ Invoice
                             <tbody id="billTbody">
                                 <tr>
                                     <td class="table-item_id">
-                                    <select class="table-control chosen-select productname" name="item_id[]">
+                                    <select class="table-control chosen-select productname getrate" name="item_id[]">
                                           <option value="0" selected="true" disabled="true"></option>          
                                                 @if($items)
                                                 @foreach($items as $item)
@@ -121,25 +128,24 @@ Invoice
                                         <input type="text" class="description" name="descriptions[]">
                                     </td>
                                     <td class="table-qty">
-                                        <input type="number" class="qty right-align-text" name="qty[]">
+                                        <input type="number" class="qty right-align-text getrate" value="0" name="qty[]" >
                                     </td>
                                     <td class="table-price">
-                                        <input type="number" class="price right-align-text" name="price[]" step="0.01">
+                                        <input type="number" class="price right-align-text getrate" value="0" name="price[]" step="0.01">
                                     </td>
 
                                     <td class="table-vat_id">
-                                        <select class="vat_id table-control chosen-select" name="vat_id[]">
-                                                    <option value="0" selected="true" disabled="true">Choose</option>
+                                        <select class="vat_id table-control chosen-select getrate" name="vat_id[]">
+                                                <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($vats)
                                                 @foreach($vats as $vat)
-                                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - {{ number_format($vat->rate, 0) }}%
-                                                    </option>
+                                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
                                                 @endforeach
                                                 @endif
-                                    </select>
+                                        </select>
                                     </td>
                                     <td class="table-vat_amount" >
-                                        <input type="number" class="right-align-text" name="vat_amount[]" step="0.01">
+                                        <input type="number" name="vat_amount[]" value="0" class="right-align-text vat_amount" step="0.01">
                                     </td>
                                     <td class="table-total">
                                         <input type="number" value="0" class="subTotal right-align-text" name="total[]" step="0.01">
@@ -157,7 +163,7 @@ Invoice
                                     </td>
                                     <td>Total</td>
                                     <td class="table-grandTotal">
-                                        <input type="number" value="" class="table-control right-align-text" name="grandTotal"  step="0.01">
+                                        <input type="number" value="" class="table-control right-align-text grandTotal" name="grandTotal" step="0.01">
                                     </td>
                                 </tr>
                             </tfoot>
@@ -187,7 +193,7 @@ Invoice
     function addRow() {
         var tr = '<tr>'+
             '<td class="table-item_id">'+
-            '<select class="table-control chosen-select productname" name="item_id[]">'+
+            '<select class="table-control chosen-select productname getrate" name="item_id[]">'+
             '<option value="0" selected="true" disabled="true">Choose</option>'+  '@if($items)@foreach($items as $item)'+
                     '<option value="{{$item->id}}">{{$item->name}}</option>'+
                     '@endforeach @endif'+
@@ -206,14 +212,14 @@ Invoice
             '<input type="text" class="description" name="descriptions[]">'+
             '</td>'+
             '<td class="table-qty">'+
-            '<input type="number" class="qty right-align-text" name="qty[]">'+
+            '<input type="number" class="qty right-align-text getrate" name="qty[]" value="0">'+
             '</td>'+
             '<td class="table-price">'+
-            '<input type="number" class="price right-align-text" name="price[]" step="0.01">'+
+            '<input type="number" class="price right-align-text getrate" name="price[]" value="0" step="0.01">'+
             '</td>'+
 
             '<td class="table-vat_id">'+
-            '<select class="vat_id table-control chosen-select" name="vat_id[]">'+
+            '<select class="vat_id table-control chosen-select getrate" name="vat_id[]">'+
                 '<option value="0" selected="true" disabled="true">Choose</option>'+
                 '@if($vats)@foreach($vats as $vat)'+
                 '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>'+
@@ -221,10 +227,10 @@ Invoice
             '</select>'+
             '</td>'+
             '<td class="table-vat_amount" >'+
-            '<input type="number" class="right-align-text" name="vat_amount[]" step="0.01">'+
+            '<input type="number" name="vat_amount[]" value="0" class="right-align-text vat_amount" step="0.01">'+
             '</td>'+
             '<td class="table-total">'+
-            '<input type="number" value="" class="table-control" name="total[]" step="0.01">'+
+            '<input type="number" value="0" class="subTotal right-align-text" name="total[]" value="0" step="0.01">'+
             '</td>'+
             '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
             '</tr>';
@@ -240,12 +246,6 @@ function removeRow(btn) {
 }
 
 $('tbody').delegate('.productname','change',function(){
-    var tr = $(this).parent().parent();
-    tr.find('.qty').focus();
-    //tr.find('.qty').prop("disabled",true);
-});
-
-$('tbody').delegate('.productname','change',function(){
 
     var tr = $(this).parent().parent();
     var newtr = tr.next('tr').parent().parent();
@@ -255,18 +255,17 @@ $('tbody').delegate('.productname','change',function(){
     var dataId = {'id':id};
     $.ajax({
         type    : 'get',
-        url     : '/user/'+client_id+'/accounting/invoice/create/findPrice/'+id,
+        url     : '/user/'+client_id+'/receivable/invoice/create/findPrice/'+id,
         dataType: 'json',
         data    : {'id':id},
         success:function(data){
             
-
             tr.find('.coaname').val(data.coa_id);
             tr.find('.description').val(data.description);
             tr.find('.price').val(data.price);
             tr.find('.vat_id').val(data.vat_id);
-
-            
+            tr.find('.qty').focus();
+  
         }
        
     });
@@ -275,44 +274,27 @@ $('tbody').delegate('.productname','change',function(){
            
 });
 
+
 //subTotals
 
-$('tbody').delegate('.qty','change',function(){
+$('tbody').delegate('.getrate','change',function(){
     var tr = $(this).parent().parent();
-    //tr.find('.qty').focus();
     var qty = tr.find('.qty').val();
     var price = tr.find('.price').val();
-    var getrate = tr.find('.vat_id').find(":selected").text().slice(0,-1);
-    var rates = getrate.split('-').splice(1);
-
+    var getrate = tr.find('.vat_id').find(":selected").text().slice(0, -1);
+    var rates = getrate.split('-').splice(1);  
     var rate = rates/100;
-
-    alert(rates);
-
     var subtotal = price * qty;
-    var total = subtotal * rate;
-    tr.find('.subTotal').val(total);
- 
-});
+    var vat = subtotal * rate;
+    tr.find('.vat_amount').val(vat.toFixed(2));
+    var subtotalvat = subtotal + vat;
+    tr.find('.subTotal').val(subtotalvat.toFixed(2));
+    var total = 0;
 
-$('tbody').delegate('.price','change',function(){
-    var tr = $(this).parent().parent();
-    //tr.find('.qty').focus();
-    var qty = tr.find('.qty').val();
-    var price = tr.find('.price').val();
-    var subtotal = price * qty;
-    tr.find('.subTotal').val(subtotal);
- 
-});
-
-$('tbody').delegate('.productname','change',function(){
-    var tr = $(this).parent().parent();
-    //tr.find('.qty').focus();
-    var qty = tr.find('.qty').val();
-    var price = tr.find('.price').val();
-    var subtotal = price * qty;
-    tr.find('.subTotal').val(subtotal);
- 
+    $('.subTotal').each(function() {
+        total += Number($(this).val());
+    });
+    $('.grandTotal').val(total.toFixed(2));
 });
 
 

@@ -4,7 +4,7 @@
 
                     <div class="col-sm-12">
 
-                        <input type="hidden" class="clientHidden" name='client_id' value="{{ $client_id }}" class="form-control">
+                        <input type="hidden" class="clientHidden" name='client_id' value="{{ $client_id }}">
 
                         <div class="col-sm-4">
                             <div class="form-group">
@@ -18,7 +18,14 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Reference No.</label>
-                                <input type="text" class="form-control" name='reference_no'>
+                                <select class="chosen-select form-control" name="reference_no">
+                                <option value="0" selected="true">Please select an option</option>
+                                @if($refs)
+                                @foreach($refs as $ref)
+                                    <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
+                                @endforeach
+                                @endif
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Vendor</label>
@@ -50,7 +57,7 @@
 
                     
                     <div class="body table-responsive">
-                        <table class="table table-bordered">
+                        <table id="billtable" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Item</th>
@@ -67,7 +74,7 @@
                             <tbody id="billTbody">
                                 <tr>
                                     <td class="table-item_id">
-                                    <select class="table-control chosen-select productname" name="item_id[]">
+                                    <select class="table-control chosen-select productname getrate" name="item_id[]">
                                           <option value="0" selected="true" disabled="true"></option>          
                                                 @if($items)
                                                 @foreach($items as $item)
@@ -92,25 +99,24 @@
                                         <input type="text" class="description" name="descriptions[]">
                                     </td>
                                     <td class="table-qty">
-                                        <input type="number" class="qty right-align-text" value="0" name="qty[]" >
+                                        <input type="number" class="qty right-align-text getrate" value="0" name="qty[]" >
                                     </td>
                                     <td class="table-price">
-                                        <input type="number" class="price right-align-text" value="0" name="price[]" step="0.01">
+                                        <input type="number" class="price right-align-text getrate" value="0" name="price[]" step="0.01">
                                     </td>
 
                                     <td class="table-vat_id">
-                                        <select class="vat_id table-control chosen-select" name="vat_id[]">
-                                                    <option value="0" selected="true" disabled="true">Choose</option>
+                                        <select class="vat_id table-control chosen-select getrate" name="vat_id[]">
+                                                <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($vats)
                                                 @foreach($vats as $vat)
-                                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - {{ number_format($vat->rate, 0) }}%
-                                                    </option>
+                                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
                                                 @endforeach
                                                 @endif
-                                    </select>
+                                        </select>
                                     </td>
                                     <td class="table-vat_amount" >
-                                        <input type="number" name="vat_amount[]" value="0" class="right-align-text" step="0.01">
+                                        <input type="number" name="vat_amount[]" value="0" class="right-align-text vat_amount" step="0.01">
                                     </td>
                                     <td class="table-total">
                                         <input type="number" value="0" class="subTotal right-align-text" name="total[]" step="0.01">
@@ -128,7 +134,7 @@
                                     </td>
                                     <td>Total</td>
                                     <td class="table-grandTotal">
-                                        <input type="number" value="" class="table-control right-align-text" name="grandTotal" step="0.01">
+                                        <input type="number" value="" class="table-control right-align-text grandTotal" name="grandTotal" step="0.01">
                                     </td>
                                 </tr>
                             </tfoot>

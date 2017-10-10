@@ -9,7 +9,7 @@ class JournalDetails extends Model
     //
 
     protected $fillable = [
-    	'reference_no', 'description', 'debit', 'credit', 'vat_amount', 'vat_id', 'coa_id', 'vendor_id','customer_id', 'journal_id'
+    	'reference_no', 'descriptions', 'debit', 'credit', 'vat_amount', 'vat_id', 'coa_id', 'vendor_id','customer_id', 'journal_id'
     ];
 
     public function journal(){

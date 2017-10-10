@@ -25,7 +25,7 @@ class UserJournalsController extends Controller
         //
         $client = Client::find($client_id);
 
-        $journals = $client->journal->where('type', 0)->all();
+        $journals = $client->journal->all();
 
         return view('users.accounting.journal.index', compact('journals'));
     }
@@ -199,12 +199,28 @@ class UserJournalsController extends Controller
         return \Redirect::route('journal', [$client_id]); 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function pdfview(Request $request)
+    {
+
+        $journal = Journal::findOrFail($id);
+        $details = $journal->journal_details;
+        $client = Client::findOrFail($client_id);
+        $coas = $client->coas;
+        $vats = Vat::all();
+        $refs = $client->log;
+
+        $items = DB::table("items")->get();
+        view()->share('items',$items);
+
+        if($request->has('download')){
+            $pdf = PDF::loadView('pdfview');
+            return $pdf->download('pdfview.pdf');
+        }
+
+        return view('users.accounting.journal.pdfview');
+    }
+
+    
     public function destroy($id, $client_id)
     {
         //

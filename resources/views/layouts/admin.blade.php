@@ -233,6 +233,12 @@
                             <li>
                                 <a href="/user/{{request()->route('client_id')}}/reports/generalledger">General Ledger</a>
                             </li>
+                            <li>
+                                <a href="/user/{{request()->route('client_id')}}/reports/balancesheet">Balance Sheet</a>
+                            </li>
+                            <li>
+                                <a href="/user/{{request()->route('client_id')}}/reports/profitandloss">Profit and Loss</a>
+                            </li>
                         </ul>
                         
                     </li>

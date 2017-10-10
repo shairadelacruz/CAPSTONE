@@ -45,10 +45,11 @@ class UserInvoicesController extends Controller
         $invoices = $client->invoice;
         $items = $client->item;
         $coas = $client->coas;
+        $refs = $client->log;
         $vats = Vat::all();
         $carbon = \Carbon\Carbon::now();
         $count = Invoice::whereYear('created_at','=', $carbon->year)->count()+1;
-        return view('users.receivable.invoice.create', compact('client_id', 'client', 'items', 'coas', 'vats', 'customers', 'count'));
+        return view('users.receivable.invoice.create', compact('client_id', 'client', 'items', 'coas', 'vats', 'customers', 'count', 'refs'));
     }
 
     /**
@@ -69,6 +70,7 @@ class UserInvoicesController extends Controller
        
 
         $invoices = new Invoice;
+        $invoices->transaction_no = $request->transaction_no;
         $invoices->client_id = $request->client_id;
         $invoices->reference_no = $request->reference_no;
         $invoices->invoice_date = $request->invoice_date;
@@ -83,13 +85,11 @@ class UserInvoicesController extends Controller
         $invoiceId = $invoiceLast->id;
 
         $client_id = $request->client_id;
-        //Get how many journal to put in transaction_no
-        $count = Journal::where('type','=','2')->count();
         //Create Journal Header
         $journals = new Journal;
         $journals->invoice_id = $invoiceId;
         $journals->client_id = $client_id;
-        $journals->transaction_no = "I".$count;
+        $journals->transaction_no = $request->transaction_no;
         $journals->date = $request->invoice_date;
         $journals->debit_total = $request->grandTotal;
         $journals->credit_total = $request->grandTotal;
@@ -104,6 +104,8 @@ class UserInvoicesController extends Controller
         $debit->journal_id = $journalId;
         $debit->coa_id = 2;
         $debit->debit = $request->grandTotal;
+        $debit->reference_no = 0;
+        $debit->vat_amount = 0;
         $debit->save();
 
 
@@ -133,7 +135,11 @@ class UserInvoicesController extends Controller
                 $credit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
-                            'credit'=>$subTotal
+                            'credit'=>$subTotal,
+                            'descriptions'=>$request->descriptions[$key],
+                            'vat_amount'=>$request->vat_amount[$key],
+                            'vat_id'=>$request->vat_id[$key],
+                            'reference_no'=>$request->reference_no
 
                 ]);
 
@@ -164,11 +170,39 @@ class UserInvoicesController extends Controller
     
         $client_id = $invoice->client_id;
 
+        $invoiceId = $invoice->id;
 
-        ///Get how many journal to put in transaction_no
-        $count = Journal::where('type','=','3')->count();
+        //Update Journal with payment debit and credit
+
+        $journals = Journal::where('invoice_id', $invoiceId)->first();
+
+        $journalId = $journals->id;
+
+        //Create Debit detail
+        $debit = new JournalDetails;
+        $debit->journal_id = $journalId;
+        $debit->coa_id = 1;
+        $debit->debit = $minus;
+        $debit->descriptions = $request->description;
+        $debit->reference_no = 0;
+        $debit->vat_amount = 0;
+        $debit->save();
+
+        //Create Credit detail
+        $credit = new JournalDetails;
+        $credit->journal_id = $journalId;
+        $credit->coa_id = 2;
+        $credit->credit = $minus;
+        $credit->descriptions = $request->description;
+        $credit->reference_no = 0;
+        $credit->vat_amount = 0;
+        $credit->save();
+
+
+        //Get how many journal to put in transaction_no
+        //$count = Journal::where('type','=','3')->count();
         //Create Journal Header
-        $journals = new Journal;
+        /*$journals = new Journal;
         $journals->client_id = $client_id;
         $journals->transaction_no = "IP".$count;
         $journals->date = $request->date;
@@ -193,7 +227,7 @@ class UserInvoicesController extends Controller
         $credit->journal_id = $journalId;
         $credit->coa_id = 2;
         $credit->credit = $minus;
-        $credit->save();
+        $credit->save();*/
 
         return \Redirect::route('invoice', [$client_id]);
         
@@ -226,10 +260,11 @@ class UserInvoicesController extends Controller
         $invoices = $client->invoice;
         $items = $client->item;
         $coas = $client->coas;
+        $refs = $client->log;
         $vats = Vat::all();
 
         //return $details;
-        return view('users.receivable.invoice.edit', compact('invoice','details','client_id', 'client', 'items', 'coas', 'vats', 'customers'));
+        return view('users.receivable.invoice.edit', compact('invoice','details','client_id', 'client', 'items', 'coas', 'vats', 'customers', 'refs'));
     }
 
     /**
@@ -256,8 +291,36 @@ class UserInvoicesController extends Controller
         $invoices->invoice_date = $request->invoice_date;
         $invoices->due_date = $request->due_date;
         $invoices->customer_id = $request->customer_id;
+        if($invoices->balance == $invoices->amount)
+        {
+            $invoices->balance = $request->grandTotal;
+        }
+        else
+        {
+            $invoice_amount = $invoices->amount;
+            $new_amount = $request->amount;
+
+            if($invoice_amount < $new_amount)
+            {
+                $difference = $new_amount - $invoice_amount;
+                $new_balance = $invoice_amount + $difference;
+                $invoices->balance = $new_balance;
+
+            }
+            elseif ($invoice_amount > $new_amount)
+            {
+                $difference = $invoice_amount - $new_amount;
+                $new_balance = $invoice_amount + $difference;
+                $invoices->balance = $new_balance;
+            }
+            else
+            {
+                $invoices->balance = $request->grandTotal;
+            }
+        }
+
         $invoices->amount = $request->grandTotal;
-        $invoices->balance = $request->grandTotal;
+        
 
         $invoices->update();
 

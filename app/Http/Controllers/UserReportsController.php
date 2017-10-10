@@ -56,4 +56,27 @@ class UserReportsController extends Controller
         //
         
     }
+
+    public function balance_sheet_index($client_id)
+    {
+        //
+    }
+
+    public function balance_sheet_generate($client_id)
+    {
+        //
+        
+    }
+
+    public function profit_and_loss_index($client_id)
+    {
+        //
+
+    }
+
+    public function profit_and_loss_generate($client_id)
+    {
+        //
+        
+    }
 }
