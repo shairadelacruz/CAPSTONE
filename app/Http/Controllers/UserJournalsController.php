@@ -62,10 +62,10 @@ class UserJournalsController extends Controller
             'date' => 'required',
             'coa_cli_id' => 'required',
             'debittot' => 'required|integer',
-            'debittot' => 'required|integer|same:credittot'
+            'credittot' => 'required|integer|same:debittot'
         ]);
-        
 
+    
         $journals = new Journal;
         $journals->client_id = $request->client_id;
         $journals->transaction_no = $request->transaction_no;
@@ -150,7 +150,9 @@ class UserJournalsController extends Controller
         $this->validate($request, [
             'transaction_no' => 'required',
             'date' => 'required',
-            'coa_cli_id' => 'required'
+            'coa_cli_id' => 'required',
+            'debittot' => 'required|integer',
+            'credittot' => 'required|integer|same:debittot'
         ]);
         
 

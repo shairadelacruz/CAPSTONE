@@ -22,6 +22,11 @@ class Bill extends Model
         return $this->belongsTo('App\Log', 'reference_no');
     }
 
+    public function client()
+    {
+        return $this->belongsTo('App\Client');
+    }
+
     public function clients()
     {
         return $this->belongsTo('App\Client');

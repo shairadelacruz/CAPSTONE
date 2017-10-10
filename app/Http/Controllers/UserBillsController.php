@@ -256,8 +256,15 @@ class UserBillsController extends Controller
         $billId = $bill->id;
 
         //Update Journal with payment debit and credit
-
+        //Get Journal
         $journals = Journal::where('bill_id', $billId)->first();
+        //Change debit and credit total to include payment
+        $journalOldDeb = $journals->debit_total;
+        $journalOldCred = $journals->credit_total;
+
+        $journals->debit_total = $journalOldDeb + $request->amount;
+        $journals->credit_total = $journalOldCred + $request->amount;
+        $journals->update();
 
         $journalId = $journals->id;
 

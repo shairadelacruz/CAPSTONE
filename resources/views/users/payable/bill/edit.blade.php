@@ -36,7 +36,7 @@ Bill
 
                         <input type="hidden" class="clientHidden" name='client_id' value="{{ $client_id }}">
 
-                        <input type="hidden" class="billHidden" name='bill_id' value="{{ bill->id }}">
+                        <input type="hidden" class="billHidden" name='bill_id' value="{{ $bill->id }}">
 
                         <div class="col-sm-4">
                             <div class="form-group">

@@ -293,7 +293,9 @@
                                     </li>
                                 </ul>
                             </li>
-                        
+                            <li>
+                                <a href="{{route('admin.management.team.index')}}">Evaluation</a>
+                            </li>
                          
                         </ul>
                     </li>

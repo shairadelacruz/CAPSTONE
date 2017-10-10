@@ -57,12 +57,12 @@ Journal
                 <textarea class="form-control" name='description'>{{$journal->description}}</textarea>
             </div>
         </div>
-        <div class="col-sm-3">
+        <!--<div class="col-sm-3">
             <div class="form-group">
                 <label>Reference Documents</label><br>
                 <a href="#" class="btn btn-primary"  target="_blank">View</a>
             </div>
-        </div>
+        </div>-->
     </div>
 
 </div>

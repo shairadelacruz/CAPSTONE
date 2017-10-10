@@ -1,1 +1,1 @@
-Updated a bill {{$activity->subject->id}} for {{$activity->subject->client->company_name}}
+Updated a bill {{$activity->subject->transaction_no}} for {{$activity->subject->client->company_name}}

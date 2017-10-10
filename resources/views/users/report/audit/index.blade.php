@@ -29,7 +29,6 @@ Audit Trail
                                         <th>Transaction No.</th>
                                         <th>Date</th>
                                         <th>Modified By</th>
-                                        <th>Date</th>
                                         <th>Account</th>
                                         <th>Total</th>
                                     </tr>
@@ -40,7 +39,6 @@ Audit Trail
                                         <th>Transaction No.</th>
                                         <th>Date</th>
                                         <th>Modified By</th>
-                                        <th>Date</th>
                                         <th>Account</th>
                                         <th>Total</th>
 
@@ -55,9 +53,8 @@ Audit Trail
                                     @if($activity->subject->client == $client)
                                     <tr>
                                         <td>{{$activity->subject->transaction_no}}</td>
-                                        <td>{{$activity->subject->transaction_no}}</td>
-                                        <td>{{$activity->user->name}}</td>
                                         <td>{{$activity->created_at->toDateString()}}</td>
+                                        <td>{{$activity->user->name}}</td>
                                         <td></td>
                                         <td>{{$activity->subject->debit_total}}</td>
 

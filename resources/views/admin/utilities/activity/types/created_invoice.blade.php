@@ -1,1 +1,1 @@
-Created an invoice {{$activity->subject->id}} for {{$activity->subject->client->company_name}}
+Created an invoice {{$activity->subject->transaction_no}} for {{$activity->subject->client->company_name}}

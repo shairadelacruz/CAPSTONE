@@ -108,8 +108,8 @@ Journal
                         </select>
                     </td>
                     <td class="table-client_coa_id">
-                   <select class="table-control chosen-select" name="coa_cli_id[]">
-                                    <option value="0" selected="true">Please select an option</option>
+                   <select class="table-control chosen-select" name="coa_cli_id[]" required="true">
+                                <option value="0" selected="true">Please select an option</option>
                                 @if($coas)
                                 @foreach($coas as $coa)
                                     <option value="{{$coa->id}}">{{$coa->name}}</option>
@@ -478,22 +478,29 @@ $('tbody').delegate('.getrate','change',function(){
         tr.find('.debit').focus();
     }
 
+    balance();
+
 });
 
-
-/*function update_vats()
+function balance()
 {
-    var sum = 0.0;
-    $('#journalTable > tbody  > tr:not(:last)').each(function() {
-        var debcred = parseFloat($(this).find('.sumThis').val() || 0,10);
-        var vat = parseFloat($(this).find('.vat_rate').val() || 0,10);
-        var rate = vat/100;
-        var amount = (rate*debcred);
-        sum+=amount;
-        $(this).find('.vat_amount').val(''+amount);
-    });
+    var debittot = document.getElementById("debittot").value;
+    var credittot = document.getElementById("credittot").value;
+    
+    if(debittot > credittot)
+    {
+        var sum1 = Math.abs(debittot-credittot);
+    }
+    else if(debittot < credittot)
+    {
+        var sum1 = Math.abs(debittot-credittot);
+    }
+    else
+    {
+        alert("same");
+    }
+}
 
-}*/
 </script>
 
 
