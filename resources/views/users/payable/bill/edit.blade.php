@@ -166,7 +166,7 @@ Bill
                                     </td>
 
                                     <td class="table-remove">
-                                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
+                                        <span onclick="removeRow(this)" class="table-remove-btn btn btn-default">X</span>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -175,7 +175,7 @@ Bill
                             <tfoot>
                                 <tr>
                                     <td class="table-empty">
-                                        <span onclick="addRow()" class="table-add_line">+ Add Line</span>
+                                        <span onclick="addRow()" class="table-add_line btn btn-default">Add Line</span>
                                     </td>
                                     <td>Total</td>
                                     <td class="table-grandTotal">
@@ -252,7 +252,7 @@ Bill
             '<td class="table-total">'+
             '<input type="number" value="0" class="subTotal right-align-text" name="total[]" value="0" step="0.01">'+
             '</td>'+
-            '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
+            '<td><span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span></td>'+
             '</tr>';
 
     $('#billTbody').append(tr);

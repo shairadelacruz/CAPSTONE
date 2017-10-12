@@ -6,6 +6,8 @@ Log
 
 @endsection
 
+@extends('includes.gallery_includes');
+
 @section('content')
 
 <h1>Edit Log Entry</h1>
@@ -13,7 +15,7 @@ Log
 	<div class = "row">
 		<div class = "col-sm-3">
 
-			<a href="{{asset('images/' . $log->document_path) }}" data-sub-html="Demo Description">
+			<a href="{{asset('/images/' . $log->document_path) }}" data-sub-html="Demo Description">
                <img class="img-responsive" src="{{asset('images/' . $log->document_path) }}" alt="" class="img-responsive" width="200">
             </a>
 

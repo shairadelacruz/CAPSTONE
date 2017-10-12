@@ -64,4 +64,12 @@ Assign Task
 
 	@include('includes.form_error')
 
+	@section('scripts')
+
+	<script>
+		
+	</script>
+
+	@endsection
+
 @stop

@@ -45,7 +45,7 @@
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text">PROFICIENCY</div>
+                            <div class="text">EFFICIENCY</div>
                             <div class="number count-to" data-from="0" data-to="80" data-speed="15" data-fresh-interval="5">80%</div>
                         </div>
                     </div>

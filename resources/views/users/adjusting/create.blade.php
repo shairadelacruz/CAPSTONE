@@ -247,7 +247,7 @@ Adjusting Entries
                     </td>
 
                     <td class="table-remove">
-                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
+                        <span onclick="removeRow(this)" class="table-remove-btn btn btn-default">X</span>
                     </td>
                 </tr>
                     @endif
@@ -255,7 +255,7 @@ Adjusting Entries
             <tfoot>
                 <tr id="totals">
                     <td>
-                        <span onclick="addRow()" class="table-add_line">+ Add Line</span>
+                        <span onclick="addRow()" class="table-add_line btn btn-default">Add Line</span>
                     </td>
                     <td>Total</td>
                     
@@ -335,7 +335,7 @@ Adjusting Entries
             '<td>'+
             '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
             '</td>'+
-            '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
+            '<td><span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span></td>'+
             '</tr>' +
 
 
@@ -383,7 +383,7 @@ Adjusting Entries
             '<td>'+
             '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
             '</td>'+
-            '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
+            '<td><span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span></td>'+
             '</tr>';
 
     $('tbody').append(tr);

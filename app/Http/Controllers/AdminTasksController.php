@@ -53,7 +53,8 @@ class AdminTasksController extends Controller
         'name' => 'required',
         'deadline' => 'required',
         'user_id' => 'required',
-        'client_id' => 'required'
+        'client_id' => 'required',
+        'log_id' => 'required',
         ]);
 
         //$documents = $request->log_id;
@@ -131,6 +132,7 @@ class AdminTasksController extends Controller
         'deadline' => 'required',
         'user_id' => 'required',
         'client_id' => 'required',
+        'log_id' => 'required',
         ]);
 
         $documents = $request->log_id;
@@ -149,10 +151,11 @@ class AdminTasksController extends Controller
 
         if($request->log_id)
         {
+            $task->log()->detach();
             $task->log()->sync($documents);
         }
 
-        return redirect('/admin/management/task');      
+        return redirect('/admin/management/task');
 
     }
 

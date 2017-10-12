@@ -38,10 +38,10 @@ class UserTasksController extends Controller
         //
         $task = Task::findOrFail($request->task);
         $client_id = $task->client_id;
-        $documents = $task->log->pluck('reference_no');
+        //$documents = $task->log->pluck('reference_no');
 
         if($task->task_type == 0){
-            Session::flash('ref_no',$documents);
+            Session::flash('task',$task);
 
             return redirect('/user/'.$client_id.'/accounting/journal/create');
         }
@@ -69,6 +69,13 @@ class UserTasksController extends Controller
         $input = $request->all();
         $task->update($input);
         return redirect('/user/tasks');
+    }
+
+    public function show($id)
+    {
+        //
+        $task = Task::findOrFail($id);
+        return view('users.task.show', compact('task'));
     }
 
 }

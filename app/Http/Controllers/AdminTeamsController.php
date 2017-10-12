@@ -50,7 +50,7 @@ class AdminTeamsController extends Controller
     {
         //
         $this->validate($request, [
-        'name' => 'required',
+        'name' => 'required|unique:teams',
         'team_leader' => 'required',
         'user_id' => 'required',
         ]);

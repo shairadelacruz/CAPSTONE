@@ -10,6 +10,7 @@ Assign Task
 
 <h1>Edit Task</h1>
 
+
 {!! Form::model($task,['method'=>'PATCH', 'action'=>['AdminTasksController@update', $task->id]]) !!}
 
 	<div class = "form-group">
@@ -36,18 +37,15 @@ Assign Task
 	<div class = "form-group">
 		{!! Form:: label('log_id', 'Document:') !!}
 
-		<select class="chosen-select form-control" name="log_id[]" multiple="multiple">
-			@if($task->log->first())
+		<select class="chosen-select form-control" name="log_id[]" multiple="multiple" required="true">
 			@foreach($task->log as $tasklog)
-			<option selected>{{$tasklog->reference_no}}</option>
+			<option value="{{$tasklog->id}}" selected="true">{{$tasklog->reference_no}}</option>
 			@endforeach
-			@endif
 			@if($logs)
 			@foreach($logs as $log)
-			<option>{{$log}}</option>
+			<option value="{{$log->id}}">{{$log->reference_no}}</option>
 			@endforeach
 			@endif
-			<option>as</option>
 		</select>
 	</div>
 
@@ -74,5 +72,19 @@ Assign Task
 	{!! Form::close() !!}
 
 	@include('includes.form_error')
+
+
+	<div class="body">
+		<a name="document_photos"></a>
+    	<div id="aniimated-thumbnials" class="list-unstyled row clearfix">
+    		@foreach($task->log as $log)
+           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+               <a href="{{asset('/images/' . $log->document_path) }}" data-sub-html="{{$log->reference_no}}">
+                  <img class="img-responsive thumbnail" src="{{asset('/images/' . $log->document_path) }}">
+                </a>                     
+           </div>
+           @endforeach
+        </div>                  
+   </div>
 
 @stop

@@ -66,11 +66,11 @@ Journal
                 <input type="number" name="">
             </div>
         </div>-->
-        @if(Session::has('ref_no'))
+        @if(Session::has('task'))
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Reference Documents</label><br>
-                <a href="#" class="btn btn-primary"  target="_blank">View</a>
+                <a href="/user/tasks/{{ Session::get('task')->id }}" class="btn btn-primary"  target="_blank">View</a>
             </div>
         </div>
         @endif
@@ -94,12 +94,12 @@ Journal
                 </tr>
             </thead>
             <tbody>
-                @if(Session::has('ref_no'))
-                     @foreach (Session::get('ref_no') as $ref_no)
+                @if(Session::has('task'))
+                     @foreach (Session::get('task')->log as $ref_nos)
                 <tr>
                     <td>
                         <select class="chosen-select" name="reference_no[]">
-                                <option value="0" selected="true">Please select an option</option>
+                                <option value="{{$ref_nos->id}}" selected="true">{{$ref_nos->reference_no}}</option>
                                 @if($refs)
                                 @foreach($refs as $ref)
                                     <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
@@ -195,7 +195,7 @@ Journal
                     </td>
 
                     <td class="table-remove">
-                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
+                        <span onclick="removeRow(this)" class="table-remove-btn btn btn-default">X</span>
                     </td>
                 </tr>
 
@@ -246,7 +246,7 @@ Journal
                     </td>
 
                     <td class="table-remove">
-                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
+                        <span onclick="removeRow(this)" class="table-remove-btn btn btn-default">X</span>
                     </td>
                 </tr>
                     @endif
@@ -254,7 +254,7 @@ Journal
             <tfoot>
                 <tr id="totals">
                     <td>
-                        <span onclick="addRow()" class="table-add_line">+ Add Line</span>
+                        <span onclick="addRow()" class="table-add_line btn btn-default">Add Line</span>
                     </td>
                     <td>Total</td>
                     
@@ -334,7 +334,7 @@ Journal
             '<td>'+
             '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
             '</td>'+
-            '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
+            '<td><span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span></td>'+
             '</tr>' 
 
     $('tbody').append(tr);

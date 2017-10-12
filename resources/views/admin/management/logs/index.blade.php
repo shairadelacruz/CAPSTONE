@@ -42,7 +42,8 @@ Log
                             <table id="tableLog" class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th onclick="wow()">Document</th>
+                                        <th>Document</th>
+                                        <th>Reference No.</th>
                                         <th>Date</th>
                                         <th>Type</th>
                                         <th>Client</th>
@@ -54,6 +55,7 @@ Log
                                 <tfoot>                         
                                     <tr>
                                         <th>Document</th>
+                                        <th>Reference No.</th>
                                         <th>Date</th>
                                         <th>Type</th>
                                         <th>Client</th>
@@ -71,6 +73,7 @@ Log
                                         <td><a href="{{asset('images/' . $log->document_path) }}" data-sub-html="Demo Description">
                                         <img class="img-responsive" src="{{asset('images/' . $log->document_path) }}" alt="" class="img-responsive" width="75">
                                         </a></td>
+                                        <td>{{$log->reference_no}}</td>
                                         <td>{{$log->date_received->toDateString()}}</td>
                                         <td>{{$log->document_type->name}}</td>
                                         <td>{{$log->client->company_name}}</td>

@@ -63,14 +63,14 @@
                                     </td>
                                     <td class="table-remove">
                                         <input type="hidden" name='client_id[]' value="{{ $client_id }}" class="form-control">
-                                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
+                                        <span onclick="removeRow(this)" class="table-remove-btn btn btn-default">X</span>
                                     </td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td class="table-empty">
-                                        <span onclick="addRowCb()" class="table-add_line">+ Add Line</span>
+                                        <span onclick="addRowCb()" class="table-add_line btn btn-default">Add Line</span>
                                     </td>
                                 </tr>
                             </tfoot>

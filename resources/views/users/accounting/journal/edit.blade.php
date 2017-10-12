@@ -142,7 +142,7 @@ Journal
                         <input type="text" class="table-control" name="vendor_id[]">
                     </td>-->
                     <td class="table-remove">
-                        <span class="table-remove-btn" onclick="removeRow(this)">X</span>
+                        <span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span>
                     </td>
                 </tr>
                 @endforeach
@@ -151,7 +151,7 @@ Journal
             <tfoot>
                 <tr id="totals">
                     <td class="table-empty">
-                        <span class="table-add_line" onclick="addRow()" >+ Add Line</span>
+                        <span class="table-add_line btn btn-default" onclick="addRow()" >Add Line</span>
                     </td>
                     <td>Total</td>
                     <td class="table-debittot"><input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="{{$journal->debit_total}}"></td>
@@ -226,7 +226,7 @@ function addRow() {
             '<td>'+
             '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
             '</td>'+
-            '<td><span class="table-remove-btn" onclick="removeRow(this)">X</span></td>'+
+            '<td><span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span></td>'+
             '</tr>' 
 
 
