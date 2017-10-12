@@ -81,12 +81,7 @@ class AdminTasksController extends Controller
         return redirect('/admin/management/task');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
@@ -94,12 +89,24 @@ class AdminTasksController extends Controller
         return view('admin.management.task.edit', compact('task'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function findClient(Request $request)
+    {
+        //
+        $client= Client::find($request->id);
+        $data = $client->users;
+        return response()->json($data);
+    }
+
+    public function findDocument(Request $request)
+    {
+        //
+        $client= Client::find($request->id);
+        $data = $client->log;
+        return response()->json($data);
+    }
+
+
+
     public function edit($id)
     {
         //

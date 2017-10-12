@@ -26,17 +26,17 @@ Assign Task
 
 	<div class = "form-group">
 		{!! Form:: label('client_id', 'Client:') !!}
-		{!! Form:: select('client_id', [''=>'Choose Options'] + $clients ,null, ['class'=>'form-control chosen-select']) !!}
+		{!! Form:: select('client_id', [''=>'Choose Options'] + $clients ,null, ['class'=>'form-control chosen-select client']) !!}
 	</div>
 
 	<div class = "form-group">
 		{!! Form:: label('user_id', 'Accountant:') !!}
-		{!! Form:: select('user_id', [''=>'Choose Options'] + $users ,null, ['class'=>'form-control chosen-select']) !!}
+		{!! Form:: select('user_id', [''=>'Choose Options'] ,null, ['class'=>'form-control chosen-select accountant', 'id'=>'accountant']) !!}
 	</div>
 
 	<div class = "form-group">
 		{!! Form:: label('log_id', 'Document:') !!}
-		{{Form::select('log_id[]',$logs,null,['class'=>'chosen-select form-control', 'multiple'=>'multiple'],array('reference_no'=>'log_id[]'))}}
+		{{Form::select('log_id[]',$logs,null,['class'=>'chosen-select form-control document', 'id'=>'document', 'multiple'=>'multiple'],array('reference_no'=>'log_id[]'))}}
 	</div>
 
 	<div class = "form-group">
@@ -67,6 +67,52 @@ Assign Task
 	@section('scripts')
 
 	<script>
+
+		$('.client').on('change', function() {
+  			var id = $('.client').val();
+  			var dataId = {'id':id};
+
+  			$.ajax({
+	        type    : 'get',
+	        url     : '/admin/management/task/create/findClient/'+id,
+	        dataType: 'json',
+	        data    : {'id':id},
+	        success:function(data){
+
+	        	$('#accountant').empty();  
+
+   				$.each(data, function(key, value){
+   
+      				$('#accountant').append('<option value=' + value.id + '>'+value.name+'</option>');
+      				$('.chosen-select').trigger("chosen:updated");
+   				});
+
+	        }
+	       
+	    	})
+
+	    	$.ajax({
+	        type    : 'get',
+	        url     : '/admin/management/task/create/findDocument/'+id,
+	        dataType: 'json',
+	        data    : {'id':id},
+	        success:function(data){
+
+	        	$('#document').empty();  
+
+   				$.each(data, function(key, value){
+   
+      				$('#document').append('<option value=' + value.id + '>'+value.reference_no+'</option>');
+      				$('.chosen-select').trigger("chosen:updated");
+   				});
+
+	        }
+	       
+	    	});
+	            
+		});
+
+		
 		
 	</script>
 

@@ -60,6 +60,15 @@ Route::group(['middleware'=>'manager'], function(){
 
     Route::resource('admin/management/task', 'AdminTasksController');
 
+
+    Route::get('admin/management/task/create/findClient/{client_id?}','AdminTasksController@findClient');
+
+    Route::get('admin/management/task/{task_id}/edit/findClient/{client_id?}','AdminTasksController@findClient');
+
+    Route::get('admin/management/task/create/findDocument/{client_id?}','AdminTasksController@findDocument');
+
+    Route::get('admin/management/task/{task_id}/edit/findDocument/{client_id?}','AdminTasksController@findDocument');
+
 });
 
 Route::group(['middleware'=>'auth'], function(){
