@@ -26,7 +26,7 @@ Business Types
                                     <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addBusiness">+Add</button>
                                 </div>
                             </div>
-                           
+                           @include('includes.form_error')
                             @if(Session::has('deleted_business'))
                                  <p class="bg-danger">{{Session('deleted_business')}}</p>
                             @endif

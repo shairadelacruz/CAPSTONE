@@ -44,9 +44,9 @@ class AdminVatsController extends Controller
         //
         
         $this->validate($request, [
-        'vat_code' => 'required',
+        'vat_code' => 'required|unique:vats',
         'rate' => 'required',
-    ]);
+        ]);
 
         Vat::create($request->all());
         return redirect('/admin/lists/vat');
@@ -87,6 +87,10 @@ class AdminVatsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+        'vat_code' => 'required|unique:vats,vat_code,'. $id,
+        'rate' => 'required',
+        ]);
         $vat = Vat::findOrFail($id);
         $input = $request->all();
         $vat->update($input);

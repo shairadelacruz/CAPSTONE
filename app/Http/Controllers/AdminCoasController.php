@@ -45,7 +45,7 @@ class AdminCoasController extends Controller
     {
         //
         $this->validate($request, [
-        'name' => 'required',
+        'name' => 'required|unique:coas',
         'coacategory_id'=> 'required'
         ]);
 
@@ -88,7 +88,8 @@ class AdminCoasController extends Controller
     {
         //
         $this->validate($request, [
-        'name' => 'required'
+        'name' => 'required|unique:coas,name,'. $id,
+        'coacategory_id'=> 'required'
         ]);
         $coa = Coa::findOrFail($id);
         $input = $request->all();

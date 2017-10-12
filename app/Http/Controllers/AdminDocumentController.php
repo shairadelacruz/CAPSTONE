@@ -42,7 +42,7 @@ class AdminDocumentController extends Controller
     {
         //
         $this->validate($request, [
-        'name' => 'required',
+        'name' => 'required|unique:document_types',
         ]);
 
         DocumentType::create($request->all());
@@ -84,7 +84,7 @@ class AdminDocumentController extends Controller
     {
         //
         $this->validate($request, [
-        'name' => 'required',
+        'name' => 'required|unique:document_types,name,'. $id,
         ]);
         $document = DocumentType::findOrFail($id);
         $input = $request->all();

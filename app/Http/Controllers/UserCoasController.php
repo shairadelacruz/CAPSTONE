@@ -56,6 +56,10 @@ class UserCoasController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+        'name' => 'required|unique:coas',
+        'coacategory_id'=> 'required'
+        ]);
 
         $client_id = $request->client_id;
 
@@ -229,6 +233,10 @@ class UserCoasController extends Controller
     public function update(Request $request, $client_id, $id)
     {
         //
+        $this->validate($request, [
+        'name' => 'required|unique:coas,name,'. $id,
+        'coacategory_id'=> 'required'
+        ]);
 
         $client = Client::findOrFail($client_id);
 

@@ -26,7 +26,7 @@ COA
                                     <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addCoa">+Add</button>
                                 </div>
                             </div>
-
+                            @include('includes.form_error')
                             @if(Session::has('deleted_coa'))
                                  <p class="bg-danger">{{Session('deleted_coa')}}</p>
                             @endif
@@ -85,7 +85,7 @@ COA
                         <div class="modal-body">
                             
                             <div class="row clearfix">
-                            @include('includes.form_error')
+                            
 
                                     {!! Form::open(['method'=>'POST', 'action'=>'AdminCoasController@store']) !!}
                                 
@@ -139,7 +139,6 @@ COA
                         <div class="modal-body">
                             
                             <div class="row clearfix">
-                            @include('includes.form_error')
                                 {!! Form::model($coa,['method'=>'PATCH', 'action'=>['AdminCoasController@update', $coa->id]]) !!}
                                 
                                     <div class="form-group form-float">

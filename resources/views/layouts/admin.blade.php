@@ -68,7 +68,6 @@
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="index.html">
                 AMY - Bookkeeping and Project Monitoring System
-
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -359,7 +358,7 @@
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
-                    <input class="form-control" type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search...">
+                    <input class="form-control myInput" type="text" id="myInput" placeholder="Search...">
                     
                     <ul class="demo-choose-skin" id="client_list">
                     @if($client_names = Auth::user()->clients->all())
@@ -418,8 +417,8 @@
     </script>
     
     <script type="text/javascript">
-        fuction searchFunction() {
-            alert("wow amazing");
+
+        $(".myInput").keyup(function(){
             var input, filter, ul, li, a, i;
             input = document.getElementById('myInput');
             filter = input.value.toUpperCase();
@@ -435,7 +434,9 @@
                     li[i].style.display = "none";
                 }
             }
-        }
+        });
+
+
     </script>
 
     @yield('scripts')

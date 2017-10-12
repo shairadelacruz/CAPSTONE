@@ -26,7 +26,7 @@ COA
                                     <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#addCoa">+Add</button>
                                 </div>
                             </div>
-
+                            @include('includes.form_error')
                             @if(Session::has('deleted_coa'))
                                  <p class="bg-danger">{{Session('deleted_coa')}}</p>
                             @endif

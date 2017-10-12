@@ -60,7 +60,7 @@ Route::group(['middleware'=>'manager'], function(){
 
     Route::resource('admin/management/task', 'AdminTasksController');
 
-
+    //Ajax
     Route::get('admin/management/task/create/findClient/{client_id?}','AdminTasksController@findClient');
 
     Route::get('admin/management/task/{task_id}/edit/findClient/{client_id?}','AdminTasksController@findClient');

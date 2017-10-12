@@ -147,11 +147,12 @@ $('tbody').delegate('.productname','change',function(){
             tr.find('.price').val(data.price);
             tr.find('.vat_id').val(data.vat_id);
             tr.find('.qty').focus();
+            tr.find('.chosen-select').trigger("chosen:updated");
   
         }
        
     });
-            tr.find('.chosen-select').trigger("chosen:updated");
+            
             //tr.find('.chosen-select').trigger("liszt:updated");
            
 });

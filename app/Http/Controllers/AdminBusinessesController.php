@@ -43,7 +43,7 @@ class AdminBusinessesController extends Controller
     {
         //
         $this->validate($request, [
-        'name' => 'required',
+        'name' => 'required|unique:businesses',
         ]);
 
         Business::create($request->all());
@@ -85,7 +85,7 @@ class AdminBusinessesController extends Controller
     {
         //
         $this->validate($request, [
-        'name' => 'required',
+        'name' => 'required|unique:businesses,name,'. $id,
         ]);
         $business = Business::findOrFail($id);
         $input = $request->all();
