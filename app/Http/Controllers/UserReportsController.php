@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use DB;
 use Illuminate\Http\Request;
+use App\User;
 use App\Client;
 use App\Coa;
 use App\Journal;
 use App\JournalDetails;
+use PDF;
 use App\Http\Requests;
 
 class UserReportsController extends Controller
@@ -78,5 +80,26 @@ class UserReportsController extends Controller
     {
         //
         
+    }
+
+    public function employee_evaluation_index()
+    {
+        /*$all = DB::table('tasks')
+        ->join('users', 'users.id','=','tasks.user_id')
+        ->select('users.name as name', 'tasks.deadline as deadline','tasks.name as task','tasks.description as description','tasks.status as status','tasks.revisions as revisions')
+        ->get();*/
+
+        $users = User::with('tasks')->get();
+
+        return view('admin.management.evaluation.evaluation', compact('users'));
+
+    }
+
+    public function employee_evaluation_generate()
+    {
+        $users = User::with('tasks')->get();
+        $pdf = PDF::loadView('admin.management.evaluation.evaluationgenerate', compact('users'));
+        return $pdf->download('evaluation.pdf');
+
     }
 }

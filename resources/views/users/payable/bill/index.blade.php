@@ -72,6 +72,7 @@ Bills
                                             <a href ="bill/{{$bill->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteBill{{$bill->id}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#payBill{{$bill->id}}"><i class="fa fa-money" aria-hidden="true"></i></button>
+                                            <a href ="bill/{{$bill->id}}/show" class="btn btn-default btn-xs waves-effect"><i class="fa fa-print" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                      @endforeach

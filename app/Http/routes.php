@@ -69,6 +69,10 @@ Route::group(['middleware'=>'manager'], function(){
 
     Route::get('admin/management/task/{task_id}/edit/findDocument/{client_id?}','AdminTasksController@findDocument');
 
+    Route::get('admin/management/evaluation', 'UserReportsController@employee_evaluation_index');
+    
+    Route::get('admin/management/evaluation/generate', 'UserReportsController@employee_evaluation_generate');
+
 });
 
 Route::group(['middleware'=>'auth'], function(){
@@ -100,7 +104,7 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::post('user/{client_id}/accounting/journal', array('as'=>'insertjournal','uses'=>'UserJournalsController@store'));
 
-    Route::get('user/{client_id}/accounting/journal/pdfview',array('as'=>'journalpdfview','uses'=>'UserJournalsController@pdfview'));
+    Route::get('user/{client_id}/accounting/journal/{journal_id}/show',array('as'=>'journalpdfview','uses'=>'UserJournalsController@show'));
 
     //Adjusting
 
@@ -159,6 +163,8 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::post('user/{client_id}/payable/bill', array('as'=>'insertbill','uses'=>'UserBillsController@store'));
 
+    Route::get('user/{client_id}/payable/bill/{bill_id}/show',array('as'=>'billpdfview','uses'=>'UserBillsController@show'));
+
    // Route::get('user/{client_id}/payable/bill/edit', 'UserBillsController@update');
 
     Route::resource('user/{client_id}/receivable/customer', 'UserCustomerController');
@@ -196,6 +202,8 @@ Route::group(['middleware'=>'user'], function(){
     Route::get('user/{client_id}/receivable/invoice/pay', 'UserInvoicesController@pay');
 
     Route::post('user/{client_id}/receivable/invoice', array('as'=>'insertinvoice','uses'=>'UserInvoicesController@store'));
+
+    Route::get('user/{client_id}/receivable/invoice/{invoice_id}/show',array('as'=>'invoicepdfview','uses'=>'UserInvoicesController@show'));
 
     Route::resource('user/{client_id}/documents', 'UserDocumentsController');
 

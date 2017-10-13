@@ -224,9 +224,11 @@ Journal
                     </td>
                     <td>
                         <input type="number" class="table-control right-align-text sumThis debit creddeb getrate" name="debit[]" value="0">
+                        
                     </td>
                     <td>
                         <input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0">
+                        
                     </td>
                     <td>
                         <input style="word-wrap:break-word" type="text" name="descriptions[]">
@@ -258,8 +260,15 @@ Journal
                     </td>
                     <td>Total</td>
                     
-                    <td><input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="0"></td>
-                    <td><input id="credittot" type="number" class="table-control right-align-text" name="credittot" readonly="true" value="0"></td>
+                    <td>
+                        <input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="0">
+                        <span class="debDiff text-danger"></span>
+
+                    </td>
+                    <td>
+                        <input id="credittot" type="number" class="table-control right-align-text" name="credittot" readonly="true" value="0">
+                        <span class="credDiff text-danger"></span>
+                    </td>
 
                 </tr>
             </tfoot>
@@ -489,11 +498,15 @@ function balance()
     
     if(debittot > credittot)
     {
-        var sum1 = Math.abs(debittot-credittot);
+        var sum1 = debittot-credittot;
+         //$('.debDiff').hide();
+        $('.credDiff').html(sum1);
     }
     else if(debittot < credittot)
     {
-        var sum1 = Math.abs(debittot-credittot);
+        var sum1 = credittot - debittot;
+        //$('.credDiff').hide();
+        $('.debDiff').html(sum1);
     }
     else
     {

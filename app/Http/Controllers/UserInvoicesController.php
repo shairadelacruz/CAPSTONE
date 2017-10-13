@@ -13,6 +13,7 @@ use App\Coa;
 use App\Vat;
 use App\Journal;
 use App\JournalDetails;
+use PDF;
 use App\Http\Requests;
 
 class UserInvoicesController extends Controller
@@ -246,9 +247,21 @@ class UserInvoicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($client_id, $id)
     {
         //
+        $invoice = Invoice::findOrFail($id);
+        $details = $invoice->invoice_details;
+        $client = Client::find($client_id);
+        $customers = $client->customer;
+        $invoices = $client->invoice;
+        $items = $client->item;
+        $coas = $client->coas;
+        $refs = $client->log;
+        $vats = Vat::all();
+
+        $pdf = PDF::loadView('users.receivable.invoice.show', compact('invoice','details','client_id', 'client', 'items', 'coas', 'vats', 'customers', 'refs'));
+        return $pdf->download('invoice.pdf');
     }
 
     /**

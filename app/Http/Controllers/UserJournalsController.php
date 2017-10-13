@@ -11,6 +11,7 @@ use App\Client;
 use App\Journal;
 use App\JournalDetails;
 use App\Http\Requests;
+use PDF;
 use Illuminate\Support\Facades\DB;
 
 class UserJournalsController extends Controller
@@ -111,9 +112,19 @@ class UserJournalsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($client_id, $id)
     {
         //
+        $journal = Journal::findOrFail($id);
+        $details = $journal->journal_details;
+        $client = Client::findOrFail($client_id);
+        $coas = $client->coas;
+        $vats = Vat::all();
+        $refs = $client->log;
+
+        $pdf = PDF::loadView('users.accounting.journal.show', compact('journal','details','client_id','coas', 'vats', 'refs', 'client'));
+        //$pdf = PDF::loadView('users.accounting.journal.show');
+        return $pdf->download('journal.pdf');
     }
 
     /**
@@ -243,4 +254,5 @@ class UserJournalsController extends Controller
 
         return \Redirect::route('journal', [$client_id]);
     }
+
 }

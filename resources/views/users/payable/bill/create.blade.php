@@ -187,7 +187,14 @@ $('tbody').delegate('.getrate','change',function(){
 function addRowCb() {
     var tr = '<tr>'+
                 '<td class="table-reference_no">'+
-                '<input type="reference_no" class="table-control" name="reference_no[]">'+   
+                '<select class="chosen-select form-control" name="reference_no">'+  
+                '<option value="0" selected="true">Please select an option</option>'+  
+                '@if($refs)'+  
+                '@foreach($refs as $ref)'+  
+                '<option value="{{$ref->id}}">{{$ref->reference_no}}</option>'+  
+                '@endforeach'+  
+                '@endif'+  
+                '</select>'+   
                 '</td>'+
                                     
                 '<td class="table-bill_date">'+
@@ -240,6 +247,25 @@ function addRowCb() {
     $('#cbTbody').append(tr);
     $(".chosen-select").chosen()
 }
+
+
+$('tbody').delegate('.getrate_cd','change',function(){
+    var tr = $(this).parent().parent();
+    var price = tr.find('.price_cd').val();
+    var getrate = tr.find('.vat_id_cd').find(":selected").text().slice(0, -1);
+    var rates = getrate.split('-').splice(1);  
+    var rate = rates/100;
+    var vat = price * rate;
+    tr.find('.vat_amount_cd').val(vat.toFixed(2));
+    var subtotalvat = subtotal + vat;
+    tr.find('.total_cd').val(subtotalvat.toFixed(2));
+    var total = 0;
+
+    $('.total_cd').each(function() {
+        total += Number($(this).val());
+    });
+});
+
 
 
 

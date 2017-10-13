@@ -13,6 +13,7 @@ use App\Coa;
 use App\Vat;
 use App\Journal;
 use App\JournalDetails;
+use PDF;
 use App\Http\Requests;
 
 class UserBillsController extends Controller
@@ -329,9 +330,22 @@ class UserBillsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($client_id, $id)
     {
         //
+        $bill = Bill::findOrFail($id);
+        $details = $bill->bill_detail;
+        $client = Client::find($client_id);
+        $vendors = $client->vendor;
+        $bills = $client->bill;
+        $items = $client->item;
+        $coas = $client->coas;
+        $vats = Vat::all();
+        $refs = $client->log;
+
+        $pdf = PDF::loadView('users.payable.bill.show', compact('bill','details','client_id', 'client', 'items', 'coas', 'vats', 'vendors','refs'));
+
+        return $pdf->download('bill.pdf');
     }
 
     /**
