@@ -34,43 +34,40 @@ General Ledger
 
                         </div>
                         <div class="body table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                            @if($ledgers)
+                            @foreach($ledgers as $ledger)
+                            <h4>{{$ledger->name}}</h4>
+                            <table class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                     <tr>
-                                        <th>COA</th>
-                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th>Transaction</th>
                                         <th>Debit</th>
                                         <th>Credit</th>
-                                        <th>Net Movement</th>
-
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th></th>
                                         <th>Total</th>
-                                        <th>Debit Total</th>
-                                        <th>Credit Total</th>
+                                        <th></th>
+                                        <th>Net Movement</th>
                                         <th></th>
 
                                     </tr>
                                 </tfoot>
-                                <tbody>
+                                <tbody>  
                                     
-                                    @if($ledgers)
-                                    @foreach($ledgers as $ledger)
                                     <tr>
-                                        <td>{{$ledger->name}}</td>
-                                        <td>{{$ledger->coacategory->name}}</td>
-                                        <td>{{$ledger->journals_details->sum('debit')}}</td>
-                                        <td>{{$ledger->journals_details->sum('credit')}}</td>
-                                        <td>{{$ledger->journals_details->sum('debit') - $ledger->journals_details->sum('credit')}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
-                                   @endforeach
-                                   @endif
                                    
                                 </tbody>
                             </table>
+                            @endforeach
+                                   @endif
                         </div>
                     </div>
                 </div>

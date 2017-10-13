@@ -104,14 +104,12 @@ Trial Balance
                 for(var ctr = 0; ctr < data.length; ctr++)
                 {
 
-                   $('#reportTbody').append(
+                   $('#reportTbody').append()
 
                             
                                 '<tr><td>'+ data[ctr].name +'</td><td>{{$trial->journals_details->sum("debit")}}</td><td>{{$trial->journals_details->sum("credit")}}</td></tr>'+
                             
                 }
-                alert('success');
-                
                 
             }
            
