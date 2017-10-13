@@ -28,6 +28,7 @@ Trial Balance
                                    <input class="date" type="date" class="datepicker form-control" name="to" id="to">
                                    <label>To</label>
                                     <input class="date" type="date" class="datepicker form-control" name="from" id="from">
+                                    <button class="btnGenerate btn-success">Generate</button>
 
                                     <input type="hidden" class="clientHidden" name='client_id' value="{{request()->route('client_id')}}" class="form-control">
 
@@ -86,7 +87,7 @@ Trial Balance
     totals.children('td').eq(columnIndex).text(total);
 
 
-    $('.date').on('change', function() {
+    $('.btnGenerate').on('click', function() {
         var from = $('#from').val();
         var to = $('#to').val();
         var client_id = $('.clientHidden').val();
@@ -100,7 +101,9 @@ Trial Balance
                 'client_id':client_id
                 },
             success:function(data){
-                $('td').remove();
+
+                console.log(data);
+                /*$('td').remove();
                 for(var ctr = 0; ctr < data.length; ctr++)
                 {
 
@@ -109,7 +112,7 @@ Trial Balance
                             
                                 '<tr><td>'+ data[ctr].name +'</td><td>{{$trial->journals_details->sum("debit")}}</td><td>{{$trial->journals_details->sum("credit")}}</td></tr>'+
                             
-                }
+                }*/
                 
             }
            

@@ -25,18 +25,22 @@ General Ledger
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                     
 
-                                   <input type="date" class="datepicker form-control" placeholder="From Date">
+                                    <label>From</label>
+                                   <input class="date" type="date" class="datepicker form-control" name="to" id="to">
+                                   <label>To</label>
+                                    <input class="date" type="date" class="datepicker form-control" name="from" id="from">
+                                    <button class="btnGenerate btn-success">Generate</button>
 
-                                    <input type="date" class="datepicker form-control" placeholder="To Date">
+                                    <input type="hidden" class="clientHidden" name='client_id' value="{{request()->route('client_id')}}" class="form-control">
 
                                 </div>
                             </div>
 
                         </div>
                         <div class="body table-responsive">
-                            @if($ledgers)
-                            @foreach($ledgers as $ledger)
-                            <h4>{{$ledger->name}}</h4>
+                            @if($coas)
+                            @foreach($coas as $coa)
+                            <h4>{{$coa->name}}</h4>
                             <table class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                     <tr>
@@ -47,23 +51,38 @@ General Ledger
                                     </tr>
                                 </thead>
                                 <tfoot>
+                                    
                                     <tr>
                                         <th>Total</th>
                                         <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                    </tr>
+                                    <tr>
                                         <th>Net Movement</th>
+                                        <th></th>
+                                        <th></th>
                                         <th></th>
 
                                     </tr>
                                 </tfoot>
+
                                 <tbody>  
-                                    
+                                    @if($ledgers)
+                                    @foreach($ledgers as $ledger)
+                                    @foreach($ledger->journal_details as $detail)
+                                    @if($coa->id == $detail->coa_id)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{$detail->journal->date->toDateString()}}</td>
+                                        <td>{{$detail->journal->transaction_no}}</td>
+                                        <td>{{$detail->debit}}</td>
+                                        <td>{{$detail->credit}}</td>
                                     </tr>
-                                   
+                                    @endif
+                                    @endforeach
+                                   @endforeach
+                                   @endif
                                 </tbody>
                             </table>
                             @endforeach

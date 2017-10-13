@@ -9,7 +9,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="info-box bg-pink hover-expand-effect">
                     <div class="icon">
-                        <i class="material-icons"></i>
+                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
                     </div>
                     <div class="content">
                         <div class="text">TODAY'S DATE</div>
@@ -20,7 +20,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="info-box bg-cyan hover-expand-effect">
                     <div class="icon">
-                        <i class="material-icons"></i>
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
                     </div>
                     <div class="content">
                         <div class="text">PENDING TASKS</div>
@@ -31,7 +31,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="info-box bg-light-green hover-expand-effect">
                         <div class="icon">
-                            <i class="material-icons"></i>
+                            <i class="fa fa-users" aria-hidden="true"></i>
                         </div>
                         <div class="content">
                             <div class="text">CLIENTS</div>
@@ -42,7 +42,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="info-box bg-orange hover-expand-effect">
                         <div class="icon">
-                            <i class="material-icons"></i>
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
                         </div>
                         <div class="content">
                             <div class="text">EFFICIENCY</div>
@@ -90,7 +90,7 @@
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">View all tasks</a></li>
+                                <li><a href="/user/tasks">View all tasks</a></li>
                             </ul>
                         </li>
                     </ul>
