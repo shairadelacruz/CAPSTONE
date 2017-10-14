@@ -70,13 +70,16 @@ Task
                                             <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#viewDocuments{{$task->id}}">View Documents</button></td>     
                                         </td>
                                         <td>
-                                        @if($task->status == 0) Pending
-                                        @endif
-                                        @if($task->status == 1) Done
-                                        @endif
-                                        @if($task->status == 2) For Quality Assurance
-                                        @endif
-                                        @if($task->status == 3) For Revision
+                                        @if($task->status != 1 AND $task->deadline < Carbon\Carbon::now())
+                                        <span class="bg-danger lead">Overdue</span>
+                                        @elseif($task->status == 0) Pending
+                                        
+                                        @elseif($task->status == 1) Done
+                                        
+                                        @elseif($task->status == 2) For Quality Assurance
+                                        
+                                        @elseif($task->status == 3) For Revision
+
                                         @endif</td>                                        
                                         <td>
                                             <a href="{{route('admin.management.task.edit', $task->id)}}" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

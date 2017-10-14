@@ -42,6 +42,7 @@ Bills
                                         <th>Due Date</th>
                                         <th>Due Amount</th>
                                         <th>Balance Amount</th>
+                                        <th>Status</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -54,6 +55,7 @@ Bills
                                         <th>Due Date</th>
                                         <th>Due Amount</th>
                                         <th>Balance Amount</th>
+                                        <th>Status</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -62,12 +64,26 @@ Bills
                                 @if($bills)
                                     @foreach($bills as $bill)
                                     <tr>
-                                        <td>{{$bill->reference_no}}</td>
+                                        <td>@if($bill->reference_no != 0)
+                                            {{$bill->reference_no}}
+                                            @else
+                                            None
+                                            @endif
+                                        </td>
                                         <td>{{$bill->vendor->name}}</td>
                                         <td>{{$bill->bill_date->toDateString()}}</td>
                                         <td>{{$bill->due_date->toDateString()}}</td>
                                         <td>{{$bill->amount}}</td>
                                         <td>{{$bill->balance}}</td>
+                                        <td>
+                                            @if($bill->balance == 0)
+                                            <span class="bg-info lead">Paid</span>
+                                            @elseif($bill->due_date < Carbon\Carbon::now() AND $bill->balance < 0)
+                                            <span class="bg-danger lead">Overdue</span>
+                                            @else
+                                            <span class="bg-warning lead">Pay in {{$bill->due_date->diffForHumans()}}</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href ="bill/{{$bill->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteBill{{$bill->id}}"><i class="fa fa-trash" aria-hidden="true"></i></button>

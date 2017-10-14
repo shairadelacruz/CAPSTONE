@@ -135,7 +135,7 @@ class UserAdjustingController extends Controller
         $vats = Vat::all();
         $refs = $client->log;
 
-        return view('users.adjusting.edit', compact('journal','details','client_id','coas', 'vats', 'refs'));
+        return view('users.adjusting.edit', compact('journal','details','client_id','coas', 'vats', 'refs', 'client'));
     }
 
     /**

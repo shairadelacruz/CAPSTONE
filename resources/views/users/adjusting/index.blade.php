@@ -61,7 +61,6 @@ Adjusting Entries
                                     <tr>
                                         <td>{{$journal->date->toDateString()}}</td>
                                         <td>{{$journal->transaction_no}}</td>
-                                        <td><button class="btn btn-default btn-xs waves-effect">View</button></td>
                                         <td>{{$journal->journal_details->sum('debit')}}</td>
                                         <td>{{$journal->journal_details->sum('credit')}}</td>
                                         <td>{{$journal->description}}</td>

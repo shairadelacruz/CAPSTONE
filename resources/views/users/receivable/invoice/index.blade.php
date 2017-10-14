@@ -42,6 +42,7 @@ Invoice
                                         <th>Due Date</th>
                                         <th>Amount Due</th>
                                         <th>Balance Amount</th>
+                                        <th>Status</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -54,6 +55,7 @@ Invoice
                                         <th>Due Date</th>
                                         <th>Due Amount</th>
                                         <th>Balance Amount</th>
+                                        <th>Status</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -62,12 +64,26 @@ Invoice
                                 @if($invoices)
                                     @foreach($invoices as $invoice)
                                     <tr>
-                                        <td>{{$invoice->reference_no}}</td>
+                                        <td>@if($invoice->reference_no != 0)
+                                            {{$invoice->reference_no}}
+                                            @else
+                                            None
+                                            @endif
+                                        </td>
                                         <td>{{$invoice->customer->name}}</td>
-                                        <td>{{$invoice->invoice_date}}</td>
-                                        <td>{{$invoice->due_date}}</td>
+                                        <td>{{$invoice->invoice_date->toDateString()}}</td>
+                                        <td>{{$invoice->due_date->toDateString()}}</td>
                                         <td>{{$invoice->amount}}</td>
                                         <td>{{$invoice->balance}}</td>
+                                        <td>
+                                            @if($invoice->balance == 0)
+                                            <span class="bg-info lead">Paid</span>
+                                            @elseif($invoice->due_date < Carbon\Carbon::now() AND $invoice->balance < 0)
+                                            <span class="bg-danger lead">Overdue</span>
+                                            @else
+                                            <span class="bg-warning lead">Pay in {{$invoice->due_date->diffForHumans()}}</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href ="invoice/{{$invoice->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#deleteInvoice{{$invoice->id}}"><i class="fa fa-trash" aria-hidden="true"></i></button>

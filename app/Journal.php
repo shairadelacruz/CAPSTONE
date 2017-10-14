@@ -18,7 +18,7 @@ class Journal extends Model
     protected $dates = ['date'];
 
     protected $fillable = [
-    	'transaction_no', 'description', 'date', 'client_id', 'debit', 'credit'
+    	'transaction_no', 'description', 'date', 'client_id', 'bill_id', 'invoice_id', 'debit_total', 'credit_total', 'type'
     ];
 
     public function journal_details(){

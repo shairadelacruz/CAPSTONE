@@ -180,16 +180,36 @@ class UserReportsController extends Controller
         return $pdf->download('balancesheet.pdf');
     }
 
-    public function profit_and_loss_index($client_id)
+    public function profit_and_loss_index($client_id, $start, $end)
     {
         //
+
+        $client = Client::find($client_id);
+
+        $coas = $client->coas;
+
+        //$ledgers = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
+
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
+
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
+
+        return view('users.report.general.profitandloss', compact('coas','details'));
 
     }
 
-    public function profit_and_loss_generate($client_id)
+    public function profit_and_loss_generate($client_id, $start, $end)
     {
         //
-        
+        $client = Client::find($client_id);
+
+        $coas = $client->coas;
+
+        $ledgers = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
+
+        $pdf = PDF::loadView('users.report.general.generate.profitandloss', compact('coas','ledgers','start', 'end'));
+
+        return $pdf->download('generalledger.pdf');
     }
 
     public function employee_evaluation_index()
