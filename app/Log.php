@@ -40,7 +40,7 @@ class Log extends Model
 
     public function journal_details(){
 
-        return $this->hasMany('App\JournalDetails');
+        return $this->hasMany('App\JournalDetails', 'reference_no');
     }
 
     public function bill()

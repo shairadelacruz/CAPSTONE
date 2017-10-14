@@ -42,6 +42,7 @@ Documents
                                         <th>Type</th>
                                         <th>Received By</th>
                                         <th>Received From</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tfoot>                         
@@ -52,6 +53,7 @@ Documents
                                         <th>Type</th>
                                         <th>Received By</th>
                                         <th>Received From</th>
+                                        <th>Status</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -68,6 +70,17 @@ Documents
                                         <td>{{$log->document_type->name}}</td>
                                         <td>{{$log->user->name}}</td>
                                         <td>{{$log->received_from}}</td>
+                                        <td>
+                                            @if(empty($log->journal_details))
+                                            Posted
+                                            @elseif(empty($log->bill))
+                                            Posted
+                                            @elseif(empty($log->invoice))
+                                            Posted
+                                            @else
+                                            Pending
+                                            @endif
+                                        </td>
                                     </tr>
                                     @endforeach
                                 @endif

@@ -16,7 +16,7 @@ class UserHomeController extends Controller
     {
         //
         $client = Client::find($client_id);
-        $activities = Activity::with('subject')->get();
+        $activities = Activity::with('subject')->orderBy('created_at', 'desc')->take(10)->get();
         return view('users.index', compact('client', 'activities'));
         //return $customers;
     }

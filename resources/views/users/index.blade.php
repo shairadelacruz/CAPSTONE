@@ -140,14 +140,23 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                          @if($activities)
                                 
+                                    @foreach($activities as $activity)
+                                    @if($activity->subject_type != 'App\Task')
+                                    @if($activity->subject->client == $client)
+                                    <tr>
+                                        <td>{{$activity->created_at->toDateString()}}</td>
+                                        <td>{{$activity->created_at->toTimeString()}}</td>
+                                        <td>{{$activity->user->name}}</td>
+                                        <td>@include ("admin.utilities.activity.types.{$activity->name}")</td>
+
+                                    </tr>
+                                     @endif
+                                     @endif
+                                   @endforeach
+                               
+                                @endif
                         </tbody>
                     </table>
                 </div>
