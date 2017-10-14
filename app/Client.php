@@ -13,7 +13,7 @@ class Client extends Model
 
     use RecordsActivity;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'financial_year'];
 
     protected $fillable = [
 

@@ -15,18 +15,54 @@ use App\Http\Requests;
 class UserReportsController extends Controller
 {
     //
-    public function trial_balance_index($client_id)
+    /*
+
+        //$trials = $client->coas()->with('journals_details')->get();
+
+        //$trials = $client->with(['journal','coas.journals_details'])->get();
+
+
+        //$end = new \Carbon\Carbon('last day of this month');
+
+        //$start = $start->toDateString();
+
+        //$end = $end->toDateString();
+
+        //$trials = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
+
+        //$journals = $client->journal()->whereBetween('date',[$start,$end])->get();
+    */
+
+
+
+    public function trial_balance_index($client_id, $end)
     {
         //
         $client = Client::find($client_id);
 
-        $trials = $client->coas()->with('journals_details')->get();
+        $coas = $client->coas;
 
-        //$trials = $client->with(['journal','coas.journals_details'])->get();
+        $getFinancialYear = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
 
-        //dd($trials);
+        if (\Carbon\Carbon::now()->format('Y-m-d') <= $getFinancialYear)
+        {
+            $lastyear = new \Carbon\Carbon('last year');
+            $start = $lastyear->format('Y').'-'.$client->financial_year->format('m-d');
+        }
+        else
+        {
+            $start = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+        }
 
-        return view('users.report.general.trialbalance', compact('trials'));
+
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
+
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
+
+        //return $getFinancialYear;
+
+        return view('users.report.general.trialbalance', compact('coas','details','start', 'end'));
+
     }
 
     public function trial_balance_generate(Request $request)
@@ -34,29 +70,23 @@ class UserReportsController extends Controller
         //
         $client = Client::find($request->client_id);
 
-        $start = \Carbon\Carbon::parse($request->from)->toDateString();  
+        $start = \Carbon\Carbon::parse($request->from);  
 
-        $end = \Carbon\Carbon::parse($request->to)->toDateString();
+        $end = \Carbon\Carbon::parse($request->to);
 
-        //select a.name from coas a inner join journal_details b on a.id = b.coa_id inner join journals c on b.journal_id = c.id WHERE (c.date BETWEEN '2017-10-01' AND '2017-10-30')
+        $start = $start->toDateString();
 
-        //$data= $client->coas()->with('journals_details')->whereBetween('date',[$start,$end])->get();
+        $end = $end->toDateString();
 
-        $data = DB::select("select a.name, sum(b.debit), sum(b.credit) from coas a inner join journal_details b on a.id = b.coa_id inner join journals c on b.journal_id = c.id WHERE (c.date BETWEEN '$start' AND '$end') GROUP BY b.coa_id");
+        $data = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
         
-
         return response()->json($data);
     }
     
 
-    public function general_ledger_index($client_id)
+    public function general_ledger_index($client_id, $start, $end)
     {
         //
-        /*$client = Client::find($client_id);
-
-        $ledgers = $client->coas()->with('journals_details')->get();
-
-        return view('users.report.general.generalledger', compact('ledgers'));*/
 
         $client = Client::find($client_id);
 
@@ -66,22 +96,61 @@ class UserReportsController extends Controller
 
         $coas = $client->coas;
 
-        $ledgers = $client->journal()->whereBetween('date',['2016-10-01','2016-10-30'])->with('journal_details')->get();
+        //$start = new \Carbon\Carbon('first day of this month');
 
-        return view('users.report.general.generalledger', compact('coas','ledgers'));
+        //$end = new \Carbon\Carbon('last day of this month');
+
+        //$start = $start->toDateString();
+
+        //$end = $end->toDateString();
+
+        $ledgers = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
+
+        return view('users.report.general.generalledger', compact('coas','ledgers','start', 'end'));
 
 
     }
 
-    public function general_ledger_generate($client_id)
+    public function general_ledger_generate($client_id, $start, $end)
     {
         //
+        $client = Client::find($client_id);
+
+        $coas = $client->coas;
+
+        $ledgers = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
+
+        return view('users.report.general.generalledger', compact('coas','ledgers','start', 'end'));
         
     }
 
-    public function balance_sheet_index($client_id)
+    public function balance_sheet_index($client_id, $end)
     {
         //
+        $client = Client::find($client_id);
+
+        $coas = $client->coas;
+
+        $getFinancialYear = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+
+        if (\Carbon\Carbon::now()->format('Y-m-d') <= $getFinancialYear)
+        {
+            $lastyear = new \Carbon\Carbon('last year');
+            $start = $lastyear->format('Y').'-'.$client->financial_year->format('m-d');
+        }
+        else
+        {
+            $start = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+        }
+
+
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
+
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
+
+        //return $getFinancialYear;
+
+        return view('users.report.general.balancesheet', compact('coas','details','start', 'end'));
     }
 
     public function balance_sheet_generate($client_id)

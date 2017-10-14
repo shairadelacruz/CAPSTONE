@@ -26,10 +26,10 @@ General Ledger
                                     
 
                                     <label>From</label>
-                                   <input class="date" type="date" class="datepicker form-control" name="to" id="to">
+                                   <input id="start" type="date" class="form-control date" name="to" id="to">
                                    <label>To</label>
-                                    <input class="date" type="date" class="datepicker form-control" name="from" id="from">
-                                    <button class="btnGenerate btn-success">Generate</button>
+                                    <input id="end" type="date" class="form-control date" name="from" id="from">
+                                    <button class="btnPrint btn-success">Print</button>
 
                                     <input type="hidden" class="clientHidden" name='client_id' value="{{request()->route('client_id')}}" class="form-control">
 
@@ -93,6 +93,22 @@ General Ledger
             </div>
             <!-- #END# Exportable Table -->
         </div>
+@section('scripts')
+<script type="text/javascript">
 
-    
+
+    $('#end').on('change', function() {
+
+        //var date=$('#date').val();
+        var client_id = $('.clientHidden').val();
+        var start = $('#start').val();
+        var end = $('#end').val();
+
+        window.location = '/user/'+ client_id +'/reports/generalledger/'+ start +'/'+ end;
+    });
+
+              
+</script>
+@endsection
+
 @stop
