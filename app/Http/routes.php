@@ -214,19 +214,19 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::get('user/{client_id}/reports/trialbalance/{end}', 'UserReportsController@trial_balance_index');
 
-    Route::get('user/{client_id}/reports/trialbalance/generate', 'UserReportsController@trial_balance_generate');
+    Route::get('user/{client_id}/reports/trialbalance/{end}/generate', 'UserReportsController@trial_balance_generate');
 
     Route::get('user/{client_id}/reports/generalledger/{start}/{end}', 'UserReportsController@general_ledger_index');
     
-    Route::get('user/{client_id}/reports/generalledger/generate', 'UserReportsController@general_ledger_generate');
+    Route::get('user/{client_id}/reports/generalledger/{start}/{end}/generate', 'UserReportsController@general_ledger_generate');
 
     Route::get('user/{client_id}/reports/balancesheet/{end}', 'UserReportsController@balance_sheet_index');
     
-    Route::get('user/{client_id}/reports/balancesheet/generate', 'UserReportsController@balance_sheet_generate');
+    Route::get('user/{client_id}/reports/balancesheet/{end}/generate', 'UserReportsController@balance_sheet_generate');
 
-    Route::get('user/{client_id}/reports/profitandloss', 'UserReportsController@profit_and_loss_index');
+    Route::get('user/{client_id}/reports/profitandloss/{start}/{end}', 'UserReportsController@profit_and_loss_index');
     
-    Route::get('user/{client_id}/reports/profitandloss/generate', 'UserReportsController@profit_and_loss_generate');
+    Route::get('user/{client_id}/reports/profitandloss/{start}/{end}/generate', 'UserReportsController@profit_and_loss_generate');
 
 });
 

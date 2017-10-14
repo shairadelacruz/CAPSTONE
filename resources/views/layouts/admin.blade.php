@@ -227,16 +227,16 @@
                                 <a href="/user/{{request()->route('client_id')}}/reports/audit">Audit Trail</a>
                             </li>
                             <li>
-                                <a href="/user/{{request()->route('client_id')}}/reports/trialbalance">Trial Balance</a>
+                                <a href="/user/{{request()->route('client_id')}}/reports/trialbalance/{{Carbon\Carbon::today()->format('Y-m-d')}}">Trial Balance</a>
                             </li>
                             <li>
-                                <a href="/user/{{request()->route('client_id')}}/reports/generalledger">General Ledger</a>
+                                <a href="/user/{{request()->route('client_id')}}/reports/generalledger/{{Carbon\Carbon::today()->startOfMonth()->format('Y-m-d')}}/{{Carbon\Carbon::today()->format('Y-m-d')}}">General Ledger</a>
                             </li>
                             <li>
-                                <a href="/user/{{request()->route('client_id')}}/reports/balancesheet">Balance Sheet</a>
+                                <a href="/user/{{request()->route('client_id')}}/reports/balancesheet/{{Carbon\Carbon::today()->format('Y-m-d')}}">Balance Sheet</a>
                             </li>
                             <li>
-                                <a href="/user/{{request()->route('client_id')}}/reports/profitandloss">Profit and Loss</a>
+                                <a href="/user/{{request()->route('client_id')}}/reports/profitandloss/{{Carbon\Carbon::today()->startOfMonth()->format('Y-m-d')}}/{{Carbon\Carbon::today()->format('Y-m-d')}}">Profit and Loss</a>
                             </li>
                         </ul>
                         

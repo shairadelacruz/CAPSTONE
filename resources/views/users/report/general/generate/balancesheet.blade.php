@@ -1,15 +1,4 @@
-@extends('layouts.admin')
 
-@section('page_title')
-
-Balance Sheet
-
-@endsection
-
-@extends('includes.table_includes');
-
-
-@section('content')
 
         <div class="container-fluid">
             
@@ -24,12 +13,7 @@ Balance Sheet
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                     
-                                    <label>Date</label>
-                                    <input type="date" class="form-control date" name="date" id="date"
-                                    value="{{request()->route('end')}}">
-                                    <button class="btnPrint btn-success">Print</button>
-
-                                    <input type="hidden" class="clientHidden" name='client_id' value="{{request()->route('client_id')}}" class="form-control">
+                                    <label>Date: </label>{{request()->route('end')}}
 
                                 </div>
                             </div>
@@ -157,27 +141,3 @@ Balance Sheet
             </div>
             <!-- #END# Exportable Table -->
         </div>
-
-@section('scripts')
-<script type="text/javascript">
-
-
-    $('#date').on('change', function() {
-
-        var date=$('#date').val();
-
-        window.location = date;
-    });
-
-    $('.btnPrint').on('click', function() {
-
-        var date=$('#date').val();
-
-        window.location = date + '/generate';
-    });
-
-              
-</script>
-@endsection
-    
-@stop

@@ -105,6 +105,7 @@ class UserInvoicesController extends Controller
         $debit->journal_id = $journalId;
         $debit->coa_id = 2;
         $debit->debit = $request->grandTotal;
+        $debit->credit = 0;
         $debit->reference_no = 0;
         $debit->vat_amount = 0;
         $debit->save();
@@ -136,6 +137,7 @@ class UserInvoicesController extends Controller
                 $credit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
+                            'debit'=>0,
                             'credit'=>$subTotal,
                             'descriptions'=>$request->descriptions[$key],
                             'vat_amount'=>$request->vat_amount[$key],

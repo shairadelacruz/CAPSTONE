@@ -15,25 +15,6 @@ use App\Http\Requests;
 class UserReportsController extends Controller
 {
     //
-    /*
-
-        //$trials = $client->coas()->with('journals_details')->get();
-
-        //$trials = $client->with(['journal','coas.journals_details'])->get();
-
-
-        //$end = new \Carbon\Carbon('last day of this month');
-
-        //$start = $start->toDateString();
-
-        //$end = $end->toDateString();
-
-        //$trials = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
-
-        //$journals = $client->journal()->whereBetween('date',[$start,$end])->get();
-    */
-
-
 
     public function trial_balance_index($client_id, $end)
     {
@@ -65,22 +46,35 @@ class UserReportsController extends Controller
 
     }
 
-    public function trial_balance_generate(Request $request)
+    public function trial_balance_generate($client_id, $end)
     {
         //
-        $client = Client::find($request->client_id);
+        $client = Client::find($client_id);
 
-        $start = \Carbon\Carbon::parse($request->from);  
+        $coas = $client->coas;
 
-        $end = \Carbon\Carbon::parse($request->to);
+        $getFinancialYear = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
 
-        $start = $start->toDateString();
+        if (\Carbon\Carbon::now()->format('Y-m-d') <= $getFinancialYear)
+        {
+            $lastyear = new \Carbon\Carbon('last year');
+            $start = $lastyear->format('Y').'-'.$client->financial_year->format('m-d');
+        }
+        else
+        {
+            $start = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+        }
 
-        $end = $end->toDateString();
 
-        $data = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
-        
-        return response()->json($data);
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
+
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
+
+        //return $getFinancialYear;
+
+        $pdf = PDF::loadView('users.report.general.generate.trialbalance', compact('coas','details','start', 'end'));
+
+        return $pdf->download('trialbalance.pdf');
     }
     
 
@@ -120,7 +114,9 @@ class UserReportsController extends Controller
 
         $ledgers = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
 
-        return view('users.report.general.generalledger', compact('coas','ledgers','start', 'end'));
+        $pdf = PDF::loadView('users.report.general.generate.generalledger', compact('coas','ledgers','start', 'end'));
+
+        return $pdf->download('generalledger.pdf');
         
     }
 
@@ -153,10 +149,35 @@ class UserReportsController extends Controller
         return view('users.report.general.balancesheet', compact('coas','details','start', 'end'));
     }
 
-    public function balance_sheet_generate($client_id)
+    public function balance_sheet_generate($client_id, $end)
     {
         //
-        
+        $client = Client::find($client_id);
+
+        $coas = $client->coas;
+
+        $getFinancialYear = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+
+        if (\Carbon\Carbon::now()->format('Y-m-d') <= $getFinancialYear)
+        {
+            $lastyear = new \Carbon\Carbon('last year');
+            $start = $lastyear->format('Y').'-'.$client->financial_year->format('m-d');
+        }
+        else
+        {
+            $start = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+        }
+
+
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
+
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
+
+        //return $getFinancialYear;
+
+        $pdf = PDF::loadView('users.report.general.generate.balancesheet', compact('coas','details','start', 'end'));
+
+        return $pdf->download('balancesheet.pdf');
     }
 
     public function profit_and_loss_index($client_id)

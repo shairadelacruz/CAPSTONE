@@ -1,15 +1,3 @@
-@extends('layouts.admin')
-
-@section('page_title')
-
-General Ledger
-
-@endsection
-
-@extends('includes.table_includes');
-
-
-@section('content')
 
         <div class="container-fluid">
             
@@ -25,13 +13,10 @@ General Ledger
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                     
 
-                                    <label>From</label>
-                                   <input id="start" type="date" class="form-control date" name="to" id="to" value="{{request()->route('start')}}">
-                                   <label>To</label>
-                                    <input id="end" type="date" class="form-control date" name="from" id="from" value="{{request()->route('end')}}">
-                                    <button class="btnPrint btn-success">Print</button>
-
-                                    <input type="hidden" class="clientHidden" name='client_id' value="{{request()->route('client_id')}}" class="form-control">
+                                    <label>From: </label>
+                                   {{request()->route('start')}}
+                                   <label>To: </label>
+                                    {{request()->route('end')}}
 
                                 </div>
                             </div>
@@ -87,30 +72,3 @@ General Ledger
             </div>
             <!-- #END# Exportable Table -->
         </div>
-@section('scripts')
-<script type="text/javascript">
-
-
-    $('#end').on('change', function() {
-
-        //var date=$('#date').val();
-        var client_id = $('.clientHidden').val();
-        var start = $('#start').val();
-        var end = $('#end').val();
-
-        window.location = '/user/'+ client_id +'/reports/generalledger/'+ start +'/'+ end;
-    });
-
-    $('.btnPrint').on('click', function() {
-
-        var start = $('#start').val();
-        var end = $('#end').val();
-
-        window.location = start +'/'+ end +'/generate';
-    });
-
-              
-</script>
-@endsection
-
-@stop
