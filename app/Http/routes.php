@@ -106,6 +106,10 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::get('user/{client_id}/accounting/journal/{journal_id}/show',array('as'=>'journalpdfview','uses'=>'UserJournalsController@show'));
 
+    Route::get('user/{client_id}/accounting/journal/findDebit/{coa_id?}','UserJournalsController@findDebit');
+
+    Route::get('user/{client_id}/accounting/journal/findCredit/{coa_id?}','UserJournalsController@findCredit');
+
     //Adjusting
 
     Route::resource('user/{client_id}/adjusting', 'UserAdjustingController');

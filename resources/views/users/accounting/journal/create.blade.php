@@ -37,7 +37,7 @@ Journal
                 
                 
 
-        <input type="hidden" name='client_id' value="{{ $client_id }}" class="form-control">
+        <input type="hidden" class="clientHidden" name='client_id' value="{{ $client_id }}">
 
         <div class="col-sm-3">
             <div class="form-group">
@@ -313,6 +313,7 @@ Journal
         
     </div>
 
+
         
 @section('scripts')
 
@@ -380,6 +381,58 @@ function removeRow(btn) {
             var row = btn.parentNode.parentNode;
             row.parentNode.removeChild(row);
 }
+
+$('tbody').delegate('.creddeb','change',function(){
+
+    var tr = $(this).parent().parent();
+    var lasttr = $('table tr:last-child');
+    var id = tr.find('.coa_id').val();
+    var debit = tr.find('.debit').val();
+    var credit = tr.find('.credit').val();
+    var client_id = $('.clientHidden').val();
+
+    if(id != 0 && debit != 0)
+    {
+
+        $.ajax({
+            type    : 'get',
+            url     : '/user/'+client_id+'/accounting/journal/findDebit/'+id,
+            dataType: 'json',
+            data    : {'id':id},
+            success:function(data){
+                lasttr.find('.coa_id').val(data);
+                lasttr.find('.chosen-select').trigger("chosen:updated");
+      
+            }
+       
+        });
+    }
+    else if(id != 0 && credit != 0)
+    {
+        $.ajax({
+            type    : 'get',
+            url     : '/user/'+client_id+'/accounting/journal/findCredit/'+id,
+            dataType: 'json',
+            data    : {'id':id},
+            success:function(data){
+
+                lasttr.find('.coa_id').val(data);
+                lasttr.find('.chosen-select').trigger("chosen:updated");
+      
+            }
+       
+        });
+    }
+
+    else
+    {
+
+    }
+
+           
+});
+
+
 //Disable Debit or Credit
 
 $('tbody').delegate('.debit','change',function(){
@@ -428,57 +481,6 @@ $('tbody').delegate('.credit','change',function(){
     
 });
 
-
-//Total
-/*
-var body= $('#journalTable').children('tbody').first();
-var totals = $('#totals');
-body.on('change', '.sumThis', function() {
-  var total = 0;
-  var columnIndex = $(this).closest('td').index();
-  var rows = body.find('tr');
-  var tr = $(this).parent().parent();
-    //tr.find('.qty').focus();
-    var credit = tr.find('.credit').val();
-  $.each(rows, function() {
-      var amount = $(this).children('td').eq(columnIndex).children('.debsub').val();    
-      total += new Number(amount);
-  });
-  //totals.children('td').eq(columnIndex).text(total);
-   document.getElementById("debittot").value = total;
-
-   var debittot = document.getElementById("debittot").value;
-   var credittot = document.getElementById("credittot").value;
-
-   var sum1 = Math.abs(debittot-credittot);
-      //var firstEmptyCell = $('.credit:empty:eq(1)').val(sum1);
-    
-   
-});
-
-var body1= $('#journalTable').children('tbody').first();
-var totals1 = $('#totals');
-
-body1.on('change', '.sumThis1', function() {
-  var total = 0;
-  var columnIndex = $(this).closest('td').index();
-  var rows = body1.find('tr');
-  $.each(rows, function() {
-      var amount = $(this).children('td').eq(columnIndex).children('.credsub').val();    
-      total += new Number(amount);
-  });
-  //totals.children('td').eq(columnIndex).text(total);
-   document.getElementById("credittot").value = total;
-
-   var debittot = document.getElementById("debittot").value;
-   var credittot = document.getElementById("credittot").value;
-
-   var sum1 = Math.abs(debittot-credittot);
-    //var firstEmptyCell = $('.debit:empty:eq(1)').val(sum1);
-
-});*/
-
-
 //VAT
 
 $('tbody').delegate('.getrate','change',function(){
@@ -495,7 +497,7 @@ $('tbody').delegate('.getrate','change',function(){
     if(deb != 0)
     {
         var amount = (rate*deb);
-        tr.find('.vat_amount').val(amount);
+        tr.find('.vat_amount').val(amount.toFixed(2));
 
         var sub = parseInt(deb)+amount;
         tr.find('.debsub').val(sub);
@@ -503,7 +505,7 @@ $('tbody').delegate('.getrate','change',function(){
     }
     else if (cred != 0){
         var amount = (rate*cred);
-        tr.find('.vat_amount').val(amount);
+        tr.find('.vat_amount').val(amount.toFixed(2));
 
         var sub = parseInt(cred)+amount;
         tr.find('.credsub').val(sub);
@@ -513,8 +515,52 @@ $('tbody').delegate('.getrate','change',function(){
         tr.find('.debit').focus();
     }
 
+ // Total
     var debtotal = 0;
     var credtotal = 0;
+
+    $('.debsub').each(function() {
+        debtotal += Number($(this).val());
+    });
+
+    $('#debittot').val(debtotal.toFixed(2));
+
+    $('.credsub').each(function() {
+        credtotal += Number($(this).val());
+    });
+    
+    $('#credittot').val(credtotal.toFixed(2));
+
+    var lasttr = $('table tr:last-child');
+
+//Balance
+    
+    if(debtotal > credtotal)
+    {
+        var sum1 = debtotal-credtotal;
+         //$('.debDiff').hide();
+        lasttr.find('.debit').val(0);
+        lasttr.find('.credit').val(sum1.toFixed(2));
+        lasttr.find('.debsub').val(0);
+        lasttr.find('.credsub').val(sum1.toFixed(2));
+
+    }
+    else if(debtotal < credtotal)
+    {
+        var sum1 = credtotal - debtotal;
+        //$('.credDiff').hide();
+        lasttr.find('.credit').val(0);
+        lasttr.find('.debit').val(sum1.toFixed(2));
+        lasttr.find('.credsub').val(0);
+        lasttr.find('.debsub').val(sum1.toFixed(2));
+    }
+    else
+    {
+        
+    }
+
+    debtotal = 0;
+    credtotal = 0;
 
     $('.debsub').each(function() {
         debtotal += Number($(this).val());
@@ -531,29 +577,6 @@ $('tbody').delegate('.getrate','change',function(){
 });
 
 
-
-/*function balance()
-{
-    var debittot = document.getElementById("debittot").value;
-    var credittot = document.getElementById("credittot").value;
-    
-    if(debittot > credittot)
-    {
-        var sum1 = debittot-credittot;
-         //$('.debDiff').hide();
-        $('.credDiff').html(sum1);
-    }
-    else if(debittot < credittot)
-    {
-        var sum1 = credittot - debittot;
-        //$('.credDiff').hide();
-        $('.debDiff').html(sum1);
-    }
-    else
-    {
-        alert("same");
-    }
-}*/
 
 </script>
 

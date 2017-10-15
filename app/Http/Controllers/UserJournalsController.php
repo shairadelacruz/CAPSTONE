@@ -233,6 +233,40 @@ class UserJournalsController extends Controller
         return view('users.accounting.journal.pdfview');
     }
 
+    public function findDebit(Request $request, $client_id, $id)
+    {
+
+        $coa = Coa::find($request->id);
+
+        $client = Client::find($client_id);
+
+        $getId = $client->id;
+
+        $partner = $coa->coapartner->where('type', 0)->where('client_id', 1)->first();
+
+        $data = $partner->partnercoa_id;
+
+        return response()->json($data);
+
+    }
+
+    public function findCredit(Request $request, $client_id, $id)
+    {
+
+        $coa = Coa::find($request->id);
+
+        $client = Client::find($client_id);
+
+        $getId = $client->id;
+
+        $partner = $coa->coapartner->where('type', 1)->where('client_id', 1)->first();
+
+        $data = $partner->partnercoa_id;
+
+        return response()->json($data);
+
+    }
+
     
     public function destroy($id, $client_id)
     {
