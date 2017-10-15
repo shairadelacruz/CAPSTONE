@@ -108,7 +108,7 @@ Journal
                         </select>
                     </td>
                     <td class="table-client_coa_id">
-                   <select class="table-control chosen-select" name="coa_cli_id[]" required="true">
+                   <select class="table-control chosen-select coa_id" name="coa_cli_id[]" required="true">
                                 <option value="0" selected="true">Please select an option</option>
                                 @if($coas)
                                 @foreach($coas as $coa)
@@ -125,7 +125,7 @@ Journal
                         <input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0">
                     </td>
                     <td class="table-description">
-                        <input type="text" class="table-control" name="descriptions[]">
+                        <input class="description" type="text" class="table-control" name="descriptions[]">
                     </td>
                     <td class="table-vat_id">
                         <select class="table-control chosen-select vat_id getrate" name="vat_id[]">
@@ -141,6 +141,13 @@ Journal
                     </td>
                     <td>
                         <input type="number" class="table-control right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
+                    </td>
+
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text debsub" value="0" readonly="true">
+                    </td>
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text credsub" value="0" readonly="true">
                     </td>
 
                     <td class="table-remove">
@@ -161,7 +168,7 @@ Journal
                         </select>
                     </td>
                     <td class="table-client_coa_id">
-                   <select class="table-control chosen-select" name="coa_cli_id[]">
+                   <select class="table-control chosen-select coa_id" name="coa_cli_id[]">
                                     <option value="0" selected="true">Please select an option</option>
                                 @if($coas)
                                 @foreach($coas as $coa)
@@ -178,7 +185,7 @@ Journal
                         <input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0">
                     </td>
                     <td class="table-description">
-                        <input type="text" class="table-control" name="descriptions[]">
+                        <input class="description" type="text" class="table-control" name="descriptions[]">
                     </td>
                     <td class="table-vat_id">
                         <select class="table-control chosen-select vat_id getrate" name="vat_id[]">
@@ -192,6 +199,12 @@ Journal
                     </td>
                     <td>
                         <input type="number" class="table-control right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
+                    </td>
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text debsub" value="0" readonly="true">
+                    </td>
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text credsub" value="0" readonly="true">
                     </td>
 
                     <td class="table-remove">
@@ -212,7 +225,7 @@ Journal
                         </select>
                     </td>
                     <td class="table-client_coa_id">
-                   <select class="table-control chosen-select" name="coa_cli_id[]">
+                   <select class="table-control chosen-select coa_id" name="coa_cli_id[]">
                                     <option value="0" selected="true">Please select an option</option>
                                 @if($coas)
                                 @foreach($coas as $coa)
@@ -231,7 +244,7 @@ Journal
                         
                     </td>
                     <td>
-                        <input style="word-wrap:break-word" type="text" name="descriptions[]">
+                        <input class="description" style="word-wrap:break-word" type="text" name="descriptions[]">
                     </td>
                     <td>
                         <select class="chosen-select vat_id getrate" name="vat_id[]">
@@ -245,6 +258,12 @@ Journal
                     </td>
                     <td>
                         <input type="number" class="right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
+                    </td>
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text debsub" value="0" readonly="true">
+                    </td>
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text credsub" value="0" readonly="true">
                     </td>
 
                     <td class="table-remove">
@@ -311,7 +330,7 @@ Journal
             '</select>'+
             '</td>'+
             '<td class="table-client_coa_id">'+
-            '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
+            '<select class="table-control chosen-select coa_id" name="coa_cli_id[]" data-live-search="true">'+
             '<option value="0" selected="true"  disabled="true">Select an option</option>'+
             '@if($coas)'+
             '@foreach($coas as $coa)'+
@@ -328,7 +347,7 @@ Journal
             '<input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0" >'+
             '</td>'+
             '<td class="table-description">'+
-            '<input type="text" class="table-control" name="descriptions[]">'+
+            '<input type="text" class="table-control description" name="descriptions[]">'+
             '</td>'+
             '<td class="table-vat_id">'+
             '<select class="table-control chosen-select vat_id getrate" name="vat_id[]" data-live-search="true">'+
@@ -342,6 +361,12 @@ Journal
             '</td>'+
             '<td>'+
             '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
+            '</td>'+
+            '<td style="display:none;">'+
+            '<input type="number" class="right-align-text debsub" value="0" readonly="true">'+
+            '</td>'+
+            '<td style="display:none;">'+
+            '<input type="number" class="right-align-text credsub" value="0" readonly="true">'+
             '</td>'+
             '<td><span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span></td>'+
             '</tr>' 
@@ -369,6 +394,7 @@ $('tbody').delegate('.debit','change',function(){
         var sum = tot - old;
         $('#credittot').val(sum);
         tr.find('.credit').val(0);
+        tr.find('.credsub').val(0);
         //tr.find('.credit').prop("disabled",true);
         
 
@@ -391,6 +417,7 @@ $('tbody').delegate('.credit','change',function(){
         var sum = tot - old;
         $('#debittot').val(sum);
         tr.find('.debit').val(0);
+        tr.find('.debsub').val(0);
         //tr.find('.debit').prop("disabled",true);
         
     }
@@ -403,7 +430,7 @@ $('tbody').delegate('.credit','change',function(){
 
 
 //Total
-
+/*
 var body= $('#journalTable').children('tbody').first();
 var totals = $('#totals');
 body.on('change', '.sumThis', function() {
@@ -414,7 +441,7 @@ body.on('change', '.sumThis', function() {
     //tr.find('.qty').focus();
     var credit = tr.find('.credit').val();
   $.each(rows, function() {
-      var amount = $(this).children('td').eq(columnIndex).children('.sumThis').val();    
+      var amount = $(this).children('td').eq(columnIndex).children('.debsub').val();    
       total += new Number(amount);
   });
   //totals.children('td').eq(columnIndex).text(total);
@@ -437,7 +464,7 @@ body1.on('change', '.sumThis1', function() {
   var columnIndex = $(this).closest('td').index();
   var rows = body1.find('tr');
   $.each(rows, function() {
-      var amount = $(this).children('td').eq(columnIndex).children('.sumThis1').val();    
+      var amount = $(this).children('td').eq(columnIndex).children('.credsub').val();    
       total += new Number(amount);
   });
   //totals.children('td').eq(columnIndex).text(total);
@@ -449,7 +476,7 @@ body1.on('change', '.sumThis1', function() {
    var sum1 = Math.abs(debittot-credittot);
     //var firstEmptyCell = $('.debit:empty:eq(1)').val(sum1);
 
-});
+});*/
 
 
 //VAT
@@ -470,28 +497,42 @@ $('tbody').delegate('.getrate','change',function(){
         var amount = (rate*deb);
         tr.find('.vat_amount').val(amount);
 
-        /*var totals = $('#debittot').val();
+        var sub = parseInt(deb)+amount;
+        tr.find('.debsub').val(sub);
 
-        var wow = parseInt(totals)+amount;
-
-        alert(wow);
-
-        $('#debittot').val(wow)*/
     }
     else if (cred != 0){
         var amount = (rate*cred);
         tr.find('.vat_amount').val(amount);
+
+        var sub = parseInt(cred)+amount;
+        tr.find('.credsub').val(sub);
     }
     else{
         //alert('No amount in either debit or credit');
         tr.find('.debit').focus();
     }
 
-    balance();
+    var debtotal = 0;
+    var credtotal = 0;
+
+    $('.debsub').each(function() {
+        debtotal += Number($(this).val());
+    });
+
+    $('#debittot').val(debtotal.toFixed(2));
+
+    $('.credsub').each(function() {
+        credtotal += Number($(this).val());
+    });
+    
+    $('#credittot').val(credtotal.toFixed(2));
 
 });
 
-function balance()
+
+
+/*function balance()
 {
     var debittot = document.getElementById("debittot").value;
     var credittot = document.getElementById("credittot").value;
@@ -512,7 +553,7 @@ function balance()
     {
         alert("same");
     }
-}
+}*/
 
 </script>
 
