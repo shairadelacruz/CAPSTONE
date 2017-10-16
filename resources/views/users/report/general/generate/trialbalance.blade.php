@@ -28,29 +28,7 @@
                                         
                                     </tr>
                                 </thead>
-                                <tfoot>                         
-                                    <tr id="totals">
-                                        <th>Total</th>
-                                        <th>
-                                        @if($details)
-                                        @foreach($details as $key => $detail)
-                                        @if($key == 0)
-                                        {{$details->sum('debit') + $detail->where("credit", 0)->sum('vat_amount')}}
-                                        @endif
-                                        @endforeach
-                                        @endif
-                                        </th>
-                                        <th>
-                                        @if($details)
-                                        @foreach($details as $key => $detail)
-                                        @if($key == 0)
-                                        {{$details->sum('credit') + $detail->where("debit", 0)->sum('vat_amount')}}
-                                        @endif
-                                        @endforeach
-                                        @endif
-                                        </th>
-                                    </tr>
-                                </tfoot>
+                                
                                 <tbody>
                                     @if($coas)
                                     @foreach($coas as $coa)
@@ -108,6 +86,29 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tfoot>                         
+                                    <tr id="totals">
+                                        <th>Total</th>
+                                        <th>
+                                        @if($details)
+                                        @foreach($details as $key => $detail)
+                                        @if($key == 0)
+                                        {{$details->sum('debit') + $detail->where("credit", 0)->sum('vat_amount')}}
+                                        @endif
+                                        @endforeach
+                                        @endif
+                                        </th>
+                                        <th>
+                                        @if($details)
+                                        @foreach($details as $key => $detail)
+                                        @if($key == 0)
+                                        {{$details->sum('credit') + $detail->where("debit", 0)->sum('vat_amount')}}
+                                        @endif
+                                        @endforeach
+                                        @endif
+                                        </th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

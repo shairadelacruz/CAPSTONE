@@ -30,12 +30,6 @@
                                         
                                     </tr>
                                 </thead>
-                                <tfoot>                         
-                                    <tr>
-                                        <th>Total</th>
-                                        <th class="right-align-text"></th>
-                                    </tr>
-                                </tfoot>
                                 <tbody>
                                     @if($coas)
                                     @foreach($coas->where('coacategory_id', 1) as $coa)
@@ -56,6 +50,12 @@
                                     @endforeach
                                    @endif
                                 </tbody>
+                                <tfoot>                         
+                                    <tr>
+                                        <th>Total</th>
+                                        <th id="totA" class="right-align-text"></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                         
@@ -69,12 +69,6 @@
                                         
                                     </tr>
                                 </thead>
-                                <tfoot>                        
-                                    <tr>
-                                        <th>Total</th>
-                                        <th class="right-align-text"></th>
-                                    </tr>
-                                </tfoot>
                                 <tbody>
                                     @if($coas)
                                     @foreach($coas->where('coacategory_id', 2) as $coa)
@@ -95,6 +89,12 @@
                                     @endforeach
                                    @endif
                                 </tbody>
+                                <tfoot>                        
+                                    <tr>
+                                        <th>Total</th>
+                                        <th id="totL" class="right-align-text"></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                         
@@ -108,12 +108,6 @@
                                         
                                     </tr>
                                 </thead>
-                                <tfoot>                         
-                                    <tr>
-                                        <th>Total</th>
-                                        <th class="right-align-text"></th>
-                                    </tr>
-                                </tfoot>
                                 <tbody>
                                     @if($coas)
                                     @foreach($coas->where('coacategory_id', 5) as $coa)
@@ -134,6 +128,12 @@
                                     @endforeach
                                    @endif
                                 </tbody>
+                                <tfoot>                         
+                                    <tr>
+                                        <th>Total</th>
+                                        <th id="totE" class="right-align-text"></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -141,3 +141,64 @@
             </div>
             <!-- #END# Exportable Table -->
         </div>
+@section('scripts')
+<script src="{{asset('plugins/jquery/jquery.min.js') }} "></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var balA = 0;
+        // iterate through each td based on class and add the values
+        $(".balanceA").each(function() {
+
+            var value = $(this).text();
+            // add only if the value is number
+            if(!isNaN(value) && value.length != 0)
+            {
+                 balA+= parseFloat(value);
+            }
+            else
+            {
+                balA+= parseFloat(0);
+            }
+            
+        })
+        $("#totA").html(balA.toFixed(2));
+
+        var balL = 0;
+        // iterate through each td based on class and add the values
+        $(".balanceL").each(function() {
+
+            var value = $(this).text();
+            // add only if the value is number
+            if(!isNaN(value) && value.length != 0)
+            {
+                 balL+= parseFloat(value);
+            }
+            else
+            {
+                balL+= parseFloat(0);
+            }
+            
+        })
+        $("#totL").html(balL.toFixed(2));
+
+        var balE = 0;
+        // iterate through each td based on class and add the values
+        $(".balanceE").each(function() {
+
+            var value = $(this).text();
+            // add only if the value is number
+            if(!isNaN(value) && value.length != 0)
+            {
+                 balE+= parseFloat(value);
+            }
+            else
+            {
+                balE+= parseFloat(0);
+            }    
+        })
+        $("#totE").html(balE.toFixed(2));
+    });
+
+              
+</script>
+@endsection

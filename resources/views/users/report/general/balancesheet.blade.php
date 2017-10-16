@@ -49,7 +49,7 @@ Balance Sheet
                                 <tfoot>                         
                                     <tr>
                                         <th>Total</th>
-                                        <th class="right-align-text"></th>
+                                        <th id="totA" class="right-align-text"></th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -57,7 +57,7 @@ Balance Sheet
                                     @foreach($coas->where('coacategory_id', 1) as $coa)
                                     <tr>
                                         <td>{{$coa->name}}</td>
-                                        <td class="right-align-text">
+                                        <td class="right-align-text balanceA">
                                         @if($details)
                                         @if($details->where("coa_id", $coa->id))
                                         @foreach($details as $key => $detail)
@@ -88,7 +88,7 @@ Balance Sheet
                                 <tfoot>                        
                                     <tr>
                                         <th>Total</th>
-                                        <th class="right-align-text"></th>
+                                        <th id="totL" class="right-align-text"></th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -96,7 +96,7 @@ Balance Sheet
                                     @foreach($coas->where('coacategory_id', 2) as $coa)
                                     <tr>
                                         <td>{{$coa->name}}</td>
-                                        <td class="right-align-text">
+                                        <td class="right-align-text balanceL">
                                         @if($details)
                                         @if($details->where("coa_id", $coa->id))
                                         @foreach($details as $key => $detail)
@@ -127,7 +127,7 @@ Balance Sheet
                                 <tfoot>                         
                                     <tr>
                                         <th>Total</th>
-                                        <th class="right-align-text"></th>
+                                        <th id="totE" class="right-align-text"></th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -135,7 +135,7 @@ Balance Sheet
                                     @foreach($coas->where('coacategory_id', 5) as $coa)
                                     <tr>
                                         <td>{{$coa->name}}</td>
-                                        <td class="right-align-text">
+                                        <td class="right-align-text balanceE">
                                         @if($details)
                                         @if($details->where("coa_id", $coa->id))
                                         @foreach($details as $key => $detail)
@@ -174,6 +174,62 @@ Balance Sheet
         var date=$('#date').val();
 
         window.location = date + '/generate';
+    });
+
+
+    $(document).ready(function(){
+        var balA = 0;
+        // iterate through each td based on class and add the values
+        $(".balanceA").each(function() {
+
+            var value = $(this).text();
+            // add only if the value is number
+            if(!isNaN(value) && value.length != 0)
+            {
+                 balA+= parseFloat(value);
+            }
+            else
+            {
+                balA+= parseFloat(0);
+            }
+            
+        })
+        $("#totA").html(balA.toFixed(2));
+
+        var balL = 0;
+        // iterate through each td based on class and add the values
+        $(".balanceL").each(function() {
+
+            var value = $(this).text();
+            // add only if the value is number
+            if(!isNaN(value) && value.length != 0)
+            {
+                 balL+= parseFloat(value);
+            }
+            else
+            {
+                balL+= parseFloat(0);
+            }
+            
+        })
+        $("#totL").html(balL.toFixed(2));
+
+        var balE = 0;
+        // iterate through each td based on class and add the values
+        $(".balanceE").each(function() {
+
+            var value = $(this).text();
+            // add only if the value is number
+            if(!isNaN(value) && value.length != 0)
+            {
+                 balE+= parseFloat(value);
+            }
+            else
+            {
+                balE+= parseFloat(0);
+            }    
+        })
+        $("#totE").html(balE.toFixed(2));
     });
 
               

@@ -35,17 +35,6 @@
                                         <th>Credit</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    
-                                    <tr>
-                                        <th>Running Balance</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-
-                                    </tr>
-                
-                                </tfoot>
 
                                 <tbody>  
                                     @if($ledgers)
@@ -63,6 +52,31 @@
                                    @endforeach
                                    @endif
                                 </tbody>
+                                                                <tfoot>
+                                    
+                                    <tr>
+                                        <th>Running Balance</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>
+                                            @if($ledgers)
+                                            @foreach($ledgers as $key => $ledger)
+                                            @if($key == 0)
+                                            @foreach($ledger->journal_details as $key1 => $detail)
+                                            @if($key1 == 0)
+
+                                            {{$detail->where('coa_id', $coa->id)->sum('debit') - $detail->where('coa_id', $coa->id)->sum('credit')}}
+
+                                            @endif
+                                            @endforeach
+                                            @endif
+                                            @endforeach
+                                            @endif
+                                        </th>
+
+                                    </tr>
+                
+                                </tfoot>
                             </table>
                             @endforeach
                                    @endif

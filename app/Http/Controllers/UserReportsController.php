@@ -32,7 +32,7 @@ class UserReportsController extends Controller
         }
         else
         {
-            $start = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+            $start = $getFinancialYear;
         }
 
 
@@ -62,7 +62,7 @@ class UserReportsController extends Controller
         }
         else
         {
-            $start = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+            $start = $getFinancialYear;
         }
 
 
@@ -136,7 +136,7 @@ class UserReportsController extends Controller
         }
         else
         {
-            $start = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+            $start = $getFinancialYear;
         }
 
 
@@ -165,7 +165,7 @@ class UserReportsController extends Controller
         }
         else
         {
-            $start = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+            $start = $getFinancialYear;
         }
 
 

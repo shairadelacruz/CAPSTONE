@@ -62,8 +62,8 @@ class UserJournalsController extends Controller
             'transaction_no' => 'required',
             'date' => 'required',
             'coa_cli_id' => 'required',
-            'debittot' => 'required|integer',
-            'credittot' => 'required|integer|same:debittot'
+            'debittot' => 'required',
+            'credittot' => 'required|same:debittot'
         ]);
 
     
@@ -162,8 +162,8 @@ class UserJournalsController extends Controller
             'transaction_no' => 'required',
             'date' => 'required',
             'coa_cli_id' => 'required',
-            'debittot' => 'required|integer',
-            'credittot' => 'required|integer|same:debittot'
+            'debittot' => 'required',
+            'credittot' => 'required|same:debittot'
         ]);
         
 

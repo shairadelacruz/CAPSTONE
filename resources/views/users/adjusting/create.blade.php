@@ -2,7 +2,7 @@
 
 @section('page_title')
 
-Adjusting Entries
+Adjusting Entriesyy
 
 @endsection
 
@@ -33,32 +33,25 @@ Adjusting Entries
 <div class="row">
 
     <div class="col-sm-12">
-               
-                <ul>
-                    @if(Session::has('ref_no'))
-                     @foreach (Session::get('ref_no') as $ref_no)
-                    <li>{{$ref_no}}</li>
-                    @endforeach
-                    @endif
-                </ul>
+            
                 
                 
 
-        <input type="hidden" name='client_id' value="{{ $client_id }}" class="form-control">
+        <input type="hidden" class="clientHidden" name='client_id' value="{{ $client_id }}">
 
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Transaction No.</label>
                 @if($client_name = Auth::user()->clients->find(request()->route('client_id')))
                     
-                <input type="text" class="form-control" name='transaction_no' value="{{Carbon\Carbon::today()->format('Y')}}-{{$client_name->code}}{{$client_name->id}}-{{$count}}-A" readonly="true">
+                <input type="text" class="form-control" name='transaction_no' value="{{Carbon\Carbon::today()->format('Y')}}-{{$client_name->code}}{{$client_name->id}}-{{$count}}-J" readonly="true">
                 @endif
             </div>
         </div>
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Date</label>
-                <input type="date" class="form-control" name='date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
+                <input type="date" class="form-control" name='date' value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
             </div>
         </div>
         <div class="col-sm-3">
@@ -67,11 +60,17 @@ Adjusting Entries
                 <textarea class="form-control" name='description'></textarea>
             </div>
         </div>
-        @if(Session::has('ref_no'))
+        <!--<div class="col-sm-3">
+            <div class="form-group">
+                <label>JV No.</label>
+                <input type="number" name="">
+            </div>
+        </div>-->
+        @if(Session::has('task'))
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Reference Documents</label><br>
-                <a href="#" class="btn btn-primary"  target="_blank">View</a>
+                <a href="/user/tasks/{{ Session::get('task')->id }}" class="btn btn-primary"  target="_blank">View</a>
             </div>
         </div>
         @endif
@@ -95,12 +94,12 @@ Adjusting Entries
                 </tr>
             </thead>
             <tbody>
-                @if(Session::has('ref_no'))
-                     @foreach (Session::get('ref_no') as $ref_no)
+                @if(Session::has('task'))
+                     @foreach (Session::get('task')->log as $ref_nos)
                 <tr>
                     <td>
                         <select class="chosen-select" name="reference_no[]">
-                                <option value="0" selected="true" disabled="true">{{$ref_no}}</option>
+                                <option value="{{$ref_nos->id}}" selected="true">{{$ref_nos->reference_no}}</option>
                                 @if($refs)
                                 @foreach($refs as $ref)
                                     <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
@@ -109,8 +108,8 @@ Adjusting Entries
                         </select>
                     </td>
                     <td class="table-client_coa_id">
-                   <select class="table-control chosen-select" name="coa_cli_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                   <select class="table-control chosen-select coa_id" name="coa_cli_id[]" required="true">
+                                <option value="0" selected="true">Please select an option</option>
                                 @if($coas)
                                 @foreach($coas as $coa)
                                     <option value="{{$coa->id}}">{{$coa->name}}</option>
@@ -126,11 +125,11 @@ Adjusting Entries
                         <input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0">
                     </td>
                     <td class="table-description">
-                        <input type="text" class="table-control" name="descriptions[]">
+                        <input class="description" type="text" class="table-control" name="descriptions[]">
                     </td>
                     <td class="table-vat_id">
                         <select class="table-control chosen-select vat_id getrate" name="vat_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                    <option value="0" selected="true">Please select an option</option>
                                 @if($vats)
                                 @foreach($vats as $vat)
                                     <option value="{{$vat->id}}">{{$vat->vat_code}} - 
@@ -144,6 +143,13 @@ Adjusting Entries
                         <input type="number" class="table-control right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
                     </td>
 
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text debsub" value="0" readonly="true">
+                    </td>
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text credsub" value="0" readonly="true">
+                    </td>
+
                     <td class="table-remove">
                         <span onclick="removeRow(this)" class="table-remove-btn">X</span>
                     </td>
@@ -153,7 +159,7 @@ Adjusting Entries
                     <tr>
                     <td class="table-reference_no">
                         <select class="table-control chosen-select" name="reference_no[]" data-live-search="true">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                <option value="0" selected="true">Please select an option</option>
                                 @if($refs)
                                 @foreach($refs as $ref)
                                     <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
@@ -162,8 +168,8 @@ Adjusting Entries
                         </select>
                     </td>
                     <td class="table-client_coa_id">
-                   <select class="table-control chosen-select" name="coa_cli_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                   <select class="table-control chosen-select coa_id" name="coa_cli_id[]">
+                                    <option value="0" selected="true">Please select an option</option>
                                 @if($coas)
                                 @foreach($coas as $coa)
                                     <option value="{{$coa->id}}">{{$coa->name}}</option>
@@ -179,11 +185,11 @@ Adjusting Entries
                         <input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0">
                     </td>
                     <td class="table-description">
-                        <input type="text" class="table-control" name="descriptions[]">
+                        <input class="description" type="text" class="table-control" name="descriptions[]">
                     </td>
                     <td class="table-vat_id">
                         <select class="table-control chosen-select vat_id getrate" name="vat_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                   <option value="0" selected="true">Please select an option</option>
                                 @if($vats)
                                 @foreach($vats as $vat)
                                     <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
@@ -194,9 +200,15 @@ Adjusting Entries
                     <td>
                         <input type="number" class="table-control right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
                     </td>
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text debsub" value="0" readonly="true">
+                    </td>
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text credsub" value="0" readonly="true">
+                    </td>
 
                     <td class="table-remove">
-                        <span onclick="removeRow(this)" class="table-remove-btn">X</span>
+                        <span onclick="removeRow(this)" class="table-remove-btn btn btn-default">X</span>
                     </td>
                 </tr>
 
@@ -204,7 +216,7 @@ Adjusting Entries
                 <tr>
                     <td class="table-reference_no">
                         <select class="table-control chosen-select" name="reference_no[]" data-live-search="true">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                    <option value="0" selected="true">Please select an option</option>
                                 @if($refs)
                                 @foreach($refs as $ref)
                                     <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
@@ -213,8 +225,8 @@ Adjusting Entries
                         </select>
                     </td>
                     <td class="table-client_coa_id">
-                   <select class="table-control chosen-select" name="coa_cli_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                   <select class="table-control chosen-select coa_id" name="coa_cli_id[]">
+                                    <option value="0" selected="true">Please select an option</option>
                                 @if($coas)
                                 @foreach($coas as $coa)
                                     <option value="{{$coa->id}}">{{$coa->name}}</option>
@@ -225,16 +237,18 @@ Adjusting Entries
                     </td>
                     <td>
                         <input type="number" class="table-control right-align-text sumThis debit creddeb getrate" name="debit[]" value="0">
+                        
                     </td>
                     <td>
                         <input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0">
+                        
                     </td>
                     <td>
-                        <input style="word-wrap:break-word" type="text" name="descriptions[]">
+                        <input class="description" style="word-wrap:break-word" type="text" name="descriptions[]">
                     </td>
                     <td>
                         <select class="chosen-select vat_id getrate" name="vat_id[]">
-                                    <option value="0" selected="true" disabled="true"></option>
+                                <option value="0" selected="true">Please select an option</option>
                                 @if($vats)
                                 @foreach($vats as $vat)
                                     <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
@@ -244,6 +258,12 @@ Adjusting Entries
                     </td>
                     <td>
                         <input type="number" class="right-align-text vat_amount" name="vat_amount[]" value="0" readonly="true">
+                    </td>
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text debsub" value="0" readonly="true">
+                    </td>
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text credsub" value="0" readonly="true">
                     </td>
 
                     <td class="table-remove">
@@ -259,8 +279,15 @@ Adjusting Entries
                     </td>
                     <td>Total</td>
                     
-                    <td><input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="0"></td>
-                    <td><input id="credittot" type="number" class="table-control right-align-text" name="credittot" readonly="true" value="0"></td>
+                    <td>
+                        <input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="0">
+                        <span class="debDiff text-danger"></span>
+
+                    </td>
+                    <td>
+                        <input id="credittot" type="number" class="table-control right-align-text" name="credittot" readonly="true" value="0">
+                        <span class="credDiff text-danger"></span>
+                    </td>
 
                 </tr>
             </tfoot>
@@ -286,6 +313,7 @@ Adjusting Entries
         
     </div>
 
+
         
 @section('scripts')
 
@@ -294,7 +322,7 @@ Adjusting Entries
     var tr = '<tr>'+
             '<td class="table-reference_no">'+
             '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($refs)'+
             '@foreach($refs as $ref)'+
             '<option value="{{$ref->id}}">{{$ref->reference_no}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>'+
@@ -303,8 +331,8 @@ Adjusting Entries
             '</select>'+
             '</td>'+
             '<td class="table-client_coa_id">'+
-            '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
-            '<option value="0" selected="true"  disabled="true"></option>'+
+            '<select class="table-control chosen-select coa_id" name="coa_cli_id[]" data-live-search="true">'+
+            '<option value="0" selected="true"  disabled="true">Select an option</option>'+
             '@if($coas)'+
             '@foreach($coas as $coa)'+
                 '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
@@ -320,11 +348,11 @@ Adjusting Entries
             '<input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0" >'+
             '</td>'+
             '<td class="table-description">'+
-            '<input type="text" class="table-control" name="descriptions[]">'+
+            '<input type="text" class="table-control description" name="descriptions[]">'+
             '</td>'+
             '<td class="table-vat_id">'+
             '<select class="table-control chosen-select vat_id getrate" name="vat_id[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
+            '<option value="0" selected="true">Select an option</option>'+
             '@if($vats)'+
             '@foreach($vats as $vat)'+
                 '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate" >{{ number_format($vat->rate, 0) }}</span>%</option>'+
@@ -335,56 +363,14 @@ Adjusting Entries
             '<td>'+
             '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
             '</td>'+
-            '<td><span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span></td>'+
-            '</tr>' +
-
-
-            '<tr>'+
-            '<td class="table-reference_no">'+
-            '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
-            '@if($refs)'+
-            '@foreach($refs as $ref)'+
-            '<option value="{{$ref->id}}">{{$ref->reference_no}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>'+
-            '@endforeach'+
-            '@endif'+
-            '</select>'+
+            '<td style="display:none;">'+
+            '<input type="number" class="right-align-text debsub" value="0" readonly="true">'+
             '</td>'+
-            '<td class="table-client_coa_id">'+
-            '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
-            '<option value="0" selected="true"  disabled="true"></option>'+
-            '@if($coas)'+
-            '@foreach($coas as $coa)'+
-                '<option value="{{$coa->id}}">{{$coa->name}}</option>'+
-            '@endforeach'+
-            '@endif'+
-            '</select>'+
-            '</td>'+
-            '<td class="table-debit">'+
-            '<input type="number" class="table-control right-align-text sumThis debit creddeb getrate" name="debit[]" value="0" >'+
-            '</td>'+
-
-            '<td class="table-credit">'+
-            '<input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0" >'+
-            '</td>'+
-            '<td class="table-description">'+
-            '<input type="text" class="table-control" name="descriptions[]">'+
-            '</td>'+
-            '<td class="table-vat_id">'+
-            '<select class="table-control chosen-select vat_id getrate" name="vat_id[]" data-live-search="true">'+
-            '<option value="0" selected="true" disabled="true"></option>'+
-            '@if($vats)'+
-            '@foreach($vats as $vat)'+
-                '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>'+
-            '@endforeach'+
-            '@endif'+
-            '</select>'+
-            '</td>'+
-            '<td>'+
-            '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
+            '<td style="display:none;">'+
+            '<input type="number" class="right-align-text credsub" value="0" readonly="true">'+
             '</td>'+
             '<td><span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span></td>'+
-            '</tr>';
+            '</tr>' 
 
     $('tbody').append(tr);
     $(".chosen-select").chosen()
@@ -395,6 +381,58 @@ function removeRow(btn) {
             var row = btn.parentNode.parentNode;
             row.parentNode.removeChild(row);
 }
+
+$('tbody').delegate('.creddeb','change',function(){
+
+    var tr = $(this).parent().parent();
+    var lasttr = $('table tr:last-child');
+    var id = tr.find('.coa_id').val();
+    var debit = tr.find('.debit').val();
+    var credit = tr.find('.credit').val();
+    var client_id = $('.clientHidden').val();
+
+    if(id != 0 && debit != 0)
+    {
+
+        $.ajax({
+            type    : 'get',
+            url     : '/user/'+client_id+'/accounting/journal/findDebit/'+id,
+            dataType: 'json',
+            data    : {'id':id},
+            success:function(data){
+                lasttr.find('.coa_id').val(data);
+                lasttr.find('.chosen-select').trigger("chosen:updated");
+      
+            }
+       
+        });
+    }
+    else if(id != 0 && credit != 0)
+    {
+        $.ajax({
+            type    : 'get',
+            url     : '/user/'+client_id+'/accounting/journal/findCredit/'+id,
+            dataType: 'json',
+            data    : {'id':id},
+            success:function(data){
+
+                lasttr.find('.coa_id').val(data);
+                lasttr.find('.chosen-select').trigger("chosen:updated");
+      
+            }
+       
+        });
+    }
+
+    else
+    {
+
+    }
+
+           
+});
+
+
 //Disable Debit or Credit
 
 $('tbody').delegate('.debit','change',function(){
@@ -409,6 +447,7 @@ $('tbody').delegate('.debit','change',function(){
         var sum = tot - old;
         $('#credittot').val(sum);
         tr.find('.credit').val(0);
+        tr.find('.credsub').val(0);
         //tr.find('.credit').prop("disabled",true);
         
 
@@ -431,6 +470,7 @@ $('tbody').delegate('.credit','change',function(){
         var sum = tot - old;
         $('#debittot').val(sum);
         tr.find('.debit').val(0);
+        tr.find('.debsub').val(0);
         //tr.find('.debit').prop("disabled",true);
         
     }
@@ -440,54 +480,6 @@ $('tbody').delegate('.credit','change',function(){
     }
     
 });
-
-
-//Total
-
-var body= $('#journalTable').children('tbody').first();
-var totals = $('#totals');
-body.on('change', '.sumThis', function() {
-  var total = 0;
-  var columnIndex = $(this).closest('td').index();
-  var rows = body.find('tr');
-  $.each(rows, function() {
-      var amount = $(this).children('td').eq(columnIndex).children('.sumThis').val();    
-      total += new Number(amount);
-  });
-  //totals.children('td').eq(columnIndex).text(total);
-   document.getElementById("debittot").value = total;
-
-   var debittot = document.getElementById("debittot").value;
-   var credittot = document.getElementById("credittot").value;
-
-   var sum1 = Math.abs(debittot-credittot);
-      //var firstEmptyCell = $('.credit:empty:eq(1)').val(sum1);
-    
-   
-});
-
-var body1= $('#journalTable').children('tbody').first();
-var totals1 = $('#totals');
-
-body1.on('change', '.sumThis1', function() {
-  var total = 0;
-  var columnIndex = $(this).closest('td').index();
-  var rows = body1.find('tr');
-  $.each(rows, function() {
-      var amount = $(this).children('td').eq(columnIndex).children('.sumThis1').val();    
-      total += new Number(amount);
-  });
-  //totals.children('td').eq(columnIndex).text(total);
-   document.getElementById("credittot").value = total;
-
-   var debittot = document.getElementById("debittot").value;
-   var credittot = document.getElementById("credittot").value;
-
-   var sum1 = Math.abs(debittot-credittot);
-    //var firstEmptyCell = $('.debit:empty:eq(1)').val(sum1);
-
-});
-
 
 //VAT
 
@@ -505,37 +497,91 @@ $('tbody').delegate('.getrate','change',function(){
     if(deb != 0)
     {
         var amount = (rate*deb);
-        tr.find('.vat_amount').val(amount);
+        tr.find('.vat_amount').val(amount.toFixed(2));
+
+        var sub = parseInt(deb)+amount;
+        tr.find('.debsub').val(sub);
+
     }
     else if (cred != 0){
         var amount = (rate*cred);
-        tr.find('.vat_amount').val(amount);
+        tr.find('.vat_amount').val(amount.toFixed(2));
+
+        var sub = parseInt(cred)+amount;
+        tr.find('.credsub').val(sub);
     }
     else{
         //alert('No amount in either debit or credit');
         tr.find('.debit').focus();
     }
 
+ // Total
+    var debtotal = 0;
+    var credtotal = 0;
+
+    $('.debsub').each(function() {
+        debtotal += Number($(this).val());
+    });
+
+    $('#debittot').val(debtotal.toFixed(2));
+
+    $('.credsub').each(function() {
+        credtotal += Number($(this).val());
+    });
+    
+    $('#credittot').val(credtotal.toFixed(2));
+
+    var lasttr = $('table tr:last-child');
+
+//Balance
+    
+    if(debtotal > credtotal)
+    {
+        var sum1 = debtotal-credtotal;
+         //$('.debDiff').hide();
+        lasttr.find('.debit').val(0);
+        lasttr.find('.credit').val(sum1.toFixed(2));
+        lasttr.find('.debsub').val(0);
+        lasttr.find('.credsub').val(sum1.toFixed(2));
+
+    }
+    else if(debtotal < credtotal)
+    {
+        var sum1 = credtotal - debtotal;
+        //$('.credDiff').hide();
+        lasttr.find('.credit').val(0);
+        lasttr.find('.debit').val(sum1.toFixed(2));
+        lasttr.find('.credsub').val(0);
+        lasttr.find('.debsub').val(sum1.toFixed(2));
+    }
+    else
+    {
+        
+    }
+
+    debtotal = 0;
+    credtotal = 0;
+
+    $('.debsub').each(function() {
+        debtotal += Number($(this).val());
+    });
+
+    $('#debittot').val(debtotal.toFixed(2));
+
+    $('.credsub').each(function() {
+        credtotal += Number($(this).val());
+    });
+    
+    $('#credittot').val(credtotal.toFixed(2));
+
 });
 
 
-/*function update_vats()
-{
-    var sum = 0.0;
-    $('#journalTable > tbody  > tr:not(:last)').each(function() {
-        var debcred = parseFloat($(this).find('.sumThis').val() || 0,10);
-        var vat = parseFloat($(this).find('.vat_rate').val() || 0,10);
-        var rate = vat/100;
-        var amount = (rate*debcred);
-        sum+=amount;
-        $(this).find('.vat_amount').val(''+amount);
-    });
 
-}*/
 </script>
 
 
 
 @endsection
-	
+    
 @stop

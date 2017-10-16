@@ -138,9 +138,12 @@ Journal
                     <td class="table-vat_amount">
                         <input type="number" class="right-align-text vat_amount" name="vat_amount[]" value="{{$detail->vat_amount}}" readonly="true">
                     </td>
-                    <!--<td class="table-vendor_id">
-                        <input type="text" class="table-control" name="vendor_id[]">
-                    </td>-->
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text debsub" value="0" readonly="true">
+                    </td>
+                    <td style="display:none;">
+                        <input type="number" class="right-align-text credsub" value="0" readonly="true">
+                    </td>
                     <td class="table-remove">
                         <span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span>
                     </td>
@@ -181,7 +184,7 @@ Journal
 @section('scripts')
 
 <script type="text/javascript">
-function addRow() {
+        function addRow() {
     var tr = '<tr>'+
             '<td class="table-reference_no">'+
             '<select class="table-control chosen-select" name="reference_no[]" data-live-search="true">'+
@@ -194,7 +197,7 @@ function addRow() {
             '</select>'+
             '</td>'+
             '<td class="table-client_coa_id">'+
-            '<select class="table-control chosen-select" name="coa_cli_id[]" data-live-search="true">'+
+            '<select class="table-control chosen-select coa_id" name="coa_cli_id[]" data-live-search="true">'+
             '<option value="0" selected="true"  disabled="true">Select an option</option>'+
             '@if($coas)'+
             '@foreach($coas as $coa)'+
@@ -211,7 +214,7 @@ function addRow() {
             '<input type="number" class="table-control right-align-text sumThis1 credit creddeb getrate" name="credit[]" value="0" >'+
             '</td>'+
             '<td class="table-description">'+
-            '<input type="text" class="table-control" name="descriptions[]">'+
+            '<input type="text" class="table-control description" name="descriptions[]">'+
             '</td>'+
             '<td class="table-vat_id">'+
             '<select class="table-control chosen-select vat_id getrate" name="vat_id[]" data-live-search="true">'+
@@ -226,9 +229,14 @@ function addRow() {
             '<td>'+
             '<input type="number" class="table-control right-align-text vat_amount" value="0" name="vat_amount[]" readonly="true">'+
             '</td>'+
+            '<td style="display:none;">'+
+            '<input type="number" class="right-align-text debsub" value="0" readonly="true">'+
+            '</td>'+
+            '<td style="display:none;">'+
+            '<input type="number" class="right-align-text credsub" value="0" readonly="true">'+
+            '</td>'+
             '<td><span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span></td>'+
             '</tr>' 
-
 
     $('tbody').append(tr);
     $(".chosen-select").chosen()
@@ -239,6 +247,58 @@ function removeRow(btn) {
             var row = btn.parentNode.parentNode;
             row.parentNode.removeChild(row);
 }
+
+$('tbody').delegate('.creddeb','change',function(){
+
+    var tr = $(this).parent().parent();
+    var lasttr = $('table tr:last-child');
+    var id = tr.find('.coa_id').val();
+    var debit = tr.find('.debit').val();
+    var credit = tr.find('.credit').val();
+    var client_id = $('.clientHidden').val();
+
+    if(id != 0 && debit != 0)
+    {
+
+        $.ajax({
+            type    : 'get',
+            url     : '/user/'+client_id+'/accounting/journal/findDebit/'+id,
+            dataType: 'json',
+            data    : {'id':id},
+            success:function(data){
+                lasttr.find('.coa_id').val(data);
+                lasttr.find('.chosen-select').trigger("chosen:updated");
+      
+            }
+       
+        });
+    }
+    else if(id != 0 && credit != 0)
+    {
+        $.ajax({
+            type    : 'get',
+            url     : '/user/'+client_id+'/accounting/journal/findCredit/'+id,
+            dataType: 'json',
+            data    : {'id':id},
+            success:function(data){
+
+                lasttr.find('.coa_id').val(data);
+                lasttr.find('.chosen-select').trigger("chosen:updated");
+      
+            }
+       
+        });
+    }
+
+    else
+    {
+
+    }
+
+           
+});
+
+
 //Disable Debit or Credit
 
 $('tbody').delegate('.debit','change',function(){
@@ -253,6 +313,7 @@ $('tbody').delegate('.debit','change',function(){
         var sum = tot - old;
         $('#credittot').val(sum);
         tr.find('.credit').val(0);
+        tr.find('.credsub').val(0);
         //tr.find('.credit').prop("disabled",true);
         
 
@@ -275,6 +336,7 @@ $('tbody').delegate('.credit','change',function(){
         var sum = tot - old;
         $('#debittot').val(sum);
         tr.find('.debit').val(0);
+        tr.find('.debsub').val(0);
         //tr.find('.debit').prop("disabled",true);
         
     }
@@ -284,56 +346,6 @@ $('tbody').delegate('.credit','change',function(){
     }
     
 });
-
-
-//Total
-
-var body= $('#journalTable').children('tbody').first();
-var totals = $('#totals');
-body.on('change', '.sumThis', function() {
-  var total = 0;
-  var columnIndex = $(this).closest('td').index();
-  var rows = body.find('tr');
-  $.each(rows, function() {
-      var amount = $(this).children('td').eq(columnIndex).children('.sumThis').val();
-      var vat = $(this).children('td').eq(columnIndex).children('.vat_amount').val();    
-      total += new Number(amount);
-  });
-  //totals.children('td').eq(columnIndex).text(total);
-   document.getElementById("debittot").value = total+vat;
-
-   var debittot = document.getElementById("debittot").value;
-   var credittot = document.getElementById("credittot").value;
-
-   var sum1 = Math.abs(debittot-credittot);
-      //var firstEmptyCell = $('.credit:empty:eq(1)').val(sum1);
-    
-   
-});
-
-var body1= $('#journalTable').children('tbody').first();
-var totals1 = $('#totals');
-
-body1.on('change', '.sumThis1', function() {
-  var total = 0;
-  var columnIndex = $(this).closest('td').index();
-  var rows = body1.find('tr');
-  $.each(rows, function() {
-      var amount = $(this).children('td').eq(columnIndex).children('.sumThis1').val();
-      var vat = $(this).children('td').eq(columnIndex).children('.vat_amount').val();  
-      total += new Number(amount);
-  });
-  //totals.children('td').eq(columnIndex).text(total);
-   document.getElementById("credittot").value = total+vat;
-
-   var debittot = document.getElementById("debittot").value;
-   var credittot = document.getElementById("credittot").value;
-
-   var sum1 = Math.abs(debittot-credittot);
-    //var firstEmptyCell = $('.debit:empty:eq(1)').val(sum1);
-
-});
-
 
 //VAT
 
@@ -351,34 +363,89 @@ $('tbody').delegate('.getrate','change',function(){
     if(deb != 0)
     {
         var amount = (rate*deb);
-        tr.find('.vat_amount').val(amount);
+        tr.find('.vat_amount').val(amount.toFixed(2));
+
+        var sub = parseInt(deb)+amount;
+        tr.find('.debsub').val(sub);
+
     }
     else if (cred != 0){
         var amount = (rate*cred);
-        tr.find('.vat_amount').val(amount);
+        tr.find('.vat_amount').val(amount.toFixed(2));
+
+        var sub = parseInt(cred)+amount;
+        tr.find('.credsub').val(sub);
     }
     else{
         //alert('No amount in either debit or credit');
         tr.find('.debit').focus();
     }
 
+ // Total
+    var debtotal = 0;
+    var credtotal = 0;
+
+    $('.debsub').each(function() {
+        debtotal += Number($(this).val());
+    });
+
+    $('#debittot').val(debtotal.toFixed(2));
+
+    $('.credsub').each(function() {
+        credtotal += Number($(this).val());
+    });
+    
+    $('#credittot').val(credtotal.toFixed(2));
+
+    var lasttr = $('table tr:last-child');
+
+//Balance
+    
+    if(debtotal > credtotal)
+    {
+        var sum1 = debtotal-credtotal;
+         //$('.debDiff').hide();
+        lasttr.find('.debit').val(0);
+        lasttr.find('.credit').val(sum1.toFixed(2));
+        lasttr.find('.debsub').val(0);
+        lasttr.find('.credsub').val(sum1.toFixed(2));
+
+    }
+    else if(debtotal < credtotal)
+    {
+        var sum1 = credtotal - debtotal;
+        //$('.credDiff').hide();
+        lasttr.find('.credit').val(0);
+        lasttr.find('.debit').val(sum1.toFixed(2));
+        lasttr.find('.credsub').val(0);
+        lasttr.find('.debsub').val(sum1.toFixed(2));
+    }
+    else
+    {
+        
+    }
+
+    debtotal = 0;
+    credtotal = 0;
+
+    $('.debsub').each(function() {
+        debtotal += Number($(this).val());
+    });
+
+    $('#debittot').val(debtotal.toFixed(2));
+
+    $('.credsub').each(function() {
+        credtotal += Number($(this).val());
+    });
+    
+    $('#credittot').val(credtotal.toFixed(2));
+
 });
 
 
-/*function update_vats()
-{
-    var sum = 0.0;
-    $('#journalTable > tbody  > tr:not(:last)').each(function() {
-        var debcred = parseFloat($(this).find('.sumThis').val() || 0,10);
-        var vat = parseFloat($(this).find('.vat_rate').val() || 0,10);
-        var rate = vat/100;
-        var amount = (rate*debcred);
-        sum+=amount;
-        $(this).find('.vat_amount').val(''+amount);
-    });
 
-}*/
 </script>
+
 
 
 

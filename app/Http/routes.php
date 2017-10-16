@@ -110,6 +110,10 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::get('user/{client_id}/accounting/journal/findCredit/{coa_id?}','UserJournalsController@findCredit');
 
+    Route::get('user/{client_id}/accounting/journal/{journal_id}/edit/findDebit/{coa_id?}','UserJournalsController@findDebit');
+
+    Route::get('user/{client_id}/accounting/journal/{journal_id}/edit/findCredit/{coa_id?}','UserJournalsController@findCredit');
+
     //Adjusting
 
     Route::resource('user/{client_id}/adjusting', 'UserAdjustingController');
@@ -121,6 +125,10 @@ Route::group(['middleware'=>'user'], function(){
     Route::resource('user/{client_id}/adjusting/edit', 'UserAdjustingController@edit');
 
     Route::post('user/{client_id}/adjusting', array('as'=>'insertadjusting','uses'=>'UserAdjustingController@store'));
+
+    Route::get('user/{client_id}/adjusting/findDebit/{coa_id?}','UserJournalsController@findDebit');
+
+    Route::get('user/{client_id}/adjusting/findCredit/{coa_id?}','UserJournalsController@findCredit');
 
     //COA
 

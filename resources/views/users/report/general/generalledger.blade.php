@@ -56,7 +56,21 @@ General Ledger
                                         <th>Running Balance</th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
+                                        <th>
+                                            @if($ledgers)
+                                            @foreach($ledgers as $key => $ledger)
+                                            @if($key == 0)
+                                            @foreach($ledger->journal_details as $key1 => $detail)
+                                            @if($key1 == 0)
+
+                                            {{$detail->where('coa_id', $coa->id)->sum('debit') - $detail->where('coa_id', $coa->id)->sum('credit')}}
+
+                                            @endif
+                                            @endforeach
+                                            @endif
+                                            @endforeach
+                                            @endif
+                                        </th>
 
                                     </tr>
                 
@@ -75,8 +89,8 @@ General Ledger
                                     </tr>
                                     @endif
                                     @endforeach
-                                   @endforeach
-                                   @endif
+                                    @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                             @endforeach
@@ -103,10 +117,11 @@ General Ledger
 
     $('.btnPrint').on('click', function() {
 
+        var client_id = $('.clientHidden').val();
         var start = $('#start').val();
         var end = $('#end').val();
 
-        window.location = start +'/'+ end +'/generate';
+        window.location = '/user/'+ client_id +'/reports/generalledger/'+ start +'/'+ end +'/generate';
     });
 
               
