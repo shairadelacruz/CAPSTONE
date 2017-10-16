@@ -78,7 +78,7 @@ Invoice
                                         <td>
                                             @if($invoice->balance == 0)
                                             <span class="bg-info lead">Paid</span>
-                                            @elseif($invoice->due_date < Carbon\Carbon::now() AND $invoice->balance < 0)
+                                            @elseif($invoice->due_date < Carbon\Carbon::now() AND $invoice->balance > 0)
                                             <span class="bg-danger lead">Overdue</span>
                                             @else
                                             <span class="bg-warning lead">Pay in {{$invoice->due_date->diffForHumans()}}</span>

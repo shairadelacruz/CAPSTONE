@@ -163,9 +163,6 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="/user/{{request()->route('client_id')}}/accounting/transaction">Transactions</a>
-                            </li>
-                            <li>
                                 <a href="/user/{{request()->route('client_id')}}/accounting/journal">Journal Entries</a>
                             </li>
                             <li>

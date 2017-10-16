@@ -73,6 +73,10 @@ Route::group(['middleware'=>'manager'], function(){
     
     Route::get('admin/management/evaluation/generate', 'UserReportsController@employee_evaluation_generate');
 
+    Route::get('/getEmpData', 'UserReportsController@getEmpData');
+
+    Route::get('/admin/management/evaluation/{user_id}/{start}/{end}', 'UserReportsController@employee_evaluation_generate');
+
 });
 
 Route::group(['middleware'=>'auth'], function(){

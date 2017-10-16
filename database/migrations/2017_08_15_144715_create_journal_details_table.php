@@ -17,8 +17,6 @@ class CreateJournalDetailsTable extends Migration
             $table->integer('journal_id')->unsigned();
             $table->integer('vat_id')->nullable()->unsigned();
             $table->integer('coa_id')->unsigned();
-            $table->integer('vendor_id')->nullable()->unsigned();
-            $table->integer('customer_id')->nullable()->unsigned();
             $table->integer('reference_no')->nullable()->unsigned();
             $table->string('descriptions')->nullable();
             $table->double('debit')->nullable();

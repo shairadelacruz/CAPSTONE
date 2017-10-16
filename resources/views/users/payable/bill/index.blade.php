@@ -78,7 +78,7 @@ Bills
                                         <td>
                                             @if($bill->balance == 0)
                                             <span class="bg-info lead">Paid</span>
-                                            @elseif($bill->due_date < Carbon\Carbon::now() AND $bill->balance < 0)
+                                            @elseif($bill->due_date < Carbon\Carbon::now() AND $bill->balance > 0)
                                             <span class="bg-danger lead">Overdue</span>
                                             @else
                                             <span class="bg-warning lead">Pay in {{$bill->due_date->diffForHumans()}}</span>

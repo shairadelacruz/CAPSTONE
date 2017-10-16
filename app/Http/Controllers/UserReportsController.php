@@ -9,6 +9,7 @@ use App\Client;
 use App\Coa;
 use App\Journal;
 use App\JournalDetails;
+use App\Task;
 use PDF;
 use App\Http\Requests;
 
@@ -219,17 +220,63 @@ class UserReportsController extends Controller
         ->select('users.name as name', 'tasks.deadline as deadline','tasks.name as task','tasks.description as description','tasks.status as status','tasks.revisions as revisions')
         ->get();*/
 
-        $users = User::with('tasks')->get();
+        $users = User::All();
 
-        return view('admin.management.evaluation.evaluation', compact('users'));
+        return view('admin.management.evaluation.evaluation')->with('users',$users);
 
     }
 
-    public function employee_evaluation_generate()
+
+    public function employee_evaluation_generate($user_id, $start, $end)
     {
-        $users = User::with('tasks')->get();
-        $pdf = PDF::loadView('admin.management.evaluation.evaluationgenerate', compact('users'));
-        return $pdf->download('evaluation.pdf');
+        $user = User::findOrFail($user_id);
 
+       $tasks = $user->tasks->whereBetween('deadline',[$start,$end])->get();
+       $completed = Task::where('user_id', $user)->whereBetween('deadline',[$start,$end])->where('status',1)->get()->count();
+       $revision = Task::where('user_id', $user)->whereBetween('deadline',[$start,$end])->where('status',2)->get()->count();
+       $pending = Task::where('user_id', $user)->whereBetween('deadline',[$start,$end])->where('status',3)->get()->count();
+       $user_tasks = Task::where('user_id', $user)->whereBetween('deadline',[$start,$end])->count();
+
+       $tasktablebody="";
+        foreach($tasks as $t){
+        $task_date = $t->deadline->toDateString();
+          $tasktablebody .= "<tr> <td>$t->name</td> <td>$task_date</td></tr>";
+        }
+        $data=[
+          'tasktablebody'=>$tasktablebody,
+          'user_tasks'=>$user_tasks,
+          'completed'=>$completed,
+          'revision'=>$revision,
+          'pending'=>$pending,
+        ];
+
+      $pdf = PDF::loadView('admin.management.evaluation.evaluationgenerate', compact('tasks','user_tasks','completed', 'revision', 'pending', 'user', 'start', 'end'));
+
+        return $pdf->download('employeeevaluation.pdf');
     }
+
+    public function getEmpData(request $r)
+    {
+       $tasks = Task::where('user_id', $r->id)->whereBetween('deadline',[$r->fdate,$r->tdate])->get();
+       $completed = Task::where('user_id', $r->id)->whereBetween('deadline',[$r->fdate,$r->tdate])->where('status',1)->get()->count();
+       $revision = Task::where('user_id', $r->id)->whereBetween('deadline',[$r->fdate,$r->tdate])->where('status',2)->get()->count();
+       $pending = Task::where('user_id', $r->id)->whereBetween('deadline',[$r->fdate,$r->tdate])->where('status',3)->get()->count();
+       $user_tasks = Task::where('user_id', $r->id)->whereBetween('deadline',[$r->fdate,$r->tdate])->count();
+
+
+       $tasktablebody="";
+        foreach($tasks as $t){
+        $task_date = $t->deadline->toDateString();
+          $tasktablebody .= "<tr> <td>$t->name</td> <td>$task_date</td></tr>";
+        }
+        $data=[
+          'tasktablebody'=>$tasktablebody,
+          'user_tasks'=>$user_tasks,
+          'completed'=>$completed,
+          'revision'=>$revision,
+          'pending'=>$pending,
+        ];
+      return $data;
+    }
+
 }
