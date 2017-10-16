@@ -58,7 +58,7 @@ VAT
                                     @foreach($vats as $vat)
                                     <tr>
                                         <td>{{$vat->vat_code}}</td>
-                                        <td>{{$vat->rate}}</td>
+                                        <td>{{$vat->rate + 0}}%</td>
                                         <td>{{$vat->description}}</td>  
                                         <td>
                                         

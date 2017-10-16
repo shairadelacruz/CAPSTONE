@@ -183,9 +183,14 @@ class UsersTableSeeder extends Seeder
 	            'name' => 'Equity',
 	        ]);
 
+	        DB::table('coacategories')->insert([
+	        	'id' => 6,
+	            'name' => 'Cost of Sales',
+	        ]);
+
 	        DB::table('coas')->insert([
 	        	'id' => 1,
-	            'name' => 'Cash and Cash Equipment',
+	            'name' => 'Cash and Cash Equivalent',
 	            'coacategory_id' => 1,
 	            'is_generic' => 0,
 	        ]);
@@ -299,6 +304,97 @@ class UsersTableSeeder extends Seeder
 	        	'id' => 17,
 	            'name' => 'Retained Earnings',
 	            'coacategory_id' => 5,
+	            'is_generic' => 0,
+	        ]);
+
+	       	DB::table('coas')->insert([
+	        	'id' => 18,
+	            'name' => 'Operating Expense',
+	            'coacategory_id' => 3,
+	            'is_generic' => 0,
+	        ]);
+
+	       	DB::table('coas')->insert([
+	        	'id' => 19,
+	            'name' => 'Rental',
+	            'coacategory_id' => 3,
+	            'is_generic' => 0,
+	        ]);
+
+	        DB::table('coas')->insert([
+	        	'id' => 20,
+	            'name' => 'Miscellaneous Expense',
+	            'coacategory_id' => 3,
+	            'is_generic' => 0,
+	        ]);
+
+	        DB::table('coas')->insert([
+	        	'id' => 21,
+	            'name' => 'Cost of Sales',
+	            'coacategory_id' => 6,
+	            'is_generic' => 0,
+	        ]);
+
+	        DB::table('coas')->insert([
+	        	'id' => 22,
+	            'name' => 'Cost of Goods Sold',
+	            'coacategory_id' => 6,
+	            'is_generic' => 0,
+	        ]);
+
+	        DB::table('coas')->insert([
+	        	'id' => 23,
+	            'name' => 'Cost of Goods Manufactured & Sold',
+	            'coacategory_id' => 6,
+	            'is_generic' => 0,
+	        ]);
+
+	        DB::table('coas')->insert([
+	        	'id' => 24,
+	            'name' => 'Cost of Services Rendered',
+	            'coacategory_id' => 6,
+	            'is_generic' => 0,
+	        ]);
+
+	        DB::table('coas')->insert([
+	        	'id' => 25,
+	            'name' => 'DC - Salaries, Wages & Benefits',
+	            'coacategory_id' => 6,
+	            'is_generic' => 0,
+	        ]);
+
+	        DB::table('coas')->insert([
+	        	'id' => 26,
+	            'name' => 'DC - Materials, Supplies & Facilities',
+	            'coacategory_id' => 6,
+	            'is_generic' => 0,
+	        ]);
+
+	        DB::table('coas')->insert([
+	        	'id' => 27,
+	            'name' => 'DC - Depreciation',
+	            'coacategory_id' => 6,
+	            'is_generic' => 0,
+	        ]);
+
+	        DB::table('coas')->insert([
+	        	'id' => 28,
+	            'name' => 'DC - Rental',
+	            'coacategory_id' => 6,
+	            'is_generic' => 0,
+	        ]);
+
+	        DB::table('coas')->insert([
+	        	'id' => 29,
+	            'name' => 'DC - Outside Services',
+	            'coacategory_id' => 6,
+	            'is_generic' => 0,
+	        ]);
+
+	        DB::table('coas')->insert([
+	        	'id' => 30,
+	            'name' => 'DC - Others',
+	            'coacategory_id' => 6,
 	            'is_generic' => 0,
 	        ]);
 

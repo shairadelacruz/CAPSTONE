@@ -57,7 +57,7 @@ VAT
                                     @foreach($vats as $vat)
                                     <tr>
                                         <td>{{$vat->vat_code}}</td>
-                                        <td>{{$vat->rate}}</td>
+                                        <td>{{$vat->rate + 0}}%</td>
                                         <td>{{$vat->description}}</td>  
                                         <td>
                                             <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#editVAT{{$vat->id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>

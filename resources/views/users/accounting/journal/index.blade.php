@@ -64,8 +64,8 @@ Journal
                                         <td>{{$journal->date->toDateString()}}</td>
                                         <td>{{$journal->transaction_no}}</td>
                                         <!--<td><button class="btn btn-default btn-xs waves-effect">View</button></td>-->
-                                        <td>{{$journal->debit_total}}</td>
-                                        <td>{{$journal->credit_total}}</td>
+                                        <td class="right-align-text">{{$journal->debit_total}}</td>
+                                        <td class="right-align-text">{{$journal->credit_total}}</td>
                                         <td>{{$journal->description}}</td>
                                         <td>
                                             <a href ="journal/{{$journal->id}}/edit" class="btn btn-default btn-xs waves-effect"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
@@ -100,7 +100,7 @@ Journal
                         <div class="modal-footer">
                             {!! Form::open(['method'=>'DELETE', 'action'=>['UserJournalsController@destroy', $journal->id, $journal->client_id]]) !!}
 
-                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+                            {!! Form:: submit('VOID', ['class'=>'btn btn-link waves-effect']) !!}
 
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
 

@@ -68,8 +68,8 @@ class UserBillsController extends Controller
        $this->validate($request, [
             'reference_no' => 'required',
             'bill_date' => 'required',
-            'item_id' => 'required',
-            'coa_id' => 'required'
+            'coa_id' => 'required',
+            'vendor_id' => 'required'
         ]);
 
 
@@ -158,8 +158,7 @@ class UserBillsController extends Controller
     }
     public function cbstore(Request $request)
     {
-
-
+        
         foreach ($request->coa_id as $key => $v)
             {
                 $bill = new Bill([
@@ -172,7 +171,7 @@ class UserBillsController extends Controller
                             'balance'=>$request->amount[$key],
                             'vat_amount'=>$request->vat_amount[$key],
                             'vat_id'=>$request->vat_id[$key],
-                            'total'=>$request->total[$key]
+                            'total'=>$request->total_cd[$key]
 
                 ]);
 
@@ -384,7 +383,6 @@ class UserBillsController extends Controller
         $this->validate($request, [
             'reference_no' => 'required',
             'bill_date' => 'required',
-            'item_id' => 'required',
             'coa_id' => 'required'
         ]);
         

@@ -48,7 +48,7 @@ Trial Balance
                                 <tfoot>                         
                                     <tr id="totals">
                                         <th>Total</th>
-                                        <th>
+                                        <th class="right-align-text">
                                         @if($details)
                                         @foreach($details as $key => $detail)
                                         @if($key == 0)
@@ -57,7 +57,7 @@ Trial Balance
                                         @endforeach
                                         @endif
                                         </th>
-                                        <th>
+                                        <th class="right-align-text">
                                         @if($details)
                                         @foreach($details as $key => $detail)
                                         @if($key == 0)
@@ -73,7 +73,8 @@ Trial Balance
                                     @foreach($coas as $coa)
                                     <tr>
                                         <td class="coa">{{$coa->name}}</td>
-                                        <td class="deb">
+                                        <td class="deb  right-align-text">
+
                                         @if($details)
                                         @if($details->where("coa_id", $coa->id))
                                         @foreach($details as $key => $detail)
@@ -84,7 +85,7 @@ Trial Balance
                                         @endif
                                         @endif
                                         </td>
-                                        <td class="cred">
+                                        <td class="cred  right-align-text">
                                         @if($details)
                                         @if($details->where("coa_id", $coa->id))
                                         @foreach($details as $key => $detail)
@@ -102,22 +103,22 @@ Trial Balance
                                    @endif
                                    <tr>
                                         <td>Value Added Tax</td>
-                                        <td>
+                                        <td class="right-align-text">
                                         @if($details)
                                         
                                         @foreach($details as $key => $detail)
                                         @if($key == 0)
-                                        {{$detail->where("credit", 0)->sum('vat_amount')}}
+                                        {{$detail->where("debit", 0)->sum('vat_amount')}}
                                         @endif
                                         @endforeach
                                         
                                         @endif
                                         </td>
-                                        <td>
+                                        <td class="right-align-text">
                                         @if($details)
                                         @foreach($details as $key => $detail)
                                         @if($key == 0)
-                                        {{$detail->where("debit", 0)->sum('vat_amount')}}
+                                        {{$detail->where("credit", 0)->sum('vat_amount')}}
                                         @endif
                                         @endforeach
     

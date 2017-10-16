@@ -73,8 +73,8 @@ Invoice
                                         <td>{{$invoice->customer->name}}</td>
                                         <td>{{$invoice->invoice_date->toDateString()}}</td>
                                         <td>{{$invoice->due_date->toDateString()}}</td>
-                                        <td>{{$invoice->amount}}</td>
-                                        <td>{{$invoice->balance}}</td>
+                                        <td class="right-align-text">{{$invoice->amount}}</td>
+                                        <td class="right-align-text">{{$invoice->balance}}</td>
                                         <td>
                                             @if($invoice->balance == 0)
                                             <span class="bg-info lead">Paid</span>
@@ -116,7 +116,7 @@ Invoice
                         <div class="modal-footer">
                             {!! Form::open(['method'=>'DELETE', 'action'=>['UserInvoicesController@destroy', $invoice->id, $invoice->client_id]]) !!}
 
-                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+                            {!! Form:: submit('VOID', ['class'=>'btn btn-link waves-effect']) !!}
 
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
 

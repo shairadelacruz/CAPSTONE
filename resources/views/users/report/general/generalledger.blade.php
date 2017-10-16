@@ -48,14 +48,44 @@ General Ledger
                                         <th>Transaction</th>
                                         <th>Debit</th>
                                         <th>Credit</th>
+                                        <th>Running Balance</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     
                                     <tr>
-                                        <th>Running Balance</th>
+                                        <th>Total</th>
                                         <th></th>
-                                        <th></th>
+                                        <th>
+                                            @if($ledgers)
+                                            @foreach($ledgers as $key => $ledger)
+                                            @if($key == 0)
+                                            @foreach($ledger->journal_details as $key1 => $detail)
+                                            @if($key1 == 0)
+
+                                            {{$detail->where('coa_id', $coa->id)->sum('debit')}}
+
+                                            @endif
+                                            @endforeach
+                                            @endif
+                                            @endforeach
+                                            @endif
+                                        </th>
+                                        <th>
+                                            @if($ledgers)
+                                            @foreach($ledgers as $key => $ledger)
+                                            @if($key == 0)
+                                            @foreach($ledger->journal_details as $key1 => $detail)
+                                            @if($key1 == 0)
+
+                                            {{$detail->where('coa_id', $coa->id)->sum('credit')}}
+
+                                            @endif
+                                            @endforeach
+                                            @endif
+                                            @endforeach
+                                            @endif
+                                        </th>
                                         <th>
                                             @if($ledgers)
                                             @foreach($ledgers as $key => $ledger)
@@ -83,9 +113,10 @@ General Ledger
                                     @if($coa->id == $detail->coa_id)
                                     <tr>
                                         <td>{{$detail->journal->date->toDateString()}}</td>
-                                        <td>{{$detail->journal->transaction_no}}</td>
+                                        <td><a href="/user/{{request()->route('client_id')}}/accounting/journal/{{$detail->journal->id}}/edit"> {{$detail->journal->transaction_no}}</a></td>
                                         <td>{{$detail->debit}}</td>
                                         <td>{{$detail->credit}}</td>
+                                        <td>{{($detail->debit - $detail->credit)}}</td>
                                     </tr>
                                     @endif
                                     @endforeach

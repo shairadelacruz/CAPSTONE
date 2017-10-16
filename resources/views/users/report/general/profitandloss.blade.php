@@ -49,7 +49,7 @@ Profit and Loss
                                 </thead>
                                 <tfoot>                         
                                     <tr>
-                                        <th>Total</th>
+                                        <th>Gross Profit</th>
                                         <th id="totR" class="right-align-text"></th>
                                     </tr>
                                 </tfoot>
@@ -63,7 +63,7 @@ Profit and Loss
                                         @if($details->where("coa_id", $coa->id))
                                         @foreach($details as $key => $detail)
                                         @if($key == 0)
-                                        {{$detail->where("coa_id", $coa->id)->sum('debit') - $detail->where("coa_id", $coa->id)->sum('credit')}}
+                                        {{$detail->where("coa_id", $coa->id)->sum('debit') - $detail->where("coa_id", $coa->id)->sum('credit') * -1}}
                                         @endif
                                         @endforeach
                                         @endif
@@ -94,7 +94,7 @@ Profit and Loss
                                 </tfoot>
                                 <tbody>
                                     @if($coas)
-                                    @foreach($coas->where('coacategory_id', 2) as $coa)
+                                    @foreach($coas->where('coacategory_id', 6) as $coa)
                                     <tr>
                                         <td>{{$coa->name}}</td>
                                         <td class="right-align-text balanceC">
@@ -102,7 +102,7 @@ Profit and Loss
                                         @if($details->where("coa_id", $coa->id))
                                         @foreach($details as $key => $detail)
                                         @if($key == 0)
-                                        {{$detail->where("coa_id", $coa->id)->sum('debit') - $detail->where("coa_id", $coa->id)->sum('credit')}}
+                                        {{$detail->where("coa_id", $coa->id)->sum('debit') - $detail->where("coa_id", $coa->id)->sum('credit') * -1}}
                                         @endif
                                         @endforeach
                                         @endif
@@ -141,7 +141,7 @@ Profit and Loss
                                         @if($details->where("coa_id", $coa->id))
                                         @foreach($details as $key => $detail)
                                         @if($key == 0)
-                                        {{$detail->where("coa_id", $coa->id)->sum('debit') - $detail->where("coa_id", $coa->id)->sum('credit')}}
+                                        {{$detail->where("coa_id", $coa->id)->sum('debit') - $detail->where("coa_id", $coa->id)->sum('credit') * -1}}
                                         @endif
                                         @endforeach
                                         @endif

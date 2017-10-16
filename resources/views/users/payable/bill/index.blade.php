@@ -73,8 +73,8 @@ Bills
                                         <td>{{$bill->vendor->name}}</td>
                                         <td>{{$bill->bill_date->toDateString()}}</td>
                                         <td>{{$bill->due_date->toDateString()}}</td>
-                                        <td>{{$bill->amount}}</td>
-                                        <td>{{$bill->balance}}</td>
+                                        <td class="right-align-text">{{$bill->amount}}</td>
+                                        <td class="right-align-text">{{$bill->balance}}</td>
                                         <td>
                                             @if($bill->balance == 0)
                                             <span class="bg-info lead">Paid</span>
@@ -116,7 +116,7 @@ Bills
                         <div class="modal-footer">
                             {!! Form::open(['method'=>'DELETE', 'action'=>['UserBillsController@destroy', $bill->id, $bill->client_id]]) !!}
 
-                            {!! Form:: submit('DELETE', ['class'=>'btn btn-link waves-effect']) !!}
+                            {!! Form:: submit('VOID', ['class'=>'btn btn-link waves-effect']) !!}
 
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
 

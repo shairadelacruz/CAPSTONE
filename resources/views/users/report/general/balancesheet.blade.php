@@ -48,7 +48,7 @@ Balance Sheet
                                 </thead>
                                 <tfoot>                         
                                     <tr>
-                                        <th>Total</th>
+                                        <th>Total Assets</th>
                                         <th id="totA" class="right-align-text"></th>
                                     </tr>
                                 </tfoot>
@@ -87,7 +87,7 @@ Balance Sheet
                                 </thead>
                                 <tfoot>                        
                                     <tr>
-                                        <th>Total</th>
+                                        <th>Total Liabilities</th>
                                         <th id="totL" class="right-align-text"></th>
                                     </tr>
                                 </tfoot>
@@ -107,6 +107,11 @@ Balance Sheet
                                         @endif
                                         @endif
                                         </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Value Added Tax</td>
+                                        <td></td>
                                     </tr>
                                     @endforeach
                                    @endif
@@ -124,11 +129,12 @@ Balance Sheet
                                         
                                     </tr>
                                 </thead>
-                                <tfoot>                         
+                                <tfoot>                      
                                     <tr>
-                                        <th>Total</th>
+                                        <th>Total Equity</th>
                                         <th id="totE" class="right-align-text"></th>
                                     </tr>
+
                                 </tfoot>
                                 <tbody>
                                     @if($coas)
@@ -149,8 +155,11 @@ Balance Sheet
                                     </tr>
                                     @endforeach
                                    @endif
+
                                 </tbody>
                             </table>
+
+                            <h2 class="right-align-text">Total Liabilities and Equity: <span id="totLE" ></span></h2>
                         </div>
                     </div>
                 </div>
@@ -230,6 +239,11 @@ Balance Sheet
             }    
         })
         $("#totE").html(balE.toFixed(2));
+
+        var LiaAndEqui = balL + balE;
+
+        $("#totLE").html(LiaAndEqui.toFixed(2));
+
     });
 
               
