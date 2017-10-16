@@ -57,19 +57,19 @@
 
                                     <td class="table-vat_id">
                                         <select class="table-control chosen-select getrate_cd vat_id_cd" name="vat_id[]">
-                                                    <option value="0" selected="true" disabled="true">Choose</option>
+                                                <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($vats)
                                                 @foreach($vats as $vat)
-                                                    <option value="{{$vat->id}}">{{$vat->vat_code}}</option>
+                                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
                                                 @endforeach
                                                 @endif
                                     </select>
                                     </td>
                                     <td class="table-vat_amount">
-                                        <input type="number" class="table-control vat_amount_cd" name="vat_amount[]" step="0.01">
+                                        <input type="number" class="table-control vat_amount_cd right-align-text" name="vat_amount[]" value="0"  step="0.01">
                                     </td>
                                     <td>
-                                        <input type="number" class="table-control total_cd" name="total_cd[]" step="0.01">
+                                        <input type="number" class="table-control total_cd right-align-text" name="total_cd[]" step="0.01" value="0">
                                     </td>
                                     <td class="table-remove">
                                         <input type="hidden" name='client_id[]' value="{{ $client_id }}" class="form-control">

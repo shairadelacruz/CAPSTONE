@@ -220,23 +220,25 @@ function addRowCb() {
                 '@endif'+
                 '</select>'+
                                         
-                '</td>'+
                 '<td class="table-amount">'+
-                '<input type="number" class="table-control" name="amount[]" step="0.01">'+
+                '<input type="number" class="table-control getrate_cd price_cd" name="amount[]" step="0.01">'+
                 '</td>'+
 
                 '<td class="table-vat_id">'+
-                '<select class="table-control chosen-select" name="vat_id[]">'+
+                '<select class="table-control chosen-select getrate_cd vat_id_cd" name="vat_id[]">'+
                 '<option value="0" selected="true" disabled="true">Choose</option>'+
                 '@if($vats)'+
                 '@foreach($vats as $vat)'+
-                '<option value="{{$vat->id}}">{{$vat->vat_code}}</option>'+
+                '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>'+
                 '@endforeach'+
                 '@endif'+
                 '</select>'+
                 '</td>'+
                 '<td class="table-vat_amount">'+
-                '<input type="number" class="table-control" name="vat_amount[]" step="0.01">'+
+                '<input type="number" class="table-control vat_amount_cd right-align-text" name="vat_amount[]" value="0"  step="0.01">'+
+                '</td>'+
+                '<td class="table-total">'+
+                '<input type="number" value="0" class="total_cd total_cd right-align-text" name="total[]" value="0" step="0.01">'+
                 '</td>'+
                 '<td class="table-remove">'+
                 '<input type="hidden" name="client_id[]" value="{{ $client_id }}" class="form-control">'+
@@ -257,13 +259,14 @@ $('tbody').delegate('.getrate_cd','change',function(){
     var rate = rates/100;
     var vat = price * rate;
     tr.find('.vat_amount_cd').val(vat.toFixed(2));
-    var subtotalvat = subtotal + vat;
+    var subtotalvat = parseInt(price) + parseInt(vat);
+    alert(subtotalvat);
     tr.find('.total_cd').val(subtotalvat.toFixed(2));
-    var total = 0;
+    /*var total = 0;
 
     $('.total_cd').each(function() {
         total += Number($(this).val());
-    });
+    });*/
 });
 
 
