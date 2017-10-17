@@ -145,9 +145,15 @@ class UserReportsController extends Controller
 
         $details = JournalDetails::whereIn('journal_id', $journals)->get();
 
-        //return $getFinancialYear;
+        $vatDeb = $details->where('debit', '>', 0)->sum('vat_amount');
 
-        return view('users.report.general.balancesheet', compact('coas','details','start', 'end'));
+        $vatCred = $details->where('credit', '>', 0)->sum('vat_amount');
+
+        $vat = $vatDeb - $vatCred;
+
+        //return $vat;
+
+        return view('users.report.general.balancesheet', compact('coas','details','start', 'end', 'vat'));
     }
 
     public function balance_sheet_generate($client_id, $end)

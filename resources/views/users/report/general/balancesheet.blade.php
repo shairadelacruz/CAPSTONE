@@ -111,7 +111,7 @@ Balance Sheet
                                     </tr>
                                     <tr>
                                         <td>Value Added Tax</td>
-                                        <td></td>
+                                        <td class="right-align-text balanceL">{{$vat}}</td>
                                     </tr>
                                     @endforeach
                                    @endif

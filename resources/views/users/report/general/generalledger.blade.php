@@ -48,7 +48,7 @@ General Ledger
                                         <th>Transaction</th>
                                         <th>Debit</th>
                                         <th>Credit</th>
-                                        <th></th>
+                                        <th style="display:none;"></th>
                                         <th>Running Balance</th>
                                     </tr>
                                 </thead>
@@ -57,7 +57,7 @@ General Ledger
                                     <tr>
                                         <th>Total</th>
                                         <th></th>
-                                        <th>
+                                        <th class="right-align-text">
                                             @if($ledgers)
                                             @foreach($ledgers as $key => $ledger)
                                             @if($key == 0)
@@ -72,7 +72,7 @@ General Ledger
                                             @endforeach
                                             @endif
                                         </th>
-                                        <th>
+                                        <th class="right-align-text">
                                             @if($ledgers)
                                             @foreach($ledgers as $key => $ledger)
                                             @if($key == 0)
@@ -87,8 +87,8 @@ General Ledger
                                             @endforeach
                                             @endif
                                         </th>
-                                        <th></th>
-                                        <th>
+                                        <th style="display:none;"></th>
+                                        <th class="right-align-text">
                                             @if($ledgers)
                                             @foreach($ledgers as $key => $ledger)
                                             @if($key == 0)
@@ -116,10 +116,10 @@ General Ledger
                                     <tr>
                                         <td>{{$detail->journal->date->toDateString()}}</td>
                                         <td><a href="/user/{{request()->route('client_id')}}/accounting/journal/{{$detail->journal->id}}/edit"> {{$detail->journal->transaction_no}}</a></td>
-                                        <td>{{$detail->debit}}</td>
-                                        <td>{{$detail->credit}}</td>
-                                        <td class="credeb">{{($detail->debit - $detail->credit)}}</td>
-                                        <td class="runningBal"></td>
+                                        <td class="right-align-text">{{$detail->debit}}</td>
+                                        <td class="right-align-text">{{$detail->credit}}</td>
+                                        <td class="credeb" style="display:none;">{{($detail->debit - $detail->credit)}}</td>
+                                        <td class="runningBal right-align-text"></td>
                                     </tr>
                                     @endif
                                     @endforeach
@@ -129,6 +129,45 @@ General Ledger
                             </table>
                             @endforeach
                                    @endif
+                            <h4>Value Added Tax</h4>
+                            <table class="table table-bordered table-striped table-hover dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Transaction</th>
+                                        <th>Debit</th>
+                                        <th>Credit</th>
+                                        <th style="display:none;"></th>
+                                        <th>Running Balance</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    
+                                    <tr>
+                                        <th>Total</th>
+                                        <th></th>
+                                        <th class="right-align-text"></th>
+                                        <th class="right-align-text"></th>
+                                        <th style="display:none;"></th>
+                                        <th class="right-align-text"></th>
+
+                                    </tr>
+                
+                                </tfoot>
+
+                                <tbody>  
+                                
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="right-align-text"></td>
+                                        <td class="right-align-text"></td>
+                                        <td class="credeb" style="display:none;"></td>
+                                        <td class="runningBal right-align-text"></td>
+                                    </tr>
+                                
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

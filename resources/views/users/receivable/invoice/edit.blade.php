@@ -154,7 +154,7 @@ Invoice
                                                 @endif
                                                 @if($vats)
                                                 @foreach($vats as $vat)
-                                                    <option value="{{$vat->id}}">{{$vat->vat_code}}</option>
+                                                    <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>
                                                 @endforeach
                                                 @endif
                                         </select>

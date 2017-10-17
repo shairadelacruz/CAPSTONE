@@ -53,7 +53,7 @@ Close Transactions
                                         <td>{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('m-Y') }}</td>
 										<td>
                                             <!--<button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-target="#open{{$client->id}}"><i class="fa fa-folder-open-o" aria-hidden="true"></i></button>-->
-                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#close{{$client->id}}"><i class="fa fa-times-circle" aria-hidden="true"></i></button>                              
+                                            <button class="btn btn-default btn-xs waves-effect" data-toggle="modal" data-type="confirm" data-target="#close{{$client->id}}"><i><strong>Close</strong></i></button>                              
                                         </td>
                                     </tr>
                                     @endif
@@ -126,9 +126,9 @@ Close Transactions
 
                             {{ Form::hidden('closing_id', $client->closing->where('status', 0)->last()->id) }}
 
-                            {!! Form:: submit('SUBMIT', ['class'=>'btn btn-link waves-effect']) !!}
+                            {!! Form:: submit('YES', ['class'=>'btn btn-link waves-effect']) !!}
 
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">NO</button>
 
                             {!! Form::close() !!}
                         </div>

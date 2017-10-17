@@ -535,7 +535,7 @@ $('tbody').delegate('.getrate','change',function(){
 
 //Balance
     
-    if(debtotal > credtotal)
+    /*if(debtotal > credtotal)
     {
         var sum1 = debtotal-credtotal;
          //$('.debDiff').hide();
@@ -572,7 +572,7 @@ $('tbody').delegate('.getrate','change',function(){
         credtotal += Number($(this).val());
     });
     
-    $('#credittot').val(credtotal.toFixed(2));
+    $('#credittot').val(credtotal.toFixed(2));*/
 
 });
 
