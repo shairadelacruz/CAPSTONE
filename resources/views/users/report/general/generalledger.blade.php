@@ -48,6 +48,7 @@ General Ledger
                                         <th>Transaction</th>
                                         <th>Debit</th>
                                         <th>Credit</th>
+                                        <th></th>
                                         <th>Running Balance</th>
                                     </tr>
                                 </thead>
@@ -86,6 +87,7 @@ General Ledger
                                             @endforeach
                                             @endif
                                         </th>
+                                        <th></th>
                                         <th>
                                             @if($ledgers)
                                             @foreach($ledgers as $key => $ledger)
@@ -116,7 +118,8 @@ General Ledger
                                         <td><a href="/user/{{request()->route('client_id')}}/accounting/journal/{{$detail->journal->id}}/edit"> {{$detail->journal->transaction_no}}</a></td>
                                         <td>{{$detail->debit}}</td>
                                         <td>{{$detail->credit}}</td>
-                                        <td>{{($detail->debit - $detail->credit)}}</td>
+                                        <td class="credeb">{{($detail->debit - $detail->credit)}}</td>
+                                        <td class="runningBal"></td>
                                     </tr>
                                     @endif
                                     @endforeach
@@ -153,6 +156,19 @@ General Ledger
         var end = $('#end').val();
 
         window.location = '/user/'+ client_id +'/reports/generalledger/'+ start +'/'+ end +'/generate';
+    });
+
+
+    $(document).ready(function(){
+
+        $("table").each(function() {
+            var sum = 0;
+            $(this).find(".runningBal").each(function() {
+                sum += +$(this).prev(".credeb").text();
+                $(this).text(sum.toFixed(2));
+            });
+        })
+
     });
 
               
