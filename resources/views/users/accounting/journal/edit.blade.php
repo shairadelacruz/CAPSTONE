@@ -139,10 +139,10 @@ Journal
                         <input type="number" class="right-align-text vat_amount" name="vat_amount[]" value="{{$detail->vat_amount}}" readonly="true">
                     </td>
                     <td style="display:none;">
-                        <input type="number" class="right-align-text debsub" value="0" readonly="true">
+                        <input type="number" class="right-align-text debsub" value="{{$detail->debit + $detail->vat_amount}}" readonly="true">
                     </td>
                     <td style="display:none;">
-                        <input type="number" class="right-align-text credsub" value="0" readonly="true">
+                        <input type="number" class="right-align-text credsub" value="{{$detail->credit + $detail->vat_amount}}" readonly="true">
                     </td>
                     <td class="table-remove">
                         <span class="table-remove-btn btn btn-default" onclick="removeRow(this)">X</span>
@@ -157,8 +157,14 @@ Journal
                         <span class="table-add_line btn btn-default" onclick="addRow()" >Add Line</span>
                     </td>
                     <td>Total</td>
-                    <td class="table-debittot"><input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="{{$journal->debit_total}}"></td>
-                    <td class="table-credittot"><input id="credittot"t type="number" class="table-control right-align-text" name="credittot" readonly="true" value="{{$journal->credit_total}}"></td>
+                    <td class="table-debittot">
+                        <input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="{{$journal->debit_total}}">
+                        <h4 class="right-align-text"><span class="debDiff text-danger"></span></h4>
+                    </td>
+                    <td class="table-credittot">
+                        <input id="credittot"t type="number" class="table-control right-align-text" name="credittot" readonly="true" value="{{$journal->credit_total}}">
+                        <h4 class="right-align-text"><span class="credDiff text-danger"></span></h4>
+                    </td>
                 </tr>
             </tfoot>
         </table>
@@ -397,48 +403,28 @@ $('tbody').delegate('.getrate','change',function(){
     
     $('#credittot').val(credtotal.toFixed(2));
 
-    var lasttr = $('table tr:last-child');
-
-//Balance
-    
+//Balancing show in span
     if(debtotal > credtotal)
     {
         var sum1 = debtotal-credtotal;
-         //$('.debDiff').hide();
-        lasttr.find('.debit').val(0);
-        lasttr.find('.credit').val(sum1.toFixed(2));
-        lasttr.find('.debsub').val(0);
-        lasttr.find('.credsub').val(sum1.toFixed(2));
-
+         $('.debDiff').hide();
+         $('.credDiff').html(sum1.toFixed(2));
+         $('.credDiff').show();
+        
     }
     else if(debtotal < credtotal)
     {
         var sum1 = credtotal - debtotal;
-        //$('.credDiff').hide();
-        lasttr.find('.credit').val(0);
-        lasttr.find('.debit').val(sum1.toFixed(2));
-        lasttr.find('.credsub').val(0);
-        lasttr.find('.debsub').val(sum1.toFixed(2));
+        $('.credDiff').hide();
+        $('.debDiff').html(sum1.toFixed(2));
+        $('.debDiff').show();
     }
     else
     {
-        
+        $('.debDiff').hide();
+        $('.credDiff').hide();
     }
 
-    debtotal = 0;
-    credtotal = 0;
-
-    $('.debsub').each(function() {
-        debtotal += Number($(this).val());
-    });
-
-    $('#debittot').val(debtotal.toFixed(2));
-
-    $('.credsub').each(function() {
-        credtotal += Number($(this).val());
-    });
-    
-    $('#credittot').val(credtotal.toFixed(2));
 
 });
 

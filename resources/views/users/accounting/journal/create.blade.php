@@ -281,12 +281,12 @@ Journal
                     
                     <td>
                         <input id="debittot" type="number" class="table-control right-align-text" name="debittot" readonly="true" value="0">
-                        <span class="debDiff text-danger"></span>
+                        <h4 class="right-align-text"><span class="debDiff text-danger"></span></h4>
 
                     </td>
                     <td>
                         <input id="credittot" type="number" class="table-control right-align-text" name="credittot" readonly="true" value="0">
-                        <span class="credDiff text-danger"></span>
+                        <h4 class="right-align-text"><span class="credDiff text-danger"></span></h4>
                     </td>
 
                 </tr>
@@ -531,11 +531,35 @@ $('tbody').delegate('.getrate','change',function(){
     
     $('#credittot').val(credtotal.toFixed(2));
 
-    var lasttr = $('table tr:last-child');
+
+//Balancing show in span
+    if(debtotal > credtotal)
+    {
+        var sum1 = debtotal-credtotal;
+         $('.debDiff').hide();
+         $('.credDiff').html(sum1.toFixed(2));
+         $('.credDiff').show();
+        
+    }
+    else if(debtotal < credtotal)
+    {
+        var sum1 = credtotal - debtotal;
+        $('.credDiff').hide();
+        $('.debDiff').html(sum1.toFixed(2));
+        $('.debDiff').show();
+    }
+    else
+    {
+        $('.debDiff').hide();
+        $('.credDiff').hide();
+    }
 
 //Balance
     
-    /*if(debtotal > credtotal)
+    /*
+    var lasttr = $('table tr:last-child');
+
+    if(debtotal > credtotal)
     {
         var sum1 = debtotal-credtotal;
          //$('.debDiff').hide();

@@ -103,27 +103,8 @@ Trial Balance
                                    @endif
                                    <tr>
                                         <td>Value Added Tax</td>
-                                        <td class="right-align-text">
-                                        @if($details)
-                                        
-                                        @foreach($details as $key => $detail)
-                                        @if($key == 0)
-                                        {{$detail->where("debit", 0)->sum('vat_amount')}}
-                                        @endif
-                                        @endforeach
-                                        
-                                        @endif
-                                        </td>
-                                        <td class="right-align-text">
-                                        @if($details)
-                                        @foreach($details as $key => $detail)
-                                        @if($key == 0)
-                                        {{$detail->where("credit", 0)->sum('vat_amount')}}
-                                        @endif
-                                        @endforeach
-    
-                                        @endif
-                                        </td>
+                                        <td class="right-align-text">{{$vatDeb}}</td>
+                                        <td class="right-align-text">{{$vatCred}}</td>
                                     </tr>
                                 </tbody>
                             </table>

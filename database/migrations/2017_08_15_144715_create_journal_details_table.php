@@ -19,9 +19,9 @@ class CreateJournalDetailsTable extends Migration
             $table->integer('coa_id')->unsigned();
             $table->integer('reference_no')->nullable()->unsigned();
             $table->string('descriptions')->nullable();
-            $table->double('debit')->nullable();
-            $table->double('credit')->nullable();
-            $table->double('vat_amount')->nullable();
+            $table->double('debit')->default(0); //nullable before
+            $table->double('credit')->default(0); //nullable before
+            $table->double('vat_amount')->default(0); //nullable before
             $table->foreign('journal_id')->references('id')->on('journals')->onDelete('cascade');
             $table->timestamps();
         });

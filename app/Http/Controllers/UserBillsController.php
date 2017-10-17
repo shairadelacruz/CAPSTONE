@@ -433,7 +433,7 @@ class UserBillsController extends Controller
         $credit->credit = $request->grandTotal;
         $credit->save();
 
-        if($id != 0){
+        if($journalId != 0){
             foreach ($request->item_id as $key => $v)
             {
 
@@ -458,6 +458,8 @@ class UserBillsController extends Controller
                 $debit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
+                            'descriptions'=>$request->descriptions[$key],
+                            'credit'=>0,
                             'debit'=>$subTotal
 
                 ]);

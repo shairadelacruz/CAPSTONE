@@ -378,10 +378,11 @@ class UserInvoicesController extends Controller
         $debit->journal_id = $journalId;
         $debit->coa_id = 2;
         $debit->debit = $request->grandTotal;
+        $debit->credit = 0;
         $debit->save();
 
 
-        if($id != 0){
+        if($journalId != 0){
             foreach ($request->item_id as $key => $v)
             {
 
@@ -407,13 +408,15 @@ class UserInvoicesController extends Controller
                 $credit = new JournalDetails([
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
+                            'descriptions'=>$request->descriptions[$key],
                             'vat_amount'=>$request->vat_amount[$key],
                             'vat_id'=>$request->vat_id[$key],
+                            'debit'=>0,
                             'credit'=>$subTotal
                             //not adding vat. only getting price but not getting subtotal for credit...store update invoice bill
                 ]);
 
-                $debit->save();
+                $credit->save();
 
             }
         }

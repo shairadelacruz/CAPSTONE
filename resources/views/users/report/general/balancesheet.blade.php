@@ -109,12 +109,13 @@ Balance Sheet
                                         </td>
 
                                     </tr>
-                                    <tr>
+                                    
+                                    @endforeach
+                                   @endif
+                                   <tr>
                                         <td>Value Added Tax</td>
                                         <td class="right-align-text balanceL">{{$vat}}</td>
                                     </tr>
-                                    @endforeach
-                                   @endif
                                 </tbody>
                             </table>
                         </div>

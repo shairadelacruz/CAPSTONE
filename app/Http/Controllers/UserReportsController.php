@@ -10,6 +10,7 @@ use App\Coa;
 use App\Journal;
 use App\JournalDetails;
 use App\Task;
+use App\Vat;
 use PDF;
 use App\Http\Requests;
 
@@ -41,9 +42,13 @@ class UserReportsController extends Controller
 
         $details = JournalDetails::whereIn('journal_id', $journals)->get();
 
-        //return $getFinancialYear;
+        $vatDeb = $details->where('debit', '>', 0)->sum('vat_amount');
 
-        return view('users.report.general.trialbalance', compact('coas','details','start', 'end'));
+        $vatCred = $details->where('credit', '>', 0)->sum('vat_amount');
+
+        //return $details->where('debit', '>', 0);
+
+        return view('users.report.general.trialbalance', compact('coas','details','start', 'end', 'vatDeb', 'vatCred'));
 
     }
 
