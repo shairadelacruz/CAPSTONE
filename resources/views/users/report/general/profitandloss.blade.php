@@ -164,25 +164,32 @@ Profit and Loss
 <script type="text/javascript">
 
 
-    $('#date').on('change', function() {
+    $('#end').on('change', function() {
 
-        var date=$('#date').val();
+        //var date=$('#date').val();
+        var client_id = $('.clientHidden').val();
+        var start = $('#start').val();
+        var end = $('#end').val();
 
-        window.location = date;
+        window.location = '/user/'+ client_id +'/reports/profitandloss/'+ start +'/'+ end;
     });
 
     $('.btnPrint').on('click', function() {
 
-        var date=$('#date').val();
+        var client_id = $('.clientHidden').val();
+        var start = $('#start').val();
+        var end = $('#end').val();
 
-        window.location = date + '/generate';
+        window.location = '/user/'+ client_id +'/reports/profitandloss/'+ start +'/'+ end +'/generate';
     });
 
     $('.btnPrintPrev').on('click', function() {
 
-        var date=$('#date').val();
+        var client_id = $('.clientHidden').val();
+        var start = $('#start').val();
+        var end = $('#end').val();
 
-        window.location = date + '/print';
+        window.location = '/user/'+ client_id +'/reports/profitandloss/'+ start +'/'+ end +'/print';
     });
 
 
