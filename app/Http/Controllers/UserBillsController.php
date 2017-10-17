@@ -161,14 +161,22 @@ class UserBillsController extends Controller
         
         foreach ($request->coa_id as $key => $v)
             {
+
+                $client = Client::findOrFail($request->client_id[$key]);
+                $client_code = $client->code;
+                //Get how many journal to put in transaction_no
+                $count = Journal::where('type','=','5')->count() + 1;
+                $year = \Carbon\Carbon::now()->year;
+
                 $bill = new Bill([
                             'client_id'=>$request->client_id[$key],
+                            'transaction_no'=>$year.'-'.$client_code.'-'.$count.'-'."CB",
                             'reference_no'=>$request->reference_no[$key],
                             'bill_date'=>$request->bill_date[$key],
                             'due_date'=>$request->bill_date[$key],
                             'vendor_id'=>$request->vendor_id[$key],
                             'amount'=>$request->amount[$key],
-                            'balance'=>$request->amount[$key],
+                            'balance'=>0,
                             'vat_amount'=>$request->vat_amount[$key],
                             'vat_id'=>$request->vat_id[$key],
                             'total'=>$request->total_cd[$key]
@@ -183,6 +191,7 @@ class UserBillsController extends Controller
                 $billDetail = new BillDetails([
                             'bill_id'=>$billId,
                             'coa_id'=>$request->coa_id[$key],
+                            'qty'=>1,
                             'price'=>$request->amount[$key],
                             'vat_amount'=>$request->vat_amount[$key],
                             'vat_id'=>$request->vat_id[$key],
@@ -194,11 +203,9 @@ class UserBillsController extends Controller
 
             
 
-                //Get how many journal to put in transaction_no
-                $count = Journal::where('type','=','5')->count() + 1;
-                $year = \Carbon\Carbon::now()->year;
-                $client = Client::findOrFail($request->client_id[$key]);
-                $client_code = $client->code;
+                
+                
+
                 //Create Journal Header
                 $journals = new Journal([
                             'bill_id'=>$billId,

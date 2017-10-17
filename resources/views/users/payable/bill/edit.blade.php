@@ -114,7 +114,11 @@ Bill
                                 <tr>
                                     <td class="table-item_id">
                                     <select class="table-control chosen-select productname getrate" name="item_id[]">
-                                          <option value="{{$detail->item->id}}" selected="true">{{$detail->item->name}}         
+                                        @if($detail->item_id)
+                                          <option value="{{$detail->item->id}}" selected="true">{{$detail->item->name}}
+                                          @else
+                                          <option value="0" selected="true"></option>  
+                                        @endif       
                                                 @if($items)
                                                 @foreach($items as $item)
                                                     <option value="{{$item->id}}">{{$item->name}}</option>
