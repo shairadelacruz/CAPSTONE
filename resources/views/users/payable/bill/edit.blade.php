@@ -179,7 +179,8 @@ Bill
                                     </td>
                                     <td>Total</td>
                                     <td class="table-grandTotal">
-                                        <input class="table-control right-align-text grandTotal" type="number" step="0.01" readonly="true" value="{{$bill->amount}}"></td>
+                                        <input class="table-control right-align-text grandTotal" name="grandTotal" type="number" step="0.01" readonly="true" value="{{$bill->amount}}">
+
                                     </td>
                                 </tr>
                             </tfoot>

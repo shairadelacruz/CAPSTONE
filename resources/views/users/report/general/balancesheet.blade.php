@@ -27,7 +27,8 @@ Balance Sheet
                                     <label>Date</label>
                                     <input type="date" class="form-control date" name="date" id="date"
                                     value="{{request()->route('end')}}">
-                                    <button class="btnPrint btn-success">Print</button>
+                                    <button class="btnPrint btn-success">Save as PDF</button>
+                                    <button class="btnPrintPrev btn-success">Print</button>
 
                                     <input type="hidden" class="clientHidden" name='client_id' value="{{request()->route('client_id')}}" class="form-control">
 
@@ -184,6 +185,13 @@ Balance Sheet
         var date=$('#date').val();
 
         window.location = date + '/generate';
+    });
+
+    $('.btnPrintPrev').on('click', function() {
+
+        var date=$('#date').val();
+
+        window.location = date + '/print';
     });
 
 

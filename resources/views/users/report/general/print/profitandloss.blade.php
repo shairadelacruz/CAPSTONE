@@ -1,47 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <style type="text/css">
+@extends('includes.report_includes')
+@section('page_title')
+Profit and Loss - {{$client->company_name}}
+@endsection
+@extends('includes.table_includes')
+@section('content')
 
-        table, td, th {
-            border: 1px solid black;
-        }
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 8px;
-            font-style: Sans Serif
-        }
-        
-        th {
-            background-color: #f2f2f2;
-            color: black;
-        }
-
-        tr:nth-child(even){background-color: #f2f2f2}
-    </style>
-</head>
-<body>
         <div class="container-fluid">
             
             <!-- Exportable Table -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <center><div class="header">
+                        <div class="header">
                             <h2>
                                 Profit and Loss
                             </h2><br>
                              <div class="row clearfix js-sweetalert">
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                     
-                                    <label>From: </label>
+                                   <label>From: </label>
                                    {{request()->route('start')}}
                                    <label>To: </label>
                                     {{request()->route('end')}}
@@ -49,7 +27,7 @@
                                 </div>
                             </div>
 
-                        </div></center>
+                        </div>
                         
                         <div class="body table-responsive">
                             <h3>Revenue</h3>
@@ -61,7 +39,12 @@
                                         
                                     </tr>
                                 </thead>
-                                
+                                <tfoot>                         
+                                    <tr>
+                                        <th>Gross Profit</th>
+                                        <th id="totR" class="right-align-text"></th>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
                                     @if($coas)
                                     @foreach($coas->where('coacategory_id', 4) as $coa)
@@ -82,12 +65,6 @@
                                     @endforeach
                                    @endif
                                 </tbody>
-                                <tfoot>                         
-                                    <tr>
-                                        <th>Gross Profit</th>
-                                        <th id="totR" class="right-align-text"></th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                         
@@ -101,7 +78,12 @@
                                         
                                     </tr>
                                 </thead>
-                                
+                                <tfoot>                        
+                                    <tr>
+                                        <th>Total</th>
+                                        <th id="totC" class="right-align-text"></th>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
                                     @if($coas)
                                     @foreach($coas->where('coacategory_id', 6) as $coa)
@@ -122,12 +104,6 @@
                                     @endforeach
                                    @endif
                                 </tbody>
-                                <tfoot>                        
-                                    <tr>
-                                        <th>Total</th>
-                                        <th id="totC" class="right-align-text"></th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                         
@@ -141,7 +117,12 @@
                                         
                                     </tr>
                                 </thead>
-                                
+                                <tfoot>                         
+                                    <tr>
+                                        <th>Total</th>
+                                        <th id="totO" class="right-align-text"></th>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
                                     @if($coas)
                                     @foreach($coas->where('coacategory_id', 3) as $coa)
@@ -162,12 +143,6 @@
                                     @endforeach
                                    @endif
                                 </tbody>
-                                <tfoot>                         
-                                    <tr>
-                                        <th>Total</th>
-                                        <th id="totO" class="right-align-text"></th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -176,5 +151,83 @@
             <!-- #END# Exportable Table -->
         </div>
 
-</body>
-</html>
+@section('scripts')
+<script type="text/javascript">
+
+
+    $('#date').on('change', function() {
+
+        var date=$('#date').val();
+
+        window.location = date;
+    });
+
+    $('.btnPrint').on('click', function() {
+
+        var date=$('#date').val();
+
+        window.location = date + '/generate';
+    });
+
+
+        $(document).ready(function(){
+        var balR = 0;
+        // iterate through each td based on class and add the values
+        $(".balanceR").each(function() {
+
+            var value = $(this).text();
+            // add only if the value is number
+            if(!isNaN(value) && value.length != 0)
+            {
+                 balR+= parseFloat(value);
+            }
+            else
+            {
+                balR+= parseFloat(0);
+            }
+            
+        })
+        $("#totR").html(balR.toFixed(2));
+
+        var balC = 0;
+        // iterate through each td based on class and add the values
+        $(".balanceC").each(function() {
+
+            var value = $(this).text();
+            // add only if the value is number
+            if(!isNaN(value) && value.length != 0)
+            {
+                 balC+= parseFloat(value);
+            }
+            else
+            {
+                balC+= parseFloat(0);
+            }
+            
+        })
+        $("#totC").html(balC.toFixed(2));
+
+        var balO = 0;
+        // iterate through each td based on class and add the values
+        $(".balanceO").each(function() {
+
+            var value = $(this).text();
+            // add only if the value is number
+            if(!isNaN(value) && value.length != 0)
+            {
+                 balO+= parseFloat(value);
+            }
+            else
+            {
+                balO+= parseFloat(0);
+            }    
+        })
+        $("#totO").html(balO.toFixed(2));
+        window.print();
+    });
+
+              
+</script>
+@endsection
+    
+@stop

@@ -187,7 +187,7 @@ $('tbody').delegate('.getrate','change',function(){
 function addRowCb() {
     var tr = '<tr>'+
                 '<td class="table-reference_no">'+
-                '<select class="chosen-select form-control" name="reference_no">'+  
+                '<select class="chosen-select form-control" name="reference_no[]">'+  
                 '<option value="0" selected="true">Please select an option</option>'+  
                 '@if($refs)'+  
                 '@foreach($refs as $ref)'+  
@@ -224,9 +224,9 @@ function addRowCb() {
                 '<input type="number" class="table-control getrate_cd price_cd" name="amount[]" step="0.01">'+
                 '</td>'+
 
-                '<td class="table-vat_id">'+
+                '<td>'+
                 '<select class="table-control chosen-select getrate_cd vat_id_cd" name="vat_id[]">'+
-                '<option value="0" selected="true" disabled="true">Choose</option>'+
+                '<option value="0" selected="true">Choose</option>'+
                 '@if($vats)'+
                 '@foreach($vats as $vat)'+
                 '<option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>'+
@@ -238,7 +238,7 @@ function addRowCb() {
                 '<input type="number" class="table-control vat_amount_cd right-align-text" name="vat_amount[]" value="0"  step="0.01">'+
                 '</td>'+
                 '<td class="table-total">'+
-                '<input type="number" value="0" class="total_cd total_cd right-align-text" name="total[]" value="0" step="0.01">'+
+                '<input type="number" value="0" class="total_cd total_cd right-align-text" name="total_cd[]" value="0" step="0.01">'+
                 '</td>'+
                 '<td class="table-remove">'+
                 '<input type="hidden" name="client_id[]" value="{{ $client_id }}" class="form-control">'+
@@ -260,7 +260,6 @@ $('tbody').delegate('.getrate_cd','change',function(){
     var vat = price * rate;
     tr.find('.vat_amount_cd').val(vat.toFixed(2));
     var subtotalvat = parseInt(price) + parseInt(vat);
-    alert(subtotalvat);
     tr.find('.total_cd').val(subtotalvat.toFixed(2));
     /*var total = 0;
 

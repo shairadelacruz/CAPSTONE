@@ -42,13 +42,47 @@ class UserReportsController extends Controller
 
         $details = JournalDetails::whereIn('journal_id', $journals)->get();
 
-        $vatDeb = $details->where('debit', '>', 0)->sum('vat_amount');
+        $vatDeb = $details->where('credit', '>', 0)->sum('vat_amount');
 
-        $vatCred = $details->where('credit', '>', 0)->sum('vat_amount');
+        $vatCred = $details->where('debit', '>', 0)->sum('vat_amount');
 
         //return $details->where('debit', '>', 0);
 
         return view('users.report.general.trialbalance', compact('coas','details','start', 'end', 'vatDeb', 'vatCred'));
+
+    }
+
+    public function trial_balance_print($client_id, $end)
+    {
+        //
+        $client = Client::find($client_id);
+
+        $coas = $client->coas;
+
+        $getFinancialYear = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+
+        if (\Carbon\Carbon::now()->format('Y-m-d') <= $getFinancialYear)
+        {
+            $lastyear = new \Carbon\Carbon('last year');
+            $start = $lastyear->format('Y').'-'.$client->financial_year->format('m-d');
+        }
+        else
+        {
+            $start = $getFinancialYear;
+        }
+
+
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
+
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
+
+        $vatDeb = $details->where('credit', '>', 0)->sum('vat_amount');
+
+        $vatCred = $details->where('debit', '>', 0)->sum('vat_amount');
+
+        //return $details->where('debit', '>', 0);
+
+        return view('users.report.general.print.trialbalance', compact('coas','details','start', 'end', 'vatDeb', 'vatCred','client'));
 
     }
 
@@ -76,9 +110,13 @@ class UserReportsController extends Controller
 
         $details = JournalDetails::whereIn('journal_id', $journals)->get();
 
-        //return $getFinancialYear;
+        $vatDeb = $details->where('credit', '>', 0)->sum('vat_amount');
 
-        $pdf = PDF::loadView('users.report.general.generate.trialbalance', compact('coas','details','start', 'end'));
+        $vatCred = $details->where('debit', '>', 0)->sum('vat_amount');
+
+        //return $details->where('debit', '>', 0);
+
+        $pdf = PDF::loadView('users.report.general.generate.trialbalance', compact('coas','details','start', 'end', 'vatDeb', 'vatCred'));
 
         return $pdf->download('trialbalance.pdf');
     }
@@ -90,26 +128,54 @@ class UserReportsController extends Controller
 
         $client = Client::find($client_id);
 
-        //$ledgers = $client->coas()->with('journals_details')->get();
-
-        //$ledgers = $client->with(['journal','coas.journals_details'])->get(); from Bh0uzwhzszz
-
         $coas = $client->coas;
-
-        //$start = new \Carbon\Carbon('first day of this month');
-
-        //$end = new \Carbon\Carbon('last day of this month');
-
-        //$start = $start->toDateString();
-
-        //$end = $end->toDateString();
 
         $ledgers = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
 
-        return view('users.report.general.generalledger', compact('coas','ledgers','start', 'end'));
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
+
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
+
+        $vatDeb = $details->where('credit', '>', 0);
+
+        $vatCred = $details->where('debit', '>', 0);
+
+        $vats = $details->where('vat_id', '!=', 0);;
+
+        //return $vats;
+
+        return view('users.report.general.generalledger', compact('coas','ledgers','start', 'end', 'vats', 'details', 'vatDeb', 'vatCred'));
 
 
     }
+
+    public function general_ledger_print($client_id, $start, $end)
+    {
+        //
+
+        $client = Client::find($client_id);
+
+        $coas = $client->coas;
+
+        $ledgers = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
+
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
+
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
+
+        $vatDeb = $details->where('credit', '>', 0);
+
+        $vatCred = $details->where('debit', '>', 0);
+
+        $vats = $details->where('vat_id', '!=', 0);;
+
+        //return $vats;
+
+        return view('users.report.general.print.generalledger', compact('coas','ledgers','start', 'end', 'vats', 'details', 'vatDeb', 'vatCred','client'));
+
+
+    }
+
 
     public function general_ledger_generate($client_id, $start, $end)
     {
@@ -120,7 +186,17 @@ class UserReportsController extends Controller
 
         $ledgers = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
 
-        $pdf = PDF::loadView('users.report.general.generate.generalledger', compact('coas','ledgers','start', 'end'));
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
+
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
+
+        $vatDeb = $details->where('credit', '>', 0);
+
+        $vatCred = $details->where('debit', '>', 0);
+
+        $vats = $details->where('vat_id', '!=', 0);;
+
+        $pdf = PDF::loadView('users.report.general.generate.generalledger', compact('coas','ledgers','start', 'end', 'vats', 'details', 'vatDeb', 'vatCred'));
 
         return $pdf->download('generalledger.pdf');
         
@@ -150,15 +226,50 @@ class UserReportsController extends Controller
 
         $details = JournalDetails::whereIn('journal_id', $journals)->get();
 
-        $vatDeb = $details->where('debit', '>', 0)->sum('vat_amount');
+        $vatDeb = $details->where('credit', '>', 0)->sum('vat_amount');
 
-        $vatCred = $details->where('credit', '>', 0)->sum('vat_amount');
+        $vatCred = $details->where('debit', '>', 0)->sum('vat_amount');
 
         $vat = $vatDeb - $vatCred;
 
         //return $vat;
 
         return view('users.report.general.balancesheet', compact('coas','details','start', 'end', 'vat'));
+    }
+
+    public function balance_sheet_print($client_id, $end)
+    {
+        //
+        $client = Client::find($client_id);
+
+        $coas = $client->coas;
+
+        $getFinancialYear = \Carbon\Carbon::now()->year.'-'.$client->financial_year->format('m-d');
+
+        if (\Carbon\Carbon::now()->format('Y-m-d') <= $getFinancialYear)
+        {
+            $lastyear = new \Carbon\Carbon('last year');
+            $start = $lastyear->format('Y').'-'.$client->financial_year->format('m-d');
+        }
+        else
+        {
+            $start = $getFinancialYear;
+        }
+
+
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
+
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
+
+        $vatDeb = $details->where('credit', '>', 0)->sum('vat_amount');
+
+        $vatCred = $details->where('debit', '>', 0)->sum('vat_amount');
+
+        $vat = $vatDeb - $vatCred;
+
+        //return $vat;
+
+        return view('users.report.general.print.balancesheet', compact('coas','details','start', 'end', 'vat', 'client'));
     }
 
     public function balance_sheet_generate($client_id, $end)
@@ -210,6 +321,24 @@ class UserReportsController extends Controller
 
     }
 
+    public function profit_and_loss_print($client_id, $start, $end)
+    {
+        //
+
+        $client = Client::find($client_id);
+
+        $coas = $client->coas;
+
+        //$ledgers = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
+
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
+
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
+
+        return view('users.report.general.print.profitandloss', compact('coas','details', 'client'));
+
+    }
+
     public function profit_and_loss_generate($client_id, $start, $end)
     {
         //
@@ -217,11 +346,13 @@ class UserReportsController extends Controller
 
         $coas = $client->coas;
 
-        $ledgers = $client->journal()->whereBetween('date',[$start,$end])->with('journal_details')->get();
+        $journals = $client->journal()->whereBetween('date',[$start,$end])->pluck('id')->all();
 
-        $pdf = PDF::loadView('users.report.general.generate.profitandloss', compact('coas','ledgers','start', 'end'));
+        $details = JournalDetails::whereIn('journal_id', $journals)->get();
 
-        return $pdf->download('generalledger.pdf');
+        $pdf = PDF::loadView('users.report.general.generate.profitandloss', compact('coas','details'));
+
+        return $pdf->download('profitandloss.pdf');
     }
 
     public function employee_evaluation_index()

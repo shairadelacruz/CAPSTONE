@@ -61,5 +61,9 @@
     <!-- Bootstrap Core Js -->
     <script src="{{asset('plugins/bootstrap/js/bootstrap.js') }} "></script>
 
+    @yield('scripts')
+
+    @yield('footer')
+
 </body>    
 </html>

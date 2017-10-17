@@ -1,35 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <style type="text/css">
 
-        table, td, th {
-            border: 1px solid black;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 8px;
-            font-style: Sans Serif
-        }
-        
-        th {
-            background-color: #f2f2f2;
-            color: black;
-        }
-
-        tr:nth-child(even){background-color: #f2f2f2}
-    </style>
-</head>
-<body>
-
-            
+@extends('includes.report_includes')
+@section('page_title')
+Trial Balance - {{$client->company_name}}
+@endsection
+@extends('includes.table_includes')
+@section('content')
+         
             <!-- Exportable Table -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -49,7 +25,7 @@
 
                         </div>
                         <div class="body table-responsive">
-                            <table id="sum_table" class="table table-bordered table-striped table-hover dataTable js-exportable">
+                            <table id="sum_table" class="table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>Account</th>
@@ -126,9 +102,20 @@
                     </div>
                 </div>
             </div>
-            <!-- #END# Exportable Table -->
 
 
+            @section('scripts')
+<script type="text/javascript">
 
-</body>
-</html>
+
+    $(document).ready(function(){
+
+        window.print();
+    });
+
+              
+</script>
+@endsection
+
+@endsection
+

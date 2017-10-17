@@ -17,16 +17,16 @@
                             </thead>
                             <tbody id="cbTbody">
                                 <tr>
-                                    <td class="table-reference_no">
-                                <select class="chosen-select form-control" name="reference_no">
-                                <option value="0" selected="true">Please select an option</option>
+                                    <td>
+                                <select class="table-control chosen-select" name="reference_no[]">
+                                <option value="0" selected="true">Choose</option>
                                 @if($refs)
                                 @foreach($refs as $ref)
                                     <option value="{{$ref->id}}">{{$ref->reference_no}}</option>
                                 @endforeach
                                 @endif
                                 </select>
-                                    
+                                   </td> 
                                     <td class="table-bill_date">
                                         <input type="date" class="table-control" name="bill_date[]" min="{{ \Carbon\Carbon::parse($client->closing->where('status', 0)->last()->created_at)->format('Y-m') }}-01">
                                     </td>
@@ -41,7 +41,7 @@
                                 </select>
                                     </td>
                                     <td class="table-coa_id">
-                                    <select class="table-control chosen-select" name="coa_id[]">
+                                    <select class="table-control chosen-select" name="coa_id[]" required="true">
                                             <option value="0" selected="true" disabled="true">Choose</option>
                                                 @if($coas)
                                                 @foreach($coas as $coa)
@@ -55,9 +55,9 @@
                                         <input type="number" class="table-control getrate_cd price_cd" name="amount[]" step="0.01">
                                     </td>
 
-                                    <td class="table-vat_id">
+                                    <td>
                                         <select class="table-control chosen-select getrate_cd vat_id_cd" name="vat_id[]">
-                                                <option value="0" selected="true" disabled="true">Choose</option>
+                                                <option value="0" selected="true">Choose</option>
                                                 @if($vats)
                                                 @foreach($vats as $vat)
                                                     <option value="{{$vat->id}}">{{$vat->vat_code}} - <span class = "vat_rate">{{ number_format($vat->rate, 0) }}</span>%</option>

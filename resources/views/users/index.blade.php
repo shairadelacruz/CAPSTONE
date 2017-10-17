@@ -18,6 +18,69 @@
     <div class="block-header">
         <h1>{{$client->company_name}}</h1>
     </div>
+            <!-- Exportable Table -->
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                       RECENT
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="/user/{{request()->route('client_id')}}/reports/audit">Go to Audit Trail</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="body table-responsive">
+                    <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>User</th>
+                                <th>Activity</th>               
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>User</th>
+                                <th>Activity</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                          @if($activities)
+                                
+                                    @foreach($activities as $activity)
+                                    @if($activity->subject_type != 'App\Task')
+                                    @if($activity->subject->client == $client)
+                                    <tr>
+                                        <td>{{$activity->created_at->toDateString()}}</td>
+                                        <td>{{$activity->created_at->toTimeString()}}</td>
+                                        <td>{{$activity->user->name}}</td>
+                                        <td>@include ("admin.utilities.activity.types.{$activity->name}")</td>
+
+                                    </tr>
+                                     @endif
+                                     @endif
+                                   @endforeach
+                               
+                                @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="card">
@@ -100,68 +163,8 @@
             </div>
         </div>
         <!-- #END# Donut Chart -->
-    </div>
-            <!-- Exportable Table -->
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                       RECENT
-                    </h2>
-                    <ul class="header-dropdown m-r--5">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a href="/user/{{request()->route('client_id')}}/reports/audit">Go to Audit Trail</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="body table-responsive">
-                    <table class="table table-bordered table-striped table-hover dataTable js-exportable">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>User</th>
-                                <th>Activity</th>               
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>User</th>
-                                <th>Activity</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                          @if($activities)
-                                
-                                    @foreach($activities as $activity)
-                                    @if($activity->subject_type != 'App\Task')
-                                    @if($activity->subject->client == $client)
-                                    <tr>
-                                        <td>{{$activity->created_at->toDateString()}}</td>
-                                        <td>{{$activity->created_at->toTimeString()}}</td>
-                                        <td>{{$activity->user->name}}</td>
-                                        <td>@include ("admin.utilities.activity.types.{$activity->name}")</td>
 
-                                    </tr>
-                                     @endif
-                                     @endif
-                                   @endforeach
-                               
-                                @endif
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 
@@ -170,6 +173,12 @@
     <script src="{{asset('plugins/chartjs/Chart.js') }}"></script>
 
 <script >
+
+
+
+    var invoices = [42,7000,2500,8000,9000,3000,5000,4000,6500,8700,3400,10000];
+
+
     var ieCanvas = document.getElementById('ie_chart');
     var barChart = new Chart(ieCanvas, {
         type: 'bar',
@@ -179,7 +188,7 @@
             {
                 label: "Income",
                 backgroundColor: 'rgba(0, 188, 212, 0.8)',
-                data: [5000,7000,2500,8000,9000,3000,5000,4000,6500,8700,3400,10000]
+                data: invoices
             },{
                 label: "Expense",
                 backgroundColor: 'rgba(233, 30, 99, 0.8)',
@@ -190,7 +199,7 @@
 </script>
 
 <script>
-    /*var expCanvas = document.getElementById("expense_chart");
+    var expCanvas = document.getElementById("expense_chart");
     var donutChart = new Chart(expCanvas, {
         type: 'doughnut',
         data: {
@@ -203,7 +212,7 @@
             }
           ]
         }
-    });*/
+    });
 
     $(function(){
         new Chart(document.getElementById("expense_chart").getContext("2d"), {

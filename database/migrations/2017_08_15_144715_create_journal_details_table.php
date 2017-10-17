@@ -15,7 +15,7 @@ class CreateJournalDetailsTable extends Migration
         Schema::create('journal_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('journal_id')->unsigned();
-            $table->integer('vat_id')->nullable()->unsigned();
+            $table->integer('vat_id')->default(0);
             $table->integer('coa_id')->unsigned();
             $table->integer('reference_no')->nullable()->unsigned();
             $table->string('descriptions')->nullable();

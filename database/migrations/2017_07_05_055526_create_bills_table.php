@@ -16,7 +16,7 @@ class CreateBillsTable extends Migration
             $table->increments('id');
             $table->string('transaction_no');
             $table->integer('client_id')->index()->unsigned();
-            $table->integer('vendor_id')->index()->unsigned();
+            $table->integer('vendor_id')->index()->unsigned()->nullable();
             $table->string('reference_no');
             $table->date('bill_date');
             $table->date('due_date');

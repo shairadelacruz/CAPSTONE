@@ -93,6 +93,8 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::resource('user/{client_id}/home', 'UserHomeController');
 
+    Route::resource('user/{client_id}/home/findIncome', 'UserHomeController@findIncome');
+
 
     Route::resource('user/{client_id}/accounting/transaction', 'UserTransactionsController');
 
@@ -232,17 +234,25 @@ Route::group(['middleware'=>'user'], function(){
 
     Route::get('user/{client_id}/reports/trialbalance/{end}/generate', 'UserReportsController@trial_balance_generate');
 
+    Route::get('user/{client_id}/reports/trialbalance/{end}/print', 'UserReportsController@trial_balance_print');
+
     Route::get('user/{client_id}/reports/generalledger/{start}/{end}', 'UserReportsController@general_ledger_index');
     
     Route::get('user/{client_id}/reports/generalledger/{start}/{end}/generate', 'UserReportsController@general_ledger_generate');
+
+    Route::get('user/{client_id}/reports/generalledger/{start}/{end}/print', 'UserReportsController@general_ledger_print');
 
     Route::get('user/{client_id}/reports/balancesheet/{end}', 'UserReportsController@balance_sheet_index');
     
     Route::get('user/{client_id}/reports/balancesheet/{end}/generate', 'UserReportsController@balance_sheet_generate');
 
+    Route::get('user/{client_id}/reports/balancesheet/{end}/print', 'UserReportsController@balance_sheet_print');
+
     Route::get('user/{client_id}/reports/profitandloss/{start}/{end}', 'UserReportsController@profit_and_loss_index');
     
     Route::get('user/{client_id}/reports/profitandloss/{start}/{end}/generate', 'UserReportsController@profit_and_loss_generate');
+
+    Route::get('user/{client_id}/reports/profitandloss/{start}/{end}/print', 'UserReportsController@profit_and_loss_print');
 
 });
 

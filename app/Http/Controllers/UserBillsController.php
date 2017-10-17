@@ -195,12 +195,15 @@ class UserBillsController extends Controller
             
 
                 //Get how many journal to put in transaction_no
-                $count = Journal::where('type','=','5')->count();
+                $count = Journal::where('type','=','5')->count() + 1;
+                $year = \Carbon\Carbon::now()->year;
+                $client = Client::findOrFail($request->client_id[$key]);
+                $client_code = $client->code;
                 //Create Journal Header
                 $journals = new Journal([
                             'bill_id'=>$billId,
                             'client_id'=>$request->client_id[$key],
-                            'transaction_no'=>"CB".$count,
+                            'transaction_no'=>$year.'-'.$client_code.'-'.$count.'-'."CB",
                             'date'=>$request->bill_date[$key],
                             'debit_total'=>$request->amount[$key] + $request->vat_amount[$key],
                             'credit_total'=>$request->amount[$key] + $request->vat_amount[$key],
@@ -231,7 +234,7 @@ class UserBillsController extends Controller
 
                 $debit->save();
             }
-            $client_id = $request->client_id;
+            $client_id = $request->client_id[1];
             return \Redirect::route('bill', [$client_id]);
     }
 
@@ -459,7 +462,6 @@ class UserBillsController extends Controller
                             'journal_id'=>$journalId,
                             'coa_id'=>$request->coa_id[$key],
                             'descriptions'=>$request->descriptions[$key],
-                            'credit'=>0,
                             'debit'=>$subTotal
 
                 ]);

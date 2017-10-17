@@ -1,33 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <style type="text/css">
+@extends('includes.report_includes')
+@section('page_title')
+General Ledger - {{$client->company_name}}
+@endsection
+@extends('includes.table_includes')
+@section('content')
 
-        table, td, th {
-            border: 1px solid black;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 8px;
-            font-style: Sans Serif
-        }
-        
-        th {
-            background-color: #f2f2f2;
-            color: black;
-        }
-
-        tr:nth-child(even){background-color: #f2f2f2}
-    </style>
-</head>
-<body>
 
         <div class="container-fluid">
             
@@ -35,7 +12,7 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <center><div class="header">
+                        <div class="header">
                             <h2>
                                 General Ledger
                             </h2><br>
@@ -50,7 +27,7 @@
 
                                 </div>
                             </div>
-                            </center>
+
                         </div>
                         <div class="body table-responsive">
                             @if($coas)
@@ -67,26 +44,7 @@
                                         <th>Running Balance</th>
                                     </tr>
                                 </thead>
-
-                                <tbody>  
-                                    @if($ledgers)
-                                    @foreach($ledgers as $ledger)
-                                    @foreach($ledger->journal_details as $detail)
-                                    @if($coa->id == $detail->coa_id)
-                                    <tr>
-                                        <td>{{$detail->journal->date->toDateString()}}</td>
-                                        <td>{{$detail->journal->transaction_no}}</td>
-                                        <td class="right-align-text">{{$detail->debit}}</td>
-                                        <td class="right-align-text">{{$detail->credit}}</td>
-                                        <td class="credeb" style="display:none;">{{($detail->debit - $detail->credit)}}</td>
-                                        <td class="runningBal right-align-text"></td>
-                                    </tr>
-                                    @endif
-                                    @endforeach
-                                    @endforeach
-                                    @endif
-                                </tbody>
-                                                                <tfoot>
+                                <tfoot>
                                     
                                     <tr>
                                         <th>Total</th>
@@ -141,6 +99,25 @@
                                     </tr>
                 
                                 </tfoot>
+
+                                <tbody>  
+                                    @if($ledgers)
+                                    @foreach($ledgers as $ledger)
+                                    @foreach($ledger->journal_details as $detail)
+                                    @if($coa->id == $detail->coa_id)
+                                    <tr>
+                                        <td>{{$detail->journal->date->toDateString()}}</td>
+                                        <td>{{$detail->journal->transaction_no}}</td>
+                                        <td class="right-align-text">{{$detail->debit}}</td>
+                                        <td class="right-align-text">{{$detail->credit}}</td>
+                                        <td class="credeb" style="display:none;">{{($detail->debit - $detail->credit)}}</td>
+                                        <td class="runningBal right-align-text"></td>
+                                    </tr>
+                                    @endif
+                                    @endforeach
+                                    @endforeach
+                                    @endif
+                                </tbody>
                             </table>
                             @endforeach
                                    @endif
@@ -158,7 +135,17 @@
                                 </thead>
                                 <tfoot>
                                     
+                                    <tr>
+                                        <th>Total</th>
+                                        <th></th>
+                                        <th class="right-align-text"></th>
+                                        <th class="right-align-text"></th>
+                                        <th style="display:none;"></th>
+                                        <th class="right-align-text"></th>
 
+                                    </tr>
+                
+                                </tfoot>
 
                                 <tbody>  
                                     @if($details)
@@ -184,17 +171,6 @@
                                     @endforeach
                                     @endif
                                 </tbody>
-                                    <tr>
-                                        <th>Total</th>
-                                        <th></th>
-                                        <th class="right-align-text"></th>
-                                        <th class="right-align-text"></th>
-                                        <th style="display:none;"></th>
-                                        <th class="right-align-text"></th>
-
-                                    </tr>
-                
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -202,6 +178,24 @@
             </div>
             <!-- #END# Exportable Table -->
         </div>
+@section('scripts')
+<script type="text/javascript">
 
-</body>
-</html>
+
+    $(document).ready(function(){
+
+        $("table").each(function() {
+            var sum = 0;
+            $(this).find(".runningBal").each(function() {
+                sum += +$(this).prev(".credeb").text();
+                $(this).text(sum.toFixed(2));
+            });
+        })
+        window.print();
+    });
+
+              
+</script>
+@endsection
+
+@stop

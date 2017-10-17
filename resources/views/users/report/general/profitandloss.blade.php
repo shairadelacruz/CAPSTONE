@@ -28,7 +28,8 @@ Profit and Loss
                                    <input id="start" type="date" class="form-control date" name="to" id="to" value="{{request()->route('start')}}">
                                    <label>To</label>
                                     <input id="end" type="date" class="form-control date" name="from" id="from" value="{{request()->route('end')}}">
-                                    <button class="btnPrint btn-success">Print</button>
+                                    <button class="btnPrint btn-success">Save as PDF</button>
+                                    <button class="btnPrintPrev btn-success">Print</button>
 
                                     <input type="hidden" class="clientHidden" name='client_id' value="{{request()->route('client_id')}}" class="form-control">
 
@@ -175,6 +176,13 @@ Profit and Loss
         var date=$('#date').val();
 
         window.location = date + '/generate';
+    });
+
+    $('.btnPrintPrev').on('click', function() {
+
+        var date=$('#date').val();
+
+        window.location = date + '/print';
     });
 
 
