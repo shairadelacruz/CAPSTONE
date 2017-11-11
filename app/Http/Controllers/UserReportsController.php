@@ -21,7 +21,11 @@ class UserReportsController extends Controller
     public function trial_balance_index($client_id, $end)
     {
         //
+        
+
         $client = Client::find($client_id);
+
+        $trials = $client->coas()->with('journals_details')->get();
 
         $coas = $client->coas;
 
@@ -48,7 +52,7 @@ class UserReportsController extends Controller
 
         //return $details->where('debit', '>', 0);
 
-        return view('users.report.general.trialbalance', compact('coas','details','start', 'end', 'vatDeb', 'vatCred'));
+        return view('users.report.general.trialbalance', compact('coas','details','start', 'end', 'vatDeb', 'vatCred', 'trials', 'client'));
 
     }
 

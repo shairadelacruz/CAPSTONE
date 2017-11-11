@@ -66,6 +66,7 @@ class UserInvoicesController extends Controller
             'reference_no' => 'required',
             'invoice_date' => 'required',
             'item_id' => 'required',
+            'customer_id' => 'required',
             'coa_id' => 'required'
         ]);
        
@@ -304,6 +305,7 @@ class UserInvoicesController extends Controller
             'reference_no' => 'required',
             'invoice_date' => 'required',
             'item_id' => 'required',
+            'customer_id' => 'required',
             'coa_id' => 'required'
         ]);
         

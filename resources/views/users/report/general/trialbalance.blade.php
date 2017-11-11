@@ -78,7 +78,7 @@ Trial Balance
 
                                         @if($details)
                                         @if($details->where("coa_id", $coa->id))
-                                        @foreach($details as $key => $detail)
+                                        @foreach($details->where("coa_id", $coa->id) as $key => $detail)
                                         @if($key == 0)
                                         {{$detail->where("coa_id", $coa->id)->sum('debit')}}
                                         @endif
@@ -89,7 +89,7 @@ Trial Balance
                                         <td class="cred  right-align-text">
                                         @if($details)
                                         @if($details->where("coa_id", $coa->id))
-                                        @foreach($details as $key => $detail)
+                                        @foreach($details->where("coa_id", $coa->id) as $key => $detail)
                                         @if($key == 0)
                                         {{$detail->where("coa_id", $coa->id)->sum('credit')}}
                                         @endif
